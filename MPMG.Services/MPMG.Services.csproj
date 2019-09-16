@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NPOI" Version="2.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MPMG.Interfaces\MPMG.Interfaces.csproj" />
+    <ProjectReference Include="..\MPMG.Repositories\MPMG.Repositories.csproj" />
+    <ProjectReference Include="..\MPMG.Util\MPMG.Util.csproj" />
+  </ItemGroup>
+
+</Project>

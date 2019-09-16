@@ -15,5 +15,13 @@ namespace MPMG.Repositories
             }
             return arquivoAgencia;
         }
+
+        public void ObterArquivoPorUrlESalvar(string urlDownload)
+        {
+            using (var client = new WebClient())
+            {
+                client.DownloadFile(urlDownload, string.Format("{0}/{1}", Constantes.CAMINHO_DOWNLOAD_ARQUIVO, Constantes.NOME_ARQUIVO_ANP_PRECOS));
+            }
+        }
     }
 }
