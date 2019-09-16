@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MPMG.Util.Enum
+﻿namespace MPMG.Util.Enum
 {
     public static class DeParaCombustivelMpmgAnp
     {

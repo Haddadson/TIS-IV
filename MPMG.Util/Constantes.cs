@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MPMG.Util
+﻿namespace MPMG.Util
 {
     public static class Constantes
     {

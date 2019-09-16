@@ -1,40 +1,37 @@
 ﻿using MPMG.Interfaces.DTO;
 using MPMG.Util;
 using MPMG.Util.Enum;
-using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace MPMG.Services
 {
-    public class LerDadosExcelService
+    public class ObterPrecoMedioExcelService
     {
-        CultureInfo Culture;
+        private readonly CultureInfo Culture;
 
-        public LerDadosExcelService()
+        public ObterPrecoMedioExcelService()
         {
             Culture = CultureInfo.GetCultureInfo("pt-BR");
         }
 
-        public DadosPlanilhaAnpDto ObterInformacoes(string caminhoExcel, DadosNotaFiscalDto dadosNotaFiscal)
+        public DadosPlanilhaAnpDto ObterInformacoesAnp(string caminhoExcel, DadosNotaFiscalDto dadosNotaFiscal)
         {
             if (string.IsNullOrWhiteSpace(caminhoExcel))
                 return null;
 
-            XSSFWorkbook hssfwb;
+            XSSFWorkbook workbookExcel;
             using (FileStream file = new FileStream(string.Format("{0}/{1}", Constantes.CAMINHO_DOWNLOAD_ARQUIVO, caminhoExcel),
                 FileMode.Open, FileAccess.Read))
             {
-                hssfwb = new XSSFWorkbook(file);
+                workbookExcel = new XSSFWorkbook(file);
             }
 
-            ISheet sheet = hssfwb.GetSheet(hssfwb.GetSheetName(0));
+            ISheet sheet = workbookExcel.GetSheet(workbookExcel.GetSheetName(0));
             bool aposCabecalho = false;
             for (int row = 0; row <= sheet.LastRowNum; row++)
             {
@@ -45,19 +42,16 @@ namespace MPMG.Services
                         aposCabecalho = true;
                     }
 
-                    if (aposCabecalho)
+                    if (aposCabecalho && ValidarLinhaBuscada(dadosNotaFiscal, sheet, row))
                     {
-                        if (ValidarLinhaBuscada(dadosNotaFiscal, sheet, row))
+                        return new DadosPlanilhaAnpDto()
                         {
-                            return new DadosPlanilhaAnpDto()
-                            {
-                                Combustivel = sheet.GetRow(row).GetCell(1).StringCellValue,
-                                Estado = sheet.GetRow(row).GetCell(3).StringCellValue,
-                                Municipio = sheet.GetRow(row).GetCell(4).StringCellValue,
-                                MesAnoInformacao = sheet.GetRow(row).GetCell(0).DateCellValue,
-                                PrecoMedioRevenda = sheet.GetRow(row).GetCell(7).NumericCellValue
-                            };
-                        }
+                            Combustivel = sheet.GetRow(row).GetCell(1).StringCellValue,
+                            Estado = sheet.GetRow(row).GetCell(3).StringCellValue,
+                            Municipio = sheet.GetRow(row).GetCell(4).StringCellValue,
+                            MesAnoInformacao = sheet.GetRow(row).GetCell(0).DateCellValue,
+                            PrecoMedioRevenda = sheet.GetRow(row).GetCell(7).NumericCellValue
+                        };
                     }
                 }
             }
@@ -65,39 +59,21 @@ namespace MPMG.Services
             return null;
         }
 
-        private bool ValidarLinhaBuscada(DadosNotaFiscalDto dadosNotaFiscal, ISheet sheet, int row)
-        {
-            return dadosNotaFiscal.Estado.ToLower() == sheet.GetRow(row).GetCell(3).StringCellValue.ToLower() &&
-                                       dadosNotaFiscal.Municipio.ToLower() == sheet.GetRow(row).GetCell(4).StringCellValue.ToLower() &&
-                                       DeParaCombustivelMpmgAnp.ConverterCombustivelMpmgAnp(dadosNotaFiscal.Combustivel).ToLower() == 
-                                       sheet.GetRow(row).GetCell(1).StringCellValue.ToLower() &&
-                                       dadosNotaFiscal.DataNota.ToString("MMM/yy", Culture).ToLower() == 
-                                       sheet.GetRow(row).GetCell(0).DateCellValue.ToString("MMM/yy", Culture).ToLower();
-        }
 
-        private static bool ValidaSeLinhaEhCabecalho(ISheet sheet, int row)
-        {
-            return "MÊS" == sheet.GetRow(row).GetCell(0).StringCellValue &&
-                                    "PRODUTO" == sheet.GetRow(row).GetCell(1).StringCellValue &&
-                                    "REGIÃO" == sheet.GetRow(row).GetCell(2).StringCellValue &&
-                                    "ESTADO" == sheet.GetRow(row).GetCell(3).StringCellValue &&
-                                    "MUNICÍPIO" == sheet.GetRow(row).GetCell(4).StringCellValue;
-        }
-
-        public void ObterDadosNotaFiscalSuperFaturamento(string caminhoExcel, string caminhoExcelAnp)
+        public void PreencherDadosNotaFiscalSuperFaturamento(string caminhoExcel, string caminhoExcelAnp)
         {
             if (string.IsNullOrWhiteSpace(caminhoExcel))
                 return;
 
-            XSSFWorkbook hssfwb;
+            XSSFWorkbook workbookExcel;
             List<DadosPlanilhaAnpDto> listaDadosAnp = new List<DadosPlanilhaAnpDto>();
             using (FileStream file = new FileStream(string.Format("{0}/{1}", Constantes.CAMINHO_DOWNLOAD_ARQUIVO, caminhoExcel),
                 FileMode.Open, FileAccess.ReadWrite))
             {
-                hssfwb = new XSSFWorkbook(file);
+                workbookExcel = new XSSFWorkbook(file);
             }
 
-            ISheet sheet = hssfwb.GetSheet("Superfaturamento");
+            ISheet sheet = workbookExcel.GetSheet("Superfaturamento");
             for (int row = 2; row <= sheet.LastRowNum - 2; row++)
             {
                 if (sheet.GetRow(row) != null) //null is when the row only contains empty cells 
@@ -106,9 +82,9 @@ namespace MPMG.Services
                     if (sheet.GetRow(row).GetCell(0).CellType == CellType.String &&
                         sheet.GetRow(row).GetCell(0).StringCellValue == "TOTAL")
                     {
-                        hssfwb.Close();
+                        workbookExcel.Close();
                         return;
-                    } 
+                    }
 
                     DadosNotaFiscalDto dadosNotaFiscal = new DadosNotaFiscalDto()
                     {
@@ -124,11 +100,11 @@ namespace MPMG.Services
                         DeParaCombustivelMpmgAnp.ConverterCombustivelMpmgAnp(dadosNotaFiscal.Combustivel) == dados.Combustivel &&
                         dadosNotaFiscal.DataNota.ToString("MMM/yy", Culture).ToLower() == dados.MesAnoInformacao.ToString("MMM/yy", Culture).ToLower());
 
-                    informacoes = informacoes ?? ObterInformacoes(Constantes.NOME_ARQUIVO_ANP_PRECOS, dadosNotaFiscal);
+                    informacoes = informacoes ?? ObterInformacoesAnp(Constantes.NOME_ARQUIVO_ANP_PRECOS, dadosNotaFiscal);
 
                     if (informacoes != null)
                     {
-                        if(!VerificaSeInformacoesExistemNaLista(listaDadosAnp, informacoes))
+                        if (!VerificaSeInformacoesExistemNaLista(listaDadosAnp, informacoes))
                         {
                             listaDadosAnp.Add(informacoes);
                         }
@@ -136,16 +112,35 @@ namespace MPMG.Services
                         var celulaPreco = sheet.GetRow(row).GetCell(7);
                         celulaPreco.SetCellValue(informacoes.PrecoMedioRevenda);
 
-                        using (FileStream fs = new FileStream(string.Format("{0}/{1}", Constantes.CAMINHO_DOWNLOAD_ARQUIVO, caminhoExcel), 
+                        using (FileStream fs = new FileStream(string.Format("{0}/{1}", Constantes.CAMINHO_DOWNLOAD_ARQUIVO, caminhoExcel),
                             FileMode.Create, FileAccess.Write))
                         {
-                            hssfwb.Write(fs);
+                            workbookExcel.Write(fs);
                         }
                     }
 
                 }
             }
-            hssfwb.Close();
+            workbookExcel.Close();
+        }
+
+        private bool ValidarLinhaBuscada(DadosNotaFiscalDto dadosNotaFiscal, ISheet sheet, int row)
+        {
+            return dadosNotaFiscal.Estado.ToLower() == sheet.GetRow(row).GetCell(3).StringCellValue.ToLower() &&
+                                       dadosNotaFiscal.Municipio.ToLower() == sheet.GetRow(row).GetCell(4).StringCellValue.ToLower() &&
+                                       DeParaCombustivelMpmgAnp.ConverterCombustivelMpmgAnp(dadosNotaFiscal.Combustivel).ToLower() ==
+                                       sheet.GetRow(row).GetCell(1).StringCellValue.ToLower() &&
+                                       dadosNotaFiscal.DataNota.ToString("MMM/yy", Culture).ToLower() ==
+                                       sheet.GetRow(row).GetCell(0).DateCellValue.ToString("MMM/yy", Culture).ToLower();
+        }
+
+        private static bool ValidaSeLinhaEhCabecalho(ISheet sheet, int row)
+        {
+            return "MÊS" == sheet.GetRow(row).GetCell(0).StringCellValue &&
+                                    "PRODUTO" == sheet.GetRow(row).GetCell(1).StringCellValue &&
+                                    "REGIÃO" == sheet.GetRow(row).GetCell(2).StringCellValue &&
+                                    "ESTADO" == sheet.GetRow(row).GetCell(3).StringCellValue &&
+                                    "MUNICÍPIO" == sheet.GetRow(row).GetCell(4).StringCellValue;
         }
 
         private static bool VerificaSeInformacoesExistemNaLista(List<DadosPlanilhaAnpDto> listaDadosAnp, DadosPlanilhaAnpDto informacoes)

@@ -1,16 +1,15 @@
 ﻿using MPMG.Repositories;
 using MPMG.Util;
-using System;
 using System.IO;
 
 namespace MPMG.Services
 {
-    public class ObterExcelPetroleoService
+    public class ObterExcelCombustivelService
     {
 
         private ObterArquivoRepositorio repositorioObterArquivo;
 
-        public ObterExcelPetroleoService()
+        public ObterExcelCombustivelService()
         {
             repositorioObterArquivo = new ObterArquivoRepositorio();
         }

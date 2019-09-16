@@ -10,13 +10,13 @@ namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private ObterExcelPetroleoService ObterExcelPetroleoService;
-        private LerDadosExcelService LerDadosExcelService;
+        private ObterExcelCombustivelService ObterExcelPetroleoService;
+        private ObterPrecoMedioExcelService LerDadosExcelService;
 
         public HomeController()
         {
-            ObterExcelPetroleoService = new ObterExcelPetroleoService();
-            LerDadosExcelService = new LerDadosExcelService();
+            ObterExcelPetroleoService = new ObterExcelCombustivelService();
+            LerDadosExcelService = new ObterPrecoMedioExcelService();
         }
 
         public ActionResult Index()
@@ -41,7 +41,7 @@ namespace WebApp.Controllers
         public JsonResult ObterExcel()
         {
             ObterExcelPetroleoService.ObterExcelPrecosCombustivelESalvar();
-            LerDadosExcelService.ObterDadosNotaFiscalSuperFaturamento("ADENDO_ID_2927539.xlsx", Constantes.NOME_ARQUIVO_ANP_PRECOS);
+            LerDadosExcelService.PreencherDadosNotaFiscalSuperFaturamento("ADENDO_ID_2927539.xlsx", Constantes.NOME_ARQUIVO_ANP_PRECOS);
 
             return new JsonResult();
         }
