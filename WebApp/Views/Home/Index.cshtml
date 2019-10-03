@@ -32,10 +32,16 @@
         <h2>Teste Obter Excel</h2>
         <button id="obter-excel">Obter Excel</button>
     </div>
+    <div class="col-md-2">
+        <h2>Teste Municipios</h2>
+        <select id="municipios"></select>
+    </div>
+
 </div>
 
 @section JavascriptPagina {
     <script type="text/javascript" src="~/Scripts/ObterExcel/obterExcel.js"></script>
+    <script type="text/javascript" src="~/Scripts/municipio.js"></script>
     <script type="text/javascript">
         urlObterExcel = '@Url.Action("ObterExcel", "Home")';
     </script>
