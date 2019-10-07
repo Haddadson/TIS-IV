@@ -1,6 +1,8 @@
 ﻿using Dapper;
 using MPMG.Repositories.Entidades;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace MPMG.Repositories
 {
@@ -23,6 +25,13 @@ namespace MPMG.Repositories
             municipio = @Municipio AND
             produto = @Produto";
 
+        private const string SQL_LISTAR_MUNICIPIOS_ANP = @"
+            SELECT DISTINCT
+                municipio AS Municipio
+            FROM dadosanp
+            WHERE estado = 'MINAS GERAIS'
+            ORDER BY municipio";
+
         public DadosAnp ObterPorValoresNota(int mes, int ano, string estado, string municipio, string produto)
         {
             DynamicParameters parametros = new DynamicParameters();
@@ -35,6 +44,11 @@ namespace MPMG.Repositories
 
             return Obter(SQL_OBTER_DADO_ANP, parametros);
 
+        }
+
+        public List<string> ListarMunicipiosAnp()
+        {
+            return Listar(SQL_LISTAR_MUNICIPIOS_ANP, null).Select(m => m.Municipio).ToList();
         }
     }
 }

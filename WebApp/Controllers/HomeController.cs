@@ -10,13 +10,15 @@ namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private ObterExcelCombustivelService ObterExcelPetroleoService;
-        private ObterPrecoMedioExcelService LerDadosExcelService;
+        private readonly ObterExcelCombustivelService ObterExcelPetroleoService;
+        private readonly ObterPrecoMedioExcelService LerDadosExcelService;
+        private readonly ListarMunicipiosAnpService ListarMunicipiosService;
 
         public HomeController()
         {
             ObterExcelPetroleoService = new ObterExcelCombustivelService();
             LerDadosExcelService = new ObterPrecoMedioExcelService();
+            ListarMunicipiosService = new ListarMunicipiosAnpService();
         }
 
         public ActionResult Index()
@@ -36,6 +38,15 @@ namespace WebApp.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public JsonResult ListarMunicipiosAnp()
+        {
+            var listaMunicipios = ListarMunicipiosService.ListarMunicipiosAnp();
+
+            return Json(new {
+                municipios = listaMunicipios
+            });
         }
 
         public JsonResult ObterExcel()
