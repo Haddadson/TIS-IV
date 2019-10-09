@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.705
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPMG.WebApp", "WebApp\MPMG.WebApp.csproj", "{DF9F7577-F6C2-4B02-AFFD-53F032CE2FE5}"
 EndProject
@@ -12,19 +12,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPMG.Services", "MPMG.Services\MPMG.Services.csproj", "{34258118-C3C9-4820-AB49-CB777B498BBF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2CAAD349-9317-4C4C-BFED-F6861471F6F4}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Banco de Dados", "Banco de Dados", "{2995AAD5-7186-427A-9F0C-186F5398FFB0}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\Documents\Estudos\PUC\4º Período\TIS\Modelagem_MPMG.mwb = ..\..\..\Documents\Estudos\PUC\4º Período\TIS\Modelagem_MPMG.mwb
-		..\..\..\Desktop\Modelagem_MPMG.pdf = ..\..\..\Desktop\Modelagem_MPMG.pdf
-		..\..\..\Desktop\Modelagem_MPMG.sql = ..\..\..\Desktop\Modelagem_MPMG.sql
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Banco de Dados (Relacional)", "Banco de Dados (Relacional)", "{2185E9C9-B330-4EAB-9ACA-8D4762297BC2}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\Desktop\Modelagem_MPMG_Relacional.mwb = ..\..\..\Desktop\Modelagem_MPMG_Relacional.mwb
-		..\..\..\Desktop\Modelagem_MPMG_Relacional.pdf = ..\..\..\Desktop\Modelagem_MPMG_Relacional.pdf
-		..\..\..\Desktop\Modelagem_MPMG_Relacional.sql = ..\..\..\Desktop\Modelagem_MPMG_Relacional.sql
+		docs\Modelagem_MPMG.mwb = docs\Modelagem_MPMG.mwb
+		docs\Modelagem_MPMG.pdf = docs\Modelagem_MPMG.pdf
+		docs\Modelagem_MPMG.sql = docs\Modelagem_MPMG.sql
+		docs\Modelagem_MPMG_Relacional.mwb = docs\Modelagem_MPMG_Relacional.mwb
+		docs\Modelagem_MPMG_Relacional.pdf = docs\Modelagem_MPMG_Relacional.pdf
+		docs\Modelagem_MPMG_Relacional.sql = docs\Modelagem_MPMG_Relacional.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPMG.Repositories", "MPMG.Repositories\MPMG.Repositories.csproj", "{295055D4-BDE8-4745-9C9C-89FF8EE29A31}"
@@ -58,10 +52,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{2995AAD5-7186-427A-9F0C-186F5398FFB0} = {2CAAD349-9317-4C4C-BFED-F6861471F6F4}
-		{2185E9C9-B330-4EAB-9ACA-8D4762297BC2} = {2CAAD349-9317-4C4C-BFED-F6861471F6F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4A23A052-D088-4BB7-8CAD-CBEA54BCD8AA}

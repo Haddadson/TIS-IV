@@ -1,9 +1,9 @@
-﻿var municipioURL = "http://ibge.herokuapp.com/municipio/?val=MG";
+﻿var municipioURL = "https://ibge.herokuapp.com/municipio/?val=MG";
 
 window.onload = function () {
 
     ValidarNotas.chamadaAjax({
-        url: urlListarMunicipios,
+        url: this.municipioURL,
         sucesso: function (retorno) {
             console.log(retorno);
             var municipios = retorno.municipios;

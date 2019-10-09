@@ -78,129 +78,130 @@
         <h3>Cadastrar uma nova tabela</h3>
         <h5> Digite os campos abaixo para criar uma nova tabela</h5>
     </div>
-    <div>
-        <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
-            <div class="form-example-int form-horizental">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                            <label class="hrzn-fm">SGDP</label>
-                        </div>
-                        <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
-                            <div class="nk-int-st">
-                                <input type="text" class="form-control input-sm">
+    <article>
+        @using (Html.BeginForm("ShowClients"))
+        {
+            <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                <div class="form-example-int form-horizental">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                                <label class="hrzn-fm">SGDP</label>
+                            </div>
+                            <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                                <div class="nk-int-st">
+                                    <input type="text" class="form-control input-sm" id="sgdp">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-example-int form-horizental mg-t-15">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                            <label class="hrzn-fm">Analista Responsável</label>
-                        </div>
-                        <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
-                            <div class="nk-int-st">
-                                <input type="text" class="form-control input-sm">
+                <div class="form-example-int form-horizental mg-t-15">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                                <label class="hrzn-fm">Analista Responsável</label>
+                            </div>
+                            <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                                <div class="nk-int-st">
+                                    <input type="text" class="form-control input-sm">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-example-int form-horizental mg-t-15">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                            <label class="hrzn-fm">Municipio(s)</label>
-                        </div>
-                        <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
-                            <div class="nk-int-st">
-                                <select class="form-control" id="municipios">
-                                    <option>Selecione</option>
-                                </select>
+                <div class="form-example-int form-horizental mg-t-15">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                                <label class="hrzn-fm">Municipio(s)</label>
+                            </div>
+                            <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                                <div class="nk-int-st">
+                                    <select class="form-control" id="municipios">
+                                        <option>Selecione</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-example-int form-horizental mg-t-15">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                            <label class="hrzn-fm">Data geração da Tabela</label>
-                        </div>
-                        <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
-                            <div class="nk-int-st">
-                                <select class="form-control">
-                                </select>
+                <div class="form-example-int form-horizental mg-t-15">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                                <label class="hrzn-fm">Data geração da Tabela</label>
+                            </div>
+                            <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                                <div class="nk-int-st">
+                                    <input type="text" class="form-control input-sm" name="data-geracao" id="data-geracao">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-example-int form-horizental mg-t-15">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                            <label class="hrzn-fm">Ano(s) referentes</label>
-                        </div>
-                        <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
-                            <div class="nk-int-st">
-                                <select class="form-control">
-                                </select>
+                <div class="form-example-int form-horizental mg-t-15">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                                <label class="hrzn-fm">Ano(s) referentes</label>
+                            </div>
+                            <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                                <div class="nk-int-st">
+                                    <input type="text" class="form-control input-sm" id="ano-referente">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-example-int form-horizental mg-t-15">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                            <label class="hrzn-fm">Título Aba 1 - NFs x ANP</label>
-                        </div>
-                        <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
-                            <div class="nk-int-st">
-                                <input type="text" class="form-control input-sm">
+                <div class="form-example-int form-horizental mg-t-15">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                                <label class="hrzn-fm">Título Aba 1 - NFs x ANP</label>
+                            </div>
+                            <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                                <div class="nk-int-st">
+                                    <input type="text" class="form-control input-sm">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-example-int form-horizental mg-t-15">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                            <label class="hrzn-fm">Título Aba 2 - Cupons Fiscais</label>
-                        </div>
-                        <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
-                            <div class="nk-int-st">
-                                <input type="text" class="form-control input-sm">
+                <div class="form-example-int form-horizental mg-t-15">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                                <label class="hrzn-fm">Título Aba 2 - Cupons Fiscais</label>
+                            </div>
+                            <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                                <div class="nk-int-st">
+                                    <input type="text" class="form-control input-sm">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-example-int form-horizental mg-t-15">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                            <label class="hrzn-fm">Título Aba 3 - Outras Informações</label>
-                        </div>
-                        <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
-                            <div class="nk-int-st">
-                                <input type="text" class="form-control input-sm">
+                <div class="form-example-int form-horizental mg-t-15">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                                <label class="hrzn-fm">Título Aba 3 - Outras Informações</label>
+                            </div>
+                            <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                                <div class="nk-int-st">
+                                    <input type="text" class="form-control input-sm">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            }
             </div>
-        </div>
-        <div class="button-icon-btn">
-            <button class="btn btn-default btn-icon-notika"><i class="notika-icon notika-checked"></i> Enviar</button>
-        </div>
-    </div>
+            <div class="button-icon-btn">
+                <button class="btn btn-default btn-icon-notika" id="cadastrar-tabela"><i class="notika-icon notika-checked"></i> Enviar</button>
+            </div>
+        </article>
     <div class="col-md-3">
         <h2>Teste Obter Excel</h2>
         <button id="obter-excel">Obter Excel</button>
@@ -208,10 +209,16 @@
 </div>
 
 @section JavascriptPagina {
+    <script type="text/javascript" src="~/Scripts/moment.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Util/vanilla-masker.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Util/form-field-handler.js"></script>
     <script type="text/javascript" src="~/Scripts/ObterExcel/obterExcel.js"></script>
     <script type="text/javascript" src="~/Scripts/Municipios/municipio.js"></script>
+    <script type="text/javascript" src="~/Scripts/TabelaUsuario/cadastrarTabela.js"></script>
     <script type="text/javascript">
-        urlObterExcel = '@Url.Action("ObterExcel", "Home")';
-        urlListarMunicipios = '@Url.Action("ListarMunicipiosAnp", "Home")';
+        var urlObterExcel       = '@Url.Action("ObterExcel", "Home")',
+            urlListarMunicipios = '@Url.Action("ListarMunicipiosAnp", "Home")',
+            urlTabelaUsuario    = '@Url.Action("cadastrarTabela", "TabelaUsuario", new { AnoReferente = ?, SGDP = ? } )'
+
     </script>
 }

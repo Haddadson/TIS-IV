@@ -171,6 +171,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TabelaUsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -198,8 +199,12 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\Municipios\municipio.js" />
     <Content Include="Scripts\ObterExcel\obterExcel.js" />
+    <Content Include="Scripts\TabelaUsuario\cadastrarTabela.js" />
+    <Content Include="Scripts\Util\form-field-handler.js" />
+    <Content Include="Scripts\Util\vanilla-masker.min.js" />
     <Content Include="Scripts\validarNotas.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -221,6 +226,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\TabelaUsuario\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
