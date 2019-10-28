@@ -1,6 +1,10 @@
-﻿namespace MPMG.Repositories.Entidades
+﻿using MPMG.Repositories.Entidades;
+
+namespace MPMG.Repositories.Entidades
 {
-    public class Municipio : IMunicipio 
+    public class Municipio 
     {
+        public int Codigo { get; set; }
+        public string Nome { get; set; }
     }
 }

@@ -5,7 +5,7 @@ $(document).ready(() => {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            var municipios = Object.keys(JSON.parse(xhttp.responseText
+            var municipios = Object.keys(JSON.parse(xhttp.responseText));
             $('#municipios').html = '';
             $('#municipios').append(municipios.map(m => {
                 return "<option>" + m + "</option>";
@@ -14,15 +14,4 @@ $(document).ready(() => {
     };
     xhttp.open("GET", this.municipioURL, true);
     xhttp.send();
-
-    /* ValidarNotas.chamadaAjaxGET({
-        url: this.municipioURL,
-        sucesso: function (retorno) {
-            
-        },
-        error: function () {
-            alert("Erro ao buscar municípios!");
-        },
-        deveEsconderCarregando: true
-    }); */
 });

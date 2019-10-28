@@ -226,6 +226,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Municipio\" />
     <Folder Include="Views\TabelaUsuario\" />
   </ItemGroup>
   <ItemGroup>

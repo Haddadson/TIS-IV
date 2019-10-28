@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using MPMG.Repositories.Entidades;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -18,19 +19,18 @@ namespace MPMG.Repositories
                 preco_medio_revenda AS PrecoMedioRevenda,
                 preco_minimo_revenda AS PrecoMinimoRevenda,
                 preco_maximo_revenda AS PrecoMaximoRevenda
-            FROM dadosanp
+            FROM TabelaANP
             WHERE mes = @Mes AND
-            ano = @Ano AND
-            estado = @Estado AND
-            municipio = @Municipio AND
-            produto = @Produto";
+                ano = @Ano AND
+                municipio = @Municipio AND
+                produto = @Produto";
 
         private const string SQL_LISTAR_MUNICIPIOS_ANP = @"
-            SELECT DISTINCT
-                municipio AS Municipio
-            FROM dadosanp
-            WHERE estado = 'MINAS GERAIS'
-            ORDER BY municipio";
+            SELECT DISTINCT 
+                M.nome_municipio AS Municipio 
+              FROM TabelaANP T 
+              JOIN municipio M 
+            ORDER BY M.nome_municipio";
 
         public DadosAnp ObterPorValoresNota(int mes, int ano, string estado, string municipio, string produto)
         {
@@ -43,9 +43,7 @@ namespace MPMG.Repositories
             parametros.Add("@Produto", produto, DbType.AnsiString);
 
             return Obter(SQL_OBTER_DADO_ANP, parametros);
-
         }
-
         public List<string> ListarMunicipiosAnp()
         {
             return Listar(SQL_LISTAR_MUNICIPIOS_ANP, null).Select(m => m.Municipio).ToList();
