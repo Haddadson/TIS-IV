@@ -10,22 +10,24 @@ namespace WebApp.Controllers
         private readonly TabelaUsuarioService TabelaUsuarioService;
         public TabelaUsuarioController()
         {
-            TabelaUsuarioService = new TabelaUsuarioService ();
+            TabelaUsuarioService = new TabelaUsuarioService();
         }
 
         public JsonResult CadastrarTabela(TabelaUsuario TabelaUsuario)
         {
             int SGDP = TabelaUsuario.SGDP;
-            int IdMunicipioReferente = TabelaUsuario.IdMunicipioReferente;    
+            int IdMunicipioReferente = TabelaUsuario.IdMunicipioReferente;
             string IdMunicipio = TabelaUsuario.IdMunicipio;
             int AnoReferente = TabelaUsuario.AnoReferente;
             DateTime DataGeracao = TabelaUsuario.DataGeracao;
             string Titulo1 = TabelaUsuario.Titulo1,
                     Titulo2 = TabelaUsuario.Titulo2,
                     Titulo3 = TabelaUsuario.Titulo3,
-                    AnalistaResponsavel =  TabelaUsuario.AnalistaResponsavel;
+                    AnalistaResponsavel = TabelaUsuario.AnalistaResponsavel;
 
-            TabelaUsuarioService.CadastrarTabela(
+            try
+            {
+                TabelaUsuarioService.CadastrarTabela(
                 SGDP,
                 AnoReferente,
                 IdMunicipioReferente,
@@ -36,7 +38,22 @@ namespace WebApp.Controllers
                 Titulo3,
                 AnalistaResponsavel);
 
-            return Json(TabelaUsuario.DataGeracao);
+
+                return Json(new {
+                    Mensagem = "Sucesso ao cadastrar tabela",
+                    DataGeracao = DateTime.Now
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    Mensagem = "Ocorreu um erro ao cadastrar tabela",
+                    MensagemExcecao = ex.Message,
+                    StackTraceExcecao = ex.StackTrace
+                });
+            }
+
         }
     }
 }

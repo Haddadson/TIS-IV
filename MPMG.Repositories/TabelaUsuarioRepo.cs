@@ -1,27 +1,25 @@
 ﻿using Dapper;
 using MPMG.Repositories.Entidades;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 
 namespace MPMG.Repositories
 {
     public class TabelaUsuarioRepo : RepositorioBase<TabelaUsuario>
     {
         private const string SQL_INSERIR_TABELA = @"
-INSERT INTO (sgdp, id_municipio, id_municipio_referente, ano_referente, dt_geracao, ano_referente, titulo_1, titulo_2, titulo_3, analista_resp ) 
-VALUES (@SGDP, @IdMunicipio, @IdMunicipioReferente, @AnoReferente, @DataGeracao, @Titulo1, @Titulo2, @Titulo3, @AnalistResponsavel)";
+        INSERT INTO `TabelaUsuario` 
+        (sgdp, id_municipio, id_municipio_referente, ano_referente, 
+        dt_geracao, titulo_aba_1, titulo_aba_2, titulo_aba_3, analista_resp ) 
+        VALUES 
+        (@SGDP, @IdMunicipio, @IdMunicipioReferente, @AnoReferente, 
+        @DataGeracao, @Titulo1, @Titulo2, @Titulo3, @AnalistResponsavel)";
+
         public bool CadastrarTabela(
-            int SGDP,
-            int AnoReferente,
-            int IdMunicipio,
-            int IdMunicipioReferente,
-            DateTime DataGeracao,
-            string Titulo1,
-            string Titulo2,
-            string Titulo3,
-            string AnalistaResponsavel)
+            int SGDP, int AnoReferente,
+            int IdMunicipio, int IdMunicipioReferente,
+            DateTime DataGeracao, string Titulo1,
+            string Titulo2, string Titulo3, string AnalistaResponsavel)
         {
             DynamicParameters parametros = new DynamicParameters();
 
