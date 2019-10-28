@@ -7,8 +7,8 @@ namespace MPMG.Repositories.Entidades
     class TabelaUsuarioModel
     {
         public int SGDP { get; set; }
-        public string Mes { get; set; }
-        public string Ano { get; set; }
+
+        public Municipio Municipio { get; set; }
         public DateTime DataGeracao { get; set; }
         public double AnoReferente { get; set; }
         public double Titulo1 { get; set; }

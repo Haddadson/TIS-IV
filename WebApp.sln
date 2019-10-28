@@ -16,9 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2CAAD349-9
 		docs\Modelagem_MPMG.mwb = docs\Modelagem_MPMG.mwb
 		docs\Modelagem_MPMG.pdf = docs\Modelagem_MPMG.pdf
 		docs\Modelagem_MPMG.sql = docs\Modelagem_MPMG.sql
-		docs\Modelagem_MPMG_Relacional.mwb = docs\Modelagem_MPMG_Relacional.mwb
-		docs\Modelagem_MPMG_Relacional.pdf = docs\Modelagem_MPMG_Relacional.pdf
-		docs\Modelagem_MPMG_Relacional.sql = docs\Modelagem_MPMG_Relacional.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPMG.Repositories", "MPMG.Repositories\MPMG.Repositories.csproj", "{295055D4-BDE8-4745-9C9C-89FF8EE29A31}"

@@ -20,15 +20,14 @@ namespace MPMG.Repositories
             parametros.Add("@AnoReferente", mes, DbType.Int32);
             parametros.Add("@IdMunicipio", mes, DbType.Int32);
             parametros.Add("@IdMunicipioReferente", mes, DbType.Int32);
-            parametros.Add("@MesANP", mes, DbType.Int32);
             parametros.Add("@AnoANP", ano, DbType.Int32);
             parametros.Add("@DataGeracao", mes, DbType.Int32);
             parametros.Add("@Titulo1", mes, DbType.Int32);
             parametros.Add("@Titulo2", mes, DbType.Int32);
             parametros.Add("@Titulo3", mes, DbType.Int32);
-            parametros.Add("@AnalistResponsavel", mes, DbType.Int32);
+            parametros.Add("@AnalistaResponsavel", mes, DbType.Int32);
 
-            return Query(SQL_INSERIR_TABELA, parametros);
+            return Obter(SQL_INSERIR_TABELA, parametros);
         }
     }
 }

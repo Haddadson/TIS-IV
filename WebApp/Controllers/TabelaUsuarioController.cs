@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using MPMG.Services;
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
@@ -11,28 +12,11 @@ namespace WebApp.Controllers
             tabelaUsuarioService = new TabelaUsuarioService ();
         }
 
-        public JsonResult CadastrarTabela()
+        public JsonResult CadastrarTabela(TabelaUsuario TabelaUsuario)
         {
-
+            int teste = TabelaUsuario.IdMunicipio;
 
             return Json(tabelaUsuarioService.ToString());
-        }        
-
-        // GET: TabelaUsuario
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Index(TabelaUsuarioModel tabela)
-        {
-            int personId  = tabela.AnoReferente;
-            string name   = tabela.SGDP;
-
-            tabelaUsuarioService.cadastrarTabela(tabela);
-
-            return View();
         }
     }
 }

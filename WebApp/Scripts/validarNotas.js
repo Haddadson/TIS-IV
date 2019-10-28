@@ -1,4 +1,41 @@
 ﻿var ValidarNotas = {};
+
+ValidarNotas.chamadaAjaxGET = function (parametros) {
+    var parametrosDefault = {
+        type: "GET",
+        cache: false,
+        data: {},
+        dataType: 'json',
+        traditional: true,
+        contentType: 'application/json',
+        deveEsconderCarregando: false,
+        sucesso: function () { },
+        erro: function () { },
+        exibirCarregando: function () { $('.carregando').show(); },
+        esconderCarregando: function () { $('.carregando').hide(); },
+        beforeSend: function () {
+            if (!this.deveEsconderCarregando) {
+                this.exibirCarregando();
+            }
+        },
+        complete: function () {
+            if (!this.deveEsconderCarregando) {
+                this.esconderCarregando();
+            }
+        },
+        success: function (args) {
+            if (args && !args.expirou) {
+                this.sucesso(args);
+            }
+        },
+        error: function (reqObj, tipoErro, mensagemErro) {
+            tratarErroChamadaAjax(reqObj, tipoErro, mensagemErro, this.erro);
+        }
+    };
+    $.extend(parametrosDefault, parametros);
+    return $.ajax(parametrosDefault);
+};
+
 ValidarNotas.chamadaAjax = function (parametros) {
     parametros.data = JSON.stringify(parametros.data);
     var parametrosDefault = {
