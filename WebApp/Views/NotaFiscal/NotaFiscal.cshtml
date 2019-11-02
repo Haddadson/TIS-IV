@@ -5,9 +5,24 @@
 <div class="mg-t-15">
     <div class="form-example-wrap">
         <div class="col-md-12">
-            <h3>Cadastrar de nota fiscal</h3>
+            <h3>Cadastrar Nota Fiscal</h3>
         </div>
         <div class="col-md-12">
+            <div class="form-example-int form-horizental">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm">SDGP</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
+                            <div>
+                                <input type="text" class="form-control input-sm" id="sgdp" readonly>
+                            </div>
+                        </div>
+                        <label style="float:left">*</label>
+                    </div>
+                </div>
+            </div>
             <div class="form-example-int form-horizental">
                 <div class="form-group">
                     <div class="row">
@@ -16,7 +31,7 @@
                         </div>
                         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
                             <div class="nk-int-st">
-                                <input type="text" class="form-control input-sm" id="sgdp">
+                                <input type="text" class="form-control input-sm" id="numero_nf">
                             </div>
                         </div>
                         <label style="float:left">*</label>
@@ -31,7 +46,7 @@
                         </div>
                         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
                             <div class="nk-int-st">
-                                <select class="form-control" id="data_emissao"></select>
+                                <input type="date" class="form-control" id="data_emissao">
                             </div>
                         </div>
                         <label style="float:left">*</label>
