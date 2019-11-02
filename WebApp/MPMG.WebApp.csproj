@@ -226,6 +226,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\NotaFiscal\NotaFiscal.cshtml" />
     <Content Include="Views\TabelaUsuario\ListarTabelas.cshtml" />
+    <Content Include="Views\CupomFiscal\CadastrarCupomFiscal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
