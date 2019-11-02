@@ -16,14 +16,6 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-
-div > #data-geracao {
-    background: #ccc;
-    border-radius: 100px;
-    text-indent: 10px;
-}
-
 .display-none {
     display: none;
 }

@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
                             <div>
-                                <input type="text" id="data-geracao" class="form-control input-sm" name="data-geracao">
+                                <input type="text" id="data-geracao" class="form-control input-sm" name="data-geracao" readonly>
                             </div>
                         </div>
                     </div>
@@ -150,6 +150,7 @@
     <script type="text/javascript">
         var urlListarMunicipios         = '@Url.Action("ListarMunicipiosAnp", "Home")',
             urlCadastrarTabelaUsuario   = '@Url.Action("CadastrarTabela", "TabelaUsuario")';
+            urlListarTabelas   = '@Url.Action("ListarTabelas", "TabelaUsuario")';
     </script>
     <script type="text/javascript" src="~/Scripts/ObterExcel/obterExcel.js"></script>
     <script type="text/javascript" src="~/Scripts/Municipios/municipio.js"></script>
