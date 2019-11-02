@@ -330,3 +330,5 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 /TIS-IV/.sonarqube
+/WebApp/Views/EscolherTabela
+/WebApp/Controllers
