@@ -13,12 +13,14 @@ namespace WebApp.Controllers
         private readonly ObterExcelCombustivelService ObterExcelPetroleoService;
         private readonly ObterPrecoMedioExcelService LerDadosExcelService;
         private readonly ListarMunicipiosAnpService ListarMunicipiosService;
+        private readonly TabelaUsuarioService tabelaUsuarioService;
 
         public HomeController()
         {
             ObterExcelPetroleoService = new ObterExcelCombustivelService();
             LerDadosExcelService = new ObterPrecoMedioExcelService();
             ListarMunicipiosService = new ListarMunicipiosAnpService();
+            tabelaUsuarioService = new TabelaUsuarioService();
         }
 
         public ActionResult Index()
@@ -44,7 +46,8 @@ namespace WebApp.Controllers
         {
             var listaMunicipios = ListarMunicipiosService.ListarMunicipiosAnp();
 
-            return Json(new {
+            return Json(new
+            {
                 municipios = listaMunicipios
             });
         }
@@ -55,6 +58,16 @@ namespace WebApp.Controllers
             LerDadosExcelService.PreencherDadosNotaFiscalSuperFaturamento("ADENDO_ID_2927539.xlsx", Constantes.NOME_ARQUIVO_ANP_PRECOS);
 
             return new JsonResult();
+        }
+
+        public JsonResult ListarTabelas()
+        {
+            var tabelas = tabelaUsuarioService.ListarTabelas();
+
+            return Json(new
+            {
+                tabelas
+            });
         }
     }
 }

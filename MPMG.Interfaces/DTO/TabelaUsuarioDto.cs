@@ -2,7 +2,7 @@
 
 namespace MPMG.Interfaces.DTO
 {
-    public class TabelaUsuario
+    public class TabelaUsuarioDto
     {
         public int SGDP { get; set; }
         public DateTime DataGeracao { get; set; }

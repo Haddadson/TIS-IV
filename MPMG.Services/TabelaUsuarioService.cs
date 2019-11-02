@@ -1,6 +1,10 @@
 ﻿
+using MPMG.Interfaces.DTO;
 using MPMG.Repositories;
+using MPMG.Repositories.Entidades;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MPMG.Services
 {
@@ -51,5 +55,37 @@ namespace MPMG.Services
                 AnalistaResponsavel
            );
         }
+
+        public List<TabelaUsuarioDto> ListarTabelas()
+        {
+            return ConverterListaEntidadeParaDto(TabelaRepo.ListarTabelas());
+
+        }
+
+        private TabelaUsuarioDto ConverterEntidadeParaDto(TabelaUsuario entidade)
+        {
+            if (entidade == null)
+                return null;
+
+            return new TabelaUsuarioDto()
+            {
+                AnalistaResponsavel = entidade.AnalistaResponsavel,
+                AnoReferente = entidade.AnoReferente,
+                DataGeracao = entidade.DataGeracao,
+                SGDP = entidade.SGDP,
+                Titulo1 = entidade.Titulo1,
+                Titulo2 = entidade.Titulo2,
+                Titulo3 = entidade.Titulo3
+            };
+        }
+
+        private List<TabelaUsuarioDto> ConverterListaEntidadeParaDto(List<TabelaUsuario> entidades)
+        {
+            if (entidades == null || !entidades.Any())
+                return new List<TabelaUsuarioDto>();
+
+            return entidades.Select(ConverterEntidadeParaDto).ToList();
+        }
+
     }
 }

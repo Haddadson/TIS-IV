@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using MPMG.Repositories.Entidades;
 using System;
+using System.Collections.Generic;
 using System.Data;
 
 namespace MPMG.Repositories
@@ -8,12 +9,25 @@ namespace MPMG.Repositories
     public class TabelaUsuarioRepo : RepositorioBase<TabelaUsuario>
     {
         private const string SQL_INSERIR_TABELA = @"
-        INSERT INTO `TabelaUsuario` 
-        (sgdp, id_municipio, id_municipio_referente, ano_referente, 
-        dt_geracao, titulo_aba_1, titulo_aba_2, titulo_aba_3, analista_resp ) 
-        VALUES 
-        (@SGDP, @IdMunicipio, @IdMunicipioReferente, @AnoReferente, 
-        @DataGeracao, @Titulo1, @Titulo2, @Titulo3, @AnalistResponsavel)";
+            INSERT INTO `TabelaUsuario` 
+            (sgdp, id_municipio, id_municipio_referente, ano_referente, 
+            dt_geracao, titulo_aba_1, titulo_aba_2, titulo_aba_3, analista_resp ) 
+            VALUES 
+            (@SGDP, @IdMunicipio, @IdMunicipioReferente, @AnoReferente, 
+            @DataGeracao, @Titulo1, @Titulo2, @Titulo3, @AnalistResponsavel)";
+
+        private const string SQL_LISTAR_TABELAS = @"
+            SELECT  
+                sgdp AS SGDP, 
+                id_municipio AS IdMunicipio, 
+                id_municipio_referente AS IdMunicipioReferente, 
+                ano_referente AS AnoReferente, 
+                dt_geracao AS DataGeracao, 
+                titulo_aba_1 AS Titulo1, 
+                titulo_aba_2 AS Titulo2, 
+                titulo_aba_3 AS Titulo3, 
+                analista_resp AS AnalistaResponsavel
+            FROM `TabelaUsuario`";
 
         public bool CadastrarTabela(
             int SGDP, int AnoReferente,
@@ -34,6 +48,11 @@ namespace MPMG.Repositories
             parametros.Add("@AnalistResponsavel", AnalistaResponsavel, DbType.AnsiString);
 
             return Execute(SQL_INSERIR_TABELA, parametros) > 0;
+        }
+
+        public List<TabelaUsuario> ListarTabelas()
+        {
+            return Listar(SQL_LISTAR_TABELAS, null);
         }
     }
 }
