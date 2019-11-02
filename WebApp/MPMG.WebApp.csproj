@@ -205,6 +205,7 @@
     <Content Include="Scripts\Municipios\municipio.js" />
     <Content Include="Scripts\ObterExcel\obterExcel.js" />
     <Content Include="Scripts\TabelaUsuario\cadastrarTabela.js" />
+    <Content Include="Scripts\TabelaUsuario\listarTabela.js" />
     <Content Include="Scripts\Util\form-field-handler.js" />
     <Content Include="Scripts\Util\vanilla-masker.min.js" />
     <Content Include="Scripts\validarNotas.js" />
