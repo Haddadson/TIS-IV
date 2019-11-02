@@ -55,5 +55,9 @@ namespace WebApp.Controllers
             }
 
         }
+        public ActionResult Index()
+        {
+            return View("ListarTabelas");
+        }
     }
 }
