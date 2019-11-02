@@ -225,12 +225,11 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\NotaFiscal\NotaFiscal.cshtml" />
-    <Content Include="Views\ListarTabelas\ListarTabelas.cshtml" />
+    <Content Include="Views\TabelaUsuario\ListarTabelas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Municipio\" />
-    <Folder Include="Views\TabelaUsuario\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
