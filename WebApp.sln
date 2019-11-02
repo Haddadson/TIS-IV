@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPMG.Services", "MPMG.Servi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2CAAD349-9317-4C4C-BFED-F6861471F6F4}"
 	ProjectSection(SolutionItems) = preProject
-		docs\Modelagem_MPMG.mwb = docs\Modelagem_MPMG.mwb
-		docs\Modelagem_MPMG.pdf = docs\Modelagem_MPMG.pdf
-		docs\Modelagem_MPMG.sql = docs\Modelagem_MPMG.sql
+		docs\Modelagem_TIS_02_11_2019.mwb = docs\Modelagem_TIS_02_11_2019.mwb
+		docs\Modelagem_TIS_02_11_2019.pdf = docs\Modelagem_TIS_02_11_2019.pdf
+		docs\Modelagem_TIS_02_11_2019.sql = docs\Modelagem_TIS_02_11_2019.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPMG.Repositories", "MPMG.Repositories\MPMG.Repositories.csproj", "{295055D4-BDE8-4745-9C9C-89FF8EE29A31}"
