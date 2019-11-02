@@ -37,7 +37,7 @@ DROP TABLE IF EXISTS `mpmg`.`TabelaUsuario` ;
 
 CREATE TABLE IF NOT EXISTS `mpmg`.`TabelaUsuario` (
   `sgdp` INT NOT NULL COMMENT 'Código identificador da tabela.\n',
-  `id_municipio_refente` INT NOT NULL,
+  `id_municipio_referente` INT NOT NULL,
   `id_municipio` INT NOT NULL,
   `dt_geracao` DATE NOT NULL,
   `ano_referente` VARCHAR(4) NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `mpmg`.`TabelaUsuario` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_TabelaUsuario_Municipio2`
-    FOREIGN KEY (`id_municipio_refente`)
+    FOREIGN KEY (`id_municipio_referente`)
     REFERENCES `mpmg`.`Municipio` (`id_municipio`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -60,7 +60,7 @@ ENGINE = InnoDB;
 
 CREATE INDEX `fk_TabelaUsuario_Municipio1_idx` ON `mpmg`.`TabelaUsuario` (`id_municipio` ASC) VISIBLE;
 
-CREATE INDEX `fk_TabelaUsuario_Municipio2_idx` ON `mpmg`.`TabelaUsuario` (`id_municipio_refente` ASC) VISIBLE;
+CREATE INDEX `fk_TabelaUsuario_Municipio2_idx` ON `mpmg`.`TabelaUsuario` (`id_municipio_referente` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
