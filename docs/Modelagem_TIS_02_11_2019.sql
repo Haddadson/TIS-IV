@@ -64,13 +64,13 @@ CREATE INDEX `fk_TabelaUsuario_Municipio2_idx` ON `mpmg`.`TabelaUsuario` (`id_mu
 
 
 -- -----------------------------------------------------
--- Table `mpmg`.`UplaodANP`
+-- Table `mpmg`.`UploadANP`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mpmg`.`UplaodANP` ;
+DROP TABLE IF EXISTS `mpmg`.`UploadANP` ;
 
-CREATE TABLE IF NOT EXISTS `mpmg`.`UplaodANP` (
-  `id_uplaod_anp` INT NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id_uplaod_anp`))
+CREATE TABLE IF NOT EXISTS `mpmg`.`UploadANP` (
+  `id_upload_anp` INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_upload_anp`))
 ENGINE = InnoDB;
 
 
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `mpmg`.`TabelaANP` (
   `id_municipio` INT NOT NULL,
   `mes` CHAR(2) NOT NULL,
   `ano` CHAR(4) NOT NULL,
-  `id_uplaod_anp` INT NOT NULL,
+  `id_upload_anp` INT NOT NULL,
   `produto` VARCHAR(45) NOT NULL,
   `preco_medio_revenda` DECIMAL(7,3) NOT NULL,
   `preco_maximo_revenda` DECIMAL(7,3) NOT NULL,
@@ -95,16 +95,16 @@ CREATE TABLE IF NOT EXISTS `mpmg`.`TabelaANP` (
     REFERENCES `mpmg`.`Municipio` (`id_municipio`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_TabelaANP_UplaodANP1`
-    FOREIGN KEY (`id_uplaod_anp`)
-    REFERENCES `mpmg`.`UplaodANP` (`id_uplaod_anp`)
+  CONSTRAINT `fk_TabelaANP_UploadANP1`
+    FOREIGN KEY (`id_upload_anp`)
+    REFERENCES `mpmg`.`UploadANP` (`id_upload_anp`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 CREATE INDEX `fk_TabelaANP_Municipio1_idx` ON `mpmg`.`TabelaANP` (`id_municipio` ASC) VISIBLE;
 
-CREATE INDEX `fk_TabelaANP_UplaodANP1_idx` ON `mpmg`.`TabelaANP` (`id_uplaod_anp` ASC) VISIBLE;
+CREATE INDEX `fk_TabelaANP_UploadANP1_idx` ON `mpmg`.`TabelaANP` (`id_upload_anp` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
