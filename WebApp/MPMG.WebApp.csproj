@@ -170,7 +170,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\EscolherTabelaController.cs" />
     <Compile Include="Controllers\NotaFiscalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TabelaUsuarioController.cs" />
@@ -227,7 +226,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\NotaFiscal\NotaFiscal.cshtml" />
     <Content Include="Views\TabelaUsuario\ListarTabelas.cshtml" />
-    <Content Include="Views\EscolherTabela\EscolherTabela.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
