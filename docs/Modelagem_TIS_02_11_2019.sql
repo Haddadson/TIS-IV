@@ -83,13 +83,13 @@ CREATE TABLE IF NOT EXISTS `mpmg`.`TabelaANP` (
   `id_municipio` INT NOT NULL,
   `mes` CHAR(2) NOT NULL,
   `ano` CHAR(4) NOT NULL,
-  `id_upload_anp` INT NOT NULL,
+  `id_upload_anp` INT NULL,
   `produto` VARCHAR(45) NOT NULL,
   `preco_medio_revenda` DECIMAL(7,3) NOT NULL,
   `preco_maximo_revenda` DECIMAL(7,3) NOT NULL,
   `preco_minimo_revenda` DECIMAL(7,3) NOT NULL,
   `dt_vigencia_municipio_anp` DATE NULL,
-  PRIMARY KEY (`id_municipio`, `mes`, `ano`),
+  PRIMARY KEY (`id_municipio`, `mes`, `ano`, `produto`),
   CONSTRAINT `fk_TabelaANP_Municipio1`
     FOREIGN KEY (`id_municipio`)
     REFERENCES `mpmg`.`Municipio` (`id_municipio`)
