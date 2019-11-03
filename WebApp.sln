@@ -14,6 +14,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2CAAD349-9317-4C4C-BFED-F6861471F6F4}"
 	ProjectSection(SolutionItems) = preProject
 		docs\backup banco tis (1).sql = docs\backup banco tis (1).sql
+		docs\insert tabela fam - 2013 a 2019.sql = docs\insert tabela fam - 2013 a 2019.sql
 		docs\Modelagem_TIS_02_11_2019.mwb = docs\Modelagem_TIS_02_11_2019.mwb
 		docs\Modelagem_TIS_02_11_2019.pdf = docs\Modelagem_TIS_02_11_2019.pdf
 		docs\Modelagem_TIS_02_11_2019.sql = docs\Modelagem_TIS_02_11_2019.sql
