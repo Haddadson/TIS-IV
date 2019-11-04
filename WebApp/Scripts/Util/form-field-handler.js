@@ -10,7 +10,8 @@ const validateDateFormField = fieldQuerySelector => {
     return $(fieldQuerySelector).change(() => {
         const informedDate = $(fieldQuerySelector).val();
 
-        if (!moment(informedDate, "DD/MM/YYYY").isValid()) {
+        if (!(moment(informedDate, "DD/MM/YYYY").isValid() ||
+              moment(informedDate, "YYYY-MM-DD").isValid())) {
             setInvalidField(fieldQuerySelector);
         } else {
             cleanInvalidField(fieldQuerySelector);
@@ -18,13 +19,19 @@ const validateDateFormField = fieldQuerySelector => {
     });
 };
 
-const validateNumericRequiredFormField = fieldQuerySelector => {
+const validateNumericRequiredFormField = (fieldQuerySelector, isInteger = false, setParsedValue = false) => {
     return $(fieldQuerySelector).change(() => {
-        const value = $(fieldQuerySelector).val();
+        let value;
+        if (isInteger)
+            value = parseInt($(fieldQuerySelector).val());
+        else
+            value = parseFloat($(fieldQuerySelector).val()).toFixed(3).replace(".", ",");
 
-        if (!/^\d+$/g.test(value.trim())) {
+        if (Number.isNaN(parseFloat(value))) { 
             setInvalidField(fieldQuerySelector);
         } else {
+            if (setParsedValue)
+                $(fieldQuerySelector).val(value);
             cleanInvalidField(fieldQuerySelector);
         }
     });

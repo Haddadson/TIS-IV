@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
 using MPMG.Services;
-using Newtonsoft.Json;
 using WebApp.Models;
 
 namespace WebApp.Controllers

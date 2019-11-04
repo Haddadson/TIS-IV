@@ -12,14 +12,13 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                            <label class="hrzn-fm">SDGP</label>
+                            <label class="hrzn-fm required">SDGP</label>
                         </div>
-                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                             <div>
-                                <input type="text" class="form-control input-sm" id="sgdp" readonly>
+                                <input type="text" class="form-control" id="sgdp">
                             </div>
                         </div>
-                        <label style="float:left">*</label>
                     </div>
                 </div>
             </div>
@@ -27,14 +26,13 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                            <label class="hrzn-fm">Número NF</label>
+                            <label class="hrzn-fm required">Número NF</label>
                         </div>
-                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                             <div class="nk-int-st">
-                                <input type="text" class="form-control input-sm" id="numero_nf">
+                                <input type="text" class="form-control borderless-field" id="numero_nf">
                             </div>
                         </div>
-                        <label style="float:left">*</label>
                     </div>
                 </div>
             </div>
@@ -42,26 +40,58 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                            <label class="hrzn-fm">Data de emissão</label>
+                            <label class="hrzn-fm">Chave de Acesso:</label>
                         </div>
-                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                             <div class="nk-int-st">
-                                <input type="date" class="form-control" id="data_emissao">
+                                <input type="text" id="chave_acesso" class="form-control borderless-field" />
                             </div>
                         </div>
-                        <label style="float:left">*</label>
                     </div>
                 </div>
             </div>
             <div class="form-example-int form-horizental mg-t-15">
                 <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm">Posto Fornecedor</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="nk-int-st">
+                                <input type="text" id="posto" class="form-control borderless-field" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-example-int form-horizental mg-t-15">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm required">Data de emissão</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="nk-int-st">
+                                <input type="date" class="form-control borderless-field" id="data_emissao">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-example-int form-horizental mg-t-15">
+                <div class="form-group ">
                     <div class="row">
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                             <label class="hrzn-fm">Combustível</label>
                         </div>
-                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
-                            <div class="nk-int-st">
-                                <select class="form-control" id="combustivel"></select>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div>
+                                <select class="form-control" id="combustivel">
+                                    <option value="ETA">Etanol Hidratado</option>
+                                    <option value="GAS">Gasolina Comum</option>
+                                    <option value="DIE">Óleo Diesel</option>
+                                    <option value="S10">Óleo Diesel S10</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -71,14 +101,13 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                            <label class="hrzn-fm">Quantidade</label>
+                            <label class="hrzn-fm required">Quantidade</label>
                         </div>
-                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                             <div class="nk-int-st">
-                                <input type="text" id="quantidade" class="form-control input-sm">
+                                <input type="number" id="quantidade" class="form-control borderless-field">
                             </div>
                         </div>
-                        <label style="float:left">*</label>
                     </div>
                 </div>
             </div>
@@ -86,29 +115,27 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                            <label class="hrzn-fm">Preço Unitário</label>
+                            <label class="hrzn-fm required">Preço Unitário</label>
                         </div>
-                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                             <div class="nk-int-st">
-                                <input class="form-control" id="preco_unitario"></input>
+                                <input class="form-control borderless-field" id="preco_unitario" />
                             </div>
                         </div>
-                        <label style="float:left">*</label>
                     </div>
                 </div>
             </div>
             <div class="form-example-int form-horizental mg-t-15">
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                            <label class="hrzn-fm">Valor Total</label>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm required">Valor Total</label>
                         </div>
-                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                             <div class="nk-int-st">
-                                <input class="form-control" id="valor_total"></input>
+                                <input class="form-control borderless-field" id="valor_total" />
                             </div>
                         </div>
-                        <label style="float:left">*</label>
                     </div>
                 </div>
             </div>
@@ -130,12 +157,12 @@
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
                             <label class="hrzn-fm">COO</label>
                         </div>
-                        <div class="col-lg-5 col-md-4 col-sm-4 col-xs-8">
-                            <div class="nk-int-st">
+                        <div class="col-lg-5 col-md-4 col-sm-4 col-xs-6">
+                            <div class="">
                                 <select class="form-control" id="data_emissao"></select>
                             </div>
                         </div>
-                        <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">
+                        <div class="col-lg-1 col-md-2 col-sm-2 col-xs-3">
                             <button class="btn btn-default btn-icon-notika" id="adicionar_cupom">
                                 Adicionar
                             </button>
@@ -143,7 +170,7 @@
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                         </div>
                         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                            <textarea class="form-control" id="cupons_selecionados"></textarea>
+                            <textarea class="form-control borderless-field textarea" id="cupons_selecionados"></textarea>
                         </div>
                     </div>
                 </div>
@@ -154,9 +181,9 @@
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                             <label class="hrzn-fm">Número Folha</label>
                         </div>
-                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                             <div class="nk-int-st">
-                                <input type="text" id="num_folha" class="form-control input-sm">
+                                <input type="text" id="num_folha" class="form-control borderless-field" />
                             </div>
                         </div>
                     </div>
@@ -168,28 +195,44 @@
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                             <label class="hrzn-fm">Mês/Ano para consulta ANP</label>
                         </div>
-                        <div class="col-lg-7 col-md-7 col-sm-3 col-xs-11">
+                        <div class="col-lg-7 col-md-7 col-sm-3 col-xs-12">
                             <div class="nk-int-st">
-                                <select class="form-control" id="Mes_Ano_Consulta_ANP"></select>
+                                <input type="text" class="form-control" id="data_consulta_anp" />
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                         </div>
                         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                            <label class="hrzn-fm">Caso este campo seja enviado em branco, sera considerado o mês/ano da data de 
-                            emissão para consultar a Tabela da ANP</label>
+                            <label class="hrzn-fm">
+                                Caso este campo seja enviado em branco, sera considerado o mês/ano da data de
+                                emissão para consultar a Tabela da ANP
+                            </label>
                         </div>
                     </div>
                 </div>
-            </div>           
+            </div>
+            <div class="form-example-int form-horizental mg-t-15">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm">Cliente</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="nk-int-st">
+                                <input type="text" id="cliente" class="form-control borderless-field" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="form-example-int form-horizental mg-t-15">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                             <label class="hrzn-fm">Departamento</label>
                         </div>
-                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
-                            <div class="nk-int-st">
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div>
                                 <select class="form-control" id="departamento"></select>
                             </div>
                         </div>
@@ -202,9 +245,9 @@
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                             <label class="hrzn-fm">Veiculo</label>
                         </div>
-                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                             <div class="nk-int-st">
-                                <input type="text" id="veiculo" class="form-control input-sm">
+                                <input type="text" id="veiculo" class="form-control borderless-field" />
                             </div>
                         </div>
                     </div>
@@ -216,9 +259,23 @@
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                             <label class="hrzn-fm">Placa Veículo</label>
                         </div>
-                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                             <div class="nk-int-st">
-                                <input type="text" id="placa_Veiculo" class="form-control input-sm">
+                                <input type="text" id="placa_veiculo" class="form-control borderless-field" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-example-int form-horizental mg-t-15">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm">Hodômetro</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="nk-int-st">
+                                <input type="text" id="hodometro" class="form-control borderless-field" />
                             </div>
                         </div>
                     </div>
@@ -228,10 +285,17 @@
                 <label class="hrzn-fm">* campos obrigatórios</label>
             </div>
             <div class="button-icon-btn">
-                <button class="btn btn-default btn-icon-notika" id="cadastrar-tabela">
+                <button class="btn btn-default btn-icon-notika" id="cadastrar-nota-fiscal">
                     Enviar
                 </button>
             </div>
         </div>
     </div>
 </div>
+
+@section JavascriptPagina {
+    <script type="text/javascript">
+        var urlCadastrarNotaFiscal= '@Url.Action("Cadastrar", "NotaFiscal")';
+    </script>
+    <script type="text/javascript" src="~/Scripts/NotaFiscal/NotaFiscal.js"></script>
+}

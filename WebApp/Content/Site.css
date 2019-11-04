@@ -19,3 +19,53 @@
 .display-none {
     display: none;
 }
+
+input[type="text"],
+input[type="number"] {
+    text-indent: 12px;
+}
+label::after {
+    content: ":";
+}
+
+label.required::after {
+    content: ": *";
+}
+
+.borderless-field {
+    border: 0px;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0px;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.shadow-field:focus {
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6) !important;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6) !important;
+}
+
+.borderless-field:focus {
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6) !important;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6) !important;
+}
+
+.nk-int-st [type="number"] {
+    padding: 6px 12px;
+    text-indent: 0px;
+}
+
+.textarea {
+    border: 1px solid #ccc;
+}
+
+/*.nk-int-st:not([class*=has-]):after {
+//    background-image: linear-gradient(to right, white, rgba(0,0,0, 0.5), white);
+}
+*/
+
+select:focus,
+.form-control:focus {
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6) !important;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6) !important;
+}

@@ -176,6 +176,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\NotaFiscal.cs" />
     <Compile Include="Models\TabelaUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -203,6 +204,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\Municipios\municipio.js" />
+    <Content Include="Scripts\NotaFiscal\NotaFiscal.js" />
     <Content Include="Scripts\ObterExcel\obterExcel.js" />
     <Content Include="Scripts\TabelaUsuario\cadastrarTabela.js" />
     <Content Include="Scripts\Util\form-field-handler.js" />

@@ -54,7 +54,7 @@
             url: urlTabelaUsuario,
             data: tabelaUsuarioData,
             sucesso: function () {
-                console.log("sucesso");
+                alert("Salvo com sucesso!");
             },
             deveEsconderCarregando: true
         });

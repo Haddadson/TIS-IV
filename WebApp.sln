@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.705
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPMG.WebApp", "WebApp\MPMG.WebApp.csproj", "{DF9F7577-F6C2-4B02-AFFD-53F032CE2FE5}"
 EndProject
@@ -18,6 +18,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2CAAD349-9
 		docs\Modelagem_TIS_02_11_2019.mwb = docs\Modelagem_TIS_02_11_2019.mwb
 		docs\Modelagem_TIS_02_11_2019.pdf = docs\Modelagem_TIS_02_11_2019.pdf
 		docs\Modelagem_TIS_02_11_2019.sql = docs\Modelagem_TIS_02_11_2019.sql
+		docs\Modelagem_TIS_04_11_2019.mwb = docs\Modelagem_TIS_04_11_2019.mwb
+		docs\Modelagem_TIS_04_11_2019.pdf = docs\Modelagem_TIS_04_11_2019.pdf
+		docs\Modelagem_TIS_04_11_2019.sql = docs\Modelagem_TIS_04_11_2019.sql
 		docs\Script Insert Municipios.sql = docs\Script Insert Municipios.sql
 		docs\script insert tabela anp.sql = docs\script insert tabela anp.sql
 		docs\SEM INDEX - Modelagem_TIS_02_11_2019.sql = docs\SEM INDEX - Modelagem_TIS_02_11_2019.sql

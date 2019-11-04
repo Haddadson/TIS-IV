@@ -58,9 +58,9 @@ CREATE TABLE IF NOT EXISTS `mpmg`.`TabelaUsuario` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_TabelaUsuario_Municipio1_idx` ON `mpmg`.`TabelaUsuario` (`id_municipio` ASC) VISIBLE;
+CREATE INDEX `fk_TabelaUsuario_Municipio1_idx` ON `mpmg`.`TabelaUsuario` (`id_municipio` ASC) ;
 
-CREATE INDEX `fk_TabelaUsuario_Municipio2_idx` ON `mpmg`.`TabelaUsuario` (`id_municipio_referente` ASC) VISIBLE;
+CREATE INDEX `fk_TabelaUsuario_Municipio2_idx` ON `mpmg`.`TabelaUsuario` (`id_municipio_referente` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -102,9 +102,9 @@ CREATE TABLE IF NOT EXISTS `mpmg`.`TabelaANP` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_TabelaANP_Municipio1_idx` ON `mpmg`.`TabelaANP` (`id_municipio` ASC) VISIBLE;
+CREATE INDEX `fk_TabelaANP_Municipio1_idx` ON `mpmg`.`TabelaANP` (`id_municipio` ASC) ;
 
-CREATE INDEX `fk_TabelaANP_UploadANP1_idx` ON `mpmg`.`TabelaANP` (`id_upload_anp` ASC) VISIBLE;
+CREATE INDEX `fk_TabelaANP_UploadANP1_idx` ON `mpmg`.`TabelaANP` (`id_upload_anp` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `mpmg`.`TabelaFAM` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_TabelaFAM_UploadTabelaFAM1_idx` ON `mpmg`.`TabelaFAM` (`id_upload` ASC) VISIBLE;
+CREATE INDEX `fk_TabelaFAM_UploadTabelaFAM1_idx` ON `mpmg`.`TabelaFAM` (`id_upload` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -193,11 +193,11 @@ CREATE TABLE IF NOT EXISTS `mpmg`.`NotaFiscal` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_NotaFiscal_TabelaUsuario1_idx` ON `mpmg`.`NotaFiscal` (`sgdp` ASC) VISIBLE;
+CREATE INDEX `fk_NotaFiscal_TabelaUsuario1_idx` ON `mpmg`.`NotaFiscal` (`sgdp` ASC) ;
 
-CREATE INDEX `fk_NotaFiscal_Departamento1_idx` ON `mpmg`.`NotaFiscal` (`id_dpto` ASC) VISIBLE;
+CREATE INDEX `fk_NotaFiscal_Departamento1_idx` ON `mpmg`.`NotaFiscal` (`id_dpto` ASC) ;
 
-CREATE INDEX `fk_NotaFiscal_TabelaFAM1_idx` ON `mpmg`.`NotaFiscal` (`mes_fam` ASC, `ano_fam` ASC) VISIBLE;
+CREATE INDEX `fk_NotaFiscal_TabelaFAM1_idx` ON `mpmg`.`NotaFiscal` (`mes_fam` ASC, `ano_fam` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -229,9 +229,9 @@ CREATE TABLE IF NOT EXISTS `mpmg`.`CupomFiscal` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_CupomFiscal_NotaFiscal1_idx` ON `mpmg`.`CupomFiscal` (`id_nota_fiscal` ASC) VISIBLE;
+CREATE INDEX `fk_CupomFiscal_NotaFiscal1_idx` ON `mpmg`.`CupomFiscal` (`id_nota_fiscal` ASC) ;
 
-CREATE INDEX `fk_CupomFiscal_TabelaUsuario1_idx` ON `mpmg`.`CupomFiscal` (`sgdp` ASC) VISIBLE;
+CREATE INDEX `fk_CupomFiscal_TabelaUsuario1_idx` ON `mpmg`.`CupomFiscal` (`sgdp` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -253,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `mpmg`.`ItemNotaFiscal` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_ItemNF_NF1_idx` ON `mpmg`.`ItemNotaFiscal` (`id_nota_fiscal` ASC) VISIBLE;
+CREATE INDEX `fk_ItemNF_NF1_idx` ON `mpmg`.`ItemNotaFiscal` (`id_nota_fiscal` ASC) ;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
