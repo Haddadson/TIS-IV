@@ -1,4 +1,4 @@
-﻿
+﻿@model WebApp.Models.ListarTabelasModel
 @{
     ViewBag.Title = "Listar Tabelas";
 }
@@ -21,9 +21,25 @@
         <![endif]-->
     <!-- Start Header Top Area -->
 
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+    <div class="selects-listar-tabelas  col-lg-3 col-md-3 col-sm-3 col-xs-12">
         <div class="nk-int-mk sl-dp-mn sm-res-mg-t-10">
-            <h2>Selecione a tabela a ser exibida</h2>
+            <h2>Selecione a tabela a ser exibida por SGDP</h2>
+        </div>
+        <div class="bootstrap-select fm-cmp-mg" align="center">
+            <select id="selecao-tabela-sgdp" class="selectpicker" data-live-search="true">
+
+                @foreach (var tabela in Model.TabelasUsuario)
+                {
+                    <option value="@tabela.SGDP">@tabela.SGDP</option>
+                }
+
+            </select>
+        </div>
+    </div>
+
+    <div class="selects-listar-tabelas col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="nk-int-mk sl-dp-mn sm-res-mg-t-10">
+            <h2>Selecione o tipo da tabela a ser exibida</h2>
         </div>
         <div class="bootstrap-select fm-cmp-mg" align="center">
             <select id="selecao-tipo-tabela" class="selectpicker" data-live-search="true">
@@ -35,466 +51,468 @@
     </div>
     <br />
 
-    @* A partir dessa linha deve-se escolher qual das tabelas abaixo serão exibidas a partir da combobox anterior. Se selecionado NFs x ANP, deve-se exibir o conteúdo dessa aba e assim sucessivamente *@
-    <div class="data-table-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="data-table-list">
-                        <div id="tabela-nf-anp" class="table-responsive">
-                            @*TODO: estilizar*@
-                            <p><span>SGDP:</span> TESTE</p>
-                            <p><span>Municipio:</span> TESTE</p>
-                            <p><span>Municipio Ref. ANP:</span> TESTE</p>
-                            <p><span>Analista Responsável:</span> TESTE</p>
-                            <p><span>Data de geração:</span> TESTE</p>
-                            <p><span>Ano(s) referente(s):</span> TESTE</p>
-                            <table id="data-table-nf-anp" class="table table-striped">
-                                <thead>
-                                    @* Tabela a ser exibida quando o usuário selecionar NFs x ANP na combobox *@
-                                    <tr>
-                                        <th>DATA</th>
-                                        <th>NOTA FISCAL</th>
-                                        <th>COMBUSTÍVEL</th>
-                                        <th>QDE.</th>
-                                        <th>VALOR UNIT.</th>
-                                        <th>VALOR TOTAL</th>
-                                        <th>NUM. FOLHA</th>
-                                        <th>FAM MES/ANO</th>
-                                        @*Nessa linha o mês ano deve ser substituído de acordo com o dado da tabela de excel gerada*@
-                                        <th>PREÇO MED. ANP</th>
-                                        <th>DIFERENÇA MED. UNIT.</th>
-                                        <th>DIFERENÇA MED TOTAL</th>
-                                        <th>VALOR MED ATUALIZADO</th>
-                                        <th>PREÇO MAX ANP</th>
-                                        <th>DIFERENÇA MAX UNIT.</th>
-                                        <th>DIFERENÇA MAX TOTAL</th>
-                                        <th>VALOR MAX ATUALIZADO</th>
-                                        <th>CUPONS FISCAIS VINCULADOS</th>
-                                        <th>MES/ANO PROCURADO NA ANP</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>6/18/2015</td>
-                                        <td>000019402</td>
-                                        <td>Óleo Diesel S10</td>
-                                        <td>1526,329</td>
-                                        <td>2,975 </td>
-                                        <td>4.540,83 </td>
-                                        <td>343</td>
-                                        <td>1,2103195</td>
-                                        <td>2,977 </td>
-                                        <td>- 0,00 </td>
-                                        <td>- 3,05 </td>
-                                        <td>- 3,69 </td>
-                                        <td>  2,977 </td>
-                                        <td>- 0,00 </td>
-                                        <td>- 3,05 </td>
-                                        <td>- 3,69 </td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6/18/2015</td>
-                                        <td>000019402</td>
-                                        <td>Óleo Diesel S10</td>
-                                        <td>1526,329</td>
-                                        <td>2,975 </td>
-                                        <td>4.540,83 </td>
-                                        <td>343</td>
-                                        <td>1,2103195</td>
-                                        <td>2,977 </td>
-                                        <td>- 0,00 </td>
-                                        <td>- 3,05 </td>
-                                        <td>- 3,69 </td>
-                                        <td>  2,977 </td>
-                                        <td>- 0,00 </td>
-                                        <td>- 3,05 </td>
-                                        <td>- 3,69 </td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6/18/2015</td>
-                                        <td>000019402</td>
-                                        <td>Óleo Diesel S10</td>
-                                        <td>1526,329</td>
-                                        <td>2,975 </td>
-                                        <td>4.540,83 </td>
-                                        <td>343</td>
-                                        <td>1,2103195</td>
-                                        <td>2,977 </td>
-                                        <td>- 0,00 </td>
-                                        <td>- 3,05 </td>
-                                        <td>- 3,69 </td>
-                                        <td>  2,977 </td>
-                                        <td>- 0,00 </td>
-                                        <td>- 3,05 </td>
-                                        <td>- 3,69 </td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6/18/2015</td>
-                                        <td>000019402</td>
-                                        <td>Óleo Diesel S10</td>
-                                        <td>1526,329</td>
-                                        <td>2,975 </td>
-                                        <td>4.540,83 </td>
-                                        <td>343</td>
-                                        <td>1,2103195</td>
-                                        <td>2,977 </td>
-                                        <td>- 0,00 </td>
-                                        <td>- 3,05 </td>
-                                        <td>- 3,69 </td>
-                                        <td>  2,977 </td>
-                                        <td>- 0,00 </td>
-                                        <td>- 3,05 </td>
-                                        <td>- 3,69 </td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6/18/2015</td>
-                                        <td>000019402</td>
-                                        <td>Óleo Diesel S10</td>
-                                        <td>1526,329</td>
-                                        <td>2,975 </td>
-                                        <td>4.540,83 </td>
-                                        <td>343</td>
-                                        <td>1,2103195</td>
-                                        <td>2,977 </td>
-                                        <td>- 0,00 </td>
-                                        <td>- 3,05 </td>
-                                        <td>- 3,69 </td>
-                                        <td>  2,977 </td>
-                                        <td>- 0,00 </td>
-                                        <td>- 3,05 </td>
-                                        <td>- 3,69 </td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6/18/2015</td>
-                                        <td>000019402</td>
-                                        <td>Óleo Diesel S10</td>
-                                        <td>1526,329</td>
-                                        <td>2,975 </td>
-                                        <td>4.540,83 </td>
-                                        <td>343</td>
-                                        <td>1,2103195</td>
-                                        <td>2,977 </td>
-                                        <td>- 0,00 </td>
-                                        <td>- 3,05 </td>
-                                        <td>- 3,69 </td>
-                                        <td>  2,977 </td>
-                                        <td>- 0,00 </td>
-                                        <td>- 3,05 </td>
-                                        <td>- 3,69 </td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                    </tr>
 
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>DATA</th>
-                                        <th>NOTA FISCAL</th>
-                                        <th>COMBUSTÍVEL</th>
-                                        <th>QDE.</th>
-                                        <th>VALOR UNIT.</th>
-                                        <th>VALOR TOTAL</th>
-                                        <th>NUM. FOLHA</th>
-                                        <th>FAM MES/ANO</th>
-                                        @*Nessa linha o mês ano deve ser substituído de acordo com o dado da tabela de excel gerada*@
-                                        <th>PREÇO MED. ANP</th>
-                                        <th>DIFERENÇA MED. UNIT.</th>
-                                        <th>DIFERENÇA MED TOTAL</th>
-                                        <th>VALOR MED ATUALIZADO</th>
-                                        <th>PREÇO MAX ANP</th>
-                                        <th>DIFERENÇA MAX UNIT.</th>
-                                        <th>DIFERENÇA MAX TOTAL</th>
-                                        <th>VALOR MAX ATUALIZADO</th>
-                                        <th>CUPONS FISCAIS VINCULADOS</th>
-                                        <th>MES/ANO PROCURADO NA ANP</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                        <div id="tabela-cupom" class="table-responsive">
-                            <table id="data-table-cupom" class="table table-striped">
-                                <thead>
-                                    @* Tabela a ser exibida quando o usuário selecionar Cupons Fiscais na combobox *@
-                                    <tr>
-                                        <th>NUM. NF REFERENTE</th>
-                                        <th>POSTO FORNECEDOR</th>
-                                        <th>DATA</th>
-                                        <th>HORÁRIO</th>
-                                        <th>COO</th>
-                                        <th> COMBUSTÍVEL</th>
-                                        <th> QUANT.</th>
-                                        <th>PREÇO UNIT.</th>
-                                        <th>VALOR TOTAL</th>
-                                        <th> CLIENTE</th>
-                                        <th>VEÍCULO</th>
-                                        <th>PLACA VEÍCULO</th>
-                                        <th>HODÔMETRO</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
+    @foreach (var tabela in Model.TabelasUsuario)
+    {
 
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>NUM. NF REFERENTE</th>
-                                        <th>POSTO FORNECEDOR</th>
-                                        <th>DATA</th>
-                                        <th>HORÁRIO</th>
-                                        <th>COO</th>
-                                        <th> COMBUSTÍVEL</th>
-                                        <th> QUANT.</th>
-                                        <th>PREÇO UNIT.</th>
-                                        <th>VALOR TOTAL</th>
-                                        <th> CLIENTE</th>
-                                        <th>VEÍCULO</th>
-                                        <th>PLACA VEÍCULO</th>
-                                        <th>HODÔMETRO</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                        <div id="tabela-outros" class="table-responsive">
-                            <table id="data-table-outros" class="table table-striped">
-                                <thead>
-                                    @* Tabela a ser exibida quando o usuário selecionar Outras informações na combobox *@
-                                    <tr>
-                                        <th>NUM. NF REFERENTE</th>
-                                        <th>COOs VINCULADOS</th>
-                                        <th>DEPARTAMENTO</th>
-                                        <th>VEÍCULO</th>
-                                        <th>PLACA VEÍCULO</th>
-                                        <th>COMBUSTÍVEL</th>
-                                        <th>VALOR TOTAL CUPOM FISCAL</th>
-                                        <th>DIFERENÇA  MED TOTAL NF</th>
-                                        <th>VALOR MED ATUALIZADO NF</th>
-                                        <th>DIFERENÇA MAX TOTAL NF</th>
-                                        <th>VALOR MAX ATUALIZADO NF</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
+        @* A partir dessa linha deve-se escolher qual das tabelas abaixo serão exibidas a partir da combobox anterior. Se selecionado NFs x ANP, deve-se exibir o conteúdo dessa aba e assim sucessivamente *@
+        <div id="@tabela.SGDP" class="data-table-usuario data-table-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="data-table-list">
+                            <div id="tabela-nf-anp" class="table-responsive">
+                                @*TODO: estilizar*@
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <p><span class="font-weight-bold">SGDP: </span>@tabela.SGDP</p>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <p><span class="font-weight-bold">Municipio: </span>@(tabela.Municipio?.Nome ?? "-")</p>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <p><span class="font-weight-bold">Municipio Ref. ANP: </span>@(tabela.MunicipioReferente?.Nome ?? "-")</p>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <p><span class="font-weight-bold">Analista Responsável: </span>@tabela.AnalistaResponsavel</p>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <p><span class="font-weight-bold">Data de geração: </span>@tabela.DataGeracao.ToShortDateString()</p>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <p><span class="font-weight-bold">Ano(s) referente(s): </span>@tabela.AnoReferente</p>
+                                </div>
+                                <table id="data-table-nf-anp" class="table table-striped">
+                                    <thead>
+                                        @* Tabela a ser exibida quando o usuário selecionar NFs x ANP na combobox *@
+                                        <tr>
+                                            <th>DATA</th>
+                                            <th>NOTA FISCAL</th>
+                                            <th>COMBUSTÍVEL</th>
+                                            <th>QDE.</th>
+                                            <th>VALOR UNIT.</th>
+                                            <th>VALOR TOTAL</th>
+                                            <th>NUM. FOLHA</th>
+                                            <th>FAM MES/ANO</th>
+                                            @*Nessa linha o mês ano deve ser substituído de acordo com o dado da tabela de excel gerada*@
+                                            <th>PREÇO MED. ANP</th>
+                                            <th>DIFERENÇA MED. UNIT.</th>
+                                            <th>DIFERENÇA MED TOTAL</th>
+                                            <th>VALOR MED ATUALIZADO</th>
+                                            <th>PREÇO MAX ANP</th>
+                                            <th>DIFERENÇA MAX UNIT.</th>
+                                            <th>DIFERENÇA MAX TOTAL</th>
+                                            <th>VALOR MAX ATUALIZADO</th>
+                                            <th>CUPONS FISCAIS VINCULADOS</th>
+                                            <th>MES/ANO PROCURADO NA ANP</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>6/18/2015</td>
+                                            <td>000019402</td>
+                                            <td>Óleo Diesel S10</td>
+                                            <td>1526,329</td>
+                                            <td>2,975 </td>
+                                            <td>4.540,83 </td>
+                                            <td>343</td>
+                                            <td>1,2103195</td>
+                                            <td>2,977 </td>
+                                            <td>- 0,00 </td>
+                                            <td>- 3,05 </td>
+                                            <td>- 3,69 </td>
+                                            <td>  2,977 </td>
+                                            <td>- 0,00 </td>
+                                            <td>- 3,05 </td>
+                                            <td>- 3,69 </td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6/18/2015</td>
+                                            <td>000019402</td>
+                                            <td>Óleo Diesel S10</td>
+                                            <td>1526,329</td>
+                                            <td>2,975 </td>
+                                            <td>4.540,83 </td>
+                                            <td>343</td>
+                                            <td>1,2103195</td>
+                                            <td>2,977 </td>
+                                            <td>- 0,00 </td>
+                                            <td>- 3,05 </td>
+                                            <td>- 3,69 </td>
+                                            <td>  2,977 </td>
+                                            <td>- 0,00 </td>
+                                            <td>- 3,05 </td>
+                                            <td>- 3,69 </td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6/18/2015</td>
+                                            <td>000019402</td>
+                                            <td>Óleo Diesel S10</td>
+                                            <td>1526,329</td>
+                                            <td>2,975 </td>
+                                            <td>4.540,83 </td>
+                                            <td>343</td>
+                                            <td>1,2103195</td>
+                                            <td>2,977 </td>
+                                            <td>- 0,00 </td>
+                                            <td>- 3,05 </td>
+                                            <td>- 3,69 </td>
+                                            <td>  2,977 </td>
+                                            <td>- 0,00 </td>
+                                            <td>- 3,05 </td>
+                                            <td>- 3,69 </td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6/18/2015</td>
+                                            <td>000019402</td>
+                                            <td>Óleo Diesel S10</td>
+                                            <td>1526,329</td>
+                                            <td>2,975 </td>
+                                            <td>4.540,83 </td>
+                                            <td>343</td>
+                                            <td>1,2103195</td>
+                                            <td>2,977 </td>
+                                            <td>- 0,00 </td>
+                                            <td>- 3,05 </td>
+                                            <td>- 3,69 </td>
+                                            <td>  2,977 </td>
+                                            <td>- 0,00 </td>
+                                            <td>- 3,05 </td>
+                                            <td>- 3,69 </td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6/18/2015</td>
+                                            <td>000019402</td>
+                                            <td>Óleo Diesel S10</td>
+                                            <td>1526,329</td>
+                                            <td>2,975 </td>
+                                            <td>4.540,83 </td>
+                                            <td>343</td>
+                                            <td>1,2103195</td>
+                                            <td>2,977 </td>
+                                            <td>- 0,00 </td>
+                                            <td>- 3,05 </td>
+                                            <td>- 3,69 </td>
+                                            <td>  2,977 </td>
+                                            <td>- 0,00 </td>
+                                            <td>- 3,05 </td>
+                                            <td>- 3,69 </td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6/18/2015</td>
+                                            <td>000019402</td>
+                                            <td>Óleo Diesel S10</td>
+                                            <td>1526,329</td>
+                                            <td>2,975 </td>
+                                            <td>4.540,83 </td>
+                                            <td>343</td>
+                                            <td>1,2103195</td>
+                                            <td>2,977 </td>
+                                            <td>- 0,00 </td>
+                                            <td>- 3,05 </td>
+                                            <td>- 3,69 </td>
+                                            <td>  2,977 </td>
+                                            <td>- 0,00 </td>
+                                            <td>- 3,05 </td>
+                                            <td>- 3,69 </td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                        </tr>
 
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>NUM. NF REFERENTE</th>
-                                        <th>COOs VINCULADOS</th>
-                                        <th>DEPARTAMENTO</th>
-                                        <th>VEÍCULO</th>
-                                        <th>PLACA VEÍCULO</th>
-                                        <th>COMBUSTÍVEL</th>
-                                        <th>VALOR TOTAL CUPOM FISCAL</th>
-                                        <th>DIFERENÇA  MED TOTAL NF</th>
-                                        <th>VALOR MED ATUALIZADO NF</th>
-                                        <th>DIFERENÇA MAX TOTAL NF</th>
-                                        <th>VALOR MAX ATUALIZADO NF</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>DATA</th>
+                                            <th>NOTA FISCAL</th>
+                                            <th>COMBUSTÍVEL</th>
+                                            <th>QDE.</th>
+                                            <th>VALOR UNIT.</th>
+                                            <th>VALOR TOTAL</th>
+                                            <th>NUM. FOLHA</th>
+                                            <th>FAM MES/ANO</th>
+                                            @*Nessa linha o mês ano deve ser substituído de acordo com o dado da tabela de excel gerada*@
+                                            <th>PREÇO MED. ANP</th>
+                                            <th>DIFERENÇA MED. UNIT.</th>
+                                            <th>DIFERENÇA MED TOTAL</th>
+                                            <th>VALOR MED ATUALIZADO</th>
+                                            <th>PREÇO MAX ANP</th>
+                                            <th>DIFERENÇA MAX UNIT.</th>
+                                            <th>DIFERENÇA MAX TOTAL</th>
+                                            <th>VALOR MAX ATUALIZADO</th>
+                                            <th>CUPONS FISCAIS VINCULADOS</th>
+                                            <th>MES/ANO PROCURADO NA ANP</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div id="tabela-cupom" class="table-responsive">
+                                <table id="data-table-cupom" class="table table-striped">
+                                    <thead>
+                                        @* Tabela a ser exibida quando o usuário selecionar Cupons Fiscais na combobox *@
+                                        <tr>
+                                            <th>NUM. NF REFERENTE</th>
+                                            <th>POSTO FORNECEDOR</th>
+                                            <th>DATA</th>
+                                            <th>HORÁRIO</th>
+                                            <th>COO</th>
+                                            <th> COMBUSTÍVEL</th>
+                                            <th> QUANT.</th>
+                                            <th>PREÇO UNIT.</th>
+                                            <th>VALOR TOTAL</th>
+                                            <th> CLIENTE</th>
+                                            <th>VEÍCULO</th>
+                                            <th>PLACA VEÍCULO</th>
+                                            <th>HODÔMETRO</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                        </tr>
+                                        <tr>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                        </tr>
+                                        <tr>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                        </tr>
+                                        <tr>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                        </tr>
+                                        <tr>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                        </tr>
+                                        <tr>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                        </tr>
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>NUM. NF REFERENTE</th>
+                                            <th>POSTO FORNECEDOR</th>
+                                            <th>DATA</th>
+                                            <th>HORÁRIO</th>
+                                            <th>COO</th>
+                                            <th> COMBUSTÍVEL</th>
+                                            <th> QUANT.</th>
+                                            <th>PREÇO UNIT.</th>
+                                            <th>VALOR TOTAL</th>
+                                            <th> CLIENTE</th>
+                                            <th>VEÍCULO</th>
+                                            <th>PLACA VEÍCULO</th>
+                                            <th>HODÔMETRO</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div id="tabela-outros" class="table-responsive">
+                                <table id="data-table-outros" class="table table-striped">
+                                    <thead>
+                                        @* Tabela a ser exibida quando o usuário selecionar Outras informações na combobox *@
+                                        <tr>
+                                            <th>NUM. NF REFERENTE</th>
+                                            <th>COOs VINCULADOS</th>
+                                            <th>DEPARTAMENTO</th>
+                                            <th>VEÍCULO</th>
+                                            <th>PLACA VEÍCULO</th>
+                                            <th>COMBUSTÍVEL</th>
+                                            <th>VALOR TOTAL CUPOM FISCAL</th>
+                                            <th>DIFERENÇA  MED TOTAL NF</th>
+                                            <th>VALOR MED ATUALIZADO NF</th>
+                                            <th>DIFERENÇA MAX TOTAL NF</th>
+                                            <th>VALOR MAX ATUALIZADO NF</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                        </tr>
+                                        <tr>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                        </tr>
+                                        <tr>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                        </tr>
+                                        <tr>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                        </tr>
+                                        <tr>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                        </tr>
+                                        <tr>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                            <td>teste</td>
+                                        </tr>
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>NUM. NF REFERENTE</th>
+                                            <th>COOs VINCULADOS</th>
+                                            <th>DEPARTAMENTO</th>
+                                            <th>VEÍCULO</th>
+                                            <th>PLACA VEÍCULO</th>
+                                            <th>COMBUSTÍVEL</th>
+                                            <th>VALOR TOTAL CUPOM FISCAL</th>
+                                            <th>DIFERENÇA  MED TOTAL NF</th>
+                                            <th>VALOR MED ATUALIZADO NF</th>
+                                            <th>DIFERENÇA MAX TOTAL NF</th>
+                                            <th>VALOR MAX ATUALIZADO NF</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
+
     <!-- Data Table area End-->
-    <!-- Start Footer area-->
-    <div class="footer-copyright-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="footer-copy-right">
-                        <p>
-                            Copyright © 2018
-                            . All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     @section JavascriptPagina {
-        
+
         <script type="text/javascript" src="~/Scripts/TabelaUsuario/listarTabela.js"></script>
         <!-- End Footer area-->
         <!-- wow JS

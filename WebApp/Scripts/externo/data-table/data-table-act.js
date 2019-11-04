@@ -2,9 +2,9 @@
  "use strict";
 	
 	$(document).ready(function() {
-		 $('#data-table-nf-anp').DataTable();
-		 $('#data-table-cupom').DataTable();
-		 $('#data-table-outros').DataTable();
+        $('#data-table-nf-anp').DataTable({ lengthChange: false });
+        $('#data-table-cupom').DataTable({ lengthChange: false });
+        $('#data-table-outros').DataTable({ lengthChange: false });
 	});
  
 })(jQuery); 
