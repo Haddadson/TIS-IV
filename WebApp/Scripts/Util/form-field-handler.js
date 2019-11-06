@@ -25,7 +25,7 @@ const validateNumericRequiredFormField = (fieldQuerySelector, isInteger = false,
         if (isInteger)
             value = parseInt($(fieldQuerySelector).val());
         else
-            value = parseFloat($(fieldQuerySelector).val()).toFixed(3).replace(".", ",");
+            value = parseFloat($(fieldQuerySelector).val().replace(',', '.')).toFixed(3).replace(".", ",");
 
         if (Number.isNaN(parseFloat(value))) { 
             setInvalidField(fieldQuerySelector);

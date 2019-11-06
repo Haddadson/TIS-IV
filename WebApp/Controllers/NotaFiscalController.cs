@@ -23,21 +23,24 @@ namespace WebApp.Controllers
             int SGDP = NotaFiscal.SGDP;
             double ValorTotal = NotaFiscal.ValorTotal;
             string ChaveAcesso = NotaFiscal.ChaveAcesso;
-            DateTime DataEmissao = NotaFiscal.DataEmissao;
+            DateTime DataEmissao = new DateTime(
+                Int32.Parse(NotaFiscal.DataEmissao.Substring(0, 4)),
+                Int32.Parse(NotaFiscal.DataEmissao.Substring(5, 2)),
+                Int32.Parse(NotaFiscal.DataEmissao.Substring(8, 2)));
             double PrecoMaximo = NotaFiscal.PrecoMaximo;
-            double PrecoMinimo = NotaFiscal.PrecoMinimo;
             double PrecoMedio = NotaFiscal.PrecoMedio;
-            DateTime DataConsultaANP = NotaFiscal.DataConsultaANP;
+            DateTime DataConsultaANP = new DateTime(
+                Int32.Parse(NotaFiscal.DataConsultaANP.Substring(6, 4)),
+                Int32.Parse(NotaFiscal.DataConsultaANP.Substring(3, 2)),
+                Int32.Parse(NotaFiscal.DataConsultaANP.Substring(0, 2)));
             string Veiculo = NotaFiscal.Veiculo;
             string PlacaVeiculo = NotaFiscal.PlacaVeiculo;
-            string Posto = NotaFiscal.Posto;
-            int Combustivel = NotaFiscal.Combustivel;
+            string Combustivel = NotaFiscal.Combustivel;
             int Quantidade = NotaFiscal.Quantidade;
             double PrecoUnitario = NotaFiscal.PrecoUnitario;
             int NumeroFolha = NotaFiscal.NumeroFolha;
-            string Cliente = NotaFiscal.Cliente;
             int Departamento = NotaFiscal.Departamento;
-            string Hodometro = NotaFiscal.Hodometro;
+            List<string> CuponsSelecionados =  NotaFiscal.CuponsSelecionados;
 
             NotaFiscalService.addNotaFiscal(
                 NrNotaFiscal,
@@ -46,24 +49,21 @@ namespace WebApp.Controllers
                 ChaveAcesso,
                 DataEmissao,
                 PrecoMaximo,
-                PrecoMinimo,
                 PrecoMedio,
                 DataConsultaANP,
                 Veiculo,
                 PlacaVeiculo,
-                Posto,
                 Combustivel,
                 Quantidade,
                 PrecoUnitario,
                 NumeroFolha,
-                Cliente,
                 Departamento,
-                Hodometro
-                );
+                CuponsSelecionados
+            );
 
             return Json(new
             {
-                Mensagem = "Sucesso ao cadastrar tabela",
+                Mensagem = "Sucesso ao cadastrar nota fiscal!",
                 DataGeracao = DateTime.Now
             });
         }

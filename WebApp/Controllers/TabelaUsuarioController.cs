@@ -54,7 +54,6 @@ namespace WebApp.Controllers
                     StackTraceExcecao = ex.StackTrace
                 });
             }
-
         }
 
         public JsonResult ListarTabelas()
