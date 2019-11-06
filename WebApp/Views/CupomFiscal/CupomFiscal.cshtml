@@ -1,0 +1,215 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Cadastrar Cupom Fiscal";
+}
+<div class="mg-t-15">
+    <div class="form-example-wrap">
+        <div class="col-md-12">
+            <h3>Cadastrar Nota Fiscal</h3>
+        </div>
+        <div class="col-md-12">
+            <div class="form-example-int form-horizental">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm required">SDGP</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div>
+                                <input type="text" class="form-control" id="sgdp">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-example-int form-horizental mg-t-15">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm">COO</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="nk-int-st">
+                                <input type="text" id="coo" class="form-control borderless-field" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-example-int form-horizental mg-t-15">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm">Número NF</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="nk-int-st">
+                                <input type="text" id="numero_nf" class="form-control borderless-field" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-example-int form-horizental mg-t-15">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm">Posto Fornecedor</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="nk-int-st">
+                                <input id="posto_fornecedor" class="form-control borderless-field" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-example-int form-horizental mg-t-15">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm required">Data</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="nk-int-st">
+                                <input type="datetime-local" class="form-control borderless-field" id="data_cupom">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-example-int form-horizental mg-t-15">
+                <div class="form-group ">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm">Combustível</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div>
+                                <select class="form-control" id="combustivel">
+                                    <option value="ETA">Etanol Hidratado</option>
+                                    <option value="GAS">Gasolina Comum</option>
+                                    <option value="DIE">Óleo Diesel</option>
+                                    <option value="S10">Óleo Diesel S10</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-example-int form-horizental mg-t-15">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm required">Quantidade</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="nk-int-st">
+                                <input type="number" id="quantidade" class="form-control borderless-field">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-example-int form-horizental mg-t-15">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm required">Preço Unitário</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="nk-int-st">
+                                <input class="form-control borderless-field" id="preco_unitario" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-example-int form-horizental mg-t-15">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm required">Valor Total</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="nk-int-st">
+                                <input class="form-control borderless-field" id="valor_total" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-example-int form-horizental mg-t-15">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm">Cliente</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="nk-int-st">
+                                <input type="text" id="cliente" class="form-control borderless-field" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-example-int form-horizental mg-t-15">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm">Veiculo</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="nk-int-st">
+                                <input type="text" id="veiculo" class="form-control borderless-field" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-example-int form-horizental mg-t-15">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm">Placa Veículo</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="nk-int-st">
+                                <input type="text" id="placa_veiculo" class="form-control borderless-field" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-example-int form-horizental mg-t-15">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm">Hodômetro</label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                            <div class="nk-int-st">
+                                <input type="text" id="hodometro" class="form-control borderless-field" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label class="hrzn-fm">* campos obrigatórios</label>
+            </div>
+            <div class="button-icon-btn">
+                <button class="btn btn-default btn-icon-notika" id="cadastrar-cupom-fiscal">
+                    Enviar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section JavascriptPagina {
+    <script type="text/javascript">
+        var urlCadastrarCupomFiscal= '@Url.Action("Cadastrar", "CupomFiscal")';
+    </script>
+    <script type="text/javascript" src="~/Scripts/CupomFiscal/CupomFiscal.js"></script>
+}
