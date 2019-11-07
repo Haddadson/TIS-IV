@@ -278,3 +278,11 @@ textarea {
         page-break-after: avoid;
     }
 }
+
+.font-weight-bold{
+    font-weight: bold;
+}
+
+.selects-listar-tabelas {
+    margin: 30px;
+}
