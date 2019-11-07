@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {    
+﻿$(document).ready(function () {
     VMasker(document.querySelector("#data-geracao")).maskPattern("99/99/9999");
 
     validateNumericRequiredFormField("#sgdp");
@@ -18,7 +18,7 @@
         ValidarNotas.chamadaAjax({
             url: urlListarMunicipios,
             sucesso: function (response) {
-                const municipio = response.municipios.filter((m) => { m == municipioSelecionado });
+                const municipio = response.municipios.filter((m) => { return m == municipioSelecionado });
 
                 $('#municipios-anp').html = '';
                 $('#municipios-anp').append(response.municipios.map(m => {
@@ -29,6 +29,7 @@
                     alert("O município selecionado não possui dados na tabela da ANP para o período selecionado. Favor escolher um município.");
                     $("#municipios-anp-div").removeClass("display-none");
                 } else {
+                    $("#municipios-anp-div").hide();
                     $('#municipios-anp').val(municipio[0]);
                 }
             },
@@ -55,8 +56,23 @@
             data: tabelaUsuarioData,
             sucesso: function () {
                 console.log("sucesso");
+                alert("Cadastrado com sucesso!");
+                limparCampos();
             },
             deveEsconderCarregando: true
         });
     });
+
+    function limparCampos() {
+        $("#sgdp").val('');
+        $("#municipios").val('');
+        $("#municipios-anp").val('');
+        $("#analista-resp").val('');
+        $("#ano-referente").val('');
+        $("#data-geracao").val('');
+        $("#titulo1").val('');
+        $("#titulo2").val('');
+        $("#titulo3").val('');
+    }
+
 });

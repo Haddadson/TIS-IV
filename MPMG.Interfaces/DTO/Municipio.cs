@@ -1,9 +1,20 @@
 ﻿
 namespace MPMG.Interfaces.DTO
 {
-    interface Municipio
+    public class Municipio
     {
-        int Codigo { get; set; }
-        string Nome { get; set; }
+        public Municipio()
+        {
+
+        }
+
+        public Municipio(int codigo, string nome)
+        {
+            Codigo = codigo;
+            Nome = nome;
+        }
+
+        public int Codigo { get; set; }
+        public string Nome { get; set; }
     }
 }

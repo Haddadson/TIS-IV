@@ -75,7 +75,9 @@ namespace MPMG.Services
                 SGDP = entidade.SGDP,
                 Titulo1 = entidade.Titulo1,
                 Titulo2 = entidade.Titulo2,
-                Titulo3 = entidade.Titulo3
+                Titulo3 = entidade.Titulo3,
+                Municipio = new Interfaces.DTO.Municipio(entidade.IdMunicipio, entidade.NomeMunicipio),  
+                MunicipioReferente = new Interfaces.DTO.Municipio(entidade.IdMunicipioReferente, entidade.NomeMunicipioReferente),  
             };
         }
 

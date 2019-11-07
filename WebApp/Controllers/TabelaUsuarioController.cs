@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using MPMG.Interfaces.DTO;
 using MPMG.Services;
 using Newtonsoft.Json;
 using WebApp.Models;
@@ -66,6 +68,20 @@ namespace WebApp.Controllers
             {
                 tabelas
             });
+        }
+        public ActionResult Index()
+        {
+            List<TabelaUsuarioDto> tabelas = new List<TabelaUsuarioDto>();
+
+            try
+            {
+               tabelas = TabelaUsuarioService.ListarTabelas();
+
+            }catch(Exception ex)
+            {
+            }
+
+            return View("ListarTabelas", new ListarTabelasModel { TabelasUsuario = tabelas } );
         }
     }
 }

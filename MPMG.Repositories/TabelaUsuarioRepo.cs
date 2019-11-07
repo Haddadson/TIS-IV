@@ -19,15 +19,21 @@ namespace MPMG.Repositories
         private const string SQL_LISTAR_TABELAS = @"
             SELECT  
                 sgdp AS SGDP, 
-                id_municipio AS IdMunicipio, 
+                A.id_municipio AS IdMunicipio,
+                B.nome_municipio AS NomeMunicipio,
                 id_municipio_referente AS IdMunicipioReferente, 
+                C.nome_municipio AS NomeMunicipioReferente,
                 ano_referente AS AnoReferente, 
                 dt_geracao AS DataGeracao, 
                 titulo_aba_1 AS Titulo1, 
                 titulo_aba_2 AS Titulo2, 
                 titulo_aba_3 AS Titulo3, 
                 analista_resp AS AnalistaResponsavel
-            FROM `TabelaUsuario`";
+            FROM `TabelaUsuario` A
+            LEFT JOIN `municipio` B
+            on A.id_municipio = B.id_municipio
+            LEFT JOIN `municipio` C
+            on A.id_municipio_referente = C.id_municipio";
 
         public bool CadastrarTabela(
             int SGDP, int AnoReferente,
