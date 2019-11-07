@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    $("#municipios-anp-div").hide();
     VMasker(document.querySelector("#data-geracao")).maskPattern("99/99/9999");
 
     validateNumericRequiredFormField("#sgdp");
@@ -18,7 +19,7 @@
         ValidarNotas.chamadaAjax({
             url: urlListarMunicipios,
             sucesso: function (response) {
-                const municipio = response.municipios.filter((m) => { return m == municipioSelecionado });
+                const municipio = response.municipios.filter((m) => { return m == municipioSelecionado; });
 
                 $('#municipios-anp').html = '';
                 $('#municipios-anp').append(response.municipios.map(m => {
@@ -27,7 +28,7 @@
 
                 if (!(municipio.length === 1)) {
                     alert("O município selecionado não possui dados na tabela da ANP para o período selecionado. Favor escolher um município.");
-                    $("#municipios-anp-div").removeClass("display-none");
+                    $("#municipios-anp-div").show();
                 } else {
                     $("#municipios-anp-div").hide();
                     $('#municipios-anp').val(municipio[0]);
