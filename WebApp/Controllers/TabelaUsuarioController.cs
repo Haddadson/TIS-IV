@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using MPMG.Interfaces.DTO;
 using MPMG.Services;
+using Newtonsoft.Json;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -8,6 +11,7 @@ namespace WebApp.Controllers
     public class TabelaUsuarioController : Controller
     {
         private readonly TabelaUsuarioService TabelaUsuarioService;
+
         public TabelaUsuarioController()
         {
             TabelaUsuarioService = new TabelaUsuarioService();
@@ -54,6 +58,30 @@ namespace WebApp.Controllers
                 });
             }
 
+        }
+
+        public JsonResult ListarTabelas()
+        {
+            var tabelas = TabelaUsuarioService.ListarTabelas();
+
+            return Json(new
+            {
+                tabelas
+            });
+        }
+        public ActionResult Index()
+        {
+            List<TabelaUsuarioDto> tabelas = new List<TabelaUsuarioDto>();
+
+            try
+            {
+               tabelas = TabelaUsuarioService.ListarTabelas();
+
+            }catch(Exception ex)
+            {
+            }
+
+            return View("ListarTabelas", new ListarTabelasModel { TabelasUsuario = tabelas } );
         }
     }
 }

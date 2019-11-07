@@ -2,7 +2,7 @@
 
 namespace MPMG.Interfaces.DTO
 {
-    public class TabelaUsuario
+    public class TabelaUsuarioDto
     {
         public int SGDP { get; set; }
         public DateTime DataGeracao { get; set; }
@@ -11,6 +11,7 @@ namespace MPMG.Interfaces.DTO
         public string Titulo2 { get; set; }
         public string Titulo3 { get; set; }
         public string AnalistaResponsavel { get; set; }
-
+        public Municipio Municipio { get; set; }
+        public Municipio MunicipioReferente { get; set; }
     }
 }

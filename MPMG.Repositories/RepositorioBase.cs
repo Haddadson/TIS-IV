@@ -39,17 +39,17 @@ namespace MPMG.Repositories
 
         #endregion
 
-        public List<TObject> Listar(string sql, object parametros)
+        protected List<TObject> Listar(string sql, object parametros)
         {
             return TrimStrings(this.Query<TObject>(sql, parametros)).ToList();
         }
 
-        public TObject Obter(string sql, object parametros)
+        protected TObject Obter(string sql, object parametros)
         {
             return TrimStrings(this.Query<TObject>(sql, parametros)).FirstOrDefault();
         }
 
-        public IEnumerable<T> Query<T>(string sql, object parametros)
+        protected IEnumerable<T> Query<T>(string sql, object parametros)
         {
             using (var cnn = new MySqlConnection(connectionString))
             {
@@ -58,7 +58,7 @@ namespace MPMG.Repositories
         }
 
 
-        public int Execute(string sql, object parametros)
+        protected int Execute(string sql, object parametros)
         {
             using (var cnn = new MySqlConnection(connectionString))
             {

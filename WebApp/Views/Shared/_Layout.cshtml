@@ -53,9 +53,9 @@
     <link rel="stylesheet" href="~/Content/responsive.css">
 
     <link rel="stylesheet" href="~/Content/Site.css">
-    <!-- modernizr JS
-        ============================================ -->
-    <script src="~/Scripts/vendor/modernizr-2.8.3.min.js"></script>
+    
+    @RenderSection("styles", required: false)
+
 </head>
 
 <body>
@@ -75,7 +75,10 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Nota Fiscal", "NotaFiscal", "Home")</li>
+                    <li>@Html.ActionLink("Nota Fiscal", "Index", "NotaFiscal")</li>
+                    <li>@Html.ActionLink("Listar Tabelas", "Index", "TabelaUsuario")</li>
+                    <li>@Html.ActionLink("Escolher Tabela", "Index", "EscolherTabela")</li>
+                    <li>@Html.ActionLink("Cupom Fiscal", "Index", "CupomFiscal")</li>
                 </ul>
             </div>
         </div>
@@ -85,72 +88,11 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/ScriptsValidacaoNotas")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     @RenderSection("JavaScriptPagina", required: false)
-    <!-- jquery
-    ============================================ -->
-    <script defer src="~/Scripts/vendor/jquery-1.12.4.min.js"></script>
-    <!-- bootstrap JS
-        ============================================ -->
-    <script defer src="~/Scripts/bootstrap.min.js"></script>
-    <!-- wow JS
-        ============================================ -->
-    <script defer src="~/Scripts/wow.min.js"></script>
-    <!-- price-slider JS
-        ============================================ -->
-    <script defer src="~/Scripts/jquery-price-slider.js"></script>
-    <!-- owl.carousel JS
-        ============================================ -->
-    <script defer src="~/Scripts/owl.carousel.min.js"></script>
-    <!-- scrollUp JS
-        ============================================ -->
-    <script defer src="~/Scripts/jquery.scrollUp.min.js"></script>
-    <!-- meanmenu JS
-        ============================================ -->
-    <script defer src="~/Scripts/meanmenu/jquery.meanmenu.js"></script>
-    <!-- counterup JS
-        ============================================ -->
-    <script defer src="~/Scripts/counterup/jquery.counterup.min.js"></script>
-    <script defer src="~/Scripts/counterup/waypoints.min.js"></script>
-    <script defer src="~/Scripts/counterup/counterup-active.js"></script>
-    <!-- mCustomScrollbar JS
-        ============================================ -->
-    <script defer src="~/Scripts/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-    <!-- jvectormap JS
-        ============================================ -->
-    <script defer src="~/Scripts/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
-    <script defer src="~/Scripts/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-    <script defer src="~/Scripts/jvectormap/jvectormap-active.js"></script>
-    <!-- sparkline JS
-        ============================================ -->
-    <script defer src="~/Scripts/sparkline/jquery.sparkline.min.js"></script>
-    <script defer src="~/Scripts/sparkline/sparkline-active.js"></script>
-    <!-- sparkline JS
-        ============================================ -->
-    <script defer src="~/Scripts/flot/jquery.flot.js"></script>
-    <script defer src="~/Scripts/flot/jquery.flot.resize.js"></script>
-    <script defer src="~/Scripts/flot/curvedLines.js"></script>
-    <script defer src="~/Scripts/flot/flot-active.js"></script>
-    <!-- knob JS
-        ============================================ -->
-    <script defer src="~/Scripts/knob/jquery.knob.js"></script>
-    <script defer src="~/Scripts/knob/jquery.appear.js"></script>
-    <script defer src="~/Scripts/knob/knob-active.js"></script>
-    <!--  wave JS
-        ============================================ -->
-    <script defer src="~/Scripts/wave/waves.min.js"></script>
-    <script defer src="~/Scripts/wave/wave-active.js"></script>
-    <!--  todo JS
-        ============================================ -->
-    <script defer src="~/Scripts/todo/jquery.todo.js"></script>
-    <!-- plugins JS
-        ============================================ -->
-    <script defer src="~/Scripts/plugins.js"></script>
-    <!-- main JS
-        ============================================ -->
-    <script defer src="~/Scripts/main.js"></script>
     <script type="text/javascript" defer src="~/Scripts/moment.min.js"></script>
     <script type="text/javascript" defer src="~/Scripts/Util/vanilla-masker.min.js"></script>
     <script type="text/javascript" defer src="~/Scripts/Util/form-field-handler.js"></script>

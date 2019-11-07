@@ -44,21 +44,7 @@
                         </div>
                         <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
                             <div>
-                                <input type="text" id="data-geracao" class="form-control input-sm" name="data-geracao">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-example-int form-horizental mg-t-15">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                            <label class="hrzn-fm">Ano(s) referentes</label>
-                        </div>
-                        <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
-                            <div class="nk-int-st">
-                                <input type="text" id="ano-referente" class="form-control input-sm">
+                                <input type="text" id="data-geracao" class="form-control input-sm" name="data-geracao" readonly>
                             </div>
                         </div>
                     </div>
@@ -79,11 +65,30 @@
                     </div>
                 </div>
             </div>
+            <div class="form-example-int form-horizental mg-t-15">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                            <label class="hrzn-fm">Ano(s) referentes</label>
+                        </div>
+                        <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                            <select class="form-control" id="ano-referente">
+                                <option>2013</option>
+                                <option>2014</option>
+                                <option>2015</option>
+                                <option>2016</option>
+                                <option>2017</option>
+                                <option>2018</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="form-example-int form-horizental mg-t-15 display-none" id="municipios-anp-div">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                            <label class="hrzn-fm">Municipio(s) da ANP:</label>
+                            <label class="hrzn-fm">Municipio(s) Referência:</label>
                         </div>
                         <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
                             <div class="nk-int-st">
@@ -150,6 +155,7 @@
     <script type="text/javascript">
         var urlListarMunicipios         = '@Url.Action("ListarMunicipiosAnp", "Home")',
             urlCadastrarTabelaUsuario   = '@Url.Action("CadastrarTabela", "TabelaUsuario")';
+            urlListarTabelas   = '@Url.Action("ListarTabelas", "TabelaUsuario")';
     </script>
     <script type="text/javascript" src="~/Scripts/ObterExcel/obterExcel.js"></script>
     <script type="text/javascript" src="~/Scripts/Municipios/municipio.js"></script>
