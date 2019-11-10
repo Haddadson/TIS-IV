@@ -23,8 +23,8 @@ namespace WebApp.Controllers
                 TabelaUsuarioService.CadastrarTabela(
                 TabelaUsuario.SGDP,
                 TabelaUsuario.AnoReferente,
-                TabelaUsuario.IdMunicipioReferente,
-                TabelaUsuario.IdMunicipio,
+                TabelaUsuario.NomeMunicipioReferente,
+                TabelaUsuario.NomeMunicipio,
                 TabelaUsuario.DataGeracao,
                 TabelaUsuario.Titulo1,
                 TabelaUsuario.Titulo2,

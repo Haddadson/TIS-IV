@@ -11,18 +11,21 @@ namespace MPMG.Services
     public class TabelaUsuarioService
     {
         private readonly TabelaUsuarioRepo TabelaRepo;
-        private readonly MunicipioRepositorio MunicipiosRepo;
+        private readonly MunicipioRepositorio municipioRepositorio;
+        private readonly MunicipioReferenteRepositorio municipioReferenteRepositorio;
+
         public TabelaUsuarioService()
         {
             TabelaRepo = new TabelaUsuarioRepo();
-            MunicipiosRepo = new MunicipioRepositorio();
+            municipioRepositorio = new MunicipioRepositorio();
+            municipioReferenteRepositorio = new MunicipioReferenteRepositorio();
         }
 
         public void CadastrarTabela(
             int SGDP,
             int AnoReferente,
-            int IdMunicipioReferente,
-            String IdMunicipio,
+            string NomeMunicipioReferente,
+            string NomeMunicipio,
             DateTime DataGeracao,
             string Titulo1,
             string Titulo2,
@@ -35,19 +38,47 @@ namespace MPMG.Services
                 throw new Exception("Valor inválido para o SGDP!");
             }
 
-            if (IdMunicipioReferente <= 0)
+            var municipio = municipioRepositorio.ObterMunicipio(NomeMunicipio);
+            MunicipioReferente entidadeMunicipioRef = null;
+
+            if (municipio == null)
             {
-                throw new Exception("Não foi informado o código do município referente!");
+                if (string.IsNullOrWhiteSpace(NomeMunicipioReferente))
+                    throw new Exception("O município referente não foi informado");
+
+                var municipioInserido = municipioRepositorio.InserirMunicipio(NomeMunicipio);
+                var municipioReferente = municipioRepositorio.ObterMunicipio(NomeMunicipioReferente);
+
+                if(municipioInserido == null || municipioReferente == null)
+                    throw new Exception("Ocorreu um erro interno");
+
+                entidadeMunicipioRef = municipioReferenteRepositorio.InserirMunicipioReferente(municipioInserido.Codigo, 
+                    municipioReferente.Codigo, 
+                    AnoReferente);
             }
 
-            int codigoMunicipio = MunicipiosRepo.BuscarOuCriarMunicipio(IdMunicipio);
+            int idMunicipio = 0;
+            int idMunicipioReferente = 0;
 
+            if(municipio == null && entidadeMunicipioRef == null)
+                throw new Exception("Ocorreu um erro interno");
+
+            if (municipio != null)
+            {
+                idMunicipio = municipio.Codigo;
+                idMunicipioReferente = municipio.Codigo;
+            }
+            else
+            {
+                idMunicipio = entidadeMunicipioRef.Codigo;
+                idMunicipioReferente = entidadeMunicipioRef.CodigoMunicipioReferente;
+            }
 
             TabelaRepo.CadastrarTabela(
                 SGDP,
                 AnoReferente,
-                IdMunicipioReferente,
-                codigoMunicipio,
+                idMunicipioReferente,
+                idMunicipio,
                 DataGeracao,
                 Titulo1,
                 Titulo2,
@@ -59,7 +90,6 @@ namespace MPMG.Services
         public List<TabelaUsuarioDto> ListarTabelas()
         {
             return ConverterListaEntidadeParaDto(TabelaRepo.ListarTabelas());
-
         }
 
         private TabelaUsuarioDto ConverterEntidadeParaDto(TabelaUsuario entidade)
@@ -76,8 +106,8 @@ namespace MPMG.Services
                 Titulo1 = entidade.Titulo1,
                 Titulo2 = entidade.Titulo2,
                 Titulo3 = entidade.Titulo3,
-                Municipio = new Interfaces.DTO.Municipio(entidade.IdMunicipio, entidade.NomeMunicipio),  
-                MunicipioReferente = new Interfaces.DTO.Municipio(entidade.IdMunicipioReferente, entidade.NomeMunicipioReferente),  
+                Municipio = new Interfaces.DTO.MunicipioDto(entidade.IdMunicipio, entidade.NomeMunicipio),  
+                MunicipioReferente = new Interfaces.DTO.MunicipioDto(entidade.IdMunicipioReferente, entidade.NomeMunicipioReferente),  
             };
         }
 

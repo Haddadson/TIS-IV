@@ -1,14 +1,14 @@
 ﻿
 namespace MPMG.Interfaces.DTO
 {
-    public class Municipio
+    public class MunicipioDto
     {
-        public Municipio()
+        public MunicipioDto()
         {
 
         }
 
-        public Municipio(int codigo, string nome)
+        public MunicipioDto(int codigo, string nome)
         {
             Codigo = codigo;
             Nome = nome;

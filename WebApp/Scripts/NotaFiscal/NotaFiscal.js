@@ -24,29 +24,42 @@
 $(document).ready(function () {
     initNotaFiscalFields();
     $("#municipios").on("change", function (event) {
-        const urlListarMunicipios = window.urlListarMunicipios;
+        const urlObterMunicipioPorNomeAno = window.urlObterMunicipioPorNomeAno;
         const municipioSelecionado = $("#municipios").val();
 
         ValidarNotas.chamadaAjax({
-            url: urlListarMunicipios,
-            sucesso: function (response) {
-                const municipio = response.municipios.filter((m) => { m == municipioSelecionado });
-
-                $('#municipios-anp').html = '';
-                $('#municipios-anp').append(response.municipios.map(m => {
-                    return "<option>" + m + "</option>";
-                }));
-
-                if (!(municipio.length === 1)) {
-                    alert("O município selecionado não possui dados na tabela da ANP para o período selecionado. Favor escolher um município.");
-                    $("#municipios-anp-div").removeClass("display-none");
-                } else {
-                    $('#municipios-anp').val(municipio[0]);
-                }
-            },
+            url: urlObterMunicipioPorNomeAno,
+            sucesso: tratarMunicipios,
             deveEsconderCarregando: true
         });
     });
+
+    const tratarMunicipios = response => {
+
+        const listaMunicipios = response && response.listaMunicipios.filter((m) => { return m === response.municipioSelecionado; });
+        const municipioReferente = response && response.municipioReferente;
+        if (municipioReferente) {
+            $('#municipios-anp').html = '';
+            $('#municipios-anp').append(`<option val='${municipioReferente.Codigo}'>${municipioReferente.Nome}</option>`);
+            $('#municipios-anp').val(municipioReferente.Nome);
+            $("#municipios-anp").prop('disabled', true);
+            $("#municipios-anp-div").show();
+        }
+        else {
+            $('#municipios-anp').html = '';
+            $('#municipios-anp').append(response.listaMunicipios.map(m => {
+                return "<option>" + m + "</option>";
+            }));
+        }
+        if (!municipioReferente && !(listaMunicipios.length === 1)) {
+            alert("O município selecionado não possui dados na tabela da ANP para o período selecionado. Favor escolher um município.");
+            $("#municipios-anp-div").show();
+        }
+        else if (!municipioReferente) {
+            $("#municipios-anp-div").hide();
+            $('#municipios-anp').val(listaMunicipios[0]);
+        }
+    };
 
     $("#cadastrar-nota-fiscal").on("click", function (event) {
         const notaFiscalData = {
@@ -101,6 +114,7 @@ $(document).ready(function () {
             cleanInvalidField("#chave_acesso");
         }
     });
+
 });
 
 const validateCuponsFicais = fieldCssQuerySelector => {

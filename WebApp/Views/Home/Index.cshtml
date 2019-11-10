@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <h3>Cadastrar uma nova tabela</h3>
             <h5>Digite os campos abaixo para criar uma nova tabela</h5>
-            <img class="carregando" src="~/img/loading.gif"/> 
+            <img class="carregando" src="~/img/loading.gif" />
         </div>
         <div class="col-md-12">
             <div class="form-example-int form-horizental">
@@ -59,8 +59,7 @@
                         </div>
                         <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
                             <div class="nk-int-st">
-                                <select class="form-control municipios-anp-busca" id="municipios">
-                                </select>
+                                <select class="form-control municipios-anp-busca" id="municipios"></select>
                             </div>
                         </div>
                     </div>
@@ -89,12 +88,11 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                            <label class="hrzn-fm">Municipio(s) Referência:</label>
+                            <label class="hrzn-fm">Municipio(s) Referência</label>
                         </div>
                         <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
                             <div class="nk-int-st">
-                                <select class="form-control" id="municipios-anp">
-                                </select>
+                                <select class="form-control" id="municipios-anp"></select>
                             </div>
                         </div>
                     </div>
@@ -158,9 +156,9 @@
             $(".carregando").hide();
         });
 
-        var urlListarMunicipios         = '@Url.Action("ListarMunicipiosAnp", "Home")',
-            urlCadastrarTabelaUsuario   = '@Url.Action("CadastrarTabela", "TabelaUsuario")';
-            urlListarTabelas   = '@Url.Action("ListarTabelas", "TabelaUsuario")';
+        var urlObterMunicipioPorNomeAno = '@Url.Action("ObterMunicipioAnpPorNomeAno", "Home")',
+            urlCadastrarTabelaUsuario = '@Url.Action("CadastrarTabela", "TabelaUsuario")';
+            urlListarTabelas = '@Url.Action("ListarTabelas", "TabelaUsuario")';
 
     </script>
     <script type="text/javascript" src="~/Scripts/ObterExcel/obterExcel.js"></script>

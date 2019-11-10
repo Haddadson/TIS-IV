@@ -17,34 +17,45 @@ namespace MPMG.Repositories
             FROM municipio 
             WHERE nome_municipio = @NomeMunicipio";
 
-        public int BuscarOuCriarMunicipio(string nomeMunicipio)
+
+        private const string SQL_OBTER_MUNICIPIO_ANP_POR_ANO_E_NOME = @"
+            SELECT DISTINCT 
+                M.id_municipio AS Codigo,
+                M.nome_municipio AS Nome 
+              FROM TabelaANP T 
+              JOIN municipio M 
+            WHERE T.ano = @Ano 
+            AND M.nome_municipio = @NomeMunicipio";
+
+        public Municipio ObterMunicipio(string nomeMunicipio)
         {
-            int id = -1;
+            
             DynamicParameters parametros = new DynamicParameters();
 
-            parametros.Add("@NomeMunicipio", nomeMunicipio, DbType.String);
+            parametros.Add("@NomeMunicipio", nomeMunicipio, DbType.AnsiString);
 
-            Municipio municipio = Obter(SQL_BUSCAR_MUNICIPIO, parametros);
+            return Obter(SQL_BUSCAR_MUNICIPIO, parametros);
+        }
 
-            if (municipio == null)
-            {
-                DynamicParameters parametrosInsert = new DynamicParameters();
+        public Municipio InserirMunicipio(string nomeMunicipio)
+        {
+            DynamicParameters parametros = new DynamicParameters();
 
-                parametrosInsert.Add("@NomeMunicipio", nomeMunicipio, DbType.String);
+            parametros.Add("@NomeMunicipio", nomeMunicipio, DbType.AnsiString);
 
-                Execute(SQL_INSERIR_MUNICIPIO, parametros);
+            Execute(SQL_INSERIR_MUNICIPIO, parametros);
 
-                municipio = Obter(SQL_BUSCAR_MUNICIPIO, parametros);
-            }
+            return Obter(SQL_BUSCAR_MUNICIPIO, parametros);
+        }
 
-            id = municipio?.Codigo ?? -1;
+        public Municipio ObterMunicipioAnpPorNomeAno(int anoReferente, string nomeMunicipio)
+        {
+            DynamicParameters parametros = new DynamicParameters();
 
-            if (id == -1)
-            {
-                throw new Exception("Não foi possível buscar ou inserir o município.");
-            }
+            parametros.Add("@Ano", anoReferente.ToString(), DbType.AnsiStringFixedLength);
+            parametros.Add("@NomeMunicipio", nomeMunicipio, DbType.AnsiString);
 
-            return id;
+            return Obter(SQL_OBTER_MUNICIPIO_ANP_POR_ANO_E_NOME, parametros);
         }
     }
 }

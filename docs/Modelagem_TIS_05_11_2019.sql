@@ -78,6 +78,24 @@ CREATE TABLE IF NOT EXISTS `mpmg`.`municipio` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- -----------------------------------------------------
+-- Table `mpmg`.`municipio`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mpmg`.`municipioReferente` ;
+
+CREATE TABLE IF NOT EXISTS `mpmg`.`municipioReferente` (
+  `id_municipio` INT(11) NOT NULL,
+  `id_municipio_referente` INT(11) NOT NULL,
+  `ano` char(4) NOT NULL,
+  PRIMARY KEY (`id_municipio`, `id_municipio_referente`, `ano`),
+  CONSTRAINT `fk_municipio`
+    FOREIGN KEY (`id_municipio`)
+    REFERENCES `mpmg`.`municipio` (`id_municipio`),
+  CONSTRAINT `fk_municipio_referente`
+    FOREIGN KEY (`id_municipio_referente`)
+    REFERENCES `mpmg`.`municipio` (`id_municipio`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 -- -----------------------------------------------------
 -- Table `mpmg`.`tabelausuario`

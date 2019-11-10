@@ -1,5 +1,7 @@
 ﻿using MPMG.Services;
 using MPMG.Util;
+using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace WebApp.Controllers
@@ -8,13 +10,13 @@ namespace WebApp.Controllers
     {
         private readonly ObterExcelCombustivelService ObterExcelPetroleoService;
         private readonly ObterPrecoMedioExcelService LerDadosExcelService;
-        private readonly ListarMunicipiosAnpService ListarMunicipiosService;
+        private readonly ObterMunicipioAnpService listarMunicipiosService;
 
         public HomeController()
         {
             ObterExcelPetroleoService = new ObterExcelCombustivelService();
             LerDadosExcelService = new ObterPrecoMedioExcelService();
-            ListarMunicipiosService = new ListarMunicipiosAnpService();
+            listarMunicipiosService = new ObterMunicipioAnpService();
         }
 
         public ActionResult Index()
@@ -36,14 +38,29 @@ namespace WebApp.Controllers
             return View();
         }
 
-        public JsonResult ListarMunicipiosAnp(int anoReferente)
+        public JsonResult ObterMunicipioAnpPorNomeAno(int anoReferente, string nomeMunicipio)
         {
-            var listaMunicipios = ListarMunicipiosService.ListarMunicipiosAnpPorAno(anoReferente);
-
-            return Json(new
+            try
             {
-                municipios = listaMunicipios
-            });
+                var municipio = listarMunicipiosService.ObterMunicipioAnpPorNomeAno(anoReferente, nomeMunicipio);
+                List<string> listaMunicipios = new List<string>();
+
+                if (municipio == null)
+                    listaMunicipios = listarMunicipiosService.ListarMunicipiosAnpPorAno(anoReferente);
+
+                return Json(new
+                {
+                    municipioSelecionado = nomeMunicipio,
+                    anoSelecionado = anoReferente,
+                    municipioReferente = municipio,
+                    listaMunicipios
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { });
+            }
         }
 
         public JsonResult ObterExcel()

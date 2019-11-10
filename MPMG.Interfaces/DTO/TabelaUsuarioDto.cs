@@ -11,7 +11,7 @@ namespace MPMG.Interfaces.DTO
         public string Titulo2 { get; set; }
         public string Titulo3 { get; set; }
         public string AnalistaResponsavel { get; set; }
-        public Municipio Municipio { get; set; }
-        public Municipio MunicipioReferente { get; set; }
+        public MunicipioDto Municipio { get; set; }
+        public MunicipioDto MunicipioReferente { get; set; }
     }
 }
