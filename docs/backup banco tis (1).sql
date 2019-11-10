@@ -33,16 +33,7 @@ LOCK TABLES `departamento` WRITE;
 /*!40000 ALTER TABLE `departamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Dumping data for table `itemnotafiscal`
---
-
-LOCK TABLES `itemnotafiscal` WRITE;
-/*!40000 ALTER TABLE `itemnotafiscal` DISABLE KEYS */;
-/*!40000 ALTER TABLE `itemnotafiscal` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
+-
 -- Dumping data for table `municipio`
 --
 

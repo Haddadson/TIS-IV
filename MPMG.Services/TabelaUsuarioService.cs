@@ -40,7 +40,7 @@ namespace MPMG.Services
                 throw new Exception("Não foi informado o código do município referente!");
             }
 
-            int codigoMunicipio = MunicipiosRepo.buscarOuCriarMunicipio(IdMunicipio);
+            int codigoMunicipio = MunicipiosRepo.BuscarOuCriarMunicipio(IdMunicipio);
 
 
             TabelaRepo.CadastrarTabela(

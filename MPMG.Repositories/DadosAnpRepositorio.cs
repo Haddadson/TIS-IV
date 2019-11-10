@@ -32,6 +32,14 @@ namespace MPMG.Repositories
               JOIN municipio M 
             ORDER BY M.nome_municipio";
 
+        private const string SQL_LISTAR_MUNICIPIOS_ANP_POR_ANO = @"
+            SELECT DISTINCT 
+                M.nome_municipio AS Municipio 
+              FROM TabelaANP T 
+              JOIN municipio M 
+            WHERE T.ano = @Ano
+            ORDER BY M.nome_municipio";
+
         public DadosAnp ObterPorValoresNota(int mes, int ano, string estado, string municipio, string produto)
         {
             DynamicParameters parametros = new DynamicParameters();
@@ -44,9 +52,13 @@ namespace MPMG.Repositories
 
             return Obter(SQL_OBTER_DADO_ANP, parametros);
         }
-        public List<string> ListarMunicipiosAnp()
+        public List<string> ListarMunicipiosAnpPorAno(int anoReferente)
         {
-            return Listar(SQL_LISTAR_MUNICIPIOS_ANP, null).Select(m => m.Municipio).ToList();
+            DynamicParameters parametros = new DynamicParameters();
+
+            parametros.Add("@Ano", anoReferente, DbType.Int32);
+
+            return Listar(SQL_LISTAR_MUNICIPIOS_ANP_POR_ANO, parametros).Select(m => m.Municipio).ToList();
         }
     }
 }

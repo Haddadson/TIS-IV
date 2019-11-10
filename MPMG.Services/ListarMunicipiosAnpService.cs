@@ -14,9 +14,9 @@ namespace MPMG.Services
             dadosAnpRepositorio = new DadosAnpRepositorio();
         }
 
-        public List<string> ListarMunicipiosAnp()
+        public List<string> ListarMunicipiosAnpPorAno(int anoReferente)
         {
-            return dadosAnpRepositorio.ListarMunicipiosAnp();
+            return dadosAnpRepositorio.ListarMunicipiosAnpPorAno(anoReferente);
         }
 
     }

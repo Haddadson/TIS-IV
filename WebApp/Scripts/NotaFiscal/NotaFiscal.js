@@ -47,6 +47,7 @@ $(document).ready(function () {
             deveEsconderCarregando: true
         });
     });
+
     $("#cadastrar-nota-fiscal").on("click", function (event) {
         const notaFiscalData = {
             "SGDP"                  : $("#sgdp").val(),
@@ -76,6 +77,7 @@ $(document).ready(function () {
             deveEsconderCarregando: true
         });
     });
+
     $("#departamento").on("change", function (event) {
         // Get Departamentos.
     });

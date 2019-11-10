@@ -18,28 +18,18 @@ namespace WebApp.Controllers
 
         public JsonResult CadastrarTabela(TabelaUsuario TabelaUsuario)
         {
-            int SGDP = TabelaUsuario.SGDP;
-            int IdMunicipioReferente = TabelaUsuario.IdMunicipioReferente;
-            string IdMunicipio = TabelaUsuario.IdMunicipio;
-            int AnoReferente = TabelaUsuario.AnoReferente;
-            DateTime DataGeracao = TabelaUsuario.DataGeracao;
-            string Titulo1 = TabelaUsuario.Titulo1,
-                    Titulo2 = TabelaUsuario.Titulo2,
-                    Titulo3 = TabelaUsuario.Titulo3,
-                    AnalistaResponsavel = TabelaUsuario.AnalistaResponsavel;
-
             try
             {
                 TabelaUsuarioService.CadastrarTabela(
-                SGDP,
-                AnoReferente,
-                IdMunicipioReferente,
-                IdMunicipio,
-                DataGeracao,
-                Titulo1,
-                Titulo2,
-                Titulo3,
-                AnalistaResponsavel);
+                TabelaUsuario.SGDP,
+                TabelaUsuario.AnoReferente,
+                TabelaUsuario.IdMunicipioReferente,
+                TabelaUsuario.IdMunicipio,
+                TabelaUsuario.DataGeracao,
+                TabelaUsuario.Titulo1,
+                TabelaUsuario.Titulo2,
+                TabelaUsuario.Titulo3,
+                TabelaUsuario.AnalistaResponsavel);
 
 
                 return Json(new {

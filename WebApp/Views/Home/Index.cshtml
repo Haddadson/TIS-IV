@@ -6,6 +6,7 @@
         <div class="col-md-12">
             <h3>Cadastrar uma nova tabela</h3>
             <h5>Digite os campos abaixo para criar uma nova tabela</h5>
+            <img class="carregando" src="~/img/loading.gif"/> 
         </div>
         <div class="col-md-12">
             <div class="form-example-int form-horizental">
@@ -58,7 +59,7 @@
                         </div>
                         <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
                             <div class="nk-int-st">
-                                <select class="form-control" id="municipios">
+                                <select class="form-control municipios-anp-busca" id="municipios">
                                 </select>
                             </div>
                         </div>
@@ -72,7 +73,7 @@
                             <label class="hrzn-fm">Ano(s) referentes</label>
                         </div>
                         <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
-                            <select class="form-control" id="ano-referente">
+                            <select class="form-control municipios-anp-busca" id="ano-referente">
                                 <option>2013</option>
                                 <option>2014</option>
                                 <option>2015</option>
@@ -153,9 +154,14 @@
 
 @section JavascriptPagina {
     <script type="text/javascript">
+        $(document).ready(function () {
+            $(".carregando").hide();
+        });
+
         var urlListarMunicipios         = '@Url.Action("ListarMunicipiosAnp", "Home")',
             urlCadastrarTabelaUsuario   = '@Url.Action("CadastrarTabela", "TabelaUsuario")';
             urlListarTabelas   = '@Url.Action("ListarTabelas", "TabelaUsuario")';
+
     </script>
     <script type="text/javascript" src="~/Scripts/ObterExcel/obterExcel.js"></script>
     <script type="text/javascript" src="~/Scripts/Municipios/municipio.js"></script>

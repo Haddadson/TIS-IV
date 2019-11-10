@@ -36,9 +36,9 @@ namespace WebApp.Controllers
             return View();
         }
 
-        public JsonResult ListarMunicipiosAnp()
+        public JsonResult ListarMunicipiosAnp(int anoReferente)
         {
-            var listaMunicipios = ListarMunicipiosService.ListarMunicipiosAnp();
+            var listaMunicipios = ListarMunicipiosService.ListarMunicipiosAnpPorAno(anoReferente);
 
             return Json(new
             {
