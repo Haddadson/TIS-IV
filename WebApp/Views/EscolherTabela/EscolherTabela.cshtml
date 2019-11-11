@@ -1,4 +1,4 @@
-﻿
+﻿@model WebApp.Models.EscolherTabelaModel
 @{
     ViewBag.Title = "Escolher Tabela";
 }
@@ -17,7 +17,14 @@
                         </div>
                         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
                             <div class="nk-int-st">
-                                <select class="form-control" id="sgdp"></select>
+                                <select class="form-control" id="sgdp">
+
+                                    @foreach (var tabela in Model.TabelasUsuario)
+                                    {
+                                        <option value="@tabela.SGDP">@tabela.SGDP</option>
+                                    }
+
+                                </select>
                             </div>
                         </div>
                         <label style="float:left">*</label>
@@ -34,14 +41,23 @@
                             <button class="btn btn-default btn-icon-notika" id="cadastrar_cupom_fiscal">
                                 Cadastrar Cupom Fiscal
                             </button>
-                            <button class="btn btn-default btn-icon-notika" id="Vizualizar_tabela">
-                                Vizualizar Tabela
+                            <button class="btn btn-default btn-icon-notika" id="visualizar_tabela">
+                                Visualizar Tabela
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
     </div>
 </div>
+
+
+@section JavascriptPagina {
+    <script type="text/javascript">
+        var urlRedirecionarVisualizarTabela = '@Url.Action("RedirecionarVisualizarTabela", "EscolherTabela")';
+
+    </script>
+    <script src="~/Scripts/EscolherTabela/EscolherTabela.js"></script>
+
+}

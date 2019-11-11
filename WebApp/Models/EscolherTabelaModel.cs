@@ -1,19 +1,15 @@
 ﻿using MPMG.Interfaces.DTO;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace WebApp.Models
 {
-    public class ListarTabelasModel
+    public class EscolherTabelaModel
     {
-        public ListarTabelasModel()
+        public EscolherTabelaModel()
         {
             TabelasUsuario = new List<TabelaUsuarioDto>();
         }
 
         public List<TabelaUsuarioDto> TabelasUsuario { get; set; }
-        public TabelaUsuarioDto TabelaBuscada { get; set; }
     }
 }

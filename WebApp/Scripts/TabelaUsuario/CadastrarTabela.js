@@ -49,7 +49,7 @@
             url: urlTabelaUsuario,
             data: tabelaUsuarioData,
             sucesso: function (retorno) {
-                alert(retorno.mensagem);
+                alert(retorno.Mensagem);
                 limparCampos();
             },
             erro: TratarErro,
@@ -63,12 +63,10 @@
         $("#municipios-anp").val('');
         $("#analista-resp").val('');
         $("#ano-referente").val('');
-        $("#data-geracao").val('');
         $("#titulo1").val('');
         $("#titulo2").val('');
         $("#titulo3").val('');
     }
-
 
     function tratarMunicipios(response) {
 
@@ -98,8 +96,8 @@
     }
 
     function TratarErro(retorno) {
-        if (retorno && retorno.mensagem)
-            alert(retorno.mensagem);
+        if (retorno && retorno.Mensagem)
+            alert(retorno.Mensagem);
         else
             alert("Ocorreu um erro ao cadastrar");
     }

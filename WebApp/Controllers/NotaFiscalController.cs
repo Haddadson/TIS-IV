@@ -11,7 +11,8 @@ namespace WebApp.Controllers
 {
     public class NotaFiscalController : Controller
     {
-        private NotaFiscalService NotaFiscalService;
+        private readonly NotaFiscalService NotaFiscalService;
+
         public NotaFiscalController()
         {
             NotaFiscalService = new NotaFiscalService();

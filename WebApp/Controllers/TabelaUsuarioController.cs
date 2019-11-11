@@ -1,8 +1,8 @@
-﻿using System;
+﻿using MPMG.Interfaces.DTO;
+using MPMG.Services;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using MPMG.Interfaces.DTO;
-using MPMG.Services;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -32,7 +32,8 @@ namespace WebApp.Controllers
                 TabelaUsuario.AnalistaResponsavel);
 
 
-                return Json(new {
+                return Json(new
+                {
                     Mensagem = "Sucesso ao cadastrar tabela",
                     DataGeracao = DateTime.Now
                 });
@@ -57,19 +58,21 @@ namespace WebApp.Controllers
                 tabelas
             });
         }
-        public ActionResult Index()
+        public ActionResult Index(string valorSgdp = null)
         {
             List<TabelaUsuarioDto> tabelas = new List<TabelaUsuarioDto>();
+            TabelaUsuarioDto tabelaBuscada = new TabelaUsuarioDto();
 
             try
             {
-               tabelas = TabelaUsuarioService.ListarTabelas();
+                tabelaBuscada = TabelaUsuarioService.ObterTabela(valorSgdp);
+                if (string.IsNullOrWhiteSpace(valorSgdp))
+                    tabelas = TabelaUsuarioService.ListarTabelas();
 
-            }catch(Exception ex)
-            {
             }
+            catch (Exception ex) { }
 
-            return View("ListarTabelas", new ListarTabelasModel { TabelasUsuario = tabelas } );
+            return View("ListarTabelas", new ListarTabelasModel { TabelasUsuario = tabelas, TabelaBuscada = tabelaBuscada });
         }
     }
 }

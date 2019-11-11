@@ -170,6 +170,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EscolherTabelaController.cs" />
     <Compile Include="Models\CupomFiscal.cs" />
     <Compile Include="Controllers\CupomFiscalController.cs" />
     <Compile Include="Controllers\NotaFiscalController.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EscolherTabelaModel.cs" />
     <Compile Include="Models\ListarTabelasModel.cs" />
     <Compile Include="Models\NotaFiscal.cs" />
     <Compile Include="Models\TabelaUsuario.cs" />
@@ -249,6 +251,8 @@
     <Content Include="Content\fonts\notika-icon.ttf" />
     <Content Include="Content\fonts\notika-icon.woff" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\CupomFiscal\CupomFiscal.js" />
+    <Content Include="Scripts\EscolherTabela\EscolherTabela.js" />
     <Content Include="Scripts\externo\animation\animation-active.js" />
     <Content Include="Scripts\externo\autosize.min.js" />
     <Content Include="Scripts\externo\bootstrap-select\bootstrap-select.js" />
@@ -370,6 +374,7 @@
     <Content Include="Views\EscolherTabela\EscolherTabela.cshtml" />
     <Content Include="Views\NotaFiscal\NotaFiscal.cshtml" />
     <Content Include="Views\CupomFiscal\CupomFiscal.cshtml" />
+    <Content Include="Views\CupomFiscal\CadastrarCupomFiscal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

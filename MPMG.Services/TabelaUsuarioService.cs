@@ -10,13 +10,13 @@ namespace MPMG.Services
 {
     public class TabelaUsuarioService
     {
-        private readonly TabelaUsuarioRepo TabelaRepo;
+        private readonly TabelaUsuarioRepo tabelaRepositorio;
         private readonly MunicipioRepositorio municipioRepositorio;
         private readonly MunicipioReferenteRepositorio municipioReferenteRepositorio;
 
         public TabelaUsuarioService()
         {
-            TabelaRepo = new TabelaUsuarioRepo();
+            tabelaRepositorio = new TabelaUsuarioRepo();
             municipioRepositorio = new MunicipioRepositorio();
             municipioReferenteRepositorio = new MunicipioReferenteRepositorio();
         }
@@ -74,7 +74,7 @@ namespace MPMG.Services
                 idMunicipioReferente = entidadeMunicipioRef.CodigoMunicipioReferente;
             }
 
-            TabelaRepo.CadastrarTabela(
+            tabelaRepositorio.CadastrarTabela(
                 SGDP,
                 AnoReferente,
                 idMunicipioReferente,
@@ -87,9 +87,14 @@ namespace MPMG.Services
            );
         }
 
+        public TabelaUsuarioDto ObterTabela(string sgdp)
+        {
+            return ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(int.Parse(sgdp)));
+        }
+
         public List<TabelaUsuarioDto> ListarTabelas()
         {
-            return ConverterListaEntidadeParaDto(TabelaRepo.ListarTabelas());
+            return ConverterListaEntidadeParaDto(tabelaRepositorio.ListarTabelas());
         }
 
         private TabelaUsuarioDto ConverterEntidadeParaDto(TabelaUsuario entidade)
