@@ -21,7 +21,7 @@ namespace MPMG.Services
         public void CadastrarTabela(
             int SGDP,
             int AnoReferente,
-            int IdMunicipioReferente,
+            String IdMunicipioReferente,
             String IdMunicipio,
             DateTime DataGeracao,
             string Titulo1,
@@ -35,18 +35,20 @@ namespace MPMG.Services
                 throw new Exception("Valor inválido para o SGDP!");
             }
 
-            if (IdMunicipioReferente <= 0)
-            {
-                throw new Exception("Não foi informado o código do município referente!");
-            }
-
             int codigoMunicipio = MunicipiosRepo.buscarOuCriarMunicipio(IdMunicipio);
-
+            int codigoMunicipioReferente;
+            if (IdMunicipioReferente == null)
+            {
+                codigoMunicipioReferente = codigoMunicipio;
+            } else
+            {
+                codigoMunicipioReferente = MunicipiosRepo.buscarOuCriarMunicipio(IdMunicipioReferente);
+            }
 
             TabelaRepo.CadastrarTabela(
                 SGDP,
                 AnoReferente,
-                IdMunicipioReferente,
+                codigoMunicipioReferente,
                 codigoMunicipio,
                 DataGeracao,
                 Titulo1,

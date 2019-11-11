@@ -19,7 +19,7 @@ namespace WebApp.Controllers
         public JsonResult CadastrarTabela(TabelaUsuario TabelaUsuario)
         {
             int SGDP = TabelaUsuario.SGDP;
-            int IdMunicipioReferente = TabelaUsuario.IdMunicipioReferente;
+            string IdMunicipioReferente = TabelaUsuario.IdMunicipioReferente;
             string IdMunicipio = TabelaUsuario.IdMunicipio;
             int AnoReferente = TabelaUsuario.AnoReferente;
             DateTime DataGeracao = TabelaUsuario.DataGeracao;

@@ -6,7 +6,7 @@ namespace WebApp.Models
     {
         public int SGDP { get; set; }
         public string IdMunicipio { get; set; }
-        public int IdMunicipioReferente { get; set; }
+        public string IdMunicipioReferente { get; set; }
         public DateTime DataGeracao { get; set; }
         public int AnoReferente { get; set; }
         public string Titulo1 { get; set; }

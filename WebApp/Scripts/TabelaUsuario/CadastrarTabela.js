@@ -42,7 +42,7 @@
         const tabelaUsuarioData = {
             "SGDP": $("#sgdp").val(),
             "IdMunicipio": $("#municipios").val(),
-            "IdMunicipioReferente": 1, // $("#municipios-anp").val(),
+            "IdMunicipioReferente": $("#municipios-anp").val(),
             "AnalistaResponsavel": $("#analista-resp").val(),
             "AnoReferente": $("#ano-referente").val(),
             "DataGeracao": $("#data-geracao").val(),
@@ -70,7 +70,6 @@
         $("#municipios-anp").val('');
         $("#analista-resp").val('');
         $("#ano-referente").val('');
-        $("#data-geracao").val('');
         $("#titulo1").val('');
         $("#titulo2").val('');
         $("#titulo3").val('');
