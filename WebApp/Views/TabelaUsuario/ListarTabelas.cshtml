@@ -21,21 +21,22 @@
         <![endif]-->
     <!-- Start Header Top Area -->
 
-    <div class="selects-listar-tabelas  col-lg-3 col-md-3 col-sm-3 col-xs-12">
-        <div class="nk-int-mk sl-dp-mn sm-res-mg-t-10">
-            <h2>Selecione a tabela a ser exibida por SGDP</h2>
-        </div>
-        <div class="bootstrap-select fm-cmp-mg" align="center">
-            <select id="selecao-tabela-sgdp" class="selectpicker" data-live-search="true">
 
-                @foreach (var tabela in Model.TabelasUsuario)
-                {
-                    <option value="@tabela.SGDP">@tabela.SGDP</option>
-                }
+        <div class="selects-listar-tabelas  col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div class="nk-int-mk sl-dp-mn sm-res-mg-t-10">
+                <h2>Selecione a tabela a ser exibida por SGDP</h2>
+            </div>
+            <div class="bootstrap-select fm-cmp-mg" align="center">
+                <select id="selecao-tabela-sgdp" class="selectpicker" data-live-search="true">
 
-            </select>
+                    @foreach (var tabela in Model.TabelasUsuario)
+                    {
+                        <option value="@tabela.SGDP">@tabela.SGDP</option>
+                    }
+
+                </select>
+            </div>
         </div>
-    </div>
 
     <div class="selects-listar-tabelas col-lg-3 col-md-3 col-sm-3 col-xs-12">
         <div class="nk-int-mk sl-dp-mn sm-res-mg-t-10">
@@ -50,7 +51,6 @@
         </div>
     </div>
     <br />
-
 
     @foreach (var tabela in Model.TabelasUsuario)
     {

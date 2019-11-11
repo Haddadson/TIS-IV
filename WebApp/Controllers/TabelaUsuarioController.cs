@@ -65,9 +65,10 @@ namespace WebApp.Controllers
 
             try
             {
-                tabelaBuscada = TabelaUsuarioService.ObterTabela(valorSgdp);
                 if (string.IsNullOrWhiteSpace(valorSgdp))
                     tabelas = TabelaUsuarioService.ListarTabelas();
+                else
+                    tabelaBuscada = TabelaUsuarioService.ObterTabela(valorSgdp);
 
             }
             catch (Exception ex) { }
