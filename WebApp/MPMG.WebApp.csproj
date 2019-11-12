@@ -173,6 +173,7 @@
     <Compile Include="Controllers\EscolherTabelaController.cs" />
     <Compile Include="Models\CupomFiscal.cs" />
     <Compile Include="Controllers\CupomFiscalController.cs" />
+    <Compile Include="Controllers\EscolherTabelaController.cs" />
     <Compile Include="Controllers\NotaFiscalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TabelaUsuarioController.cs" />
