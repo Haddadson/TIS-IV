@@ -66,9 +66,9 @@ namespace WebApp.Controllers
             try
             {
                 if (string.IsNullOrWhiteSpace(valorSgdp))
-                    tabelas = TabelaUsuarioService.ListarTabelas();
+                    tabelas = TabelaUsuarioService.ListarTabelasComDadosAnpxNotaFiscal();
                 else
-                    tabelaBuscada = TabelaUsuarioService.ObterTabela(valorSgdp);
+                    tabelaBuscada = TabelaUsuarioService.ObterTabelaComDadosAnpxNotaFiscal(valorSgdp);
 
             }
             catch (Exception ex) { }

@@ -182,6 +182,7 @@
     <Compile Include="Models\EscolherTabelaModel.cs" />
     <Compile Include="Models\ListarTabelasModel.cs" />
     <Compile Include="Models\NotaFiscal.cs" />
+    <Compile Include="Models\NotaFiscalModel.cs" />
     <Compile Include="Models\TabelaUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

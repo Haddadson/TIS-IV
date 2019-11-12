@@ -3,7 +3,7 @@
     VMasker(document.querySelector("#data_consulta_anp")).maskPattern("99/9999");
     VMasker(document.querySelector("#chave_acesso")).maskPattern("9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999");
 
-    $("#sgdp").val(1);
+    //$("#sgdp").val(1);
 
     validateNumericRequiredFormField("#numero_nf", true, true);
     validateNumericRequiredFormField("#quantidade", true, true);
@@ -16,7 +16,7 @@
     $("#data_emissao")[0].value = moment().format('YYYY-MM-DD');
 
     validateDateFormField("#data_emissao");
-    setReadOnly("#sgdp");
+    //setReadOnly("#sgdp");
 
 };
 

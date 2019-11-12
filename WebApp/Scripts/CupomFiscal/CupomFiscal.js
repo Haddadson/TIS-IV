@@ -1,8 +1,8 @@
 ﻿const initNotaFiscalFields = () => {
     VMasker(document.querySelector("#placa_veiculo")).maskPattern("AAA-9999");
     
-    $("#sgdp").val(1);
-    setReadOnly("#sgdp");
+    //$("#sgdp").val(1);
+    //setReadOnly("#sgdp");
 
     validateNumericRequiredFormField("#numero_nf", true, true);
     validateNumericRequiredFormField("#quantidade", true, true);

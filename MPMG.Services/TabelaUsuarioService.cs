@@ -13,12 +13,14 @@ namespace MPMG.Services
         private readonly TabelaUsuarioRepo tabelaRepositorio;
         private readonly MunicipioRepositorio municipioRepositorio;
         private readonly MunicipioReferenteRepositorio municipioReferenteRepositorio;
+        private readonly AnpxNotaFiscalRepositorio anpxNotaFiscalRepositorio;
 
         public TabelaUsuarioService()
         {
             tabelaRepositorio = new TabelaUsuarioRepo();
             municipioRepositorio = new MunicipioRepositorio();
             municipioReferenteRepositorio = new MunicipioReferenteRepositorio();
+            anpxNotaFiscalRepositorio = new AnpxNotaFiscalRepositorio();
         }
 
         public void CadastrarTabela(
@@ -92,9 +94,45 @@ namespace MPMG.Services
             return ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(int.Parse(sgdp)));
         }
 
+        public TabelaUsuarioDto ObterTabelaComDadosAnpxNotaFiscal(string sgdp)
+        {
+            var tabela =  ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(int.Parse(sgdp)));
+
+            if (tabela == null || (tabela.Municipio == null && tabela.MunicipioReferente == null))
+                throw new Exception("Erro ao encontrar");
+
+            int idMunicipio = tabela.MunicipioReferente?.Codigo ?? tabela.Municipio.Codigo;
+
+            tabela.DadosAnpxNotaFiscal = ListarDadosAnpXNotaFiscalPorSgdp(tabela.SGDP, idMunicipio);
+
+            return tabela;
+        }
+
         public List<TabelaUsuarioDto> ListarTabelas()
         {
             return ConverterListaEntidadeParaDto(tabelaRepositorio.ListarTabelas());
+        }
+
+        public List<TabelaUsuarioDto> ListarTabelasComDadosAnpxNotaFiscal()
+        {
+            var tabelas =  ConverterListaEntidadeParaDto(tabelaRepositorio.ListarTabelas());
+
+            foreach (var tabelaUsuario in tabelas)
+            {
+                if (tabelaUsuario.Municipio == null && tabelaUsuario.MunicipioReferente == null)
+                    continue;
+
+                int idMunicipio = tabelaUsuario.MunicipioReferente?.Codigo ?? tabelaUsuario.Municipio.Codigo;
+
+                tabelaUsuario.DadosAnpxNotaFiscal = ListarDadosAnpXNotaFiscalPorSgdp(tabelaUsuario.SGDP, idMunicipio);
+            }
+
+            return tabelas;
+        }
+
+        public List<AnpxNotaFiscalDto> ListarDadosAnpXNotaFiscalPorSgdp(int sgdp, int idMunicipio)
+        {
+            return ConverterListaEntidadeDadosAnpxNotaParaDto(anpxNotaFiscalRepositorio.ListarNotasFiscaisPorSgdp(sgdp, idMunicipio));
         }
 
         private TabelaUsuarioDto ConverterEntidadeParaDto(TabelaUsuario entidade)
@@ -111,8 +149,8 @@ namespace MPMG.Services
                 Titulo1 = entidade.Titulo1,
                 Titulo2 = entidade.Titulo2,
                 Titulo3 = entidade.Titulo3,
-                Municipio = new Interfaces.DTO.MunicipioDto(entidade.IdMunicipio, entidade.NomeMunicipio),  
-                MunicipioReferente = new Interfaces.DTO.MunicipioDto(entidade.IdMunicipioReferente, entidade.NomeMunicipioReferente),  
+                Municipio = new MunicipioDto(entidade.IdMunicipio, entidade.NomeMunicipio),  
+                MunicipioReferente = new MunicipioDto(entidade.IdMunicipioReferente, entidade.NomeMunicipioReferente),  
             };
         }
 
@@ -123,6 +161,43 @@ namespace MPMG.Services
 
             return entidades.Select(ConverterEntidadeParaDto).ToList();
         }
+
+        private AnpxNotaFiscalDto ConverterDadosAnpXNotaFiscalParaDto( AnpxNotaFiscal entidade)
+        {
+            if (entidade == null)
+                return null;
+
+            return new AnpxNotaFiscalDto()
+            {
+                Combustivel = entidade.Combustivel,
+                DataGeracao = entidade.DataGeracao,
+                NumeroFolha = entidade.NumeroFolha,
+                NumeroNotaFiscal = entidade.NumeroNotaFiscal,
+                PrecoMaximoAnp = entidade.PrecoMaximoAnp,
+                PrecoMedioAnp = entidade.PrecoMedioAnp,
+                Quantidade = entidade.Quantidade,
+                ValorFam = entidade.ValorFam,
+                ValorMaximoAtualizado = entidade.ValorMaximoAtualizado,
+                ValorMedioAtualizado = entidade.ValorMedioAtualizado,
+                ValorTotal = entidade.ValorTotal,
+                ValorUnitario = entidade.ValorUnitario,
+                MesAnp = entidade.MesAnp,
+                AnoAnp = entidade.AnoAnp,
+                DiferencaMediaUnitaria = entidade.PrecoMedioAnp - entidade.ValorUnitario,
+                DiferencaMediaTotal = (entidade.PrecoMedioAnp - entidade.ValorUnitario) * entidade.Quantidade,
+                DiferencaMaximaUnitaria = entidade.PrecoMaximoAnp - entidade.ValorUnitario,
+                DiferencaMaximaTotal = (entidade.PrecoMaximoAnp - entidade.ValorUnitario) * entidade.Quantidade
+            };
+        }
+
+        private List<AnpxNotaFiscalDto> ConverterListaEntidadeDadosAnpxNotaParaDto(List<AnpxNotaFiscal> entidades)
+        {
+            if (entidades == null || !entidades.Any())
+                return new List<AnpxNotaFiscalDto>();
+
+            return entidades.Select(ConverterDadosAnpXNotaFiscalParaDto).ToList();
+        }
+
 
     }
 }

@@ -1,9 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MPMG.Interfaces.DTO
 {
     public class TabelaUsuarioDto
     {
+        public TabelaUsuarioDto()
+        {
+            DadosAnpxNotaFiscal = new List<AnpxNotaFiscalDto>();
+        }
+
         public int SGDP { get; set; }
         public DateTime DataGeracao { get; set; }
         public int AnoReferente { get; set; }
@@ -13,5 +19,6 @@ namespace MPMG.Interfaces.DTO
         public string AnalistaResponsavel { get; set; }
         public MunicipioDto Municipio { get; set; }
         public MunicipioDto MunicipioReferente { get; set; }
+        public List<AnpxNotaFiscalDto> DadosAnpxNotaFiscal { get; set; }
     }
 }

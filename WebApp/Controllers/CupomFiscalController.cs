@@ -1,4 +1,5 @@
-﻿using MPMG.Services;
+﻿using MPMG.Interfaces.DTO;
+using MPMG.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,12 @@ namespace WebApp.Controllers
     public class CupomFiscalController : Controller
     {
         private readonly CupomFiscalService cupomFiscalService;
+        private readonly TabelaUsuarioService tabelaUsuarioService;
+
         public CupomFiscalController()
         {
             cupomFiscalService = new CupomFiscalService();
+            tabelaUsuarioService = new TabelaUsuarioService();
         }
 
         public JsonResult Cadastrar(CupomFiscal cupom)
@@ -57,7 +61,18 @@ namespace WebApp.Controllers
 
         public ActionResult Index()
         {
-            return View("CupomFiscal");
+            List<TabelaUsuarioDto> tabelas = new List<TabelaUsuarioDto>();
+
+            try
+            {
+                tabelas = tabelaUsuarioService.ListarTabelas();
+
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return View("CupomFiscal", new NotaFiscalModel { TabelasUsuario = tabelas } );
         }
     }
 }

@@ -17,7 +17,7 @@ namespace MPMG.Services
             cupomFiscalRepo = new CupomFiscalRepo();
             tabelaANPRepo = new TabelaANPRepo();
         }
-        public void addNotaFiscal(
+        public void cadastrarNotaFiscal(
             int nrNotaFiscal,
             int sGDP,
             double valorTotal,

@@ -1,4 +1,5 @@
-﻿using MPMG.Services;
+﻿using MPMG.Interfaces.DTO;
+using MPMG.Services;
 using MPMG.Util;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,14 @@ namespace WebApp.Controllers
 {
     public class NotaFiscalController : Controller
     {
-        private readonly NotaFiscalService NotaFiscalService;
+        private readonly NotaFiscalService notaFiscalService;
+        private readonly TabelaUsuarioService tabelaUsuarioService;
+
 
         public NotaFiscalController()
         {
-            NotaFiscalService = new NotaFiscalService();
+            notaFiscalService = new NotaFiscalService();
+            tabelaUsuarioService = new TabelaUsuarioService();
         }
 
         public JsonResult Cadastrar(NotaFiscal NotaFiscal)
@@ -25,15 +29,15 @@ namespace WebApp.Controllers
             double ValorTotal = NotaFiscal.ValorTotal;
             string ChaveAcesso = NotaFiscal.ChaveAcesso;
             DateTime DataEmissao = new DateTime(
-                Int32.Parse(NotaFiscal.DataEmissao.Substring(0, 4)),
-                Int32.Parse(NotaFiscal.DataEmissao.Substring(5, 2)),
-                Int32.Parse(NotaFiscal.DataEmissao.Substring(8, 2)));
+                int.Parse(NotaFiscal.DataEmissao.Substring(0, 4)),
+                int.Parse(NotaFiscal.DataEmissao.Substring(5, 2)),
+                int.Parse(NotaFiscal.DataEmissao.Substring(8, 2)));
             double PrecoMaximo = NotaFiscal.PrecoMaximo;
             double PrecoMedio = NotaFiscal.PrecoMedio;
             DateTime DataConsultaANP = new DateTime(
-                Int32.Parse(NotaFiscal.DataConsultaANP.Substring(6, 4)),
-                Int32.Parse(NotaFiscal.DataConsultaANP.Substring(3, 2)),
-                Int32.Parse(NotaFiscal.DataConsultaANP.Substring(0, 2)));
+                int.Parse(NotaFiscal.DataConsultaANP.Substring(6, 4)),
+                int.Parse(NotaFiscal.DataConsultaANP.Substring(3, 2)),
+                int.Parse(NotaFiscal.DataConsultaANP.Substring(0, 2)));
             string Veiculo = NotaFiscal.Veiculo;
             string PlacaVeiculo = NotaFiscal.PlacaVeiculo;
             string Combustivel = NotaFiscal.Combustivel;
@@ -43,7 +47,9 @@ namespace WebApp.Controllers
             int Departamento = NotaFiscal.Departamento;
             List<string> CuponsSelecionados =  NotaFiscal.CuponsSelecionados;
 
-            NotaFiscalService.addNotaFiscal(
+            CuponsSelecionados = CuponsSelecionados ?? new List<string>();
+
+            notaFiscalService.cadastrarNotaFiscal(
                 NrNotaFiscal,
                 SGDP,
                 ValorTotal,
@@ -71,7 +77,19 @@ namespace WebApp.Controllers
 
         public ActionResult Index()
         {
-            return View("NotaFiscal");
+
+            List<TabelaUsuarioDto> tabelas = new List<TabelaUsuarioDto>();
+
+            try
+            {
+                tabelas = tabelaUsuarioService.ListarTabelas();
+
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return View("NotaFiscal", new NotaFiscalModel { TabelasUsuario = tabelas });
         }
 
     }
