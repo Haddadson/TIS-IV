@@ -9,13 +9,13 @@ namespace WebApp.Controllers
     public class HomeController : Controller
     {
         private readonly ObterExcelCombustivelService ObterExcelPetroleoService;
-        private readonly ObterPrecoMedioExcelService LerDadosExcelService;
+        private readonly PlanilhaAnpService LerDadosExcelService;
         private readonly ObterMunicipioAnpService listarMunicipiosService;
 
         public HomeController()
         {
             ObterExcelPetroleoService = new ObterExcelCombustivelService();
-            LerDadosExcelService = new ObterPrecoMedioExcelService();
+            LerDadosExcelService = new PlanilhaAnpService();
             listarMunicipiosService = new ObterMunicipioAnpService();
         }
 
@@ -66,7 +66,7 @@ namespace WebApp.Controllers
         public JsonResult ObterExcel()
         {
             ObterExcelPetroleoService.ObterExcelPrecosCombustivelESalvar();
-            LerDadosExcelService.PreencherDadosNotaFiscalSuperFaturamento("ADENDO_ID_2927539.xlsx", Constantes.NOME_ARQUIVO_ANP_PRECOS);
+            LerDadosExcelService.PopularBancoComDadosAnp("ADENDO_ID_2927539.xlsx", Constantes.NOME_ARQUIVO_ANP_PRECOS);
 
             return new JsonResult();
         }

@@ -1,7 +1,11 @@
 ﻿using Dapper;
 using MPMG.Repositories.Entidades;
+using MPMG.Repositories.Util;
 using MPMG.Services;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Text;
 
 namespace MPMG.Repositories
 {
@@ -19,6 +23,12 @@ namespace MPMG.Repositories
               AND `mes` = @mes
               AND `ano` = @ano
               AND `produto` = @produto";
+
+        private const string SQL_INSERT_ANP_LOTE = @"
+            INSERT INTO `tabelaanp`
+            (mes, ano, produto, id_upload_anp, preco_medio_revenda, preco_maximo_revenda, preco_minimo_revenda)
+            VALUES";
+        
         public TabelaANP BuscarDadosANP(int SGDP, string produto, int mes, int ano)
         {
             DynamicParameters parametros = new DynamicParameters();
@@ -29,6 +39,21 @@ namespace MPMG.Repositories
             parametros.Add("@ano", ano, DbType.Int32);
 
             return Obter(SQL_BUSCAR_DADOS_ANP, parametros);
+        }
+
+        public void InserirLoteAnp(List<DataRow> linhas)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            if (linhas.Any(linha => linha.ItemArray.Any(item => SqlUtil.ParametroAlfanumericoInvalido(item.ToString()))))
+                return;
+
+            var sql = stringBuilder.Append(SQL_INSERT_ANP_LOTE);
+
+            //TODO
+
+
+            Execute(sql.ToString(), null);
         }
     }
 }
