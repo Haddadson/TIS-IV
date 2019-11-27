@@ -3,6 +3,7 @@ using MPMG.Interfaces.DTO;
 using MPMG.Repositories;
 using MPMG.Repositories.Entidades;
 using MPMG.Util;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
@@ -68,9 +69,6 @@ namespace MPMG.Services
             if (string.IsNullOrWhiteSpace(caminhoExcel))
                 return;
 
-            //XSSFWorkbook workbookExcel;
-            //List<DadosAnpDto> listaDadosAnp = new List<DadosAnpDto>();
-
             string file = string.Format("{0}/{1}", Constantes.CAMINHO_DOWNLOAD_ARQUIVO, caminhoExcelAnp);
 
             FileStream stream = File.Open(file, FileMode.Open, FileAccess.Read);
@@ -104,7 +102,12 @@ namespace MPMG.Services
             tabelas.AcceptChanges();
 
             int contador = 0;
-            foreach(DataColumn coluna in tabelas.Columns)
+
+            if (tabelas.Rows[0]?.ItemArray?.GetValue(0)?.ToString() != "MÊS" && tabelas.Rows[0]?.ItemArray?.GetValue(1)?.ToString() != "PRODUTO")
+                throw new Exception("Erro ao ler planilha da ANP");
+
+
+            foreach (DataColumn coluna in tabelas.Columns)
             {
                 if (!string.IsNullOrWhiteSpace(tabelas.Rows[0]?.ItemArray?.GetValue(contador)?.ToString()))
                 {
@@ -117,8 +120,10 @@ namespace MPMG.Services
             tabelas.Rows[0].Delete();
             tabelas.AcceptChanges();
 
-            DataView dv = new DataView(tabelas);
-            dv.RowFilter = " REGIÃO = 'SUDESTE' AND ESTADO = 'MINAS GERAIS'";
+            DataView dv = new DataView(tabelas)
+            {
+                RowFilter = " REGIÃO = 'SUDESTE' AND ESTADO = 'MINAS GERAIS'"
+            };
 
             stream.Close();
 
