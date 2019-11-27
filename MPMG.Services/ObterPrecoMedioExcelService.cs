@@ -1,14 +1,13 @@
-﻿using MPMG.Interfaces.DTO;
+﻿using ExcelDataReader;
+using MPMG.Interfaces.DTO;
 using MPMG.Repositories;
+using MPMG.Repositories.Entidades;
 using MPMG.Util;
-using static MPMG.Util.Enum.DeParaCombustivelMpmgAnp;
-using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using MPMG.Repositories.Entidades;
 
 namespace MPMG.Services
 {
@@ -69,69 +68,120 @@ namespace MPMG.Services
             if (string.IsNullOrWhiteSpace(caminhoExcel))
                 return;
 
-            XSSFWorkbook workbookExcel;
-            List<DadosAnpDto> listaDadosAnp = new List<DadosAnpDto>();
+            //XSSFWorkbook workbookExcel;
+            //List<DadosAnpDto> listaDadosAnp = new List<DadosAnpDto>();
 
-            using (FileStream file = new FileStream(string.Format("{0}/{1}", Constantes.CAMINHO_DOWNLOAD_ARQUIVO, caminhoExcel),
-                FileMode.Open, FileAccess.ReadWrite))
-            {
-                workbookExcel = new XSSFWorkbook(file);
-            }
+            string file = string.Format("{0}/{1}", Constantes.CAMINHO_DOWNLOAD_ARQUIVO, caminhoExcelAnp);
 
-            ISheet sheet = workbookExcel.GetSheet("Superfaturamento");
-            for (int row = 2; row <= sheet.LastRowNum - 2; row++)
+            FileStream stream = File.Open(file, FileMode.Open, FileAccess.Read);
+            IExcelDataReader excelReader = null;
+            if (file.ToLower().EndsWith("xls"))
+                //1. Reading from a binary Excel file ('97-2003 format; *.xls) 
+                excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
+            else
+                //2. Reading from a OpenXml Excel file (2007 format; *.xlsx)
+                excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+
+            DataSet result = excelReader.AsDataSet();
+            DataTable tabelas = result.Tables[0];
+            int i = 0;
+
+            foreach (DataRow linha in tabelas.Rows)
             {
-                if (sheet.GetRow(row) != null) //null is when the row only contains empty cells 
+                if (linha?.ItemArray?.GetValue(0)?.ToString() == "MÊS" && linha?.ItemArray?.GetValue(1)?.ToString() == "PRODUTO")
                 {
-
-                    if (sheet.GetRow(row).GetCell(0).CellType == CellType.String &&
-                        sheet.GetRow(row).GetCell(0).StringCellValue == "TOTAL")
-                    {
-                        workbookExcel.Close();
-                        return;
-                    }
-
-                    DadosNotaFiscalDto dadosNotaFiscal = new DadosNotaFiscalDto()
-                    {
-                        Combustivel = sheet.GetRow(row).GetCell(2).StringCellValue,
-                        DataNota = sheet.GetRow(row).GetCell(0).DateCellValue,
-                        Estado = "MINAS GERAIS", //TODO: Obter estado
-                        Municipio = "FORMIGA", //TODO: Obter municipio
-                        IdNota = sheet.GetRow(row).GetCell(1).NumericCellValue
-                    };
-
-                    //var informacoes = listaDadosAnp.FirstOrDefault(dados => dadosNotaFiscal.Estado.ToLower() == dados.Estado.ToLower() &&
-                    //    dadosNotaFiscal.Municipio.ToLower() == dados.Municipio.ToLower() &&
-                    //    DeParaCombustivelMpmgAnp.ConverterCombustivelMpmgAnp(dadosNotaFiscal.Combustivel) == dados.Combustivel &&
-                    //    dadosNotaFiscal.DataNota.ToString("MMM/yy", Culture).ToLower() == dados.MesAnoInformacao.ToString("MMM/yy", Culture).ToLower());
-
-                    //informacoes = informacoes ?? ObterInformacoesAnp(Constantes.NOME_ARQUIVO_ANP_PRECOS, dadosNotaFiscal);
-
-                    var informacoes = dadosAnpRepositorio.ObterPorValoresNota(dadosNotaFiscal.DataNota.Month, dadosNotaFiscal.DataNota.Year,
-                                                                              dadosNotaFiscal.Estado, dadosNotaFiscal.Municipio, 
-                                                                              ConverterCombustivelMpmgAnp(dadosNotaFiscal.Combustivel));
-
-                    var informacoesDto = ConverterDadosAnpParaDto(informacoes);
-                    if (informacoesDto != null)
-                    {
-                        if (!VerificaSeInformacoesExistemNaLista(listaDadosAnp, informacoesDto))
-                        {
-                            listaDadosAnp.Add(informacoesDto);
-                        }
-
-                        var celulaPreco = sheet.GetRow(row).GetCell(7);
-                        celulaPreco.SetCellValue(informacoes.PrecoMedioRevenda);
-
-                        using (FileStream fs = new FileStream(string.Format("{0}/{1}", Constantes.CAMINHO_DOWNLOAD_ARQUIVO, caminhoExcel),
-                            FileMode.Create, FileAccess.Write))
-                        {
-                            workbookExcel.Write(fs);
-                        }
-                    }
-
+                    break;
                 }
+                i++;
             }
-            workbookExcel.Close();
+
+            for (int a = 0; a < i; a++)
+            {
+                var dataRow = tabelas.Rows[a];
+                dataRow.Delete();
+            }
+
+            tabelas.AcceptChanges();
+
+            int contador = 0;
+            foreach(DataColumn coluna in tabelas.Columns)
+            {
+                if (!string.IsNullOrWhiteSpace(tabelas.Rows[0]?.ItemArray?.GetValue(contador)?.ToString()))
+                {
+                    coluna.ColumnName = tabelas.Rows[0]?.ItemArray?.GetValue(contador)?.ToString();
+                    tabelas.AcceptChanges();
+                }
+                contador++;
+            }
+
+            tabelas.Rows[0].Delete();
+            tabelas.AcceptChanges();
+
+            DataView dv = new DataView(tabelas);
+            dv.RowFilter = " REGIÃO = 'SUDESTE' AND ESTADO = 'MINAS GERAIS'";
+
+            stream.Close();
+
+            //using (FileStream file = new FileStream(string.Format("{0}/{1}", Constantes.CAMINHO_DOWNLOAD_ARQUIVO, caminhoExcel),
+            //    FileMode.Open, FileAccess.ReadWrite))
+            //{
+            //    workbookExcel = new XSSFWorkbook(file);
+            //}
+
+            //ISheet sheet = workbookExcel.GetSheet("Superfaturamento");
+            //for (int row = 2; row <= sheet.LastRowNum - 2; row++)
+            //{
+            //    if (sheet.GetRow(row) != null) //null is when the row only contains empty cells 
+            //    {
+
+            //        if (sheet.GetRow(row).GetCell(0).CellType == CellType.String &&
+            //            sheet.GetRow(row).GetCell(0).StringCellValue == "TOTAL")
+            //        {
+            //            workbookExcel.Close();
+            //            return;
+            //        }
+
+            //        DadosNotaFiscalDto dadosNotaFiscal = new DadosNotaFiscalDto()
+            //        {
+            //            Combustivel = sheet.GetRow(row).GetCell(2).StringCellValue,
+            //            DataNota = sheet.GetRow(row).GetCell(0).DateCellValue,
+            //            Estado = "MINAS GERAIS", //TODO: Obter estado
+            //            Municipio = "FORMIGA", //TODO: Obter municipio
+            //            IdNota = sheet.GetRow(row).GetCell(1).NumericCellValue
+            //        };
+
+            //        //var informacoes = listaDadosAnp.FirstOrDefault(dados => dadosNotaFiscal.Estado.ToLower() == dados.Estado.ToLower() &&
+            //        //    dadosNotaFiscal.Municipio.ToLower() == dados.Municipio.ToLower() &&
+            //        //    DeParaCombustivelMpmgAnp.ConverterCombustivelMpmgAnp(dadosNotaFiscal.Combustivel) == dados.Combustivel &&
+            //        //    dadosNotaFiscal.DataNota.ToString("MMM/yy", Culture).ToLower() == dados.MesAnoInformacao.ToString("MMM/yy", Culture).ToLower());
+
+            //        //informacoes = informacoes ?? ObterInformacoesAnp(Constantes.NOME_ARQUIVO_ANP_PRECOS, dadosNotaFiscal);
+
+            //        var informacoes = dadosAnpRepositorio.ObterPorValoresNota(dadosNotaFiscal.DataNota.Month, dadosNotaFiscal.DataNota.Year,
+            //                                                                  dadosNotaFiscal.Estado, dadosNotaFiscal.Municipio, 
+            //                                                                  ConverterCombustivelMpmgAnp(dadosNotaFiscal.Combustivel));
+
+            //        var informacoesDto = ConverterDadosAnpParaDto(informacoes);
+            //        if (informacoesDto != null)
+            //        {
+            //            if (!VerificaSeInformacoesExistemNaLista(listaDadosAnp, informacoesDto))
+            //            {
+            //                listaDadosAnp.Add(informacoesDto);
+            //            }
+
+            //            var celulaPreco = sheet.GetRow(row).GetCell(7);
+            //            celulaPreco.SetCellValue(informacoes.PrecoMedioRevenda);
+
+            //            using (FileStream fs = new FileStream(string.Format("{0}/{1}", Constantes.CAMINHO_DOWNLOAD_ARQUIVO, caminhoExcel),
+            //                FileMode.Create, FileAccess.Write))
+            //            {
+            //                workbookExcel.Write(fs);
+            //            }
+            //        }
+
+            //    }
+            //}
+            //workbookExcel.Close();
         }
 
         //private bool ValidarLinhaBuscada(DadosNotaFiscalDto dadosNotaFiscal, ISheet sheet, int row)
