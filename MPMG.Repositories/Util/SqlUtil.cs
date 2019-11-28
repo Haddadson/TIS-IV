@@ -65,5 +65,13 @@ namespace MPMG.Repositories.Util
 
             return string.Format("{0}", valor);
         }
+
+        public static string FormatarParametro(double? valor)
+        {
+            if (valor == null)
+                return "NULL";
+
+            return string.Format("{0}", valor);
+        }
     }
 }

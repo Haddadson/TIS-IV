@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using MPMG.Repositories.Entidades;
-using System;
 using System.Data;
 
 namespace MPMG.Repositories

@@ -63,12 +63,13 @@ namespace WebApp.Controllers
             }
         }
 
-        public JsonResult ObterExcel()
+        [HttpGet]
+        public ActionResult ObterExcel()
         {
             ObterExcelPetroleoService.ObterExcelPrecosCombustivelESalvar();
-            LerDadosExcelService.PopularBancoComDadosAnp("ADENDO_ID_2927539.xlsx", Constantes.NOME_ARQUIVO_ANP_PRECOS);
+            LerDadosExcelService.PopularBancoComDadosAnp(Constantes.NOME_ARQUIVO_ANP_PRECOS);
 
-            return new JsonResult();
+            return Json("Sucesso", JsonRequestBehavior.AllowGet);
         }
 
     }
