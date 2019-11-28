@@ -86,7 +86,7 @@ namespace MPMG.Services
 
             DataView tabelaInsercao = new DataView(tabelas)
             {
-                RowFilter = " REGIÃO = 'SUDESTE' AND ESTADO = 'MINAS GERAIS'"
+                RowFilter = " REGIÃO = 'SUDESTE' AND ESTADO = 'MINAS GERAIS' AND COMBUSTÍVEL NOT IN ('GLP','GNV')"
             };
 
             tabelas = tabelaInsercao.ToTable();
