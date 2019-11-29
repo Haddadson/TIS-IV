@@ -2,37 +2,58 @@
 
     $("#cadastrar-tabela-fam").on("click", function (e) {
 
-        if ($("#'fam-file").prop('src').length == 0) {
-            alert("Por favor, selecione um arquivo Excel (.xlsx ou .xls)");
+        if ($("#fam-file").prop('files')) {
+
+            var fileReader = new FileReader();
+            fileReader.onload = function () {
+                var data = fileReader.result;
+                if (!data) {
+                    alert("Por favor, selecione um arquivo Excel (.xlsx ou .xls)");
+                }
+
+                else {
+
+                    let arquivoFam = data;
+                    let nomeArquivoFam = $("#fam-file").prop('files')[0].name;
+                    let tipoArquivoFam = $("#fam-file").prop('files')[0].type;
+                    let extensaoArquivoFam = "";
+
+                    if (tipoArquivoFam === "application/vnd.ms-excel") {
+                        extensaoArquivoFam = ".xls";
+                    }
+                    else if (tipoArquivoFam === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+                        extensaoArquivoFam = ".xlsx";
+                    }
+
+                    parametros = {
+                        arquivoFam,
+                        nomeArquivoFam,
+                        tipoArquivoFam,
+                        extensaoArquivoFam
+                    };
+
+                    ValidarNotas.chamadaAjax({
+                        url: urlAtualizarTabelaFam,
+                        data: parametros,
+                        sucesso: tratarSucesso,
+                        deveEsconderCarregando: false
+                    });
+                }
+            };
+            fileReader.readAsDataURL($('#fam-file').prop('files')[0]);
         }
         else {
-
-            let arquivoFam = $("#'fam-file").prop('src');
-            let nomeArquivoFam = $("#fam-file").val();
-            let tipoArquivoFam = $("#fam-file")[0].files[0].type;
-            let extensaoArquivoFam = tipoArquivoFam.split("/")[1];
-
-            parametros = {
-                arquivoFam,
-                nomeArquivoFam,
-                tipoArquivoFam,
-                extensaoArquivoFam
-            };
-
-            ValidarNotas.chamadaAjax({
-                url: urlAtualizarTabelaFam,
-                data: parametros,
-                sucesso: tratarSucesso,
-                deveEsconderCarregando: false
-            });
+            alert("Por favor, selecione um arquivo Excel (.xlsx ou .xls)");
         }
 
-        function tratarSucesso(response) {
-            if (response && response.sucesso) {
-                alert("Cadastrado com sucesso");
-            }
-        }
 
     });
+
+
+    function tratarSucesso(response) {
+        if (response && response.sucesso) {
+            alert("Cadastrado com sucesso");
+        }
+    }
 
 });

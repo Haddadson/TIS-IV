@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MPMG.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,13 @@ namespace WebApp.Controllers
 {
     public class AtualizarFamController : Controller
     {
+        private PlanilhaFamService planilhaFamService;
+
+        public AtualizarFamController()
+        {
+            planilhaFamService = new PlanilhaFamService();
+        }
+
         public ActionResult Index()
         {
             return View("AtualizarFam");
@@ -19,15 +27,14 @@ namespace WebApp.Controllers
         public ActionResult AtualizarFam(AtualizacaoFam model)
         {
             byte[] arquivoBytesFam = Convert.FromBase64String(RemoverStringBase64(model.ArquivoFam));
-            //TODO
-            //MemoryStream stream = new MemoryStream(arquivoBytesFam);
-
-            //if (model.ExtensaoArquivoFam.ToLower().EndsWith("xls"))
-            //    //1. Reading from a binary Excel file ('97-2003 format; *.xls) 
-            //    excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
-            //else
-            //    //2. Reading from a OpenXml Excel file (2007 format; *.xlsx)
-            //    excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+            try
+            {
+                planilhaFamService.AtualizarDadosTabelaFam(arquivoBytesFam, model.ExtensaoArquivoFam);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { sucesso = false });
+            }
 
             return Json(new { sucesso = true });
         }

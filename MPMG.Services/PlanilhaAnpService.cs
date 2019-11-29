@@ -46,7 +46,7 @@ namespace MPMG.Services
 
             DataSet result = excelReader.AsDataSet();
             DataTable tabelas = result.Tables[0];
-            int i = 0;
+            int indiceLinhaInicial = 0;
 
             foreach (DataRow linha in tabelas.Rows)
             {
@@ -54,10 +54,10 @@ namespace MPMG.Services
                 {
                     break;
                 }
-                i++;
+                indiceLinhaInicial++;
             }
 
-            for (int a = 0; a < i; a++)
+            for (int a = 0; a < indiceLinhaInicial; a++)
             {
                 var dataRow = tabelas.Rows[a];
                 dataRow.Delete();
