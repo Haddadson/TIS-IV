@@ -27,16 +27,18 @@ namespace WebApp.Controllers
         public ActionResult AtualizarFam(AtualizacaoFam model)
         {
             byte[] arquivoBytesFam = Convert.FromBase64String(RemoverStringBase64(model.ArquivoFam));
+            bool resultado; 
+
             try
             {
-                planilhaFamService.AtualizarDadosTabelaFam(arquivoBytesFam, model.ExtensaoArquivoFam);
+                resultado = planilhaFamService.AtualizarDadosTabelaFam(arquivoBytesFam, model.ExtensaoArquivoFam);
             }
             catch (Exception ex)
             {
                 return Json(new { sucesso = false });
             }
 
-            return Json(new { sucesso = true });
+            return Json(new { sucesso = resultado });
         }
 
         private string RemoverStringBase64(string valor)

@@ -19,7 +19,7 @@ namespace MPMG.Services
             tabelaFamRepositorio = new TabelaFamRepo();
         }
 
-        public void AtualizarDadosTabelaFam(byte[] arquivoFam, string extensaoArquivo)
+        public bool AtualizarDadosTabelaFam(byte[] arquivoFam, string extensaoArquivo)
         {
             MemoryStream stream = new MemoryStream(arquivoFam);
             IExcelDataReader excelReader;
@@ -130,6 +130,7 @@ namespace MPMG.Services
 
             stream.Close();
 
+            return contErros == 0;
         }
     }
 }
