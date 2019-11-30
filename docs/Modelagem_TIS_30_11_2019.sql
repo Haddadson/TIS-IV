@@ -97,6 +97,7 @@ CREATE TABLE IF NOT EXISTS `mpmg`.`tabelafam` (
   `id_upload` INT(11) NOT NULL,
   `valor_fam` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`mes`, `ano`, `id_upload`),
+  INDEX `fk_tabelafam1_idx` (`mes` ASC, `ano` ASC) VISIBLE,
   INDEX `fk_TabelaFAM_UploadTabelaFAM1_idx` (`id_upload` ASC) VISIBLE,
   CONSTRAINT `fk_TabelaFAM_UploadTabelaFAM1`
     FOREIGN KEY (`id_upload`)
