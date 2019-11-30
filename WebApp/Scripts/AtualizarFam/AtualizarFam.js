@@ -36,7 +36,8 @@
                         url: urlAtualizarTabelaFam,
                         data: parametros,
                         sucesso: tratarSucesso,
-                        deveEsconderCarregando: false
+                        deveEsconderCarregando: true,
+                        deveEsconderCarregandoBloqueado: false
                     });
                 }
             };
