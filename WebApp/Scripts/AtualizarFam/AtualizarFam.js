@@ -44,6 +44,7 @@
         }
         else {
             alert("Por favor, selecione um arquivo Excel (.xlsx ou .xls)");
+            $("#fam-file").val('')
         }
 
 
@@ -53,6 +54,12 @@
     function tratarSucesso(response) {
         if (response && response.sucesso) {
             alert("Cadastrado com sucesso");
+            $("#fam-file").val('');
+        }
+        else if (response && !response.sucesso) {
+            if (response.mensagem) {
+                alert(response.mensagem);
+            }
         }
     }
 

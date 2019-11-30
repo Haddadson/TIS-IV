@@ -1,10 +1,8 @@
 ﻿using ExcelDataReader;
 using MPMG.Repositories;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Text;
 
 namespace MPMG.Services
 {
@@ -82,23 +80,28 @@ namespace MPMG.Services
             tabelas.AcceptChanges();
 
             int contador = 0;
-            int indiceUltimaColuna = -1;
+            int indiceUltimaColuna = 0;
+            bool ultimaIteracaoColuna = false;
 
             foreach (DataColumn coluna in tabelas.Columns)
             {
-                if (!string.IsNullOrWhiteSpace(tabelas.Rows[0]?.ItemArray?.GetValue(contador)?.ToString()))
+                if (!ultimaIteracaoColuna)
                 {
-                    if (tabelas.Rows[0]?.ItemArray?.GetValue(contador)?.ToString() == "dez")
+                    if (!string.IsNullOrWhiteSpace(tabelas.Rows[0]?.ItemArray?.GetValue(contador)?.ToString()))
                     {
-                        indiceUltimaColuna = contador;
+                        if (tabelas.Rows[0]?.ItemArray?.GetValue(contador)?.ToString() == "dez")
+                        {
+                            indiceUltimaColuna = contador;
+                            ultimaIteracaoColuna = true;
+                        }
+                        if (indiceUltimaColuna <= contador)
+                        {
+                            coluna.ColumnName = tabelas.Rows[0]?.ItemArray?.GetValue(contador)?.ToString();
+                            tabelas.AcceptChanges();
+                        }
                     }
-                    if (contador <= indiceUltimaColuna)
-                    {
-                        coluna.ColumnName = tabelas.Rows[0]?.ItemArray?.GetValue(contador)?.ToString();
-                        tabelas.AcceptChanges();
-                    }
+                    contador++;
                 }
-                contador++;
             }
 
             tabelas.Rows[0].Delete();
@@ -113,7 +116,7 @@ namespace MPMG.Services
             uploadFamRepositorio.InserirNovaData();
             var idUploadFam = uploadFamRepositorio.ObterUltimoUpload().Id;
 
-            tabelaFamRepositorio.DeletarTodosRegistros();
+            //tabelaFamRepositorio.DeletarTodosRegistros();
 
             int contErros = 0;
 
@@ -123,7 +126,8 @@ namespace MPMG.Services
                 {
                     tabelaFamRepositorio.InserirLoteFam(tabelas.Rows[cont], idUploadFam);
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     contErros++;
                 }
             }

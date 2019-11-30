@@ -29,13 +29,17 @@ namespace WebApp.Controllers
             byte[] arquivoBytesFam = Convert.FromBase64String(RemoverStringBase64(model.ArquivoFam));
             bool resultado; 
 
+            if(string.IsNullOrWhiteSpace(model.ExtensaoArquivoFam) || 
+                (model.ExtensaoArquivoFam != ".xls" && model.ExtensaoArquivoFam != ".xlsx"))
+                return Json(new { sucesso = false, mensagem = "A extensão do arquivo informado é inválida. Selecione um arquivo .xlsx ou .xls" });
+
             try
             {
                 resultado = planilhaFamService.AtualizarDadosTabelaFam(arquivoBytesFam, model.ExtensaoArquivoFam);
             }
             catch (Exception ex)
             {
-                return Json(new { sucesso = false });
+                return Json(new { sucesso = false, mensagem = "Ocorreu um erro ao cadastrar uma nova tabela FAM" });
             }
 
             return Json(new { sucesso = resultado });

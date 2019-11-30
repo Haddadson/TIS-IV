@@ -47,6 +47,9 @@ namespace MPMG.Repositories
 
             for (int i = 1; i < linha.ItemArray.Count(); i++)
             {
+                if (string.IsNullOrWhiteSpace(linha.ItemArray[i].ToString()))
+                    continue;
+
                 sql.Append("(")
                    .Append($"{SqlUtil.FormatarParametro(Meses.ObterMesPorNomeReduzido(linha.Table.Columns[i].ColumnName.ToLower())?.Numero)}, ")
                    .Append($"{SqlUtil.FormatarParametro(linha.ItemArray[0].ToString())}, ")
