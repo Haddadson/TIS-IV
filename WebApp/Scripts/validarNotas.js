@@ -9,18 +9,27 @@ ValidarNotas.chamadaAjaxGET = function (parametros) {
         traditional: true,
         contentType: 'application/json',
         deveEsconderCarregando: false,
+        deveEsconderCarregandoBloqueado: true,
         sucesso: function () { },
         erro: function () { },
         exibirCarregando: function () { $('.carregando').show(); },
         esconderCarregando: function () { $('.carregando').hide(); },
+        exibirCarregandoBloqueado: function () { $('.loading-locked').show(); },
+        esconderCarregandoBloqueado: function () { $('.loading-locked').hide(); },
         beforeSend: function () {
             if (!this.deveEsconderCarregando) {
                 this.exibirCarregando();
+            }
+            if (!this.deveEsconderCarregandoBloqueado) {
+                this.exibirCarregandoBloqueado();
             }
         },
         complete: function () {
             if (!this.deveEsconderCarregando) {
                 this.esconderCarregando();
+            }
+            if (!this.deveEsconderCarregandoBloqueado) {
+                this.esconderCarregandoBloqueado();
             }
         },
         success: function (args) {
@@ -47,18 +56,27 @@ ValidarNotas.chamadaAjax = function (parametros) {
         traditional: true,
         contentType: 'application/json',
         deveEsconderCarregando: false,
+        deveEsconderCarregandoBloqueado: true,
         sucesso: function () { },
         erro: function () { },
         exibirCarregando: function () { $('.carregando').show(); },
         esconderCarregando: function () { $('.carregando').hide(); },
+        exibirCarregandoBloqueado: function () { $('.loading-locked').show(); },
+        esconderCarregandoBloqueado: function () { $('.loading-locked').hide(); },
         beforeSend: function () {
             if (!this.deveEsconderCarregando) {
                 this.exibirCarregando();
+            }
+            if (!this.deveEsconderCarregandoBloqueado) {
+                this.exibirCarregandoBloqueado();
             }
         },
         complete: function () {
             if (!this.deveEsconderCarregando) {
                 this.esconderCarregando();
+            }
+            if (!this.deveEsconderCarregandoBloqueado) {
+                this.esconderCarregandoBloqueado();
             }
         },
         success: function (args) {
