@@ -37,7 +37,7 @@ namespace WebApp.Controllers
                 return Json(new { sucesso = false, mensagem = "Ocorreu um erro ao cadastrar uma nova tabela FAM" });
             }
 
-            return Json(new { sucesso = resultado });
+            return Json(new { sucesso = resultado, mensagem = "Cadastrado com sucesso" });
         }
 
         private string RemoverStringBase64(string valor)

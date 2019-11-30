@@ -32,9 +32,26 @@
             </div>
         </div>
 
+        <div class="form-example-wrap">
+            <div class="col-md-12">
+                <h3>Atualizar tabela ANP</h3>
+            </div>
+            <div class="col-md-12">
+
+                    <div class="button-icon-btn">
+                        <button class="btn btn-default btn-icon-notika" id="atualizar-tabela-anp">
+                            Atualizar dados
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @section JavascriptPagina {
 <script type="text/javascript">
     var urlAtualizarTabelaFam = '@Url.Action("AtualizarFam", "AtualizarFam")';
+    var urlAtualizarTabelaAnp = '@Url.Action("AtualizarTabelaAnp", "Home")';
 
 </script>
 <script src="~/Scripts/AtualizarFam/AtualizarFam.js"></script>

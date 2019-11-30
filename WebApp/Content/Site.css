@@ -199,6 +199,6 @@ select:focus,
 
 @media (min-width: 992px) {
     div.form-example-wrap {
-        height: 550px;
+        height: 250px;
     }
 }

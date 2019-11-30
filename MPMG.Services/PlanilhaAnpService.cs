@@ -19,6 +19,7 @@ namespace MPMG.Services
         private readonly TabelaANPRepo tabelaAnpRepositorio;
         private readonly UploadAnpRepo uploadAnpRepositorio;
         private readonly MunicipioRepositorio municipioRepositorio;
+        private readonly ObterArquivoRepositorio repositorioObterArquivo;
 
         public PlanilhaAnpService()
         {
@@ -27,6 +28,20 @@ namespace MPMG.Services
             tabelaAnpRepositorio = new TabelaANPRepo();
             uploadAnpRepositorio = new UploadAnpRepo();
             municipioRepositorio = new MunicipioRepositorio();
+            repositorioObterArquivo = new ObterArquivoRepositorio();
+        }
+
+        public byte[] ObterPlanilhaAnpCombustiveis()
+        {
+            return repositorioObterArquivo.ObterArquivoPorUrl(Constantes.URL_AGENCIA_NACIONAL_PETROLEO_PRECOS_ESTADO);
+        }
+
+        public void ObterPlanilhaAnpCombustiveisEGravar()
+        {
+            if (File.Exists(string.Format("{0}/{1}", Constantes.CAMINHO_DOWNLOAD_ARQUIVO, Constantes.NOME_ARQUIVO_ANP_PRECOS)))
+                File.Delete(string.Format("{0}/{1}", Constantes.CAMINHO_DOWNLOAD_ARQUIVO, Constantes.NOME_ARQUIVO_ANP_PRECOS));
+
+            repositorioObterArquivo.ObterArquivoPorUrlESalvar(Constantes.URL_AGENCIA_NACIONAL_PETROLEO_PRECOS_MUNICIPIOS_ATUAL);
         }
 
         public void PopularBancoComDadosAnp(string caminhoExcelAnp)
@@ -86,7 +101,7 @@ namespace MPMG.Services
 
             DataView tabelaInsercao = new DataView(tabelas)
             {
-                RowFilter = " REGIÃO = 'SUDESTE' AND ESTADO = 'MINAS GERAIS' AND COMBUSTÍVEL NOT IN ('GLP','GNV')"
+                RowFilter = " REGIÃO = 'SUDESTE' AND ESTADO = 'MINAS GERAIS' AND PRODUTO NOT IN ('GLP','GNV')"
             };
 
             tabelas = tabelaInsercao.ToTable();

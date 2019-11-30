@@ -8,14 +8,12 @@ namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ObterExcelCombustivelService ObterExcelPetroleoService;
-        private readonly PlanilhaAnpService LerDadosExcelService;
+        private readonly PlanilhaAnpService planilhaAnpService;
         private readonly ObterMunicipioAnpService listarMunicipiosService;
 
         public HomeController()
         {
-            ObterExcelPetroleoService = new ObterExcelCombustivelService();
-            LerDadosExcelService = new PlanilhaAnpService();
+            planilhaAnpService = new PlanilhaAnpService();
             listarMunicipiosService = new ObterMunicipioAnpService();
         }
 
@@ -63,13 +61,20 @@ namespace WebApp.Controllers
             }
         }
 
-        [HttpGet]
-        public ActionResult ObterExcel()
+        public ActionResult AtualizarTabelaAnp()
         {
-            ObterExcelPetroleoService.ObterExcelPrecosCombustivelESalvar();
-            LerDadosExcelService.PopularBancoComDadosAnp(Constantes.NOME_ARQUIVO_ANP_PRECOS);
+            try
+            {
+                planilhaAnpService.ObterPlanilhaAnpCombustiveisEGravar();
+                planilhaAnpService.PopularBancoComDadosAnp(Constantes.NOME_ARQUIVO_ANP_PRECOS);
+            }
+            catch (Exception ex)
+            {
 
-            return Json("Sucesso", JsonRequestBehavior.AllowGet);
+                return Json(new { sucesso = false, mensagem = "Ocorreu um erro ao atualizar a planilha da ANP", erro = ex.Message });
+            }
+
+            return Json(new { sucesso = true, mensagem = "Planilha ANP atualizada com sucesso" });
         }
 
     }

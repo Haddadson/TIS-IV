@@ -1,5 +1,14 @@
 ﻿$(document).ready(function () {
 
+    $("#atualizar-tabela-anp").on("click", function (e) {
+        ValidarNotas.chamadaAjax({
+            url: urlAtualizarTabelaAnp,
+            sucesso: tratarSucesso,
+            deveEsconderCarregando: true,
+            deveEsconderCarregandoBloqueado: false
+        });
+    });
+
     $("#cadastrar-tabela-fam").on("click", function (e) {
 
         if ($("#fam-file").prop('files')) {
@@ -45,21 +54,22 @@
         }
         else {
             alert("Por favor, selecione um arquivo Excel (.xlsx ou .xls)");
-            $("#fam-file").val('')
+            $("#fam-file").val('');
         }
-
 
     });
 
-
     function tratarSucesso(response) {
-        if (response && response.sucesso) {
-            alert("Cadastrado com sucesso");
+        if (response && response.sucesso && response.mensagem) {
+            alert(response.mensagem);
             $("#fam-file").val('');
         }
         else if (response && !response.sucesso) {
             if (response.mensagem) {
                 alert(response.mensagem);
+            }
+            if (response.erro) {
+                console.log(response.erro);
             }
         }
     }
