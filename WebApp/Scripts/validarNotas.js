@@ -26,6 +26,7 @@ ValidarNotas.chamadaAjaxGET = function (parametros) {
         success: function (args) {
             if (args && !args.expirou) {
                 this.sucesso(args);
+                parametrosDefault.esconderCarregando();
             }
         },
         error: function (reqObj, tipoErro, mensagemErro) {
@@ -114,6 +115,7 @@ function tratarErroChamadaAjax(reqObj, tipoErro, mensagemErro, callbackErro) {
             callbackErro(tipoErro, mensagemErro);
         }
     }
+    parametrosDefault.esconderCarregando();
 }
 
 function obterRetornoChamadaAjaxSincrona(url, parametros, callbackErro, naoExibirCarregando) {

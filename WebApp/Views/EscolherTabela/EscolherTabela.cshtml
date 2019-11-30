@@ -27,20 +27,23 @@
                                 </select>
                             </div>
                         </div>
-                        <label style="float:left">*</label>
                     </div>
                 </div>
             </div>
             <div class="form-example-int form-horizental">
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <button class="btn btn-default btn-icon-notika" id="cadastrar_nota_fiscal">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 margin-top-20" >
+                            <button class="btn btn-default btn-icon-notika" id="cadastrar_nota_fiscal" onclick="location.href='@Url.Action("", "NotaFiscal")'">
                                 Cadastrar Nota Fiscal
                             </button>
-                            <button class="btn btn-default btn-icon-notika" id="cadastrar_cupom_fiscal">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 margin-top-20">
+                            <button class="btn btn-default btn-icon-notika" id="cadastrar_cupom_fiscal" onclick="location.href='@Url.Action("", "CupomFiscal")'">
                                 Cadastrar Cupom Fiscal
                             </button>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 margin-top-20">
                             <button class="btn btn-default btn-icon-notika" id="visualizar_tabela">
                                 Visualizar Tabela
                             </button>
@@ -56,6 +59,7 @@
 @section JavascriptPagina {
     <script type="text/javascript">
         var urlRedirecionarVisualizarTabela = '@Url.Action("RedirecionarVisualizarTabela", "EscolherTabela")';
+        var urlCarregarSGDPs = '@Url.Action("CarregarSGDPs", "EscolherTabela")';
 
     </script>
     <script src="~/Scripts/EscolherTabela/EscolherTabela.js"></script>

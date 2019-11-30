@@ -60,32 +60,26 @@
 
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink(" ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Nota Fiscal", "Index", "NotaFiscal")</li>
-                    <li>@Html.ActionLink("Listar Tabelas", "Index", "TabelaUsuario")</li>
-                    <li>@Html.ActionLink("Escolher Tabela", "Index", "EscolherTabela")</li>
-                    <li>@Html.ActionLink("Cupom Fiscal", "Index", "CupomFiscal")</li>
-                    <li>@Html.ActionLink("Atualizar ANP", "ObterExcel", "Home")</li>
-                    <li>@Html.ActionLink("Atualizar FAM", "Index", "AtualizarFam")</li>
-                </ul>
-            </div>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink(" ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Nova Tabela", "Index", "Home")</li>
+                <li>@Html.ActionLink("Listar Tabelas", "Index", "TabelaUsuario")</li>
+                <li>@Html.ActionLink("Escolher Tabela", "Index", "EscolherTabela")</li>
+                <li>@Html.ActionLink("Atualizar ANP", "ObterExcel", "Home")</li>
+                <li>@Html.ActionLink("Atualizar FAM", "Index", "AtualizarFam")</li>
+            </ul>
         </div>
     </div>
-    <div class="container-fluid body-content text-center">
+    <div class="container-fluid body-content text-center margin-top-20">
         @RenderBody()
     </div>
 

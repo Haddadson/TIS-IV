@@ -59,7 +59,9 @@ namespace WebApp.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { });
+                return Json(new { 
+                    error = ex.Message
+                });
             }
         }
 
