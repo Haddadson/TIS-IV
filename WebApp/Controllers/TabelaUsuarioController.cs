@@ -31,7 +31,6 @@ namespace WebApp.Controllers
                 TabelaUsuario.Titulo3,
                 TabelaUsuario.AnalistaResponsavel);
 
-
                 return Json(new
                 {
                     Mensagem = "Sucesso ao cadastrar tabela",

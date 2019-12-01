@@ -38,7 +38,7 @@ namespace MPMG.Repositories
                 M.nome_municipio AS Municipio 
               FROM TabelaANP T 
               JOIN municipio M 
-            WHERE T.ano IN @ano
+            WHERE T.ano IN @Ano
             ORDER BY M.nome_municipio";
 
         public DadosAnp ObterPorValoresNota(int mes, int ano, string estado, string municipio, string produto)
