@@ -34,7 +34,55 @@
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div class="nk-int-st">
-                                        <input type="text" id="coo" class="form-control borderless-field" />
+                                        <!-- <select class="form-control ui fluid search dropdown" id="coo"></select> -->
+                                        <div class="ui sub header">Single</div>
+                                        <select name="skills" class="ui fluid search dropdown" wtx-context="C97480B0-E3B2-4E4B-84A5-9ACBCB52074B">
+                                            <option value="">Skills</option>
+                                            <option value="angular">Angular</option>
+                                            <option value="css">CSS</option>
+                                            <option value="design">Graphic Design</option>
+                                            <option value="ember">Ember</option>
+                                            <option value="html">HTML</option>
+                                            <option value="ia">Information Architecture</option>
+                                            <option value="javascript">Javascript</option>
+                                            <option value="mech">Mechanical Engineering</option>
+                                            <option value="meteor">Meteor</option>
+                                            <option value="node">NodeJS</option>
+                                            <option value="plumbing">Plumbing</option>
+                                            <option value="python">Python</option>
+                                            <option value="rails">Rails</option>
+                                            <option value="react">React</option>
+                                            <option value="repair">Kitchen Repair</option>
+                                            <option value="ruby">Ruby</option>
+                                            <option value="ui">UI Design</option>
+                                            <option value="ux">User Experience</option>
+                                        </select>
+                                        <div class="ui sub header">Multiple</div>
+                                        <div class="ui fluid multiple search selection dropdown">
+                                            <input name="tags" type="hidden" wtx-context="E41793A6-05BB-48D0-81EF-FE0231BA035E">
+                                            <i class="dropdown icon"></i>
+                                            <div class="default text">Skills</div>
+                                            <div class="menu">
+                                                <div class="item" data-value="angular">Angular</div>
+                                                <div class="item" data-value="css">CSS</div>
+                                                <div class="item" data-value="design">Graphic Design</div>
+                                                <div class="item" data-value="ember">Ember</div>
+                                                <div class="item" data-value="html">HTML</div>
+                                                <div class="item" data-value="ia">Information Architecture</div>
+                                                <div class="item" data-value="javascript">Javascript</div>
+                                                <div class="item" data-value="mech">Mechanical Engineering</div>
+                                                <div class="item" data-value="meteor">Meteor</div>
+                                                <div class="item" data-value="node">NodeJS</div>
+                                                <div class="item" data-value="plumbing">Plumbing</div>
+                                                <div class="item" data-value="python">Python</div>
+                                                <div class="item" data-value="rails">Rails</div>
+                                                <div class="item" data-value="react">React</div>
+                                                <div class="item" data-value="repair">Kitchen Repair</div>
+                                                <div class="item" data-value="ruby">Ruby</div>
+                                                <div class="item" data-value="ui">UI Design</div>
+                                                <div class="item" data-value="ux">User Experience</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +124,7 @@
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div class="nk-int-st">
-                                        <input type="date" class="form-control borderless-field" id="data_cupom">
+                                        <input type="date" class="form-control borderless-field" id="data_emissao">
                                     </div>
                                 </div>
                             </div>
@@ -219,4 +267,11 @@
         var urlCadastrarCupomFiscal= '@Url.Action("Cadastrar", "CupomFiscal")';
     </script>
     <script type="text/javascript" src="~/Scripts/CupomFiscal/CupomFiscal.js"></script>
+    <script type="text/javascript">
+        $('.tag.example .ui.dropdown')
+            .dropdown({
+                allowAdditions: true
+            })
+            ;
+    </script>
 }

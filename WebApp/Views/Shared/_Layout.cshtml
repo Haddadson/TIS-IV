@@ -93,7 +93,8 @@
     <div class="container-fluid body-content text-center margin-top-20">
         @RenderBody()
     </div>
-
+    <script type="text/javascript" defer src="~/Scripts/dropdown.js"></script>
+    <script type="text/javascript" defer src="~/Scripts/dropdown.min.js"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/ScriptsValidacaoNotas")
@@ -104,5 +105,12 @@
     <script type="text/javascript" defer src="~/Scripts/moment.min.js"></script>
     <script type="text/javascript" defer src="~/Scripts/Util/vanilla-masker.min.js"></script>
     <script type="text/javascript" defer src="~/Scripts/Util/form-field-handler.js"></script>
+    <script type="text/javascript">
+        $('.tag.example .ui.dropdown')
+            .dropdown({
+                allowAdditions: true
+            })
+            ;
+    </script>
 </body>
 </html>
