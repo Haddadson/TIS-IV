@@ -1,5 +1,7 @@
 ﻿using Dapper;
 using MPMG.Repositories.Entidades;
+using MPMG.Repositories.Util;
+using System.Collections.Generic;
 using System.Data;
 
 namespace MPMG.Repositories
@@ -23,8 +25,8 @@ namespace MPMG.Repositories
                 M.nome_municipio AS Nome 
               FROM TabelaANP T 
               JOIN municipio M 
-            WHERE T.ano = @Ano 
-            AND M.nome_municipio = @NomeMunicipio";
+            WHERE T.ano IN @Ano
+              AND M.nome_municipio = @NomeMunicipio";
 
         public Municipio ObterMunicipio(string nomeMunicipio)
         {
@@ -47,14 +49,16 @@ namespace MPMG.Repositories
             return Obter(SQL_BUSCAR_MUNICIPIO, parametros);
         }
 
-        public Municipio ObterMunicipioAnpPorNomeAno(int anoReferente, string nomeMunicipio)
+        public Municipio ObterMunicipioAnpPorNomeAno(List<int> anosReferentes, string nomeMunicipio)
         {
             DynamicParameters parametros = new DynamicParameters();
 
-            parametros.Add("@Ano", anoReferente.ToString(), DbType.AnsiStringFixedLength);
+            string listaAnos = SqlUtil.FormatarListaParametrosInteiros(anosReferentes);
+            string sql = SQL_OBTER_MUNICIPIO_ANP_POR_ANO_E_NOME.Replace("@Ano", listaAnos);
+
             parametros.Add("@NomeMunicipio", nomeMunicipio, DbType.AnsiString);
 
-            return Obter(SQL_OBTER_MUNICIPIO_ANP_POR_ANO_E_NOME, parametros);
+            return Obter(sql, parametros);
         }
     }
 }

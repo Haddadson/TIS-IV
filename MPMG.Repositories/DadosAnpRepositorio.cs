@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using MPMG.Repositories.Entidades;
+using MPMG.Repositories.Util;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -37,7 +38,7 @@ namespace MPMG.Repositories
                 M.nome_municipio AS Municipio 
               FROM TabelaANP T 
               JOIN municipio M 
-            WHERE T.ano = @Ano
+            WHERE T.ano IN @ano
             ORDER BY M.nome_municipio";
 
         public DadosAnp ObterPorValoresNota(int mes, int ano, string estado, string municipio, string produto)
@@ -53,13 +54,20 @@ namespace MPMG.Repositories
             return Obter(SQL_OBTER_DADO_ANP, parametros);
         }
 
-        public List<string> ListarMunicipiosAnpPorAno(int anoReferente)
+        public List<string> ListarMunicipiosAnpPorAno(List<int> anosReferentes)
         {
             DynamicParameters parametros = new DynamicParameters();
 
-            parametros.Add("@Ano", anoReferente, DbType.Int32);
+            string listaAnos = SqlUtil.FormatarListaParametrosInteiros(anosReferentes);
+            string sql = SQL_LISTAR_MUNICIPIOS_ANP_POR_ANO.Replace("@Ano", listaAnos);
 
-            return Listar(SQL_LISTAR_MUNICIPIOS_ANP_POR_ANO, parametros).Select(m => m.Municipio).ToList();
+            var result = Listar(sql, parametros);
+
+            if (result == null)
+                return new List<string>();
+            else
+                return result.Select(m => m.Municipio).ToList();
+
         }
 
     }

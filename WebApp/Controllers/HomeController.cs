@@ -36,20 +36,20 @@ namespace WebApp.Controllers
             return View();
         }
 
-        public JsonResult ObterMunicipioAnpPorNomeAno(int anoReferente, string nomeMunicipio)
+        public JsonResult ObterMunicipioAnpPorNomeAno(List<int> anosReferentes, string nomeMunicipio)
         {
             try
             {
-                var municipio = listarMunicipiosService.ObterMunicipioAnpPorNomeAno(anoReferente, nomeMunicipio);
+                var municipio = listarMunicipiosService.ObterMunicipioAnpPorNomeAno(anosReferentes, nomeMunicipio);
                 List<string> listaMunicipios = new List<string>();
 
                 if (municipio == null)
-                    listaMunicipios = listarMunicipiosService.ListarMunicipiosAnpPorAno(anoReferente);
+                    listaMunicipios = listarMunicipiosService.ListarMunicipiosAnpPorAno(anosReferentes);
 
                 return Json(new
                 {
                     municipioSelecionado = nomeMunicipio,
-                    anoSelecionado = anoReferente,
+                    anosSelecionados = anosReferentes,
                     municipioReferente = municipio,
                     listaMunicipios
                 });
@@ -58,7 +58,10 @@ namespace WebApp.Controllers
             catch (Exception ex)
             {
                 return Json(new { 
-                    error = ex.Message
+                    error = ex.Message,
+                    stackTrace = ex.StackTrace,
+                    anosReferentes,
+                    nomeMunicipio
                 });
             }
         }

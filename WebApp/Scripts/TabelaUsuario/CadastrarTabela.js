@@ -8,26 +8,7 @@
     setDefaultDate("#data-geracao");
     setReadOnly("#data-geracao");
 
-    // Facilitador. Se não convier, apenas remover
-    // Seta o Ano Referente, automaticamente como o ano atual.
-    $("#ano-referente").val(moment().format("YYYY"));
-
-    $(".municipios-anp-busca").on("change", function (event) {
-        const municipioSelecionado = $("#municipios").val();
-        const anoSelecionado = $("#ano-referente").val();
-
-        if (municipioSelecionado && anoSelecionado) {
-            const urlObterMunicipioPorNomeAno = window.urlObterMunicipioPorNomeAno;
-
-            ValidarNotas.chamadaAjax({
-                url: urlObterMunicipioPorNomeAno,
-                data: { anoReferente: anoSelecionado, nomeMunicipio: municipioSelecionado },
-                sucesso: tratarMunicipios,
-                deveEsconderCarregando: false
-            });
-        }
-
-    });
+    $("#check-disponibilidade-anp").on("click", validateANP);
 
     $("#cadastrar-tabela").on("click", function (event) {
 
@@ -94,8 +75,7 @@
                 $("#municipios-anp-div").hide();
                 $('#municipios-anp').val(listaMunicipios[0]);
             }
-        }
-        
+        }        
     }
 
     function TratarErro(retorno) {
@@ -105,5 +85,19 @@
             alert("Ocorreu um erro ao cadastrar");
     }
 
-});
+    function validateANP (event) {
+        const municipioSelecionado = $("#municipios").val();
+        const anosSelecionados = $("#anos-referentes").val();
 
+        if (municipioSelecionado && (anosSelecionados.length > 0)) {
+            const urlObterMunicipioPorNomeAno = window.urlObterMunicipioPorNomeAno;
+
+            ValidarNotas.chamadaAjax({
+                url: urlObterMunicipioPorNomeAno,
+                data: { anosReferentes: anosSelecionados, nomeMunicipio: municipioSelecionado },
+                sucesso: tratarMunicipios,
+                deveEsconderCarregando: false
+            });
+        }
+    }
+});
