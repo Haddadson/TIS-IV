@@ -64,6 +64,14 @@ select:focus,
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6) !important;
 }
 
+.red {
+    background-color: #f23d3a
+}
+
+.yellow {
+    background-color: #f2e03a
+}
+
 /* Absolute Center Spinner */
 .loading-locked {
     position: fixed;

@@ -51,15 +51,6 @@ namespace WebApp.Controllers
             }
         }
 
-        public JsonResult ListarTabelas()
-        {
-            var tabelas = tabelaUsuarioService.ListarTabelas();
-
-            return Json(new
-            {
-                tabelas
-            });
-        }
         public ActionResult Index(string valorSgdp = null)
         {
             TabelaUsuarioDto tabelaAnpXNota = new TabelaUsuarioDto();

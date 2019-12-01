@@ -147,6 +147,7 @@ namespace MPMG.Services
 
             return tabelas;
         }
+        
 
         public List<AnpxNotaFiscalDto> ListarDadosAnpXNotaFiscalPorSgdp(int sgdp, int idMunicipio)
         {
@@ -204,10 +205,10 @@ namespace MPMG.Services
                 AnoAnp = entidade.AnoAnp,
                 MesFam = entidade.MesFam,
                 AnoFam = entidade.AnoFam,
-                DiferencaMediaUnitaria = entidade.PrecoMedioAnp - entidade.ValorUnitario,
-                DiferencaMediaTotal = (entidade.PrecoMedioAnp - entidade.ValorUnitario) * entidade.Quantidade,
-                DiferencaMaximaUnitaria = entidade.PrecoMaximoAnp - entidade.ValorUnitario,
-                DiferencaMaximaTotal = (entidade.PrecoMaximoAnp - entidade.ValorUnitario) * entidade.Quantidade
+                DiferencaMediaUnitaria = entidade.ValorUnitario - entidade.PrecoMedioAnp,
+                DiferencaMediaTotal = (entidade.ValorUnitario - entidade.PrecoMedioAnp) * entidade.Quantidade,
+                DiferencaMaximaUnitaria = entidade.ValorUnitario - entidade.PrecoMaximoAnp,
+                DiferencaMaximaTotal = (entidade.ValorUnitario - entidade.PrecoMaximoAnp) * entidade.Quantidade
             };
         }
 
