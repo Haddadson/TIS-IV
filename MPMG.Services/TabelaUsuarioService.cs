@@ -113,6 +113,11 @@ namespace MPMG.Services
             return ConverterListaEntidadeParaDto(tabelaRepositorio.ListarTabelas());
         }
 
+        public List<int> ListarSgdpsTabelas()
+        {
+            return tabelaRepositorio.ListarSgdpsTabelas().Select(item => item.SGDP).ToList();
+        }
+
         public List<TabelaUsuarioDto> ListarTabelasComDadosAnpxNotaFiscal()
         {
             var tabelas =  ConverterListaEntidadeParaDto(tabelaRepositorio.ListarTabelas());

@@ -27,18 +27,18 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
 
-            List<TabelaUsuarioDto> tabelas = new List<TabelaUsuarioDto>();
+            List<int> sgdpsTabelas = new List<int>();
 
             try
             {
-                tabelas = tabelaUsuarioService.ListarTabelas();
+                sgdpsTabelas = tabelaUsuarioService.ListarSgdpsTabelas();
 
             }
             catch (Exception ex)
             {
             }
 
-            return View("EscolherTabela", new EscolherTabelaModel() { TabelasUsuario = tabelas });
+            return View("EscolherTabela", new EscolherTabelaModel() { SgdpsTabelasUsuario = sgdpsTabelas });
         }
 
         // GET: EscolherTabela/Details/5

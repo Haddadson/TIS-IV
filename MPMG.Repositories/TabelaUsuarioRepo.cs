@@ -35,6 +35,11 @@ namespace MPMG.Repositories
             LEFT JOIN `municipio` C
             on A.id_municipio_referente = C.id_municipio";
 
+        private const string SQL_LISTAR_SGDPS_TABELAS = @"
+            SELECT  
+                sgdp AS SGDP
+            FROM `TabelaUsuario` A";
+
         private const string SQL_OBTER_TABELA_POR_SGDP = @"
             SELECT  
                 sgdp AS SGDP, 
@@ -79,6 +84,11 @@ namespace MPMG.Repositories
         public List<TabelaUsuario> ListarTabelas()
         {
             return Listar(SQL_LISTAR_TABELAS, null);
+        }
+
+        public List<TabelaUsuario> ListarSgdpsTabelas()
+        {
+            return Listar(SQL_LISTAR_SGDPS_TABELAS, null);
         }
 
         public TabelaUsuario ObterTabelaPorSgdp(int sgdp)

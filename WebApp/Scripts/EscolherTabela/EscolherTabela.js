@@ -1,12 +1,4 @@
 ﻿$(document).ready(function () {     
-    ValidarNotas.chamadaAjax({
-        url: urlCarregarSGDPs,
-        data: { valorSgdp: valorSgdp },
-        sucesso: function (response) {
-            window.location.href = response.urlRedirecionamento;
-        },
-        deveEsconderCarregando: true
-    });
 
     $("#visualizar_tabela").on("click", function (event) {
         let valorSgdp = $("#sgdp").val();

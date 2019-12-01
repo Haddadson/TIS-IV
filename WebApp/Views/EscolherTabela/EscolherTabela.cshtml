@@ -20,9 +20,9 @@
                                 <div class="col-lg-7 col-md-77 col-sm-7 col-xs-12">
                                     <div class="nk-int-st">
                                         <select class="form-control" id="sgdp">
-                                            @foreach (var tabela in Model.TabelasUsuario)
+                                            @foreach (var sgdp in Model.SgdpsTabelasUsuario)
                                             {
-                                                <option value="@tabela.SGDP">@tabela.SGDP</option>
+                                                <option value="@sgdp">@sgdp</option>
                                             }
                                         </select>
                                     </div>
@@ -60,7 +60,6 @@
 @section JavascriptPagina {
     <script type="text/javascript">
         var urlRedirecionarVisualizarTabela = '@Url.Action("RedirecionarVisualizarTabela", "EscolherTabela")';
-        var urlCarregarSGDPs = '@Url.Action("CarregarSGDPs", "EscolherTabela")';
 
     </script>
     <script src="~/Scripts/EscolherTabela/EscolherTabela.js"></script>
