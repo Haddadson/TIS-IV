@@ -1,10 +1,17 @@
-﻿$(document).ready(function () {
+﻿$(document).ready(function () {     
+    ValidarNotas.chamadaAjax({
+        url: urlCarregarSGDPs,
+        data: { valorSgdp: valorSgdp },
+        sucesso: function (response) {
+            window.location.href = response.urlRedirecionamento;
+        },
+        deveEsconderCarregando: true
+    });
+
     $("#visualizar_tabela").on("click", function (event) {
         let valorSgdp = $("#sgdp").val();
 
         if (valorSgdp) {
-
-
             const urlRedirecionarVisualizarTabela = window.urlRedirecionarVisualizarTabela;
 
             ValidarNotas.chamadaAjax({
@@ -16,11 +23,9 @@
                 },
                 deveEsconderCarregando: true
             });
-        }
-        else {
+        } else {
             alert("Selecione um SGDP");
         }
-
     });
 
 });

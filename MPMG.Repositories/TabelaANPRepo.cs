@@ -27,7 +27,7 @@ namespace MPMG.Repositories
 
         private const string SQL_INSERT_ANP_LOTE = @"
             INSERT INTO `tabelaanp`
-            (mes, ano, produto, id_upload_anp, preco_medio_revenda, preco_maximo_revenda, preco_minimo_revenda, id_municipio)
+            (mes, ano, produto, id_upload_anp, preco_medio_revenda, preco_maximo_revenda, id_municipio)
             VALUES";
 
         private const string SQL_DELETAR_REGISTROS_EXISTENTES = "DELETE FROM `tabelaanp`";
@@ -64,7 +64,6 @@ namespace MPMG.Repositories
                    .Append($"{SqlUtil.FormatarParametro(idUploadAnp)}, ")
                    .Append($"{SqlUtil.FormatarParametro(linha["PREÇO MÉDIO REVENDA"].ToString().Replace(',', '.'))}, ")
                    .Append($"{SqlUtil.FormatarParametro(linha["PREÇO MÁXIMO REVENDA"].ToString().Replace(',', '.'))}, ")
-                   .Append($"{SqlUtil.FormatarParametro(linha["PREÇO MÍNIMO REVENDA"].ToString().Replace(',', '.'))}, ")
                    .Append($"{FormatarMunicipioParaConsulta(linha["MUNICÍPIO"].ToString())}")
                    .AppendLine("), ");
             }
