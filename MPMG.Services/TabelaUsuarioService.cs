@@ -14,6 +14,8 @@ namespace MPMG.Services
         private readonly MunicipioRepositorio municipioRepositorio;
         private readonly MunicipioReferenteRepositorio municipioReferenteRepositorio;
         private readonly AnpxNotaFiscalRepositorio anpxNotaFiscalRepositorio;
+        private readonly CupomFiscalRepo cupomFiscalRepositorio;
+        
 
         public TabelaUsuarioService()
         {
@@ -21,6 +23,7 @@ namespace MPMG.Services
             municipioRepositorio = new MunicipioRepositorio();
             municipioReferenteRepositorio = new MunicipioReferenteRepositorio();
             anpxNotaFiscalRepositorio = new AnpxNotaFiscalRepositorio();
+            cupomFiscalRepositorio = new CupomFiscalRepo();
         }
 
         public void CadastrarTabela(
@@ -105,6 +108,9 @@ namespace MPMG.Services
 
             tabela.DadosAnpxNotaFiscal = ListarDadosAnpXNotaFiscalPorSgdp(tabela.SGDP, idMunicipio);
 
+            tabela.DadosAnpxNotaFiscal.ForEach(dado => 
+                dado.CuponsFiscaisVinculados = cupomFiscalRepositorio.ObterCuponsVinculados(tabela.SGDP, int.Parse(dado.NumeroNotaFiscal)));
+
             return tabela;
         }
 
@@ -174,7 +180,7 @@ namespace MPMG.Services
 
             return new AnpxNotaFiscalDto()
             {
-                Combustivel = entidade.Combustivel,
+                Produto = entidade.Produto,
                 DataGeracao = entidade.DataGeracao,
                 NumeroFolha = entidade.NumeroFolha,
                 NumeroNotaFiscal = entidade.NumeroNotaFiscal,
@@ -184,10 +190,13 @@ namespace MPMG.Services
                 ValorFam = entidade.ValorFam,
                 ValorMaximoAtualizado = entidade.ValorMaximoAtualizado,
                 ValorMedioAtualizado = entidade.ValorMedioAtualizado,
-                ValorTotal = entidade.ValorTotal,
+                ValorTotalItem = entidade.ValorTotalItem,
+                ValorTotalNota = entidade.ValorTotalNota,
                 ValorUnitario = entidade.ValorUnitario,
                 MesAnp = entidade.MesAnp,
                 AnoAnp = entidade.AnoAnp,
+                MesFam = entidade.MesFam,
+                AnoFam = entidade.AnoFam,
                 DiferencaMediaUnitaria = entidade.PrecoMedioAnp - entidade.ValorUnitario,
                 DiferencaMediaTotal = (entidade.PrecoMedioAnp - entidade.ValorUnitario) * entidade.Quantidade,
                 DiferencaMaximaUnitaria = entidade.PrecoMaximoAnp - entidade.ValorUnitario,
@@ -202,7 +211,5 @@ namespace MPMG.Services
 
             return entidades.Select(ConverterDadosAnpXNotaFiscalParaDto).ToList();
         }
-
-
     }
 }

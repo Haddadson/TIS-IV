@@ -11,21 +11,30 @@ namespace MPMG.Repositories
             SELECT 
                 A.dt_emissao AS DataGeracao,
                 A.nr_nota_fiscal AS NumeroNotaFiscal,
-                A.id_tipo_combustivel AS Combustivel,
-                A.quantidade AS Quantidade, 
-                A.preco_unitario AS ValorUnitario,
-                A.vrtotal AS ValorTotal,
+                A.mes_fam As MesFam,
+                A.ano_fam As AnoFam,
+                I.produto As Produto,
+                I.quantidade AS Quantidade, 
+                I.vunitario AS ValorUnitario,
+                I.vrtotal AS ValorTotalItem,
                 A.nro_folha AS NumeroFolha,
                 B.valor_fam AS ValorFam,
-                C.preco_medio_revenda AS PrecoMedioRevenda,
-                C.preco_maximo_revenda AS PrecoMaximoRevenda,
+                A.vrtotal_nota As ValorTotalNota,
+                C.preco_medio_revenda AS PrecoMedioAnp,
+                C.preco_maximo_revenda AS PrecoMaximoAnp,
                 C.ano AS AnoAnp,
                 C.mes AS MesAnp
             FROM notafiscal A
+            join itemnotafiscal I
+				on A.sgdp = I.sgdp
+                AND A.nr_nota_fiscal = I.nr_nota_fiscal
             JOIN tabelafam B
-                ON A.mes_fam = B.mes AND A.ano_fam = B.ano
+                ON A.mes_fam = B.mes AND A.ano_fam = B.ano AND A.id_upload_fam = B.id_upload
             JOIN tabelaanp C
-                ON MONTH(A.dt_consulta_anp) = C.mes AND YEAR(A.dt_consulta_anp) = C.ano AND C.id_municipio = @IdMunicipio
+                ON MONTH(A.dt_consulta_anp) = C.mes 
+                AND YEAR(A.dt_consulta_anp) = C.ano 
+                AND I.produto = C.produto
+                AND C.id_municipio = @IdMunicipio
             WHERE 
                 A.sgdp = @Sgdp";
 

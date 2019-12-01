@@ -1,10 +1,8 @@
 ﻿$(document).ready(function () {
 
     ocultarTabelas();
-    $(".data-table-usuario").hide();
 
-    let valorCampoSgdp = $("#selecao-tabela-sgdp").val();
-    $(`#${valorCampoSgdp}`).show();
+    let valorCampoSgdp = $("#sgdp_escolhido").val();
     $("#tabela-nf-anp").show();
 
     $("#selecao-tipo-tabela").on("change", function (event) {
@@ -20,12 +18,6 @@
         else if (valorCampo === "outros")
             $(`#${valorCampoSgdp} #tabela-outros`).show();
         
-    });
-
-    $("#selecao-tabela-sgdp").on("change", function (event) {
-        let valorCampo = $("#selecao-tabela-sgdp").val();
-        $(".data-table-usuario").hide();
-        $(`#${valorCampo}`).show();
     });
 
     function ocultarTabelas() {

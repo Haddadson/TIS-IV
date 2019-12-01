@@ -8,10 +8,11 @@ namespace MPMG.Repositories.Entidades
     {
         public DateTime DataGeracao { get; set; }
         public string NumeroNotaFiscal { get; set; }
-        public string Combustivel { get; set; }
+        public string Produto { get; set; }
         public double Quantidade { get; set; }
         public double ValorUnitario { get; set; }
-        public double ValorTotal { get; set; }
+        public double ValorTotalItem { get; set; }
+        public double ValorTotalNota { get; set; }
         public int NumeroFolha { get; set; }
         public double ValorFam { get; set; }
         public double PrecoMedioAnp { get; set; }
@@ -24,5 +25,7 @@ namespace MPMG.Repositories.Entidades
         public double ValorMaximoAtualizado { get; set; }
         public int MesAnp { get; set; }
         public int AnoAnp { get; set; }
+        public int MesFam { get; set; }
+        public int AnoFam { get; set; }
     }
 }

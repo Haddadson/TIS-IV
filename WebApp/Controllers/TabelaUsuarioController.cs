@@ -60,20 +60,16 @@ namespace WebApp.Controllers
         }
         public ActionResult Index(string valorSgdp = null)
         {
-            List<TabelaUsuarioDto> tabelas = new List<TabelaUsuarioDto>();
-            TabelaUsuarioDto tabelaBuscada = new TabelaUsuarioDto();
+            TabelaUsuarioDto tabelaAnpXNota = new TabelaUsuarioDto();
 
             try
             {
-                if (string.IsNullOrWhiteSpace(valorSgdp))
-                    tabelas = TabelaUsuarioService.ListarTabelasComDadosAnpxNotaFiscal();
-                else
-                    tabelaBuscada = TabelaUsuarioService.ObterTabelaComDadosAnpxNotaFiscal(valorSgdp);
+                tabelaAnpXNota = TabelaUsuarioService.ObterTabelaComDadosAnpxNotaFiscal(valorSgdp);
 
             }
             catch (Exception ex) { }
 
-            return View("ListarTabelas", new ListarTabelasModel { TabelasUsuario = tabelas, TabelaBuscada = tabelaBuscada });
+            return View("ListarTabelas", new ListarTabelasModel { ValorSgdp = valorSgdp, TabelaAnpXNota = tabelaAnpXNota });
         }
     }
 }
