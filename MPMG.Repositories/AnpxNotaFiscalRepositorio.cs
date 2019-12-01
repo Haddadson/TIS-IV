@@ -31,8 +31,8 @@ namespace MPMG.Repositories
             JOIN tabelafam B
                 ON A.mes_fam = B.mes AND A.ano_fam = B.ano AND A.id_upload_fam = B.id_upload
             JOIN tabelaanp C
-                ON MONTH(A.dt_consulta_anp) = C.mes 
-                AND YEAR(A.dt_consulta_anp) = C.ano 
+                ON MONTH(IFNULL(A.dt_consulta_anp, A.dt_emissao)) = C.mes 
+                AND YEAR(IFNULL(A.dt_consulta_anp, A.dt_emissao)) = C.ano 
                 AND I.produto = C.produto
                 AND C.id_municipio = @IdMunicipio
             WHERE 
