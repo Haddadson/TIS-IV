@@ -105,12 +105,19 @@ namespace MPMG.Services
                 throw new Exception("Erro ao encontrar");
 
             int idMunicipio = tabela.MunicipioReferente?.Codigo ?? tabela.Municipio.Codigo;
+            try
+            {
+                tabela.DadosAnpxNotaFiscal = ListarDadosAnpXNotaFiscalPorSgdp(tabela.SGDP, idMunicipio);
 
-            tabela.DadosAnpxNotaFiscal = ListarDadosAnpXNotaFiscalPorSgdp(tabela.SGDP, idMunicipio);
+                tabela.DadosAnpxNotaFiscal.ForEach(dado =>
+                    dado.CuponsFiscaisVinculados = cupomFiscalRepositorio.ObterCuponsVinculados(tabela.SGDP, int.Parse(dado.NumeroNotaFiscal)));
 
-            tabela.DadosAnpxNotaFiscal.ForEach(dado => 
-                dado.CuponsFiscaisVinculados = cupomFiscalRepositorio.ObterCuponsVinculados(tabela.SGDP, int.Parse(dado.NumeroNotaFiscal)));
-
+            }
+            catch (Exception ex)
+            {
+                tabela.DadosAnpxNotaFiscal = new List<AnpxNotaFiscalDto>();
+            }
+            
             return tabela;
         }
 

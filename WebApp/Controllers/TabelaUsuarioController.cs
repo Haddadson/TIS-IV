@@ -9,18 +9,20 @@ namespace WebApp.Controllers
 {
     public class TabelaUsuarioController : Controller
     {
-        private readonly TabelaUsuarioService TabelaUsuarioService;
+        private readonly TabelaUsuarioService tabelaUsuarioService;
+        private readonly CupomFiscalService cupomFiscalService;
 
         public TabelaUsuarioController()
         {
-            TabelaUsuarioService = new TabelaUsuarioService();
+            tabelaUsuarioService = new TabelaUsuarioService();
+            cupomFiscalService = new CupomFiscalService();
         }
 
         public JsonResult CadastrarTabela(TabelaUsuario TabelaUsuario)
         {
             try
             {
-                TabelaUsuarioService.CadastrarTabela(
+                tabelaUsuarioService.CadastrarTabela(
                 TabelaUsuario.SGDP,
                 TabelaUsuario.AnoReferente,
                 TabelaUsuario.NomeMunicipioReferente,
@@ -51,7 +53,7 @@ namespace WebApp.Controllers
 
         public JsonResult ListarTabelas()
         {
-            var tabelas = TabelaUsuarioService.ListarTabelas();
+            var tabelas = tabelaUsuarioService.ListarTabelas();
 
             return Json(new
             {
@@ -61,15 +63,21 @@ namespace WebApp.Controllers
         public ActionResult Index(string valorSgdp = null)
         {
             TabelaUsuarioDto tabelaAnpXNota = new TabelaUsuarioDto();
+            List<CupomFiscalDto> tabelaCuponsFiscais = new List<CupomFiscalDto>();
 
             try
             {
-                tabelaAnpXNota = TabelaUsuarioService.ObterTabelaComDadosAnpxNotaFiscal(valorSgdp);
-
+                tabelaAnpXNota = tabelaUsuarioService.ObterTabelaComDadosAnpxNotaFiscal(valorSgdp);
+                tabelaCuponsFiscais = cupomFiscalService.ListarCuponsFiscaisPorSgdp(valorSgdp);
             }
             catch (Exception ex) { }
 
-            return View("ListarTabelas", new ListarTabelasModel { ValorSgdp = valorSgdp, TabelaAnpXNota = tabelaAnpXNota });
+            return View("ListarTabelas", new ListarTabelasModel
+            {
+                ValorSgdp = valorSgdp,
+                TabelaAnpXNota = tabelaAnpXNota,
+                TabelaCuponsFicais = tabelaCuponsFiscais
+            });
         }
     }
 }

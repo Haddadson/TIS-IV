@@ -1,6 +1,4 @@
-﻿using MPMG.Repositories.Entidades;
-
-namespace MPMG.Repositories.Entidades
+﻿namespace MPMG.Repositories.Entidades
 {
     public class Municipio 
     {

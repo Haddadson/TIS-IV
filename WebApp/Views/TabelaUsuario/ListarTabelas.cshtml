@@ -63,25 +63,29 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="data-table-list">
                     <div id="tabela-nf-anp" class="table-responsive">
-                        @*TODO: estilizar*@
-                        <div class="col-lg-3 col-md-3 col-sm-3">
-                            <p><span class="font-weight-bold">SGDP: </span>@Model.TabelaAnpXNota.SGDP</p>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3">
-                            <p><span class="font-weight-bold">Municipio: </span>@(Model.TabelaAnpXNota.Municipio?.Nome ?? "-")</p>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3">
-                            <p><span class="font-weight-bold">Municipio Ref. ANP: </span>@(Model.TabelaAnpXNota.MunicipioReferente?.Nome ?? "-")</p>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3">
-                            <p><span class="font-weight-bold">Analista Responsável: </span>@Model.TabelaAnpXNota.AnalistaResponsavel</p>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3">
-                            <p><span class="font-weight-bold">Data de geração: </span>@Model.TabelaAnpXNota.DataGeracao.ToShortDateString()</p>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3">
-                            <p><span class="font-weight-bold">Ano(s) referente(s): </span>@Model.TabelaAnpXNota.AnoReferente</p>
-                        </div>
+                        @if (Model.TabelaAnpXNota == null || !Model.TabelaAnpXNota.DadosAnpxNotaFiscal.Any())
+                        {
+                            @*TODO: estilizar*@
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <p><span class="font-weight-bold">SGDP: </span>@Model.TabelaAnpXNota.SGDP</p>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <p><span class="font-weight-bold">Municipio: </span>@(Model.TabelaAnpXNota.Municipio?.Nome ?? "-")</p>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <p><span class="font-weight-bold">Municipio Ref. ANP: </span>@(Model.TabelaAnpXNota.MunicipioReferente?.Nome ?? "-")</p>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <p><span class="font-weight-bold">Analista Responsável: </span>@Model.TabelaAnpXNota.AnalistaResponsavel</p>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <p><span class="font-weight-bold">Data de geração: </span>@Model.TabelaAnpXNota.DataGeracao.ToShortDateString()</p>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <p><span class="font-weight-bold">Ano(s) referente(s): </span>@Model.TabelaAnpXNota.AnoReferente</p>
+                            </div>
+                        }
+
                         <table id="data-table-nf-anp" class="table table-striped">
                             <thead>
                                 @* Tabela a ser exibida quando o usuário selecionar NFs x ANP na combobox *@
@@ -180,115 +184,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                </tr>
-                                <tr>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                </tr>
-                                <tr>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                </tr>
-                                <tr>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                </tr>
-                                <tr>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                </tr>
-                                <tr>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                    <td>teste</td>
-                                </tr>
-
+                                @foreach (var cupomFiscal in Model.TabelaCuponsFicais)
+                                {
+                                    <tr>
+                                        <td>@cupomFiscal.NumeroNotaFiscal</td>
+                                        <td>@cupomFiscal.PostoReferente</td>
+                                        <td>@cupomFiscal.DataEmissao.ToShortDateString()</td>
+                                        <td>@cupomFiscal.DataEmissao.ToShortTimeString()</td>
+                                        <td>@cupomFiscal.Coo</td>
+                                        <td>@cupomFiscal.Produto</td>
+                                        <td>@cupomFiscal.Quantidade</td>
+                                        <td>@cupomFiscal.PrecoUnitario</td>
+                                        <td>@cupomFiscal.ValorTotal</td>
+                                        <td>@cupomFiscal.Cliente</td>
+                                        <td>@cupomFiscal.Veiculo</td>
+                                        <td>@cupomFiscal.PlacaVeiculo</td>
+                                        <td>@cupomFiscal.Hodometro</td>
+                                    </tr>
+                                }
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>NUM. NF REFERENTE</th>
-                                    <th>POSTO FORNECEDOR</th>
-                                    <th>DATA</th>
-                                    <th>HORÁRIO</th>
-                                    <th>COO</th>
-                                    <th> COMBUSTÍVEL</th>
-                                    <th> QUANT.</th>
-                                    <th>PREÇO UNIT.</th>
-                                    <th>VALOR TOTAL</th>
-                                    <th> CLIENTE</th>
-                                    <th>VEÍCULO</th>
-                                    <th>PLACA VEÍCULO</th>
-                                    <th>HODÔMETRO</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                     <div id="tabela-outros" class="table-responsive">
