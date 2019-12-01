@@ -3,7 +3,6 @@
     VMasker(document.querySelector("#data-geracao")).maskPattern("99/99/9999");
 
     validateNumericRequiredFormField("#sgdp");
-    validateNumericRequiredFormField("#ano-referente");
     validateDateFormField("#data-geracao");
     setDefaultDate("#data-geracao");
     setReadOnly("#data-geracao");
