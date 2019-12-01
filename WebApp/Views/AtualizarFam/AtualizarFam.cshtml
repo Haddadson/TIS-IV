@@ -2,58 +2,65 @@
     ViewBag.Title = "Atualizar Tabela FAM";
 }
 
-    <div class="mg-t-15">
-        <div class="form-example-wrap">
-            <div class="col-md-12">
-                <h3>Atualizar tabela FAM</h3>
-            </div>
-            <div class="col-md-12">
-                <div class="form-example-int form-horizental">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                                <label class="hrzn-fm">Planilha FAM</label>
+    <div class="form-example-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-example-wrap mg-t-30">
+                        <div class="cmp-tb-hd cmp-int-hd">
+                            <h3>Atualizar Tabela FAM</h3>
+                        </div>
+                        <div class="form-example-int form-horizental">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                                        <label class="hrzn-fm">Tabela FAM</label>
+                                    </div>
+                                    <div class="col-lg-4 col-md-7 col-sm-7 col-xs-11">
+                                        <div>
+                                            <input type="file" id="fam-file" class="form-control"
+                                                   accept="application/vnd.ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="button-icon-btn">
+                                            <button class="btn btn-default btn-icon-notika" id="cadastrar-tabela-fam">
+                                                Enviar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
-                                <div>
-                                    <input type="file" id="fam-file" class="form-control"
-                                           accept="application/vnd.ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                        </div>
+                        <div class="form-example-int form-horizental">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>Atualizar tabela ANP</h3>
+                                    </div>
+                                    <div class="col-md-12">
+
+                                        <div class="button-icon-btn">
+                                            <button class="btn btn-default btn-icon-notika" id="atualizar-tabela-anp">
+                                                Atualizar dados
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="button-icon-btn">
-                        <button class="btn btn-default btn-icon-notika" id="cadastrar-tabela-fam">
-                            Enviar
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="form-example-wrap">
-            <div class="col-md-12">
-                <h3>Atualizar tabela ANP</h3>
-            </div>
-            <div class="col-md-12">
-
-                    <div class="button-icon-btn">
-                        <button class="btn btn-default btn-icon-notika" id="atualizar-tabela-anp">
-                            Atualizar dados
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-@section JavascriptPagina {
-<script type="text/javascript">
+        @section JavascriptPagina {
+            <script type="text/javascript">
     var urlAtualizarTabelaFam = '@Url.Action("AtualizarFam", "AtualizarFam")';
     var urlAtualizarTabelaAnp = '@Url.Action("AtualizarTabelaAnp", "Home")';
 
-</script>
-<script src="~/Scripts/AtualizarFam/AtualizarFam.js"></script>
+            </script>
+            <script src="~/Scripts/AtualizarFam/AtualizarFam.js"></script>
+            <script src="js/dropzone/dropzone.js"></script>
 
-}
+        }

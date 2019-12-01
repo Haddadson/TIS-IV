@@ -1,5 +1,4 @@
 ﻿body {
-    padding-top: 50px;
     padding-bottom: 20px;
 }
 
@@ -197,8 +196,3 @@ select:focus,
     }
 }
 
-@media (min-width: 992px) {
-    div.form-example-wrap {
-        height: 250px;
-    }
-}
