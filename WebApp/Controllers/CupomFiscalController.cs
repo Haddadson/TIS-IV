@@ -79,10 +79,7 @@ namespace WebApp.Controllers
         public ActionResult Index(string valorSgdp = null)
         {
 
-            return View("ListarTabelas", new Json
-            {
-                ValorSgdp = valorSgdp
-            });
+            return View("ListarTabelas");
         }
 
     }

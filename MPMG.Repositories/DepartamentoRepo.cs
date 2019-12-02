@@ -17,7 +17,7 @@ namespace MPMG.Repositories
             ORDER BY 1";
 
         
-        public List<object> ObterDepartamento()
+        public List<Departamento> ObterDepartamento()
         {
             DynamicParameters parametros = new DynamicParameters();
             return Listar(SQL_BUSCAR_MUNICIPIO, parametros);

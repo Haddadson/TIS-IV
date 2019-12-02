@@ -13,7 +13,7 @@ namespace MPMG.Services
             dptoRepo = new DepartamentoRepo();
         }
 
-        public List<object> ListarDepartamentos()
+        public List<Departamento> ListarDepartamentos()
         {
             return dptoRepo.ObterDepartamento();
         }

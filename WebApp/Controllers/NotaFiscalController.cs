@@ -82,7 +82,7 @@ namespace WebApp.Controllers
 
             try
             {
-                departamentos = departamentoService.ListarDepartamentos();
+                // departamentos = departamentoService.ListarDepartamentos();
 
                 return Json(new
                 {
