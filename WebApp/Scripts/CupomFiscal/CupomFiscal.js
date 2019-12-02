@@ -43,11 +43,11 @@ $(document).ready(function () {
                 data: cupomFiscalData,
                 sucesso: function (response) {
                     if (response && response.Sucesso) {
-                        alert(response.Mensagem ? reponse.Mensagem : "Sucesso ao cadastrar!");
+                        alert(response.Mensagem ? response.Mensagem : "Sucesso ao cadastrar!");
                         limparCampos();
                     }
                     else {
-                        alert(response.Mensagem ? reponse.Mensagem : "Ocorreu um erro ao cadastrar!");
+                        alert(response.Mensagem ? response.Mensagem : "Ocorreu um erro ao cadastrar!");
                     }
                 },
                 deveEsconderCarregando: true
