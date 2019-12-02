@@ -1,41 +1,56 @@
-﻿@model WebApp.Models.NotaFiscalModel
+@model WebApp.Models.NotaFiscalModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Cadastrar Nota Fiscal";
 }
+
 <div class="form-example-area">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-example-wrap mg-t-30">
-                    <div class="cmp-tb-hd cmp-int-hd">
-                        <h3>Cadastrar Nota Fiscal</h3>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            <h2>Tabela selecionada:</h2>
-                        </div>
-                        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-12">
-                            <span>SDGP</span>
-                        </div>
-                        <div class="col-lg-2 col-md-7 col-sm-7 col-xs-12">
-                            <div>
-                                <input type="text" id="sgdp_escolhido" class="form-control input-sm" readonly>
+                    <div class="row">
+                        <div class="cmp-tb-hd cmp-int-hd">
+                            <h3>Cadastrar Nota Fiscal</h3>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <h2>Tabela selecionada:</h2>
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                <span>SDGP</span>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <div>
+                                    <input type="text" id="sgdp_escolhido" class="form-control input-sm" readonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                <button class="btn btn-default btn-icon-notika" id="esscolher_tabela" onclick="location.href='@Url.Action("", "EscolherTabela")'">
+                                    Trocar Tabela
+                                </button>
+                                <button class="btn btn-default btn-icon-notika" id="cadastrar_cupom_fiscal" onclick="location.href='@Url.Action("", "CupomFiscal")'">
+                                    Cadastrar Cupom Fiscal
+                                </button>
+                            </div>
+                            <p></p>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="row">
+                                    <span>Atenção: Para o município </span> 
+                                    <span id: municipio></span><br />
+                                    <span>a ANP fornece os dados para os seguinte(s) ano(s)/mes(ses)</span>
+                                </div>
+                                <div class="row">
+                                    <span id="ano_meses"></span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
-                            <button class="btn btn-default btn-icon-notika" id="cadastrar_nota_fiscal" onclick="location.href='@Url.Action("", "EscolherTabela")'">
-                                Trocar Tabela
-                            </button>                            
-                            <button class="btn btn-default btn-icon-notika" id="visualizar_tabela" onclick="location.href='@Url.Action("", "CupomFiscal")'">
-                                Cadastrar Cupom Fiscal
-                            </button>
-                        </div>
-                    </div>                    
+                    </div>
+                    <br>
                     <div class="form-example-int form-horizental mg-t-15">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                                    <label class="hrzn-fm">Número da NF</label>
+                                    <label class="hrzn-fm required">Número da NF</label>
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div class="nk-int-st">
@@ -65,16 +80,16 @@
                                 <div class="col-lg-3 col-md-1 col-sm-0 col-xs-0">
                                 </div>
                                 <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
-                                    <span>Combustível</span>
+                                    <label style="text-align:left" class="hrzn-fm required">Combustível</label>
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
-                                    <span>Quantidade</span>
+                                    <label style="text-align:left" class="hrzn-fm required">Quantidade</label>
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
-                                    <span>Preço Unitário</span>
+                                    <label style="text-align:left" class="hrzn-fm required">Preço Unitário</label>
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
-                                    <span>Valor Total</span>
+                                    <label style="text-align:left" class="hrzn-fm required">Valor Total</label>
                                 </div>
                                 <div class="row">
                                 </div>
@@ -88,7 +103,7 @@
                                 </div>
                                 <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
                                     <div>
-                                        <select class="form-control" id="combustivel">
+                                        <select class="form-control" id="combustivel1">
                                             <option value="ETA">Etanol Hidratado</option>
                                             <option value="GAS">Gasolina Comum</option>
                                             <option value="DIE">Óleo Diesel</option>
@@ -102,7 +117,7 @@
                             <div class="form-group">
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                                     <div class="nk-int-st">
-                                        <input type="number" id="quantidade" class="form-control borderless-field">
+                                        <input type="number" id="quantidade1" class="form-control borderless-field">
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +126,7 @@
                             <div class="form-group">
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                                     <div class="nk-int-st">
-                                        <input class="form-control borderless-field" id="preco_unitario" />
+                                        <input class="form-control borderless-field" id="preco_unitario1" />
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +135,7 @@
                             <div class="form-group">
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                                     <div class="nk-int-st">
-                                        <input class="form-control borderless-field" id="valor_total" />
+                                        <input class="form-control borderless-field" id="valor_total1" />
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +148,7 @@
                                 </div>
                                 <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
                                     <div>
-                                        <select class="form-control" id="combustivel">
+                                        <select class="form-control" id="combustivel2">
                                             <option value="ETA">Etanol Hidratado</option>
                                             <option value="GAS">Gasolina Comum</option>
                                             <option value="DIE">Óleo Diesel</option>
@@ -147,7 +162,7 @@
                             <div class="form-group">
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                                     <div class="nk-int-st">
-                                        <input type="number" id="quantidade" class="form-control borderless-field">
+                                        <input type="number" id="quantidade2" class="form-control borderless-field">
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +171,7 @@
                             <div class="form-group">
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                                     <div class="nk-int-st">
-                                        <input class="form-control borderless-field" id="preco_unitario" />
+                                        <input class="form-control borderless-field" id="preco_unitario2" />
                                     </div>
                                 </div>
                             </div>
@@ -165,7 +180,7 @@
                             <div class="form-group">
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                                     <div class="nk-int-st">
-                                        <input class="form-control borderless-field" id="valor_total" />
+                                        <input class="form-control borderless-field" id="valor_total2" />
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +193,7 @@
                                 </div>
                                 <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
                                     <div>
-                                        <select class="form-control" id="combustivel">
+                                        <select class="form-control" id="combustivel3">
                                             <option value="ETA">Etanol Hidratado</option>
                                             <option value="GAS">Gasolina Comum</option>
                                             <option value="DIE">Óleo Diesel</option>
@@ -192,7 +207,7 @@
                             <div class="form-group">
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                                     <div class="nk-int-st">
-                                        <input type="number" id="quantidade" class="form-control borderless-field">
+                                        <input type="number" id="quantidade3" class="form-control borderless-field">
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +216,7 @@
                             <div class="form-group">
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                                     <div class="nk-int-st">
-                                        <input class="form-control borderless-field" id="preco_unitario" />
+                                        <input class="form-control borderless-field" id="preco_unitario3" />
                                     </div>
                                 </div>
                             </div>
@@ -210,7 +225,7 @@
                             <div class="form-group">
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                                     <div class="nk-int-st">
-                                        <input class="form-control borderless-field" id="valor_total" />
+                                        <input class="form-control borderless-field" id="valor_total3" />
                                     </div>
                                 </div>
                             </div>
@@ -223,7 +238,7 @@
                                 </div>
                                 <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
                                     <div>
-                                        <select class="form-control" id="combustivel">
+                                        <select class="form-control" id="combustivel4">
                                             <option value="ETA">Etanol Hidratado</option>
                                             <option value="GAS">Gasolina Comum</option>
                                             <option value="DIE">Óleo Diesel</option>
@@ -237,7 +252,7 @@
                             <div class="form-group">
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                                     <div class="nk-int-st">
-                                        <input type="number" id="quantidade" class="form-control borderless-field">
+                                        <input type="number" id="quantidade4" class="form-control borderless-field">
                                     </div>
                                 </div>
                             </div>
@@ -246,7 +261,7 @@
                             <div class="form-group">
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                                     <div class="nk-int-st">
-                                        <input class="form-control borderless-field" id="preco_unitario" />
+                                        <input class="form-control borderless-field" id="preco_unitario4" />
                                     </div>
                                 </div>
                             </div>
@@ -255,7 +270,7 @@
                             <div class="form-group">
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                                     <div class="nk-int-st">
-                                        <input class="form-control borderless-field" id="valor_total" />
+                                        <input class="form-control borderless-field" id="valor_total4" />
                                     </div>
                                 </div>
                             </div>
@@ -265,11 +280,11 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                                    <label class="hrzn-fm">Valor Total da NF</label>
+                                    <label class="hrzn-fm required">Valor Total da NF</label>
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div class="nk-int-st">
-                                        <input type="text" id="numero_nf" class="form-control borderless-field" maxlength="15" />
+                                        <input type="text" id="valor_total_nf" class="form-control borderless-field" maxlength="15" />
                                     </div>
                                 </div>
                             </div>
@@ -281,11 +296,11 @@
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                                     <label class="hrzn-fm">Cupons Vinculados</label>
                                 </div>
-                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                                    <label class="hrzn-fm" style="float:left">
-                                        Digite o COO de cada Cupom Fiscal e clique em Adicionar.<br />
-                                        Caso o COO já exista e não há uma Nota Fiscal vinculada a ele, apenas selecione e clique em Adicionar
-                                    </label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12" style="text-align:left; font-size:13px; color:gray">
+                                    <p>
+                                        Digite o COO de cada Cupom Fiscal e clique em Adicionar. <br>
+                                        Caso o COO já exista e não há uma Nota Fiscal vinculada a ele, apenas selecione e clique em Adicionar.
+                                    </p>
                                 </div>
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                                 </div>
@@ -303,6 +318,7 @@
                                     <button class="btn btn-default btn-icon-notika" id="adicionar_cupom" type="submit">
                                         Adicionar
                                     </button>
+                                    <p></p>
                                 </div>
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                                 </div>
@@ -332,11 +348,12 @@
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                                     <label class="hrzn-fm">Mês/Ano para consulta ANP</label>
                                 </div>
-                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                                    <label class="hrzn-fm">
-                                        Caso este campo seja enviado em branco, sera considerado o mês/ano da data de
-                                        emissão para consultar a Tabela da ANP
-                                    </label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12" style="text-align:left; font-size:13px; color:gray">
+                                    <p>
+                                        <b>Atenção:</b> caso este campo seja enviado em branco, será considerado o mês/ano da data de
+                                        emissão para consultar a Tabela da ANP. <br>
+                                        (MM/AAAA)
+                                    </p>
                                 </div>
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                                 </div>
@@ -409,7 +426,7 @@
 
 @section JavascriptPagina {
     <script type="text/javascript">
-        var urlCadastrarNotaFiscal= '@Url.Action("Cadastrar", "NotaFiscal")';
+        var urlCadastrarNotaFiscal = '@Url.Action("Cadastrar", "NotaFiscal")';
     </script>
-    <script type="text/javascript" src="~/Scripts/NotaFiscal/NotaFiscal.js"></script>
+    <script defer type="text/javascript" src="~/Scripts/NotaFiscal/NotaFiscal.js"></script>
 }
