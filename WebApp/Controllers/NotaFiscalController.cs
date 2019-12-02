@@ -78,15 +78,11 @@ namespace WebApp.Controllers
 
         public JsonResult ListarDepartamentos(NotaFiscal NotaFiscal)
         {
-            List<object> departamentos = new List<object>();
-
             try
             {
-                // departamentos = departamentoService.ListarDepartamentos();
-
                 return Json(new
                 {
-                    departamentps = departamentos
+                    departamentos = departamentoService.ListarDepartamentos()
                 });
             }
             catch (Exception ex)
@@ -97,7 +93,8 @@ namespace WebApp.Controllers
                 });
             }
         }
-            public ActionResult Index()
+
+        public ActionResult Index(string valorSgdp = null)
         {
 
             List<TabelaUsuarioDto> tabelas = new List<TabelaUsuarioDto>();
@@ -111,8 +108,7 @@ namespace WebApp.Controllers
             {
             }
 
-            return View("NotaFiscal", new NotaFiscalModel { TabelasUsuario = tabelas });
+            return View("NotaFiscal", new NotaFiscalModel { TabelasUsuario = tabelas, ValorSgdp = valorSgdp });
         }
-
     }
 }

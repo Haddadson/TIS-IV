@@ -60,7 +60,7 @@ namespace WebApp.Controllers
             });
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string valorSgdp = null)
         {
             List<TabelaUsuarioDto> tabelas = new List<TabelaUsuarioDto>();
 
@@ -71,16 +71,10 @@ namespace WebApp.Controllers
             }
             catch (Exception ex)
             {
+
             }
 
-            return View("CupomFiscal", new NotaFiscalModel { TabelasUsuario = tabelas } );
+            return View("CupomFiscal", new NotaFiscalModel { ValorSgdp = valorSgdp, TabelasUsuario = tabelas });
         }
-
-        public ActionResult Index(string valorSgdp = null)
-        {
-
-            return View("ListarTabelas");
-        }
-
     }
 }

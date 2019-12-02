@@ -1,9 +1,6 @@
 ﻿const initNotaFiscalFields = () => {
     VMasker(document.querySelector("#placa_veiculo")).maskPattern("AAA-9999");
     VMasker(document.querySelector("#data_consulta_anp")).maskPattern("99/9999");
-    VMasker(document.querySelector("#chave_acesso")).maskPattern("9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999");
-
-    //$("#sgdb").val(1);
 
     validateNumericRequiredFormField("#numero_nf", true, true);
     validateNumericRequiredFormField("#quantidade", true, true);
@@ -29,20 +26,6 @@ $(document).ready(function () {
         ValidarNotas.chamadaAjax({
             url: urlObterMunicipioPorNomeAno,
             sucesso: tratarMunicipios,
-            deveEsconderCarregando: true
-        });
-    });
-
-    $("#departamento").on("change", function (event) {
-        const urlObterDepartamentos = window.urlObterDepartamentos;
-        
-        ValidarNotas.chamadaAjax({
-            url: urlObterDepartamentos,
-            sucesso: (response) => {
-                response.departamentos.forEach((dpto) => {
-                    $("#departamento").html('<option value=' + dpto.Id + '>' + dpto.Nome + '</option>');
-                });
-            },
             deveEsconderCarregando: true
         });
     });
@@ -78,7 +61,6 @@ $(document).ready(function () {
         const notaFiscalData = {
             "SGDP"                  : $("#sgdp").val(),
             "NrNotaFiscal"          : $("#numero_nf").val(),
-            "ChaveAcesso"           : $("#chave_acesso").val().split(" ").join(""),
             "Posto"                 : $("#posto").val(),
             "DataEmissao"           : $("#data_emissao").val(),
             "Combustivel"           : $("#combustivel").val(),
@@ -104,10 +86,6 @@ $(document).ready(function () {
         });
     });
 
-    $("#departamento").on("change", function (event) {
-        // Get Departamentos.
-    });
-
     const autoSetValorTotal = evt => {
         const qtd = parseFloat($("#quantidade").val().replace(',', '.'));
         const vrUnit = parseFloat($("#preco_unitario").val().replace(',', '.'));
@@ -118,16 +96,18 @@ $(document).ready(function () {
 
     $("#quantidade").on("change", autoSetValorTotal);
     $("#preco_unitario").on("change", autoSetValorTotal);
-    $("#chave_acesso").on("change", function (evt) {
-        const value = $("#chave_acesso").val().split(" ").join("");
+    
+    const urlObterDepartamentos = window.urlObterDepartamentos;
 
-        if (value.length !== 44) {
-            setInvalidField("#chave_acesso");
-        } else {
-            cleanInvalidField("#chave_acesso");
-        }
+    ValidarNotas.chamadaAjax({
+        url: urlObterDepartamentos,
+        sucesso: (response) => {
+            response.departamentos.forEach((dpto) => {
+                $("#departamento").append('<option value=' + dpto.Codigo + '>' + dpto.Nome + '</option>');
+            });
+        },
+        deveEsconderCarregando: true
     });
-
 });
 
 const validateCuponsFicais = fieldCssQuerySelector => {
