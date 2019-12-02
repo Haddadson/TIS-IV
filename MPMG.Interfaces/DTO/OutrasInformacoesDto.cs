@@ -1,18 +1,15 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
-namespace MPMG.Repositories.Entidades
+namespace MPMG.Interfaces.DTO
 {
-    public class AnpxNotaFiscal
+    public class OutrasInformacoesDto
     {
-        public DateTime DataGeracao { get; set; }
         public string NumeroNotaFiscal { get; set; }
         public string Produto { get; set; }
         public double Quantidade { get; set; }
         public double ValorUnitario { get; set; }
         public double ValorTotalItem { get; set; }
         public double ValorTotalNota { get; set; }
-        public int NumeroFolha { get; set; }
-        public double ValorFam { get; set; }
         public double PrecoMedioAnp { get; set; }
         public double DiferencaMediaUnitaria { get; set; }
         public double DiferencaMediaTotal { get; set; }
@@ -25,5 +22,9 @@ namespace MPMG.Repositories.Entidades
         public int AnoAnp { get; set; }
         public int MesFam { get; set; }
         public int AnoFam { get; set; }
+        public string NomeDepartamento { get; set; }
+        public string Veiculo { get; set; }
+        public string PlacaVeiculo { get; set; }
+        public List<string> CuponsFiscaisVinculados { get; set; }
     }
 }

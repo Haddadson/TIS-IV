@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace MPMG.Repositories.Entidades
+namespace MPMG.Interfaces.DTO
 {
-    public class CupomFiscal
+    public class CupomFiscalDto
     {
         public int Sgdp { get; set; }
         public string Coo { get; set; }

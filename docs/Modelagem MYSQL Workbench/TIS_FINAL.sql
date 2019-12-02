@@ -189,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `mpmg`.`cupomfiscal` (
   `quantidade` INT(11) NULL DEFAULT NULL,
   `preco_unitario` DECIMAL(7,2) NULL DEFAULT NULL,
   `vrtotal` DECIMAL(7,2) NULL DEFAULT NULL,
-  `produto` VARCHAR(3) NULL DEFAULT NULL,
+  `produto` VARCHAR(45) NULL DEFAULT NULL,
   `veiculo` VARCHAR(50) NULL DEFAULT NULL,
   `placa_veiculo` VARCHAR(15) NULL DEFAULT NULL,
   PRIMARY KEY (`coo`, `sgdp`),

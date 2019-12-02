@@ -20,12 +20,12 @@ namespace MPMG.Services
 
         }
 
-        public MunicipioDto ObterMunicipioAnpPorNomeAno(int anoReferente, string nomeMunicipio)
+        public MunicipioDto ObterMunicipioAnpPorNomeAno(List<int> anosReferentes, string nomeMunicipio)
         {
-            var municipio = ConverterMunicipioParaDto(municipioRepositorio.ObterMunicipioAnpPorNomeAno(anoReferente, nomeMunicipio));
+            var municipio = ConverterMunicipioParaDto(municipioRepositorio.ObterMunicipioAnpPorNomeAno(anosReferentes, nomeMunicipio));
             MunicipioReferente municipioReferente = null;
 
-            municipioReferente = municipioReferenteRepositorio.ObterMunicipioReferentePorNome(nomeMunicipio, anoReferente);
+            municipioReferente = municipioReferenteRepositorio.ObterMunicipioReferentePorNome(nomeMunicipio, anosReferentes);
 
             if (municipioReferente != null)
                 return new MunicipioDto(municipioReferente.CodigoMunicipioReferente, municipioReferente.NomeMunicipioReferente);
@@ -33,9 +33,9 @@ namespace MPMG.Services
             return municipio;
         }
 
-        public List<string> ListarMunicipiosAnpPorAno(int anoReferente)
+        public List<string> ListarMunicipiosAnpPorAno(List<int> anosReferentes)
         {
-            return dadosAnpRepositorio.ListarMunicipiosAnpPorAno(anoReferente);
+            return dadosAnpRepositorio.ListarMunicipiosAnpPorAno(anosReferentes);
         }
 
         private MunicipioDto ConverterMunicipioParaDto(Municipio entidade)

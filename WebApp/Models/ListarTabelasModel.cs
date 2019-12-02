@@ -1,8 +1,5 @@
 ﻿using MPMG.Interfaces.DTO;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace WebApp.Models
 {
@@ -10,10 +7,12 @@ namespace WebApp.Models
     {
         public ListarTabelasModel()
         {
-            TabelasUsuario = new List<TabelaUsuarioDto>();
+            TabelaCuponsFicais = new List<CupomFiscalDto>();
         }
 
-        public List<TabelaUsuarioDto> TabelasUsuario { get; set; }
-        public TabelaUsuarioDto TabelaBuscada { get; set; }
+        public string ValorSgdp { get; set; }
+        public TabelaUsuarioDto TabelaAnpXNota { get; set; }
+        public TabelaUsuarioDto TabelaOutrasInformacoes { get; set; }
+        public List<CupomFiscalDto> TabelaCuponsFicais { get; set; }
     }
 }

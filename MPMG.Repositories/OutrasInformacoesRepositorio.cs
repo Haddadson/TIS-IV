@@ -5,25 +5,23 @@ using System.Data;
 
 namespace MPMG.Repositories
 {
-    public class AnpxNotaFiscalRepositorio : RepositorioBase<AnpxNotaFiscal>
+    public class OutrasInformacoesRepositorio : RepositorioBase<OutrasInformacoes>
     {
         private const string SQL_LISTAR_NOTAS_FISCAIS_POR_SGDP = @"
-            SELECT 
-                A.dt_emissao AS DataGeracao,
+             SELECT 
                 A.nr_nota_fiscal AS NumeroNotaFiscal,
-                A.mes_fam As MesFam,
-                A.ano_fam As AnoFam,
                 I.produto As Produto,
                 I.quantidade AS Quantidade, 
                 I.vunitario AS ValorUnitario,
                 I.vrtotal AS ValorTotalItem,
-                A.nro_folha AS NumeroFolha,
-                B.valor_fam AS ValorFam,
                 A.vrtotal_nota As ValorTotalNota,
                 C.preco_medio_revenda AS PrecoMedioAnp,
                 C.preco_maximo_revenda AS PrecoMaximoAnp,
                 C.ano AS AnoAnp,
-                C.mes AS MesAnp
+                C.mes AS MesAnp,
+                D.nome_dpto AS NomeDepartamento,
+                A.veiculo AS Veiculo,
+                A.placa_veiculo AS PlacaVeiculo
             FROM notafiscal A
             join itemnotafiscal I
 				on A.sgdp = I.sgdp
@@ -35,10 +33,12 @@ namespace MPMG.Repositories
                 AND YEAR(IFNULL(A.dt_consulta_anp, A.dt_emissao)) = C.ano 
                 AND I.produto = C.produto
                 AND C.id_municipio = @IdMunicipio
+			JOIN departamento D
+				ON A.id_dpto = D.id_dpto
             WHERE 
                 A.sgdp = @Sgdp";
 
-        public List<AnpxNotaFiscal> ListarNotasFiscaisPorSgdp(int sgdp, int idMunicipio)
+        public List<OutrasInformacoes> ListarNotasFiscaisPorSgdp(int sgdp, int idMunicipio)
         {
             DynamicParameters parametros = new DynamicParameters();
             parametros.Add("@Sgdp", sgdp, DbType.Int32);

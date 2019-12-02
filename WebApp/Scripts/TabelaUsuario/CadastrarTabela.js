@@ -2,31 +2,23 @@
     $("#municipios-anp-div").hide();
     VMasker(document.querySelector("#data-geracao")).maskPattern("99/99/9999");
 
+    $("#anos-referentes").html(
+        (() => {
+            var anosOptions = '';
+            var fiveYearsLater = moment().add('years', 5).format('YYYY');
+            for (var i = 2013; i < fiveYearsLater; i++) {
+                anosOptions += '<option value=' + i + '>' + i + '</option>';
+            }
+            return anosOptions;
+        })()
+    );
+
     validateNumericRequiredFormField("#sgdp");
     validateDateFormField("#data-geracao");
     setDefaultDate("#data-geracao");
     setReadOnly("#data-geracao");
 
-    // Facilitador. Se não convier, apenas remover
-    // Seta o Ano Referente, automaticamente como o ano atual.
-    $("#ano-referente").val(moment().format("YYYY"));
-
-    $(".municipios-anp-busca").on("change", function (event) {
-        const municipioSelecionado = $("#municipios").val();
-        const anoSelecionado = $("#ano-referente").val();
-
-        if (municipioSelecionado && anoSelecionado) {
-            const urlObterMunicipioPorNomeAno = window.urlObterMunicipioPorNomeAno;
-
-            ValidarNotas.chamadaAjax({
-                url: urlObterMunicipioPorNomeAno,
-                data: { anoReferente: anoSelecionado, nomeMunicipio: municipioSelecionado },
-                sucesso: tratarMunicipios,
-                deveEsconderCarregando: false
-            });
-        }
-
-    });
+    $("#check-disponibilidade-anp").on("click", validateANP);
 
     $("#cadastrar-tabela").on("click", function (event) {
 
@@ -67,34 +59,40 @@
     }
 
     function tratarMunicipios(response) {
+        const municipioReferente = response.municipioReferente;
         const listaMunicipios = response.listaMunicipios;
 
-        if (listaMunicipios && listaMunicipios.length > 0) {
-            const listaMunicipios = response.listaMunicipios.filter((m) => { return m === response.municipioSelecionado; });
-            const municipioReferente = response && response.listaMunicipios && response.municipioReferente;
-            if (municipioReferente) {
-                $('#municipios-anp').html = '';
-                $('#municipios-anp').append(`<option val='${municipioReferente.Codigo}'>${municipioReferente.Nome}</option>`);
-                $('#municipios-anp').val(municipioReferente.Nome);
-                $("#municipios-anp").prop('disabled', true);
-                $("#municipios-anp-div").show();
+        if (municipioReferente) {
+            alert('O municipio existe na ANP!');
+            $("#municipios-anp-div").hide();
+            $('#municipios-anp').val(listaMunicipios[0]);
+        } else {
+            if (listaMunicipios && listaMunicipios.length > 0) {
+                const listaMunicipios = response.listaMunicipios.filter((m) => { return m === response.municipioSelecionado; });
+                const municipioReferente = response && response.listaMunicipios && response.municipioReferente;
+                if (municipioReferente) {
+                    $('#municipios-anp').html = '';
+                    $('#municipios-anp').append(`<option val='${municipioReferente.Codigo}'>${municipioReferente.Nome}</option>`);
+                    $('#municipios-anp').val(municipioReferente.Nome);
+                    $("#municipios-anp").prop('disabled', true);
+                    $("#municipios-anp-div").show();
+                }
+                else {
+                    $('#municipios-anp').html = '';
+                    $('#municipios-anp').append(response.listaMunicipios.map(m => {
+                        return "<option>" + m + "</option>";
+                    }));
+                }
+                if (!municipioReferente && !(listaMunicipios.length === 1)) {
+                    alert("O município selecionado não possui dados na tabela da ANP para o período selecionado. Favor escolher um município.");
+                    $("#municipios-anp-div").show();
+                }
+                else if (!municipioReferente) {
+                    $("#municipios-anp-div").hide();
+                    $('#municipios-anp').val(listaMunicipios[0]);
+                }
             }
-            else {
-                $('#municipios-anp').html = '';
-                $('#municipios-anp').append(response.listaMunicipios.map(m => {
-                    return "<option>" + m + "</option>";
-                }));
-            }
-            if (!municipioReferente && !(listaMunicipios.length === 1)) {
-                alert("O município selecionado não possui dados na tabela da ANP para o período selecionado. Favor escolher um município.");
-                $("#municipios-anp-div").show();
-            }
-            else if (!municipioReferente) {
-                $("#municipios-anp-div").hide();
-                $('#municipios-anp').val(listaMunicipios[0]);
-            }
-        }
-        
+        }           
     }
 
     function TratarErro(retorno) {
@@ -104,5 +102,19 @@
             alert("Ocorreu um erro ao cadastrar");
     }
 
-});
+    function validateANP (event) {
+        const municipioSelecionado = $("#municipios").val();
+        const anosSelecionados = $("#anos-referentes").val();
 
+        if (municipioSelecionado && (anosSelecionados.length > 0)) {
+            const urlObterMunicipioPorNomeAno = window.urlObterMunicipioPorNomeAno;
+
+            ValidarNotas.chamadaAjax({
+                url: urlObterMunicipioPorNomeAno,
+                data: { anosReferentes: anosSelecionados, nomeMunicipio: municipioSelecionado },
+                sucesso: tratarMunicipios,
+                deveEsconderCarregando: false
+            });
+        }
+    }
+});
