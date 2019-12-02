@@ -236,6 +236,7 @@
     <Content Include="Content\owl.transitions.css" />
     <Content Include="Content\responsive.css" />
     <Content Include="Content\scrollbar\jquery.mCustomScrollbar.min.css" />
+    <Content Include="Content\select-autocomplete.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\summernote\summernote.css" />
     <Content Include="Content\themesaller-forms.css" />
@@ -362,6 +363,7 @@
     <Content Include="Scripts\TabelaUsuario\cadastrarTabela.js" />
     <Content Include="Scripts\TabelaUsuario\listarTabela.js" />
     <Content Include="Scripts\Util\form-field-handler.js" />
+    <Content Include="Scripts\select-autocomplete.js" />
     <Content Include="Scripts\Util\vanilla-masker.min.js" />
     <Content Include="Scripts\validarNotas.js" />
     <Content Include="Scripts\wow.min.js" />
