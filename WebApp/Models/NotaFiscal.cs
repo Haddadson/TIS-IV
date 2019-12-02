@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MPMG.Interfaces.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,6 +8,11 @@ namespace WebApp.Models
 {
     public class NotaFiscal
     {
+        public NotaFiscal()
+        {
+            ItensNotaFiscal = new List<ItemNotaFiscalDto>();
+        }
+
         public int NrNotaFiscal { get; set; }
         public int SGDP { get; set; }        
         public double ValorTotal { get; set; }
@@ -23,5 +29,6 @@ namespace WebApp.Models
         public int NumeroFolha { get; set; } 
         public int Departamento { get; set; }
         public List<string> CuponsSelecionados { get; set; }
+        public List<ItemNotaFiscalDto> ItensNotaFiscal { get; set; }
     }
 }

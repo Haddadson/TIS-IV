@@ -11,8 +11,8 @@ namespace MPMG.Services
     public class CupomFiscalRepo : RepositorioBase<CupomFiscal>
     {
         private const string SQL_INSERIR_CUPOM_FISCAL = @"
-                INSERT INTO `cupomfiscal` (`coo`, `sgdp`, `id_nota_fiscal`)
-                VALUES (@nr_cupom, @sGDP, (SELECT MAX(`id_nota_fiscal`) FROM `notafiscal`))";
+                INSERT INTO `cupomfiscal` (`coo`, `sgdp`, `nr_nota_fiscal`)
+                VALUES (@nr_cupom, @sGDP, @numNotaFiscal)";
 
         private const string SQL_INSERIR_CUPOM_FISCAL_COMPLETO = @"
                 INSERT INTO `cupomfiscal` (`coo`, `sgdp`, `nr_nota_fiscal`, `posto_referente`, `hodometro`, 
@@ -54,12 +54,13 @@ namespace MPMG.Services
             WHERE sgdp = @Sgdp 
             AND nr_nota_fiscal = @NumeroNotaFiscal";
 
-        public bool CadastrarCupom(int sGDP, string numeroCupom)
+        public bool CadastrarCupom(int sGDP, string numeroCupom, int numeroNota)
         {
             DynamicParameters parametros = new DynamicParameters();
 
             parametros.Add("@nr_cupom", numeroCupom, DbType.AnsiString);
             parametros.Add("@sGDP", sGDP, DbType.Int32);
+            parametros.Add("@numNotaFiscal", numeroCupom, DbType.Int32);
 
             return Execute(SQL_INSERIR_CUPOM_FISCAL, parametros) > 0;
         }

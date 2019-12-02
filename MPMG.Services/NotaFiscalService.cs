@@ -1,4 +1,5 @@
-﻿using MPMG.Repositories;
+﻿using MPMG.Interfaces.DTO;
+using MPMG.Repositories;
 using MPMG.Repositories.Entidades;
 using System;
 using System.Collections.Generic;
@@ -11,64 +12,64 @@ namespace MPMG.Services
         private readonly NotaFiscalRepo notaFiscalRepo;
         private readonly CupomFiscalRepo cupomFiscalRepo;
         private readonly TabelaANPRepo tabelaANPRepo;
+        private readonly ItemNotaFiscalRepo itemNotaFiscalRepo;
+
+
         public NotaFiscalService()
         {
             notaFiscalRepo = new NotaFiscalRepo();
             cupomFiscalRepo = new CupomFiscalRepo();
             tabelaANPRepo = new TabelaANPRepo();
+            itemNotaFiscalRepo = new ItemNotaFiscalRepo();
         }
-        public void cadastrarNotaFiscal(
+        public void CadastrarNotaFiscal(
             int nrNotaFiscal,
             int sGDP,
             double valorTotal,
             string chaveAcesso,
             DateTime dataEmissao,
-            double precoMaximo,
-            double precoMedio,
             DateTime dataConsultaANP,
             string veiculo,
             string placaVeiculo,
-            string combustivel,
-            int quantidade,
-            double precoUnitario,
             int numeroFolha,
-            int departamento, 
-            List<string> cuponsSelecionados)
+            int departamento,
+            List<string> cuponsSelecionados,
+            List<ItemNotaFiscalDto> ItensNotaFiscal)
         {
             int mesFAM = dataEmissao.Month;
             int anoFAM = dataEmissao.Year;
 
-            TabelaANP tabela = tabelaANPRepo.BuscarDadosANP(sGDP, combustivel, dataConsultaANP.Month, dataConsultaANP.Year);
+            notaFiscalRepo.Cadastrar(nrNotaFiscal, sGDP, valorTotal,
+                chaveAcesso, dataEmissao, dataConsultaANP,
+                veiculo, placaVeiculo, numeroFolha,
+                departamento, mesFAM, anoFAM);
 
-            if (tabela != null)
+            //double precoMaximo = 0;
+            //double precoMedio = 0;
+
+            foreach (var item in ItensNotaFiscal)
             {
-                precoMaximo = tabela.precoMaximo;
-                precoMedio = tabela.precoMedio;
+                if(item != null)
+                {
+
+                    //TabelaANP tabela = tabelaANPRepo.BuscarDadosANP(sGDP, item.Produto, dataConsultaANP.Month, dataConsultaANP.Year);
+
+                    //if (tabela != null)
+                    //{
+                    //    precoMaximo = tabela.precoMaximo;
+                    //    precoMedio = tabela.precoMedio;
+                    //}
+
+                    itemNotaFiscalRepo.Cadastrar(nrNotaFiscal, int.Parse(item.Sgdp), item.Produto, 
+                        item.Quantidade, item.ValorTotal, item.ValorUnitario);
+
+                }
             }
 
-            notaFiscalRepo.Cadastrar(
-                nrNotaFiscal,
-                sGDP,
-                valorTotal,
-                chaveAcesso,
-                dataEmissao,
-                precoMaximo,
-                precoMedio,
-                dataConsultaANP,
-                veiculo,
-                placaVeiculo,
-                combustivel,
-                quantidade,
-                precoUnitario,
-                numeroFolha,
-                departamento,
-                mesFAM,
-                anoFAM);
-
-            foreach (var cupom in cuponsSelecionados)
-            {
-                cupomFiscalRepo.CadastrarCupom(sGDP, cupom);
-            }
+            //foreach (var cupom in cuponsSelecionados)
+            //{
+            //    cupomFiscalRepo.CadastrarCupom(sGDP, cupom, nrNotaFiscal);
+            //}
         }
     }
 }
