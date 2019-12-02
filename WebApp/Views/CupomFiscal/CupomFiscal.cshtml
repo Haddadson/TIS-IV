@@ -1,4 +1,4 @@
-﻿@model WebApp.Models.NotaFiscalModel
+@model WebApp.Models.NotaFiscalModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,34 +9,53 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-example-wrap mg-t-30">
-                    <div class="cmp-tb-hd cmp-int-hd">
-                        <h3>Cadastrar Cupom Fiscal</h3>
-                    </div>
-                    <div class="form-example-int form-horizental">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                                    <label class="hrzn-fm required">SDGP</label>
+                    <div class="row">
+                        <div class="cmp-tb-hd cmp-int-hd">
+                            <h3>Cadastrar Cupom Fiscal</h3>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <h2>Tabela selecionada:</h2>
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                <span>SDGP</span>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <div>
+                                    <input type="text" id="sgdp_escolhido" class="form-control input-sm" readonly>
                                 </div>
-                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                                    <div>
-                                        <input type="text" id="sgdp_escolhido" class="form-control input-sm" readonly value="@Model.ValorSgdp">
-                                    </div>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                <button class="btn btn-default btn-icon-notika" id="esscolher_tabela" onclick="location.href='@Url.Action("", "EscolherTabela")'">
+                                    Trocar Tabela
+                                </button>
+                                <button class="btn btn-default btn-icon-notika" id="cadastrar_cupom_fiscal" onclick="location.href='@Url.Action("", "NotaFiscal")'">
+                                    Cadastrar Nota Fiscal
+                                </button>
+                            </div>
+                            <p></p>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="row">
+                                    <span>Atenção: Para o município </span>
+                                    <span id: municipio></span><br />
+                                    <span>a ANP fornece os dados para os seguinte(s) ano(s)/mes(ses)</span>
+                                </div>
+                                <div class="row">
+                                    <span id="ano_meses"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <br>
                     <div class="form-example-int form-horizental mg-t-15">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                                    <label class="hrzn-fm">COO</label>
+                                    <label class="hrzn-fm required">COO</label>
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div class="nk-int-st autocomplete">
                                         <form autocomplete="off" action="/action_page.php">
                                             <input id="coo" type="text" class="form-control borderless-field">
-                                        </form> 
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +81,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                                    <label class="hrzn-fm">Posto Fornecedor</label>
+                                    <label class="hrzn-fm required">Posto Fornecedor</label>
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div class="nk-int-st autocomplete">
@@ -89,10 +108,24 @@
                         </div>
                     </div>
                     <div class="form-example-int form-horizental mg-t-15">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                                    <label class="hrzn-fm required">Horário de emissão</label>
+                                </div>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                                    <div class="nk-int-st">
+                                        <input type="time" class="form-control borderless-field" id="hora_emissao">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-example-int form-horizental mg-t-15">
                         <div class="form-group ">
                             <div class="row">
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                                    <label class="hrzn-fm">Combustível</label>
+                                    <label class="hrzn-fm required">Combustível</label>
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div>
@@ -153,7 +186,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                                    <label class="hrzn-fm">Cliente</label>
+                                    <label class="hrzn-fm required">Cliente</label>
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div class="nk-int-st autocomplete">
