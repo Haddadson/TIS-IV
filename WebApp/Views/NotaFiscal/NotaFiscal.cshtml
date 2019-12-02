@@ -21,7 +21,7 @@
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                                 <div>
-                                    <input type="text" id="sgdp_escolhido" class="form-control input-sm" readonly>
+                                    <input type="text" id="sgdp_escolhido" class="form-control input-sm" value="@Model.ValorSgdp" readonly>
                                 </div>
                             </div>
                             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
@@ -35,7 +35,7 @@
                             <p></p>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="row">
-                                    <span>Atenção: Para o município </span> 
+                                    <span>Atenção: Para o município </span>
                                     <span id: municipio></span><br />
                                     <span>a ANP fornece os dados para os seguinte(s) ano(s)/mes(ses)</span>
                                 </div>
@@ -91,7 +91,6 @@
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                                     <label style="text-align:left" class="hrzn-fm required">Valor Total</label>
                                 </div>
-
                                 <div class="row">
                                 </div>
                             </div>
@@ -297,20 +296,11 @@
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                                     <label class="hrzn-fm">Cupons Vinculados</label>
                                 </div>
-<<<<<<< HEAD
-
-                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                                    <label class="hrzn-fm" style="float:left">
-                                        Digite o COO de cada Cupom Fiscal e clique em Adicionar.<br />
-                                        Caso o COO já exista e não há uma Nota Fiscal vinculada a ele, apenas selecione e clique em Adicionar
-                                    </label>
-=======
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12" style="text-align:left; font-size:13px; color:gray">
                                     <p>
                                         Digite o COO de cada Cupom Fiscal e clique em Adicionar. <br>
                                         Caso o COO já exista e não há uma Nota Fiscal vinculada a ele, apenas selecione e clique em Adicionar.
                                     </p>
->>>>>>> master
                                 </div>
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                                 </div>
@@ -332,10 +322,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                                 </div>
-
-                                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 mg-t-15">
-                                </div>
-                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 mg-t-15">
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <textarea class="form-control borderless-field textarea" id="cupons_selecionados"></textarea>
                                 </div>
                             </div>
@@ -440,10 +427,7 @@
 @section JavascriptPagina {
     <script type="text/javascript">
         var urlCadastrarNotaFiscal = '@Url.Action("Cadastrar", "NotaFiscal")';
-<<<<<<< HEAD
         var urlObterDepartamentos =  '@Url.Action("ListarDepartamentos", "NotaFiscal")';
-=======
->>>>>>> master
     </script>
     <script defer type="text/javascript" src="~/Scripts/NotaFiscal/NotaFiscal.js"></script>
 }

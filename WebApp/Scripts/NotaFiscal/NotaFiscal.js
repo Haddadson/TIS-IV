@@ -61,10 +61,35 @@ $(document).ready(function () {
                 "NrNotaFiscal": $("#numero_nf").val(),
                 "Posto": $("#posto_fornecedor").val(),
                 "DataEmissao": $("#data_emissao").val(),
-                "Combustivel": $("#combustivel").val(),
-                "Quantidade": $("#quantidade").val(),
-                "PrecoUnitario": parseFloat($("#preco_unitario").val().replace(",", ".")),
-                "ValorTotal": parseFloat($("#valor_total").val().replace(",", ".")),
+                "Itens:" : [
+                    {
+                        "Combustivel": $("#combustivel1").val(),
+                        "Quantidade": $("#quantidade1").val(),
+                        "PrecoUnitario": parseFloat($("#preco_unitario1").val().replace(",", ".")),
+                        "ValorTotal": parseFloat($("#valor_total1").val().replace(",", "."))
+                    },
+                    {
+                        "Combustivel": $("#combustivel2").val(),
+                        "Quantidade": $("#quantidade2").val(),
+                        "PrecoUnitario": parseFloat($("#preco_unitario2").val().replace(",", ".")),
+                        "ValorTotal": parseFloat($("#valor_total2").val().replace(",", "."))
+                    },
+                    {
+                        "Combustivel": $("#combustivel3").val(),
+                        "Quantidade": $("#quantidade3").val(),
+                        "PrecoUnitario": parseFloat($("#preco_unitario3").val().replace(",", ".")),
+                        "ValorTotal": parseFloat($("#valor_total3").val().replace(",", "."))
+                    },
+                    {
+                        "Combustivel": $("#combustivel4").val(),
+                        "Quantidade": $("#quantidade4").val(),
+                        "PrecoUnitario": parseFloat($("#preco_unitario4").val().replace(",", ".")),
+                        "ValorTotal": parseFloat($("#valor_total4").val().replace(",", "."))
+                    }
+                ],
+
+                "ValorTotalNF": parseFloat($("#valor_total_nf").val().replace(",", ".")),
+
                 "CuponsSelecionados": $("#cupons_selecionados").val().split(" ").filter(cupom => cupom.length > 0),
                 "NumeroFolha": $("#num_folha").val(),
                 "DataConsultaANP": '01/' + $("#data_consulta_anp").val(),
@@ -72,6 +97,7 @@ $(document).ready(function () {
                 "Veiculo": $("#veiculo").val(),
                 "PlacaVeiculo": $("#placa_veiculo").val().replace('-', '')
             };
+
             const urlCadastrarNotaFiscal = window.urlCadastrarNotaFiscal;
 
             ValidarNotas.chamadaAjax({
