@@ -11,7 +11,7 @@ namespace MPMG.Repositories
     {
 
         private const string SQL_BUSCAR_MUNICIPIO = @"
-            SELECT id_dpto AS Id, 
+            SELECT id_dpto AS Codigo, 
                    nome_dpto AS Nome 
             FROM departamento 
             ORDER BY 1";

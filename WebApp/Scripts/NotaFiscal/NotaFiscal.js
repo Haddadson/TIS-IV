@@ -57,40 +57,14 @@ $(document).ready(function () {
         }
         else {
             const notaFiscalData = {
-                "SGDP": $("#sgdp").val(),
+                "SGDP": $("#sgdp_escolhido").val(),
                 "NrNotaFiscal": $("#numero_nf").val(),
                 "Posto": $("#posto_fornecedor").val(),
                 "DataEmissao": $("#data_emissao").val(),
-                "Itens:" : [
-                    {
-                        "Combustivel": $("#combustivel1").val(),
-                        "Quantidade": $("#quantidade1").val(),
-                        "PrecoUnitario": parseFloat($("#preco_unitario1").val().replace(",", ".")),
-                        "ValorTotal": parseFloat($("#valor_total1").val().replace(",", "."))
-                    },
-                    {
-                        "Combustivel": $("#combustivel2").val(),
-                        "Quantidade": $("#quantidade2").val(),
-                        "PrecoUnitario": parseFloat($("#preco_unitario2").val().replace(",", ".")),
-                        "ValorTotal": parseFloat($("#valor_total2").val().replace(",", "."))
-                    },
-                    {
-                        "Combustivel": $("#combustivel3").val(),
-                        "Quantidade": $("#quantidade3").val(),
-                        "PrecoUnitario": parseFloat($("#preco_unitario3").val().replace(",", ".")),
-                        "ValorTotal": parseFloat($("#valor_total3").val().replace(",", "."))
-                    },
-                    {
-                        "Combustivel": $("#combustivel4").val(),
-                        "Quantidade": $("#quantidade4").val(),
-                        "PrecoUnitario": parseFloat($("#preco_unitario4").val().replace(",", ".")),
-                        "ValorTotal": parseFloat($("#valor_total4").val().replace(",", "."))
-                    }
-                ],
+                "ValorTotal": parseFloat($("#valor_total_nf").val().replace(",", ".")),
 
-                "ValorTotalNF": parseFloat($("#valor_total_nf").val().replace(",", ".")),
-
-                "CuponsSelecionados": $("#cupons_selecionados").val().split(" ").filter(cupom => cupom.length > 0),
+                //"CuponsSelecionados": $("#cupons_selecionados").val().split(" ").filter(cupom => cupom.length > 0),
+                "CuponsSelecionados": $("#coo").val(),
                 "NumeroFolha": $("#num_folha").val(),
                 "DataConsultaANP": '01/' + $("#data_consulta_anp").val(),
                 "Departamento": $("#departamento").val(),
@@ -98,13 +72,45 @@ $(document).ready(function () {
                 "PlacaVeiculo": $("#placa_veiculo").val().replace('-', '')
             };
 
+            const itensNota = [
+                {
+                    "SGDP": $("#sgdp_escolhido").val(),
+                    "Produto": $("#combustivel1").val(),
+                    "Quantidade": $("#quantidade1").val(),
+                    "ValorUnitario": parseFloat($("#preco_unitario1").val().replace(",", ".")),
+                    "ValorTotal": parseFloat($("#valor_total1").val().replace(",", "."))
+                },
+                {
+                    "SGDP": $("#sgdp_escolhido").val(),
+                    "Produto": $("#combustivel2").val(),
+                    "Quantidade": $("#quantidade2").val(),
+                    "ValorUnitario": parseFloat($("#preco_unitario2").val().replace(",", ".")),
+                    "ValorTotal": parseFloat($("#valor_total2").val().replace(",", "."))
+                },
+                {
+                    "SGDP": $("#sgdp_escolhido").val(),
+                    "Produto": $("#combustivel3").val(),
+                    "Quantidade": $("#quantidade3").val(),
+                    "ValorUnitario": parseFloat($("#preco_unitario3").val().replace(",", ".")),
+                    "ValorTotal": parseFloat($("#valor_total3").val().replace(",", "."))
+                },
+                {
+                    "SGDP": $("#sgdp_escolhido").val(),
+                    "Produto": $("#combustivel4").val(),
+                    "Quantidade": $("#quantidade4").val(),
+                    "ValorUnitario": parseFloat($("#preco_unitario4").val().replace(",", ".")),
+                    "ValorTotal": parseFloat($("#valor_total4").val().replace(",", "."))
+                }
+            ];
+
             const urlCadastrarNotaFiscal = window.urlCadastrarNotaFiscal;
 
             ValidarNotas.chamadaAjax({
                 url: urlCadastrarNotaFiscal,
-                data: notaFiscalData,
+                data: { NotaFiscal: notaFiscalData, ItensNotaFiscal: itensNota },
                 sucesso: function () {
                     alert("Salvo com sucesso!");
+                    limparCampos();
                 },
                 deveEsconderCarregando: true
             });
@@ -121,7 +127,7 @@ $(document).ready(function () {
 
     $("#quantidade").on("change", autoSetValorTotal);
     $("#preco_unitario").on("change", autoSetValorTotal);
-    
+
     const urlObterDepartamentos = window.urlObterDepartamentos;
 
     ValidarNotas.chamadaAjax({
@@ -134,6 +140,19 @@ $(document).ready(function () {
         deveEsconderCarregando: true
     });
 });
+
+function limparCampos() {
+    $("#numero_nf").val('');
+    $("#posto_fornecedor").val('');
+    $("#data_emissao").val('');
+    $("#valor_total_nf").val('');
+    $("#coo").val('');
+    $("#num_folha").val('');
+    $("#data_consulta_anp").val('');
+    $("#departamento").val('');
+    $("#veiculo").val('');
+    $("#placa_veiculo").val('');
+}
 
 const validateCuponsFicais = fieldCssQuerySelector => {
     $(fieldCssQuerySelector).on("change", (evt) => {

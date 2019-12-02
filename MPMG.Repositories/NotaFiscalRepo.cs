@@ -9,8 +9,9 @@ namespace MPMG.Repositories
     {
         private const string SQL_INSERIR_NOTA_FISCAL = @"
         INSERT INTO `notafiscal`
-        (`sgdp`, `id_dpto`, `mes_fam`, `ano_fam`, `dt_emissao`, `vrtotal`, `preco_medio_revenda`, `preco_maximo_revenda`, 
-            `dt_consulta_anp`, `id_tipo_combustivel`,  `quantidade`, `preco_unitario`, `nro_folha`, `veiculo`, `placa_veiculo`, `nr_nota_fiscal`)
+        (`sgdp`, `id_dpto`, `mes_fam`, `ano_fam`, `dt_emissao`, `vrtotal_nota`,  
+         `dt_consulta_anp`, `nro_folha`, `veiculo`, `placa_veiculo`, `nr_nota_fiscal`, `id_upload_fam`,
+        `preco_medio_revenda`, `preco_maximo_revenda`)
         VALUES (
         @sGDP,
         @departamento,
@@ -18,16 +19,14 @@ namespace MPMG.Repositories
         @anoFAM,
         @dataEmissao,
         @valorTotal,
-        @precoMedio,
-        @precoMaximo,
         @dataConsultaANP,
-        @combustivel,
-        @quantidade,
-        @precoUnitario,
         @numeroFolha,
         @veiculo,
         @placaVeiculo,
-        @nrNotaFiscal)";
+        @nrNotaFiscal,
+        (SELECT IFNULL(MAX(A.id_upload), 0) FROM uploadtabelafam A),
+        '0.0',
+        '0.0')";
 
         public bool Cadastrar(
             int nrNotaFiscal, 
@@ -35,14 +34,9 @@ namespace MPMG.Repositories
             double valorTotal, 
             string chaveAcesso, 
             DateTime dataEmissao, 
-            double precoMaximo, 
-            double precoMedio, 
             DateTime dataConsultaANP, 
             string veiculo, 
             string placaVeiculo, 
-            string combustivel, 
-            int quantidade, 
-            double precoUnitario, 
             int numeroFolha, 
             int departamento,
             int mesFAM,
@@ -55,14 +49,9 @@ namespace MPMG.Repositories
             parametros.Add("@valorTotal", valorTotal, DbType.Double);
             parametros.Add("@chaveAcesso", chaveAcesso, DbType.AnsiString);
             parametros.Add("@dataEmissao", dataEmissao, DbType.DateTime);
-            parametros.Add("@precoMaximo", precoMaximo, DbType.Double);
-            parametros.Add("@precoMedio", precoMedio, DbType.Double);
             parametros.Add("@dataConsultaANP", dataConsultaANP, DbType.DateTime);
             parametros.Add("@veiculo", veiculo, DbType.AnsiString);
             parametros.Add("@placaVeiculo", placaVeiculo, DbType.AnsiString);
-            parametros.Add("@combustivel", combustivel, DbType.AnsiString);
-            parametros.Add("@quantidade", quantidade, DbType.Int32);
-            parametros.Add("@precoUnitario", precoUnitario, DbType.Double);
             parametros.Add("@numeroFolha", numeroFolha, DbType.Int32);
             parametros.Add("@departamento", departamento, DbType.Int32);
             parametros.Add("@mesFAM", mesFAM, DbType.Int32);
