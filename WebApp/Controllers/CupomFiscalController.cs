@@ -1,4 +1,4 @@
-﻿using MPMG.Interfaces.DTO;
+using MPMG.Interfaces.DTO;
 using MPMG.Services;
 using System;
 using System.Collections.Generic;
