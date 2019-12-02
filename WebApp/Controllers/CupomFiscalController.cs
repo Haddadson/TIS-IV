@@ -1,4 +1,4 @@
-﻿using MPMG.Interfaces.DTO;
+using MPMG.Interfaces.DTO;
 using MPMG.Services;
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,7 @@ namespace WebApp.Controllers
 
         public JsonResult Cadastrar(CupomFiscal cupom)
         {
-            int SGDP = cupom.SGDP ;
+            int SGDP = cupom.SGDP;
             int NrNotaFiscal = cupom.NrNotaFiscal;
             string COO = cupom.COO;
             string Posto = cupom.Posto;
@@ -38,26 +38,40 @@ namespace WebApp.Controllers
             string Veiculo = cupom.Veiculo;
             string PlacaVeiculo = cupom.PlacaVeiculo;
 
-            cupomFiscalService.Cadastrar(
-                SGDP,
-                NrNotaFiscal,
-                COO,
-                Posto,
-                Data,
-                Combustivel,
-                Quantidade,
-                PrecoUnitario,
-                ValorTotal,
-                Cliente,
-                Hodometro,
-                Veiculo,
-                PlacaVeiculo);
-
-            return Json(new
+            try
             {
-                Mensagem = "Sucesso ao cadastrar cupom fiscal!",
-                DataGeracao = DateTime.Now
-            });
+
+                cupomFiscalService.Cadastrar(
+                    SGDP,
+                    NrNotaFiscal,
+                    COO,
+                    Posto,
+                    Data,
+                    Combustivel,
+                    Quantidade,
+                    PrecoUnitario,
+                    ValorTotal,
+                    Cliente,
+                    Hodometro,
+                    Veiculo,
+                    PlacaVeiculo);
+                return Json(new
+                {
+                    Mensagem = "Sucesso ao cadastrar cupom fiscal!",
+                    Sucesso= true,
+                    DataGeracao = DateTime.Now
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    Mensagem = "Ocorreu um erro ao cadastrar.",
+                    Sucesso = false
+                });
+            }
+
+
         }
 
         public ActionResult Index(string valorSgdp = null)
