@@ -11,21 +11,26 @@
                 <div class="form-example-wrap mg-t-30">
                     <div class="cmp-tb-hd cmp-int-hd">
                         <h3>Cadastrar Nota Fiscal</h3>
-                    </div>
-                    <div class="form-example-int form-horizental">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                                    <label class="hrzn-fm required">SDGP</label>
-                                </div>
-                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                                    <div>
-                                        <input type="text" id="sgdp_escolhido" class="form-control input-sm" readonly>
-                                    </div>
-                                </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <h2>Tabela selecionada:</h2>
+                        </div>
+                        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-12">
+                            <span>SDGP</span>
+                        </div>
+                        <div class="col-lg-2 col-md-7 col-sm-7 col-xs-12">
+                            <div>
+                                <input type="text" id="sgdp_escolhido" class="form-control input-sm" readonly>
                             </div>
                         </div>
-                    </div>
+                        <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                            <button class="btn btn-default btn-icon-notika" id="cadastrar_nota_fiscal" onclick="location.href='@Url.Action("", "EscolherTabela")'">
+                                Trocar Tabela
+                            </button>                            
+                            <button class="btn btn-default btn-icon-notika" id="visualizar_tabela" onclick="location.href='@Url.Action("", "CupomFiscal")'">
+                                Cadastrar Cupom Fiscal
+                            </button>
+                        </div>
+                    </div>                    
                     <div class="form-example-int form-horizental mg-t-15">
                         <div class="form-group">
                             <div class="row">
