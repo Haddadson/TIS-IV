@@ -20,5 +20,6 @@ namespace MPMG.Interfaces.DTO
         public MunicipioDto Municipio { get; set; }
         public MunicipioDto MunicipioReferente { get; set; }
         public List<AnpxNotaFiscalDto> DadosAnpxNotaFiscal { get; set; }
+        public List<OutrasInformacoesDto> OutrasInformacoes { get; set; }
     }
 }

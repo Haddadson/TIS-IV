@@ -54,12 +54,14 @@ namespace WebApp.Controllers
         public ActionResult Index(string valorSgdp = null)
         {
             TabelaUsuarioDto tabelaAnpXNota = new TabelaUsuarioDto();
+            TabelaUsuarioDto tabelaOutrasInfos = new TabelaUsuarioDto();
             List<CupomFiscalDto> tabelaCuponsFiscais = new List<CupomFiscalDto>();
 
             try
             {
                 tabelaAnpXNota = tabelaUsuarioService.ObterTabelaComDadosAnpxNotaFiscal(valorSgdp);
                 tabelaCuponsFiscais = cupomFiscalService.ListarCuponsFiscaisPorSgdp(valorSgdp);
+                tabelaOutrasInfos = tabelaUsuarioService.ObterTabelaOutrasInformacoes(valorSgdp);
             }
             catch (Exception ex) { }
 
@@ -67,6 +69,7 @@ namespace WebApp.Controllers
             {
                 ValorSgdp = valorSgdp,
                 TabelaAnpXNota = tabelaAnpXNota,
+                TabelaOutrasInformacoes = tabelaOutrasInfos,
                 TabelaCuponsFicais = tabelaCuponsFiscais
             });
         }

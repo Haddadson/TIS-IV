@@ -12,6 +12,7 @@ namespace WebApp.Models
 
         public string ValorSgdp { get; set; }
         public TabelaUsuarioDto TabelaAnpXNota { get; set; }
+        public TabelaUsuarioDto TabelaOutrasInformacoes { get; set; }
         public List<CupomFiscalDto> TabelaCuponsFicais { get; set; }
     }
 }
