@@ -14,6 +14,9 @@ namespace MPMG.Services
         private readonly MunicipioRepositorio municipioRepositorio;
         private readonly MunicipioReferenteRepositorio municipioReferenteRepositorio;
         private readonly AnpxNotaFiscalRepositorio anpxNotaFiscalRepositorio;
+        private readonly CupomFiscalRepo cupomFiscalRepositorio;
+        private readonly OutrasInformacoesRepositorio outrasInfosRepositorio;
+
 
         public TabelaUsuarioService()
         {
@@ -21,6 +24,8 @@ namespace MPMG.Services
             municipioRepositorio = new MunicipioRepositorio();
             municipioReferenteRepositorio = new MunicipioReferenteRepositorio();
             anpxNotaFiscalRepositorio = new AnpxNotaFiscalRepositorio();
+            cupomFiscalRepositorio = new CupomFiscalRepo();
+            outrasInfosRepositorio = new OutrasInformacoesRepositorio();
         }
 
         public void CadastrarTabela(
@@ -51,18 +56,18 @@ namespace MPMG.Services
                 var municipioInserido = municipioRepositorio.InserirMunicipio(NomeMunicipio);
                 var municipioReferente = municipioRepositorio.ObterMunicipio(NomeMunicipioReferente);
 
-                if(municipioInserido == null || municipioReferente == null)
+                if (municipioInserido == null || municipioReferente == null)
                     throw new Exception("Ocorreu um erro interno");
 
-                entidadeMunicipioRef = municipioReferenteRepositorio.InserirMunicipioReferente(municipioInserido.Codigo, 
-                    municipioReferente.Codigo, 
+                entidadeMunicipioRef = municipioReferenteRepositorio.InserirMunicipioReferente(municipioInserido.Codigo,
+                    municipioReferente.Codigo,
                     AnoReferente);
             }
 
             int idMunicipio = 0;
             int idMunicipioReferente = 0;
 
-            if(municipio == null && entidadeMunicipioRef == null)
+            if (municipio == null && entidadeMunicipioRef == null)
                 throw new Exception("Ocorreu um erro interno");
 
             if (municipio != null)
@@ -96,14 +101,48 @@ namespace MPMG.Services
 
         public TabelaUsuarioDto ObterTabelaComDadosAnpxNotaFiscal(string sgdp)
         {
-            var tabela =  ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(int.Parse(sgdp)));
+            var tabela = ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(int.Parse(sgdp)));
 
             if (tabela == null || (tabela.Municipio == null && tabela.MunicipioReferente == null))
                 throw new Exception("Erro ao encontrar");
 
             int idMunicipio = tabela.MunicipioReferente?.Codigo ?? tabela.Municipio.Codigo;
+            try
+            {
+                tabela.DadosAnpxNotaFiscal = ListarDadosAnpXNotaFiscalPorSgdp(tabela.SGDP, idMunicipio);
 
-            tabela.DadosAnpxNotaFiscal = ListarDadosAnpXNotaFiscalPorSgdp(tabela.SGDP, idMunicipio);
+                tabela.DadosAnpxNotaFiscal.ForEach(dado =>
+                    dado.CuponsFiscaisVinculados = cupomFiscalRepositorio.ObterCuponsVinculados(tabela.SGDP, int.Parse(dado.NumeroNotaFiscal)));
+
+            }
+            catch (Exception ex)
+            {
+                tabela.DadosAnpxNotaFiscal = new List<AnpxNotaFiscalDto>();
+            }
+
+            return tabela;
+        }
+
+        public TabelaUsuarioDto ObterTabelaOutrasInformacoes(string sgdp)
+        {
+            var tabela = ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(int.Parse(sgdp)));
+
+            if (tabela == null || (tabela.Municipio == null && tabela.MunicipioReferente == null))
+                throw new Exception("Erro ao encontrar");
+
+            int idMunicipio = tabela.MunicipioReferente?.Codigo ?? tabela.Municipio.Codigo;
+            try
+            {
+                tabela.OutrasInformacoes = ListarDadosOutrasInformacoes(tabela.SGDP, idMunicipio);
+
+                tabela.OutrasInformacoes.ForEach(dado =>
+                    dado.CuponsFiscaisVinculados = cupomFiscalRepositorio.ObterCuponsVinculados(tabela.SGDP, int.Parse(dado.NumeroNotaFiscal)));
+
+            }
+            catch (Exception ex)
+            {
+                tabela.OutrasInformacoes = new List<OutrasInformacoesDto>();
+            }
 
             return tabela;
         }
@@ -120,7 +159,7 @@ namespace MPMG.Services
 
         public List<TabelaUsuarioDto> ListarTabelasComDadosAnpxNotaFiscal()
         {
-            var tabelas =  ConverterListaEntidadeParaDto(tabelaRepositorio.ListarTabelas());
+            var tabelas = ConverterListaEntidadeParaDto(tabelaRepositorio.ListarTabelas());
 
             foreach (var tabelaUsuario in tabelas)
             {
@@ -140,6 +179,11 @@ namespace MPMG.Services
             return ConverterListaEntidadeDadosAnpxNotaParaDto(anpxNotaFiscalRepositorio.ListarNotasFiscaisPorSgdp(sgdp, idMunicipio));
         }
 
+        public List<OutrasInformacoesDto> ListarDadosOutrasInformacoes(int sgdp, int idMunicipio)
+        {
+            return ConverterListaEntidadeOutrasInfosParaDto(outrasInfosRepositorio.ListarNotasFiscaisPorSgdp(sgdp, idMunicipio));
+        }
+
         private TabelaUsuarioDto ConverterEntidadeParaDto(TabelaUsuario entidade)
         {
             if (entidade == null)
@@ -154,8 +198,8 @@ namespace MPMG.Services
                 Titulo1 = entidade.Titulo1,
                 Titulo2 = entidade.Titulo2,
                 Titulo3 = entidade.Titulo3,
-                Municipio = new MunicipioDto(entidade.IdMunicipio, entidade.NomeMunicipio),  
-                MunicipioReferente = new MunicipioDto(entidade.IdMunicipioReferente, entidade.NomeMunicipioReferente),  
+                Municipio = new MunicipioDto(entidade.IdMunicipio, entidade.NomeMunicipio),
+                MunicipioReferente = new MunicipioDto(entidade.IdMunicipioReferente, entidade.NomeMunicipioReferente),
             };
         }
 
@@ -167,14 +211,14 @@ namespace MPMG.Services
             return entidades.Select(ConverterEntidadeParaDto).ToList();
         }
 
-        private AnpxNotaFiscalDto ConverterDadosAnpXNotaFiscalParaDto( AnpxNotaFiscal entidade)
+        private AnpxNotaFiscalDto ConverterDadosAnpXNotaFiscalParaDto(AnpxNotaFiscal entidade)
         {
             if (entidade == null)
                 return null;
 
             return new AnpxNotaFiscalDto()
             {
-                Combustivel = entidade.Combustivel,
+                Produto = entidade.Produto,
                 DataGeracao = entidade.DataGeracao,
                 NumeroFolha = entidade.NumeroFolha,
                 NumeroNotaFiscal = entidade.NumeroNotaFiscal,
@@ -184,14 +228,56 @@ namespace MPMG.Services
                 ValorFam = entidade.ValorFam,
                 ValorMaximoAtualizado = entidade.ValorMaximoAtualizado,
                 ValorMedioAtualizado = entidade.ValorMedioAtualizado,
-                ValorTotal = entidade.ValorTotal,
+                ValorTotalItem = entidade.ValorTotalItem,
+                ValorTotalNota = entidade.ValorTotalNota,
                 ValorUnitario = entidade.ValorUnitario,
                 MesAnp = entidade.MesAnp,
                 AnoAnp = entidade.AnoAnp,
-                DiferencaMediaUnitaria = entidade.PrecoMedioAnp - entidade.ValorUnitario,
-                DiferencaMediaTotal = (entidade.PrecoMedioAnp - entidade.ValorUnitario) * entidade.Quantidade,
-                DiferencaMaximaUnitaria = entidade.PrecoMaximoAnp - entidade.ValorUnitario,
-                DiferencaMaximaTotal = (entidade.PrecoMaximoAnp - entidade.ValorUnitario) * entidade.Quantidade
+                MesFam = entidade.MesFam,
+                AnoFam = entidade.AnoFam,
+                DiferencaMediaUnitaria = entidade.ValorUnitario - entidade.PrecoMedioAnp,
+                DiferencaMediaTotal = (entidade.ValorUnitario - entidade.PrecoMedioAnp) * entidade.Quantidade,
+                DiferencaMaximaUnitaria = entidade.ValorUnitario - entidade.PrecoMaximoAnp,
+                DiferencaMaximaTotal = (entidade.ValorUnitario - entidade.PrecoMaximoAnp) * entidade.Quantidade
+            };
+        }
+
+        private List<OutrasInformacoesDto> ConverterListaEntidadeOutrasInfosParaDto(List<OutrasInformacoes> entidades)
+        {
+            if (entidades == null || !entidades.Any())
+                return new List<OutrasInformacoesDto>();
+
+            return entidades.Select(ConverterOutrasInformacoesParaDto).ToList();
+        }
+
+        private OutrasInformacoesDto ConverterOutrasInformacoesParaDto(OutrasInformacoes entidade)
+        {
+            if (entidade == null)
+                return null;
+
+            return new OutrasInformacoesDto()
+            {
+                Produto = entidade.Produto,
+                NumeroNotaFiscal = entidade.NumeroNotaFiscal,
+                PrecoMaximoAnp = entidade.PrecoMaximoAnp,
+                PrecoMedioAnp = entidade.PrecoMedioAnp,
+                Quantidade = entidade.Quantidade,
+                ValorMaximoAtualizado = entidade.ValorMaximoAtualizado,
+                ValorMedioAtualizado = entidade.ValorMedioAtualizado,
+                ValorTotalItem = entidade.ValorTotalItem,
+                ValorTotalNota = entidade.ValorTotalNota,
+                ValorUnitario = entidade.ValorUnitario,
+                MesAnp = entidade.MesAnp,
+                AnoAnp = entidade.AnoAnp,
+                MesFam = entidade.MesFam,
+                AnoFam = entidade.AnoFam,
+                NomeDepartamento = entidade.NomeDepartamento,
+                PlacaVeiculo = entidade.PlacaVeiculo,
+                Veiculo = entidade.Veiculo,
+                DiferencaMediaUnitaria = entidade.ValorUnitario - entidade.PrecoMedioAnp,
+                DiferencaMediaTotal = (entidade.ValorUnitario - entidade.PrecoMedioAnp) * entidade.Quantidade,
+                DiferencaMaximaUnitaria = entidade.ValorUnitario - entidade.PrecoMaximoAnp,
+                DiferencaMaximaTotal = (entidade.ValorUnitario - entidade.PrecoMaximoAnp) * entidade.Quantidade
             };
         }
 
@@ -202,7 +288,5 @@ namespace MPMG.Services
 
             return entidades.Select(ConverterDadosAnpXNotaFiscalParaDto).ToList();
         }
-
-
     }
 }

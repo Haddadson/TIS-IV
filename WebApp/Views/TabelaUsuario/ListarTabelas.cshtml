@@ -1,6 +1,6 @@
 ﻿@model WebApp.Models.ListarTabelasModel
 @{
-    ViewBag.Title = "Listar Tabelas";
+    ViewBag.Title = "Visualizar Tabela";
 }
 <div class="form-example-area">
     <div class="container">
@@ -8,7 +8,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-example-wrap mg-t-30">
                     <div class="cmp-tb-hd cmp-int-hd">
-                        <h2>Vizualizar Tabela</h2>
+                        <h2>Visualizar Tabela</h2>
                     </div>
                     <div class="form-example-int form-horizental mg-t-15">
                         <div class="form-group">
@@ -20,7 +20,7 @@
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-8">
                                     <div>
-                                        <input type="text" id="sgdp_escolhido" class="form-control input-sm" readonly>
+                                        <input type="text" id="sgdp_escolhido" class="form-control input-sm" value="@Model.ValorSgdp" readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
@@ -56,38 +56,111 @@
     </div>
 </div>
 
-@foreach (var tabela in Model.TabelasUsuario)
-{
-
-    @* A partir dessa linha deve-se escolher qual das tabelas abaixo serão exibidas a partir da combobox anterior. Se selecionado NFs x ANP, deve-se exibir o conteúdo dessa aba e assim sucessivamente *@
-    <div id="@tabela.SGDP" class="data-table-usuario data-table-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="data-table-list">
-                        <div id="tabela-nf-anp" class="table-responsive">
+@* A partir dessa linha deve-se escolher qual das tabelas abaixo serão exibidas a partir da combobox anterior. Se selecionado NFs x ANP, deve-se exibir o conteúdo dessa aba e assim sucessivamente *@
+<div id="@Model.TabelaAnpXNota.SGDP" class="data-table-usuario data-table-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="data-table-list">
+                    <div id="tabela-nf-anp" class="table-responsive">
+                        @if (Model.TabelaAnpXNota == null || !Model.TabelaAnpXNota.DadosAnpxNotaFiscal.Any())
+                        {
                             @*TODO: estilizar*@
                             <div class="col-lg-3 col-md-3 col-sm-3">
-                                <p><span class="font-weight-bold">SGDP: </span>@tabela.SGDP</p>
+                                <p><span class="font-weight-bold">SGDP: </span>@Model.TabelaAnpXNota.SGDP</p>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3">
-                                <p><span class="font-weight-bold">Municipio: +</span>@(tabela.Municipio?.Nome ?? "-")</p>
+                                <p><span class="font-weight-bold">Municipio: </span>@(Model.TabelaAnpXNota.Municipio?.Nome ?? "-")</p>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3">
-                                <p><span class="font-weight-bold">Municipio Ref. ANP: </span>@(tabela.MunicipioReferente?.Nome ?? "-")</p>
+                                <p><span class="font-weight-bold">Municipio Ref. ANP: </span>@(Model.TabelaAnpXNota.MunicipioReferente?.Nome ?? "-")</p>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3">
-                                <p><span class="font-weight-bold">Analista Responsável: </span>@tabela.AnalistaResponsavel</p>
+                                <p><span class="font-weight-bold">Analista Responsável: </span>@Model.TabelaAnpXNota.AnalistaResponsavel</p>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3">
-                                <p><span class="font-weight-bold">Data de geração: </span>@tabela.DataGeracao.ToShortDateString()</p>
+                                <p><span class="font-weight-bold">Data de geração: </span>@Model.TabelaAnpXNota.DataGeracao.ToShortDateString()</p>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3">
-                                <p><span class="font-weight-bold">Ano(s) referente(s): </span>@tabela.AnoReferente</p>
+                                <p><span class="font-weight-bold">Ano(s) referente(s): </span>@Model.TabelaAnpXNota.AnoReferente</p>
                             </div>
-                            <table id="data-table-nf-anp" class="table table-striped">
-                                <thead>
-                                    @* Tabela a ser exibida quando o usuário selecionar NFs x ANP na combobox *@
+                        }
+
+                        <table id="data-table-nf-anp" class="table table-striped">
+                            <thead>
+                                @* Tabela a ser exibida quando o usuário selecionar NFs x ANP na combobox *@
+                                <tr>
+                                    <th>DATA</th>
+                                    <th>NOTA FISCAL</th>
+                                    <th>COMBUSTÍVEL</th>
+                                    <th>QDE.</th>
+                                    <th>VALOR UNIT.</th>
+                                    <th>VALOR TOTAL</th>
+                                    <th>VALOR TOTAL DA NOTA</th>
+                                    <th>NUM. FOLHA</th>
+                                    <th>FAM @(Model.TabelaAnpXNota.DadosAnpxNotaFiscal.FirstOrDefault()?.MesFam.ToString() ?? "-") / @(Model.TabelaAnpXNota.DadosAnpxNotaFiscal.FirstOrDefault()?.AnoFam.ToString() ?? "-") </th>
+                                    @*Nessa linha o mês ano deve ser substituído de acordo com o dado da tabela de excel gerada*@
+                                    <th>PREÇO MED. ANP</th>
+                                    <th>DIFERENÇA MED. UNIT.</th>
+                                    <th>DIFERENÇA MED TOTAL</th>
+                                    <th>VALOR MED ATUALIZADO</th>
+                                    <th>PREÇO MAX ANP</th>
+                                    <th>DIFERENÇA MAX UNIT.</th>
+                                    <th>DIFERENÇA MAX TOTAL</th>
+                                    <th>VALOR MAX ATUALIZADO</th>
+                                    <th>CUPONS FISCAIS VINCULADOS</th>
+                                    <th>MES/ANO PROCURADO NA ANP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var dadosAnpxNota in Model.TabelaAnpXNota.DadosAnpxNotaFiscal)
+                                {
+                                <tr>
+                                    <td>@dadosAnpxNota.DataGeracao.ToShortDateString()</td>
+                                    <td>@dadosAnpxNota.NumeroNotaFiscal</td>
+                                    <td>@dadosAnpxNota.Produto</td>
+                                    <td>@dadosAnpxNota.Quantidade</td>
+                                    <td>@dadosAnpxNota.ValorUnitario.ToString("0.00")</td>
+                                    <td>@dadosAnpxNota.ValorTotalItem.ToString("0.00")</td>
+                                    <td>@dadosAnpxNota.ValorTotalNota.ToString("0.00")</td>
+                                    <td>@dadosAnpxNota.NumeroFolha</td>
+                                    <td>@dadosAnpxNota.ValorFam.ToString("0.00")</td>
+                                    <td>@dadosAnpxNota.PrecoMedioAnp.ToString("0.00")</td>
+
+                                    @if (dadosAnpxNota.DiferencaMaximaUnitaria <= 0)
+                                    {
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@dadosAnpxNota.DiferencaMediaUnitaria.ToString("0.00")</td>
+                                        <td class="yellow">@dadosAnpxNota.DiferencaMediaTotal.ToString("0.00")</td>
+                                        <td class="yellow">@dadosAnpxNota.ValorMedioAtualizado.ToString("0.00")</td>
+                                    }
+
+                                    <td>@dadosAnpxNota.PrecoMaximoAnp</td>
+
+                                    @if (dadosAnpxNota.DiferencaMaximaUnitaria <= 0)
+                                    {
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@dadosAnpxNota.DiferencaMaximaUnitaria.ToString("0.00")</td>
+                                        <td class="red">@dadosAnpxNota.DiferencaMaximaTotal.ToString("0.00")</td>
+                                        <td class="red">@dadosAnpxNota.ValorMaximoAtualizado.ToString("0.00")</td>
+                                    }
+
+                                    <td>@(string.Join(";", dadosAnpxNota.CuponsFiscaisVinculados.ToArray()))</td>
+                                    <td>@dadosAnpxNota.MesAnp/@dadosAnpxNota.AnoAnp</td>
+                                </tr>
+                                }
+                            </tbody>
+                            @*<tfoot>
                                     <tr>
                                         <th>DATA</th>
                                         <th>NOTA FISCAL</th>
@@ -97,7 +170,7 @@
                                         <th>VALOR TOTAL</th>
                                         <th>NUM. FOLHA</th>
                                         <th>FAM MES/ANO</th>
-                                        @*Nessa linha o mês ano deve ser substituído de acordo com o dado da tabela de excel gerada*@
+                                        @*Nessa linha o mês ano deve ser substituído de acordo com o dado da tabela de excel gerada
                                         <th>PREÇO MED. ANP</th>
                                         <th>DIFERENÇA MED. UNIT.</th>
                                         <th>DIFERENÇA MED TOTAL</th>
@@ -109,311 +182,128 @@
                                         <th>CUPONS FISCAIS VINCULADOS</th>
                                         <th>MES/ANO PROCURADO NA ANP</th>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var dadosAnpxNota in tabela.DadosAnpxNotaFiscal)
+                                </tfoot>*@
+                        </table>
+                    </div>
+                    <div id="tabela-cupom" class="table-responsive">
+                        <table id="data-table-cupom" class="table table-striped">
+                            <thead>
+                                @* Tabela a ser exibida quando o usuário selecionar Cupons Fiscais na combobox *@
+                                <tr>
+                                    <th>NUM. NF REFERENTE</th>
+                                    <th>POSTO FORNECEDOR</th>
+                                    <th>DATA</th>
+                                    <th>HORÁRIO</th>
+                                    <th>COO</th>
+                                    <th>COMBUSTÍVEL</th>
+                                    <th> QUANT.</th>
+                                    <th>PREÇO UNIT.</th>
+                                    <th>VALOR TOTAL</th>
+                                    <th>CLIENTE</th>
+                                    <th>VEÍCULO</th>
+                                    <th>PLACA VEÍCULO</th>
+                                    <th>HODÔMETRO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var cupomFiscal in Model.TabelaCuponsFicais)
+                                {
+                                    <tr>
+                                        <td>@cupomFiscal.NumeroNotaFiscal</td>
+                                        <td>@cupomFiscal.PostoReferente</td>
+                                        <td>@cupomFiscal.DataEmissao.ToShortDateString()</td>
+                                        <td>@cupomFiscal.DataEmissao.ToShortTimeString()</td>
+                                        <td>@cupomFiscal.Coo</td>
+                                        <td>@cupomFiscal.Produto</td>
+                                        <td>@cupomFiscal.Quantidade</td>
+                                        <td>@cupomFiscal.PrecoUnitario.ToString("0.00")</td>
+                                        <td>@cupomFiscal.ValorTotal.ToString("0.00")</td>
+                                        <td>@cupomFiscal.Cliente</td>
+                                        <td>@cupomFiscal.Veiculo</td>
+                                        <td>@cupomFiscal.PlacaVeiculo</td>
+                                        <td>@cupomFiscal.Hodometro</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="tabela-outros" class="table-responsive">
+                        <table id="data-table-outros" class="table table-striped">
+                            <thead>
+                                @* Tabela a ser exibida quando o usuário selecionar Outras informações na combobox *@
+                                <tr>
+                                    <th>NUM. NF REFERENTE</th>
+                                    <th>COOs VINCULADOS</th>
+                                    <th>DEPARTAMENTO</th>
+                                    <th>VEÍCULO</th>
+                                    <th>PLACA VEÍCULO</th>
+                                    <th>COMBUSTÍVEL</th>
+                                    <th>VALOR TOTAL NOTA FISCAL</th>
+                                    <th>DIFERENÇA MED. TOTAL NF</th>
+                                    <th>VALOR MED. ATUALIZADO NF</th>
+                                    <th>DIFERENÇA MAX. TOTAL NF</th>
+                                    <th>VALOR MAX. ATUALIZADO NF</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var dados in Model.TabelaOutrasInformacoes.OutrasInformacoes)
+                                {
+                                <tr>
+                                    <td>@dados.NumeroNotaFiscal</td>
+                                    <td>@(string.Join(";", dados.CuponsFiscaisVinculados.ToArray()))</td>
+                                    <td>@dados.NomeDepartamento</td>
+                                    <td>@dados.Veiculo</td>
+                                    <td>@dados.PlacaVeiculo</td>
+                                    <td>@dados.Produto</td>
+                                    <td>@dados.ValorTotalNota.ToString("0.00")</td>
+
+
+                                    @if (dados.DiferencaMediaUnitaria <= 0)
                                     {
-                                        <tr>
-                                            <td>@dadosAnpxNota.DataGeracao.ToShortDateString()</td>
-                                            <td>@dadosAnpxNota.NumeroNotaFiscal</td>
-                                            <td>@dadosAnpxNota.Combustivel</td>
-                                            <td>@dadosAnpxNota.Quantidade</td>
-                                            <td>@dadosAnpxNota.ValorUnitario</td>
-                                            <td>@dadosAnpxNota.ValorTotal</td>
-                                            <td>@dadosAnpxNota.NumeroFolha</td>
-                                            <td>@dadosAnpxNota.ValorFam</td>
-                                            <td>@dadosAnpxNota.PrecoMedioAnp</td>
-                                            <td>@dadosAnpxNota.DiferencaMediaUnitaria</td>
-                                            <td>@dadosAnpxNota.DiferencaMediaTotal</td>
-                                            <td>@dadosAnpxNota.ValorMedioAtualizado</td>
-                                            <td>@dadosAnpxNota.PrecoMaximoAnp</td>
-                                            <td>@dadosAnpxNota.DiferencaMaximaUnitaria</td>
-                                            <td>@dadosAnpxNota.DiferencaMaximaTotal</td>
-                                            <td>@dadosAnpxNota.ValorMaximoAtualizado</td>
-                                            <td>-</td>
-                                            <td>@dadosAnpxNota.MesAnp/@dadosAnpxNota.AnoAnp</td>
-                                        </tr>
+                                        <td>-</td>
+                                        <td>-</td>
                                     }
-                                </tbody>
-                                @*<tfoot>
-                                        <tr>
-                                            <th>DATA</th>
-                                            <th>NOTA FISCAL</th>
-                                            <th>COMBUSTÍVEL</th>
-                                            <th>QDE.</th>
-                                            <th>VALOR UNIT.</th>
-                                            <th>VALOR TOTAL</th>
-                                            <th>NUM. FOLHA</th>
-                                            <th>FAM MES/ANO</th>
-                                            @*Nessa linha o mês ano deve ser substituído de acordo com o dado da tabela de excel gerada
-                                            <th>PREÇO MED. ANP</th>
-                                            <th>DIFERENÇA MED. UNIT.</th>
-                                            <th>DIFERENÇA MED TOTAL</th>
-                                            <th>VALOR MED ATUALIZADO</th>
-                                            <th>PREÇO MAX ANP</th>
-                                            <th>DIFERENÇA MAX UNIT.</th>
-                                            <th>DIFERENÇA MAX TOTAL</th>
-                                            <th>VALOR MAX ATUALIZADO</th>
-                                            <th>CUPONS FISCAIS VINCULADOS</th>
-                                            <th>MES/ANO PROCURADO NA ANP</th>
-                                        </tr>
-                                    </tfoot>*@
-                            </table>
-                        </div>
-                        <div id="tabela-cupom" class="table-responsive">
-                            <table id="data-table-cupom" class="table table-striped">
-                                <thead>
-                                    @* Tabela a ser exibida quando o usuário selecionar Cupons Fiscais na combobox *@
-                                    <tr>
-                                        <th>NUM. NF REFERENTE</th>
-                                        <th>POSTO FORNECEDOR</th>
-                                        <th>DATA</th>
-                                        <th>HORÁRIO</th>
-                                        <th>COO</th>
-                                        <th> COMBUSTÍVEL</th>
-                                        <th> QUANT.</th>
-                                        <th>PREÇO UNIT.</th>
-                                        <th>VALOR TOTAL</th>
-                                        <th> CLIENTE</th>
-                                        <th>VEÍCULO</th>
-                                        <th>PLACA VEÍCULO</th>
-                                        <th>HODÔMETRO</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
+                                    else
+                                    {
+                                        <td class="red">@dados.DiferencaMediaTotal.ToString("0.00")</td>
+                                        <td class="red">@dados.ValorMedioAtualizado.ToString("0.00")</td>
+                                    }
 
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>NUM. NF REFERENTE</th>
-                                        <th>POSTO FORNECEDOR</th>
-                                        <th>DATA</th>
-                                        <th>HORÁRIO</th>
-                                        <th>COO</th>
-                                        <th> COMBUSTÍVEL</th>
-                                        <th> QUANT.</th>
-                                        <th>PREÇO UNIT.</th>
-                                        <th>VALOR TOTAL</th>
-                                        <th> CLIENTE</th>
-                                        <th>VEÍCULO</th>
-                                        <th>PLACA VEÍCULO</th>
-                                        <th>HODÔMETRO</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                        <div id="tabela-outros" class="table-responsive">
-                            <table id="data-table-outros" class="table table-striped">
-                                <thead>
-                                    @* Tabela a ser exibida quando o usuário selecionar Outras informações na combobox *@
-                                    <tr>
-                                        <th>NUM. NF REFERENTE</th>
-                                        <th>COOs VINCULADOS</th>
-                                        <th>DEPARTAMENTO</th>
-                                        <th>VEÍCULO</th>
-                                        <th>PLACA VEÍCULO</th>
-                                        <th>COMBUSTÍVEL</th>
-                                        <th>VALOR TOTAL CUPOM FISCAL</th>
-                                        <th>DIFERENÇA  MED TOTAL NF</th>
-                                        <th>VALOR MED ATUALIZADO NF</th>
-                                        <th>DIFERENÇA MAX TOTAL NF</th>
-                                        <th>VALOR MAX ATUALIZADO NF</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>NUM. NF REFERENTE</th>
-                                        <th>COOs VINCULADOS</th>
-                                        <th>DEPARTAMENTO</th>
-                                        <th>VEÍCULO</th>
-                                        <th>PLACA VEÍCULO</th>
-                                        <th>COMBUSTÍVEL</th>
-                                        <th>VALOR TOTAL CUPOM FISCAL</th>
-                                        <th>DIFERENÇA  MED TOTAL NF</th>
-                                        <th>VALOR MED ATUALIZADO NF</th>
-                                        <th>DIFERENÇA MAX TOTAL NF</th>
-                                        <th>VALOR MAX ATUALIZADO NF</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
+                                    @if (dados.DiferencaMaximaUnitaria <= 0)
+                                    {
+                                        <td>-</td>
+                                        <td>-</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="red">@dados.DiferencaMaximaTotal.ToString("0.00")</td>
+                                        <td class="red">@dados.ValorMaximoAtualizado.ToString("0.00")</td>
+                                    }
+                                </tr>
+                                }
+                            </tbody>
+                            @*<tfoot>
+                                <tr>
+                                    <th>NUM. NF REFERENTE</th>
+                                    <th>COOs VINCULADOS</th>
+                                    <th>DEPARTAMENTO</th>
+                                    <th>VEÍCULO</th>
+                                    <th>PLACA VEÍCULO</th>
+                                    <th>COMBUSTÍVEL</th>
+                                    <th>VALOR TOTAL CUPOM FISCAL</th>
+                                    <th>DIFERENÇA  MED TOTAL NF</th>
+                                    <th>VALOR MED ATUALIZADO NF</th>
+                                    <th>DIFERENÇA MAX TOTAL NF</th>
+                                    <th>VALOR MAX ATUALIZADO NF</th>
+                                </tr>
+                            </tfoot>*@
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-}
+</div>
 
 <!-- Data Table area End-->
 

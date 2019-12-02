@@ -9,18 +9,20 @@ namespace WebApp.Controllers
 {
     public class TabelaUsuarioController : Controller
     {
-        private readonly TabelaUsuarioService TabelaUsuarioService;
+        private readonly TabelaUsuarioService tabelaUsuarioService;
+        private readonly CupomFiscalService cupomFiscalService;
 
         public TabelaUsuarioController()
         {
-            TabelaUsuarioService = new TabelaUsuarioService();
+            tabelaUsuarioService = new TabelaUsuarioService();
+            cupomFiscalService = new CupomFiscalService();
         }
 
         public JsonResult CadastrarTabela(TabelaUsuario TabelaUsuario)
         {
             try
             {
-                TabelaUsuarioService.CadastrarTabela(
+                tabelaUsuarioService.CadastrarTabela(
                 TabelaUsuario.SGDP,
                 TabelaUsuario.AnoReferente,
                 TabelaUsuario.NomeMunicipioReferente,
@@ -48,31 +50,27 @@ namespace WebApp.Controllers
             }
         }
 
-        public JsonResult ListarTabelas()
-        {
-            var tabelas = TabelaUsuarioService.ListarTabelas();
-
-            return Json(new
-            {
-                tabelas
-            });
-        }
         public ActionResult Index(string valorSgdp = null)
         {
-            List<TabelaUsuarioDto> tabelas = new List<TabelaUsuarioDto>();
-            TabelaUsuarioDto tabelaBuscada = new TabelaUsuarioDto();
+            TabelaUsuarioDto tabelaAnpXNota = new TabelaUsuarioDto();
+            TabelaUsuarioDto tabelaOutrasInfos = new TabelaUsuarioDto();
+            List<CupomFiscalDto> tabelaCuponsFiscais = new List<CupomFiscalDto>();
 
             try
             {
-                if (string.IsNullOrWhiteSpace(valorSgdp))
-                    tabelas = TabelaUsuarioService.ListarTabelasComDadosAnpxNotaFiscal();
-                else
-                    tabelaBuscada = TabelaUsuarioService.ObterTabelaComDadosAnpxNotaFiscal(valorSgdp);
-
+                tabelaAnpXNota = tabelaUsuarioService.ObterTabelaComDadosAnpxNotaFiscal(valorSgdp);
+                tabelaCuponsFiscais = cupomFiscalService.ListarCuponsFiscaisPorSgdp(valorSgdp);
+                tabelaOutrasInfos = tabelaUsuarioService.ObterTabelaOutrasInformacoes(valorSgdp);
             }
             catch (Exception ex) { }
 
-            return View("ListarTabelas", new ListarTabelasModel { TabelasUsuario = tabelas, TabelaBuscada = tabelaBuscada });
+            return View("ListarTabelas", new ListarTabelasModel
+            {
+                ValorSgdp = valorSgdp,
+                TabelaAnpXNota = tabelaAnpXNota,
+                TabelaOutrasInformacoes = tabelaOutrasInfos,
+                TabelaCuponsFicais = tabelaCuponsFiscais
+            });
         }
     }
 }

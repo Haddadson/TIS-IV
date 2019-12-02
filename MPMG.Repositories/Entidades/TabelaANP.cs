@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MPMG.Repositories.Entidades
+﻿namespace MPMG.Repositories.Entidades
 {
     public class TabelaANP
     {

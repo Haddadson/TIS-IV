@@ -1,7 +1,10 @@
 ﻿using Dapper;
 using MPMG.Repositories;
+using MPMG.Repositories.Entidades;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace MPMG.Services
 {
@@ -23,6 +26,32 @@ namespace MPMG.Services
                 @precoUnitario,
                 @valorTotal,
                 @id_combustivel)";
+
+        private const string SQL_LISTAR_CUPONS_FISCAIS_POR_SGDP = @"
+            SELECT
+                coo AS Coo,
+                sgdp AS Sgdp,
+                nr_nota_fiscal AS NumeroNotaFiscal,
+                posto_referente AS PostoReferente,
+                hodometro AS Hodometro,
+                cliente AS Cliente,
+                dt_emissao AS DataEmissao,
+                quantidade AS Quantidade,
+                preco_unitario AS PrecoUnitario,
+                vrtotal AS ValorTotal,
+                produto AS Produto,
+                veiculo AS Veiculo,
+                placa_veiculo AS PlacaVeiculo
+            FROM `cupomfiscal`
+            WHERE sgdp = @Sgdp";
+
+        private const string SQL_LISTAR_CUPONS_FISCAIS_POR_NOTA = @"
+            SELECT 
+                coo AS Coo
+            FROM `cupomfiscal`
+            WHERE sgdp = @Sgdp 
+            AND nr_nota_fiscal = @NumeroNotaFiscal";
+
         public bool CadastrarCupom(int sGDP, string numeroCupom)
         {
             DynamicParameters parametros = new DynamicParameters();
@@ -51,6 +80,25 @@ namespace MPMG.Services
             parametros.Add("@veiculo", veiculo, DbType.AnsiString); 
 
             return Execute(SQL_INSERIR_CUPOM_FISCAL_COMPLETO, parametros) > 0;
+        }
+
+        public List<string> ObterCuponsVinculados(int Sgdp, int numeroNota)
+        {
+            DynamicParameters parametros = new DynamicParameters();
+
+            parametros.Add("@NumeroNotaFiscal", numeroNota, DbType.Int32);
+            parametros.Add("@Sgdp", Sgdp, DbType.Int32);
+
+            return Listar(SQL_LISTAR_CUPONS_FISCAIS_POR_NOTA, parametros).Select(item => item.Coo).ToList();
+        }
+
+        public List<CupomFiscal> ListarCuponsPorSgdp(int Sgdp)
+        {
+            DynamicParameters parametros = new DynamicParameters();
+
+            parametros.Add("@Sgdp", Sgdp, DbType.Int32);
+
+            return Listar(SQL_LISTAR_CUPONS_FISCAIS_POR_SGDP, parametros);
         }
     }
 }
