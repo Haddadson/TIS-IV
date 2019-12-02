@@ -20,14 +20,14 @@
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                                 <div>
-                                    <input type="text" id="sgdp_escolhido" class="form-control input-sm" readonly>
+                                    <input type="text" value="@Model.ValorSgdp" id="sgdp_escolhido" class="form-control input-sm" readonly>
                                 </div>
                             </div>
                             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                                 <button class="btn btn-default btn-icon-notika" id="esscolher_tabela" onclick="location.href='@Url.Action("", "EscolherTabela")'">
                                     Trocar Tabela
                                 </button>
-                                <button class="btn btn-default btn-icon-notika" id="cadastrar_cupom_fiscal" onclick="location.href='@Url.Action("", "NotaFiscal")'">
+                                <button class="btn btn-default btn-icon-notika" id="cadastrar_cupom_fiscal" onclick="location.href='@Url.Action("", "NotaFiscal", new { Model.ValorSgdp})'">
                                     Cadastrar Nota Fiscal
                                 </button>
                             </div>
@@ -130,10 +130,10 @@
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div>
                                         <select class="form-control" id="combustivel">
-                                            <option value="ETA">Etanol Hidratado</option>
-                                            <option value="GAS">Gasolina Comum</option>
-                                            <option value="DIE">Óleo Diesel</option>
-                                            <option value="S10">Óleo Diesel S10</option>
+                                            <option value="ETANOL HIDRATADO">Etanol Hidratado</option>
+                                            <option value="GASOLINA COMUM">Gasolina Comum</option>
+                                            <option value="ÓLEO DIESEL">Óleo Diesel</option>
+                                            <option value="ÓLEO DIESEL S10">Óleo Diesel S10</option>
                                         </select>
                                     </div>
                                 </div>
