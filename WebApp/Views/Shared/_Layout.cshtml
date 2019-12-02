@@ -54,8 +54,9 @@
 
     <link rel="stylesheet" href="~/Content/Site.css">
 
-    @RenderSection("styles", required: false)
+    <link rel="stylesheet" href="~/Content/select-autocomplete.css">
 
+    @RenderSection("styles", required: false)
 </head>
 
 <body>
@@ -93,7 +94,6 @@
     <div class="container-fluid body-content text-center margin-top-20">
         @RenderBody()
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/ScriptsValidacaoNotas")
@@ -101,7 +101,9 @@
     @RenderSection("scripts", required: false)
     @RenderSection("JavaScriptPagina", required: false)
     <script type="text/javascript" defer src="~/Scripts/moment.min.js"></script>
+    <script type="text/javascript" defer src="~/Scripts/moment.min.js"></script>
     <script type="text/javascript" defer src="~/Scripts/Util/vanilla-masker.min.js"></script>
     <script type="text/javascript" defer src="~/Scripts/Util/form-field-handler.js"></script>
+    <script type="text/javascript" defer src="~/Scripts/select-autocomplete.js"></script>
 </body>
 </html>

@@ -30,20 +30,6 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                                    <label class="hrzn-fm">Chave de Acesso</label>
-                                </div>
-                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                                    <div class="nk-int-st">
-                                        <input type="text" id="chave_acesso" class="form-control borderless-field" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-example-int form-horizental mg-t-15">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
                                     <label class="hrzn-fm">Número da NF</label>
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
@@ -71,10 +57,31 @@
                     <div class="form-example-int form-horizental mg-t-15">
                         <div class="form-group ">
                             <div class="row">
-                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                                    <label class="hrzn-fm">Combustível</label>
+                                <div class="col-lg-3 col-md-1 col-sm-0 col-xs-0">
                                 </div>
-                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
+                                    <span>Combustível</span>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                                    <span>Quantidade</span>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                                    <span>Preço Unitário</span>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                                    <span>Valor Total</span>
+                                </div>
+                                <div class="row">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-example-int form-horizental mg-t-15">
+                            <div class="form-group ">
+                                <div class="col-lg-3 col-md-1 col-sm-0 col-xs-0">
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
                                     <div>
                                         <select class="form-control" id="combustivel">
                                             <option value="ETA">Etanol Hidratado</option>
@@ -86,30 +93,164 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-example-int form-horizental mg-t-15">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                                    <label class="hrzn-fm required">Quantidade</label>
-                                </div>
-                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                        <div class="form-example-int form-horizental mg-t-15">
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                                     <div class="nk-int-st">
                                         <input type="number" id="quantidade" class="form-control borderless-field">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-example-int form-horizental mg-t-15">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                                    <label class="hrzn-fm required">Preço Unitário</label>
-                                </div>
-                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                        <div class="form-example-int form-horizental mg-t-15">
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                                     <div class="nk-int-st">
                                         <input class="form-control borderless-field" id="preco_unitario" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-example-int form-horizental mg-t-15">
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                                    <div class="nk-int-st">
+                                        <input class="form-control borderless-field" id="valor_total" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-example-int form-horizental mg-t-15">
+                            <div class="form-group ">
+                                <div class="col-lg-3 col-md-1 col-sm-0 col-xs-0">
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
+                                    <div>
+                                        <select class="form-control" id="combustivel">
+                                            <option value="ETA">Etanol Hidratado</option>
+                                            <option value="GAS">Gasolina Comum</option>
+                                            <option value="DIE">Óleo Diesel</option>
+                                            <option value="S10">Óleo Diesel S10</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-example-int form-horizental mg-t-15">
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                                    <div class="nk-int-st">
+                                        <input type="number" id="quantidade" class="form-control borderless-field">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-example-int form-horizental mg-t-15">
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                                    <div class="nk-int-st">
+                                        <input class="form-control borderless-field" id="preco_unitario" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-example-int form-horizental mg-t-15">
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                                    <div class="nk-int-st">
+                                        <input class="form-control borderless-field" id="valor_total" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-example-int form-horizental mg-t-15">
+                            <div class="form-group ">
+                                <div class="col-lg-3 col-md-1 col-sm-0 col-xs-0">
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
+                                    <div>
+                                        <select class="form-control" id="combustivel">
+                                            <option value="ETA">Etanol Hidratado</option>
+                                            <option value="GAS">Gasolina Comum</option>
+                                            <option value="DIE">Óleo Diesel</option>
+                                            <option value="S10">Óleo Diesel S10</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-example-int form-horizental mg-t-15">
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                                    <div class="nk-int-st">
+                                        <input type="number" id="quantidade" class="form-control borderless-field">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-example-int form-horizental mg-t-15">
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                                    <div class="nk-int-st">
+                                        <input class="form-control borderless-field" id="preco_unitario" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-example-int form-horizental mg-t-15">
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                                    <div class="nk-int-st">
+                                        <input class="form-control borderless-field" id="valor_total" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-example-int form-horizental mg-t-15">
+                            <div class="form-group ">
+                                <div class="col-lg-3 col-md-1 col-sm-0 col-xs-0">
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
+                                    <div>
+                                        <select class="form-control" id="combustivel">
+                                            <option value="ETA">Etanol Hidratado</option>
+                                            <option value="GAS">Gasolina Comum</option>
+                                            <option value="DIE">Óleo Diesel</option>
+                                            <option value="S10">Óleo Diesel S10</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-example-int form-horizental mg-t-15">
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                                    <div class="nk-int-st">
+                                        <input type="number" id="quantidade" class="form-control borderless-field">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-example-int form-horizental mg-t-15">
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                                    <div class="nk-int-st">
+                                        <input class="form-control borderless-field" id="preco_unitario" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-example-int form-horizental mg-t-15">
+                            <div class="form-group">
+                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                                    <div class="nk-int-st">
+                                        <input class="form-control borderless-field" id="valor_total" />
                                     </div>
                                 </div>
                             </div>
@@ -119,11 +260,11 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                                    <label class="hrzn-fm required">Valor Total</label>
+                                    <label class="hrzn-fm">Valor Total da NF</label>
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div class="nk-int-st">
-                                        <input class="form-control borderless-field" id="valor_total" />
+                                        <input type="text" id="numero_nf" class="form-control borderless-field" maxlength="15" />
                                     </div>
                                 </div>
                             </div>
@@ -146,13 +287,15 @@
                                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
                                     <label class="hrzn-fm">COO</label>
                                 </div>
-                                <div class="col-lg-5 col-md-4 col-sm-4 col-xs-6">
-                                    <div class="">
-                                        <select class="form-control" id="data_emissao"></select>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                                    <div class="nk-int-st autocomplete">
+                                        <form autocomplete="off" action="/action_page.php">
+                                            <input id="coo" type="text" class="form-control borderless-field">
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="col-lg-1 col-md-2 col-sm-2 col-xs-3">
-                                    <button class="btn btn-default btn-icon-notika" id="adicionar_cupom">
+                                    <button class="btn btn-default btn-icon-notika" id="adicionar_cupom" type="submit">
                                         Adicionar
                                     </button>
                                 </div>
