@@ -48,7 +48,6 @@ namespace WebApp.Controllers
             try
             {
                 sgdpsTabelas = tabelaUsuarioService.ListarSgdpsTabelas();
-
             }
             catch (Exception ex)
             {

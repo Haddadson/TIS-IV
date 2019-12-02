@@ -47,8 +47,7 @@ namespace WebApp.Controllers
             int NumeroFolha = NotaFiscal.NumeroFolha;
             int Departamento = NotaFiscal.Departamento;
             List<string> CuponsSelecionados =  NotaFiscal.CuponsSelecionados;
-            List<ItemNotaFiscal> ItensNotaFiscal = NotaFiscal.ItensNotaFiscal;
-
+            
             CuponsSelecionados = CuponsSelecionados ?? new List<string>();
 
             notaFiscalService.cadastrarNotaFiscal(

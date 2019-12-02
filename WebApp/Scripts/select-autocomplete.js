@@ -121,7 +121,7 @@ var posto_fornecedor_existente = ["", ""];
 var cliente_existente = ["", ""];
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-autocomplete(document.getElementById("coo"), coo_existente);
+//autocomplete(document.getElementById("coo"), coo_existente);
 // autocomplete(document.getElementById("numero_nf_existente"), numero_nf_existente);
 // autocomplete(document.getElementById("posto_fornecedor_existente"), posto_fornecedor_existente);
 // autocomplete(document.getElementById("cliente"), cliente_existente);
