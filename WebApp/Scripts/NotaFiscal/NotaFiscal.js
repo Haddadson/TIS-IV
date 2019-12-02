@@ -3,7 +3,7 @@
     VMasker(document.querySelector("#data_consulta_anp")).maskPattern("99/9999");
     VMasker(document.querySelector("#chave_acesso")).maskPattern("9999 9999 9999 9999 9999 9999 9999 9999 9999 9999 9999");
 
-    //$("#sgdp").val(1);
+    //$("#sgdb").val(1);
 
     validateNumericRequiredFormField("#numero_nf", true, true);
     validateNumericRequiredFormField("#quantidade", true, true);
@@ -16,7 +16,6 @@
     $("#data_emissao")[0].value = moment().format('YYYY-MM-DD');
 
     validateDateFormField("#data_emissao");
-    //setReadOnly("#sgdp");
 
 };
 
@@ -30,6 +29,20 @@ $(document).ready(function () {
         ValidarNotas.chamadaAjax({
             url: urlObterMunicipioPorNomeAno,
             sucesso: tratarMunicipios,
+            deveEsconderCarregando: true
+        });
+    });
+
+    $("#departamento").on("change", function (event) {
+        const urlObterDepartamentos = window.urlObterDepartamentos;
+        
+        ValidarNotas.chamadaAjax({
+            url: urlObterDepartamentos,
+            sucesso: (response) => {
+                response.departamentos.forEach((dpto) => {
+                    $("#departamento").html('<option value=' + dpto.Id + '>' + dpto.Nome + '</option>');
+                });
+            },
             deveEsconderCarregando: true
         });
     });

@@ -188,6 +188,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Departamento.cs" />
     <Compile Include="Models\EscolherTabelaModel.cs" />
     <Compile Include="Models\ListarTabelasModel.cs" />
     <Compile Include="Models\NotaFiscal.cs" />

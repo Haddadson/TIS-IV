@@ -14,12 +14,13 @@ namespace WebApp.Controllers
     {
         private readonly NotaFiscalService notaFiscalService;
         private readonly TabelaUsuarioService tabelaUsuarioService;
-
+        private readonly DepartamentoService departamentoService;
 
         public NotaFiscalController()
         {
             notaFiscalService = new NotaFiscalService();
             tabelaUsuarioService = new TabelaUsuarioService();
+            departamentoService = new DepartamentoService();
         }
 
         public JsonResult Cadastrar(NotaFiscal NotaFiscal)
@@ -75,7 +76,28 @@ namespace WebApp.Controllers
             });
         }
 
-        public ActionResult Index()
+        public JsonResult ListarDepartamentos(NotaFiscal NotaFiscal)
+        {
+            List<object> departamentos = new List<object>();
+
+            try
+            {
+                departamentos = departamentoService.ListarDepartamentos();
+
+                return Json(new
+                {
+                    departamentps = departamentos
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    Error = ex.Message
+                });
+            }
+        }
+            public ActionResult Index()
         {
 
             List<TabelaUsuarioDto> tabelas = new List<TabelaUsuarioDto>();

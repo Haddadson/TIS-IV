@@ -35,10 +35,10 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <button class="btn btn-default btn-icon-notika" id="cadastrar_nota_fiscal" onclick="location.href='@Url.Action("", "NotaFiscal")'">
+                                    <button class="btn btn-default btn-icon-notika" id="cadastrar_nota_fiscal">
                                         Cadastrar Nota Fiscal
                                     </button>
-                                    <button class="btn btn-default btn-icon-notika" id="cadastrar_cupom_fiscal"  onclick="location.href='@Url.Action("", "CupomFiscal")'">
+                                    <button class="btn btn-default btn-icon-notika" id="cadastrar_cupom_fiscal">
                                         Cadastrar Cupom Fiscal
                                     </button>
                                     <button class="btn btn-default btn-icon-notika" id="visualizar_tabela">
@@ -56,9 +56,9 @@
 
 @section JavascriptPagina {
     <script type="text/javascript">
-        var urlRedirecionarVisualizarTabela = '@Url.Action("RedirecionarVisualizarTabela", "EscolherTabela")';
-
+        var urlRedirecionarVisualizarTabela = '@Url.Action("RedirecionarVisualizarTabela",    "EscolherTabela")';
+        var urlRedirecionarCadastrarCupom   = '@Url.Action("RedirecionarCadastrarCupom",      "EscolherTabela")';
+        var urlCadastrarNotaFiscal          = '@Url.Action("RedirecionarCadastrarNotaFiscal", "EscolherTabela")';
     </script>
     <script src="~/Scripts/EscolherTabela/EscolherTabela.js"></script>
-
 }

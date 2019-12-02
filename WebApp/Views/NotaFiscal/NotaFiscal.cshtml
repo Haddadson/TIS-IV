@@ -20,7 +20,7 @@
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div>
-                                        <input type="text" id="sgdp_escolhido" class="form-control input-sm" readonly>
+                                        <input type="text" id="sgdp_escolhido" class="form-control input-sm" readonly value="@Model.ValorSgdp">
                                     </div>
                                 </div>
                             </div>
@@ -404,7 +404,8 @@
 
 @section JavascriptPagina {
     <script type="text/javascript">
-        var urlCadastrarNotaFiscal= '@Url.Action("Cadastrar", "NotaFiscal")';
+        var urlCadastrarNotaFiscal = '@Url.Action("Cadastrar", "NotaFiscal")';
+        var urlObterDepartamentos =  '@Url.Action("ListarDepartamentos", "NotaFiscal")';
     </script>
     <script type="text/javascript" src="~/Scripts/NotaFiscal/NotaFiscal.js"></script>
 }

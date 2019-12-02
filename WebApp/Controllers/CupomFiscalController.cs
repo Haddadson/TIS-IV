@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using WebApp.Models;
 
@@ -74,5 +75,15 @@ namespace WebApp.Controllers
 
             return View("CupomFiscal", new NotaFiscalModel { TabelasUsuario = tabelas } );
         }
+
+        public ActionResult Index(string valorSgdp = null)
+        {
+
+            return View("ListarTabelas", new Json
+            {
+                ValorSgdp = valorSgdp
+            });
+        }
+
     }
 }
