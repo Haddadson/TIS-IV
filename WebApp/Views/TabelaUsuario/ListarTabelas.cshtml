@@ -24,6 +24,9 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                                    <button class="btn btn-default btn-icon-notika" id="exportar-excel">
+                                        Exportar para Excel
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -63,26 +66,26 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="data-table-list">
                     <div id="tabela-nf-anp" class="table-responsive">
-                        @if (Model.TabelaAnpXNota == null || !Model.TabelaAnpXNota.DadosAnpxNotaFiscal.Any())
+                        @if (Model.TabelaAnpXNota != null && Model.TabelaAnpXNota.DadosAnpxNotaFiscal.Any())
                         {
                             @*TODO: estilizar*@
                             <div class="col-lg-3 col-md-3 col-sm-3">
-                                <p><span class="font-weight-bold">SGDP: </span>@Model.TabelaAnpXNota.SGDP</p>
+                                <p><span class="font-weight-bold">SGDP: </span><span id="export-sgdp">@Model.TabelaAnpXNota.SGDP</span></p>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3">
-                                <p><span class="font-weight-bold">Municipio: </span>@(Model.TabelaAnpXNota.Municipio?.Nome ?? "-")</p>
+                                <p><span class="font-weight-bold">Municipio: </span><span id="export-municipio">@(Model.TabelaAnpXNota.Municipio?.Nome ?? "-")</span></p>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3">
-                                <p><span class="font-weight-bold">Municipio Ref. ANP: </span>@(Model.TabelaAnpXNota.MunicipioReferente?.Nome ?? "-")</p>
+                                <p><span class="font-weight-bold">Municipio Ref. ANP: </span><span id="export-municipio-ref">@(Model.TabelaAnpXNota.MunicipioReferente?.Nome ?? "-")</span></p>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3">
-                                <p><span class="font-weight-bold">Analista Responsável: </span>@Model.TabelaAnpXNota.AnalistaResponsavel</p>
+                                <p><span class="font-weight-bold">Analista Responsável: </span><span id="export-analista">@Model.TabelaAnpXNota.AnalistaResponsavel</span></p>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3">
-                                <p><span class="font-weight-bold">Data de geração: </span>@Model.TabelaAnpXNota.DataGeracao.ToShortDateString()</p>
+                                <p><span class="font-weight-bold">Data de geração: </span><span id="export-data-geracao">@Model.TabelaAnpXNota.DataGeracao.ToShortDateString()</span></p>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3">
-                                <p><span class="font-weight-bold">Ano(s) referente(s): </span>@Model.TabelaAnpXNota.AnoReferente</p>
+                                <p><span class="font-weight-bold">Ano(s) referente(s): </span><span id="export-anos-referentes">@Model.TabelaAnpXNota.AnoReferente</span></p>
                             </div>
                         }
 
@@ -115,49 +118,49 @@
                             <tbody>
                                 @foreach (var dadosAnpxNota in Model.TabelaAnpXNota.DadosAnpxNotaFiscal)
                                 {
-                                <tr>
-                                    <td>@dadosAnpxNota.DataGeracao.ToShortDateString()</td>
-                                    <td>@dadosAnpxNota.NumeroNotaFiscal</td>
-                                    <td>@dadosAnpxNota.Produto</td>
-                                    <td>@dadosAnpxNota.Quantidade</td>
-                                    <td>@dadosAnpxNota.ValorUnitario.ToString("0.00")</td>
-                                    <td>@dadosAnpxNota.ValorTotalItem.ToString("0.00")</td>
-                                    <td>@dadosAnpxNota.ValorTotalNota.ToString("0.00")</td>
-                                    <td>@dadosAnpxNota.NumeroFolha</td>
-                                    <td>@dadosAnpxNota.ValorFam.ToString("0.00")</td>
-                                    <td>@dadosAnpxNota.PrecoMedioAnp.ToString("0.00")</td>
+                                    <tr>
+                                        <td>@dadosAnpxNota.DataGeracao.ToShortDateString()</td>
+                                        <td>@dadosAnpxNota.NumeroNotaFiscal</td>
+                                        <td>@dadosAnpxNota.Produto</td>
+                                        <td>@dadosAnpxNota.Quantidade</td>
+                                        <td>@dadosAnpxNota.ValorUnitario.ToString("0.00")</td>
+                                        <td>@dadosAnpxNota.ValorTotalItem.ToString("0.00")</td>
+                                        <td>@dadosAnpxNota.ValorTotalNota.ToString("0.00")</td>
+                                        <td>@dadosAnpxNota.NumeroFolha</td>
+                                        <td>@dadosAnpxNota.ValorFam.ToString("0.00")</td>
+                                        <td>@dadosAnpxNota.PrecoMedioAnp.ToString("0.00")</td>
 
-                                    @if (dadosAnpxNota.DiferencaMaximaUnitaria <= 0)
-                                    {
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    }
-                                    else
-                                    {
-                                        <td>@dadosAnpxNota.DiferencaMediaUnitaria.ToString("0.00")</td>
-                                        <td class="yellow">@dadosAnpxNota.DiferencaMediaTotal.ToString("0.00")</td>
-                                        <td class="yellow">@dadosAnpxNota.ValorMedioAtualizado.ToString("0.00")</td>
-                                    }
+                                        @if (dadosAnpxNota.DiferencaMaximaUnitaria <= 0)
+                                        {
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                        }
+                                        else
+                                        {
+                                            <td>@dadosAnpxNota.DiferencaMediaUnitaria.ToString("0.00")</td>
+                                            <td class="yellow">@dadosAnpxNota.DiferencaMediaTotal.ToString("0.00")</td>
+                                            <td class="yellow">@dadosAnpxNota.ValorMedioAtualizado.ToString("0.00")</td>
+                                        }
 
-                                    <td>@dadosAnpxNota.PrecoMaximoAnp</td>
+                                        <td>@dadosAnpxNota.PrecoMaximoAnp</td>
 
-                                    @if (dadosAnpxNota.DiferencaMaximaUnitaria <= 0)
-                                    {
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                    }
-                                    else
-                                    {
-                                        <td>@dadosAnpxNota.DiferencaMaximaUnitaria.ToString("0.00")</td>
-                                        <td class="red">@dadosAnpxNota.DiferencaMaximaTotal.ToString("0.00")</td>
-                                        <td class="red">@dadosAnpxNota.ValorMaximoAtualizado.ToString("0.00")</td>
-                                    }
+                                        @if (dadosAnpxNota.DiferencaMaximaUnitaria <= 0)
+                                        {
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                        }
+                                        else
+                                        {
+                                            <td>@dadosAnpxNota.DiferencaMaximaUnitaria.ToString("0.00")</td>
+                                            <td class="red">@dadosAnpxNota.DiferencaMaximaTotal.ToString("0.00")</td>
+                                            <td class="red">@dadosAnpxNota.ValorMaximoAtualizado.ToString("0.00")</td>
+                                        }
 
-                                    <td>@(string.Join(";", dadosAnpxNota.CuponsFiscaisVinculados.ToArray()))</td>
-                                    <td>@dadosAnpxNota.MesAnp/@dadosAnpxNota.AnoAnp</td>
-                                </tr>
+                                        <td>@(string.Join(";", dadosAnpxNota.CuponsFiscaisVinculados.ToArray()))</td>
+                                        <td>@dadosAnpxNota.MesAnp/@dadosAnpxNota.AnoAnp</td>
+                                    </tr>
                                 }
                             </tbody>
                             @*<tfoot>
@@ -228,6 +231,19 @@
                         </table>
                     </div>
                     <div id="tabela-outros" class="table-responsive">
+                        @if (Model.TabelaOutrasInformacoes != null && Model.TabelaOutrasInformacoes.OutrasInformacoes.Any())
+                        {
+                            @*TODO: estilizar*@
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <p><span class="font-weight-bold">SGDP: </span><span id="out-export-sgdp">@Model.TabelaOutrasInformacoes.SGDP</span></p>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <p><span class="font-weight-bold">Municipio: </span><span id="out-export-municipio">@(Model.TabelaOutrasInformacoes.Municipio?.Nome ?? "-")</span></p>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <p><span class="font-weight-bold">Municipio Ref. ANP: </span><span id="out-export-municipio-ref">@(Model.TabelaOutrasInformacoes.MunicipioReferente?.Nome ?? "-")</span></p>
+                            </div>
+                        }
                         <table id="data-table-outros" class="table table-striped">
                             <thead>
                                 @* Tabela a ser exibida quando o usuário selecionar Outras informações na combobox *@
@@ -248,55 +264,55 @@
                             <tbody>
                                 @foreach (var dados in Model.TabelaOutrasInformacoes.OutrasInformacoes)
                                 {
-                                <tr>
-                                    <td>@dados.NumeroNotaFiscal</td>
-                                    <td>@(string.Join(";", dados.CuponsFiscaisVinculados.ToArray()))</td>
-                                    <td>@dados.NomeDepartamento</td>
-                                    <td>@dados.Veiculo</td>
-                                    <td>@dados.PlacaVeiculo</td>
-                                    <td>@dados.Produto</td>
-                                    <td>@dados.ValorTotalNota.ToString("0.00")</td>
+                                    <tr>
+                                        <td>@dados.NumeroNotaFiscal</td>
+                                        <td>@(string.Join(";", dados.CuponsFiscaisVinculados.ToArray()))</td>
+                                        <td>@dados.NomeDepartamento</td>
+                                        <td>@dados.Veiculo</td>
+                                        <td>@dados.PlacaVeiculo</td>
+                                        <td>@dados.Produto</td>
+                                        <td>@dados.ValorTotalNota.ToString("0.00")</td>
 
 
-                                    @if (dados.DiferencaMediaUnitaria <= 0)
-                                    {
-                                        <td>-</td>
-                                        <td>-</td>
-                                    }
-                                    else
-                                    {
-                                        <td class="red">@dados.DiferencaMediaTotal.ToString("0.00")</td>
-                                        <td class="red">@dados.ValorMedioAtualizado.ToString("0.00")</td>
-                                    }
+                                        @if (dados.DiferencaMediaUnitaria <= 0)
+                                        {
+                                            <td>-</td>
+                                            <td>-</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="red">@dados.DiferencaMediaTotal.ToString("0.00")</td>
+                                            <td class="red">@dados.ValorMedioAtualizado.ToString("0.00")</td>
+                                        }
 
-                                    @if (dados.DiferencaMaximaUnitaria <= 0)
-                                    {
-                                        <td>-</td>
-                                        <td>-</td>
-                                    }
-                                    else
-                                    {
-                                        <td class="red">@dados.DiferencaMaximaTotal.ToString("0.00")</td>
-                                        <td class="red">@dados.ValorMaximoAtualizado.ToString("0.00")</td>
-                                    }
-                                </tr>
+                                        @if (dados.DiferencaMaximaUnitaria <= 0)
+                                        {
+                                            <td>-</td>
+                                            <td>-</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="red">@dados.DiferencaMaximaTotal.ToString("0.00")</td>
+                                            <td class="red">@dados.ValorMaximoAtualizado.ToString("0.00")</td>
+                                        }
+                                    </tr>
                                 }
                             </tbody>
                             @*<tfoot>
-                                <tr>
-                                    <th>NUM. NF REFERENTE</th>
-                                    <th>COOs VINCULADOS</th>
-                                    <th>DEPARTAMENTO</th>
-                                    <th>VEÍCULO</th>
-                                    <th>PLACA VEÍCULO</th>
-                                    <th>COMBUSTÍVEL</th>
-                                    <th>VALOR TOTAL CUPOM FISCAL</th>
-                                    <th>DIFERENÇA  MED TOTAL NF</th>
-                                    <th>VALOR MED ATUALIZADO NF</th>
-                                    <th>DIFERENÇA MAX TOTAL NF</th>
-                                    <th>VALOR MAX ATUALIZADO NF</th>
-                                </tr>
-                            </tfoot>*@
+                                    <tr>
+                                        <th>NUM. NF REFERENTE</th>
+                                        <th>COOs VINCULADOS</th>
+                                        <th>DEPARTAMENTO</th>
+                                        <th>VEÍCULO</th>
+                                        <th>PLACA VEÍCULO</th>
+                                        <th>COMBUSTÍVEL</th>
+                                        <th>VALOR TOTAL CUPOM FISCAL</th>
+                                        <th>DIFERENÇA  MED TOTAL NF</th>
+                                        <th>VALOR MED ATUALIZADO NF</th>
+                                        <th>DIFERENÇA MAX TOTAL NF</th>
+                                        <th>VALOR MAX ATUALIZADO NF</th>
+                                    </tr>
+                                </tfoot>*@
                         </table>
                     </div>
                 </div>
@@ -310,6 +326,11 @@
 @section JavascriptPagina {
 
     <script type="text/javascript" src="~/Scripts/TabelaUsuario/listarTabela.js"></script>
+
+    <script type="text/javascript">
+            var exportarTabelasParaExcel = '@Url.Action("ExportarTabelasParaExcel", "TabelaUsuario")';
+    </script>
+
     <!-- End Footer area-->
     <!-- wow JS
     ============================================ -->
@@ -358,9 +379,6 @@
     ============================================ -->
     <script src="~/Scripts/externo/wave/waves.min.js"></script>
     <script src="~/Scripts/externo/wave/wave-active.js"></script>
-    <!-- plugins JS
-    ============================================ -->
-    <script src="~/Scripts/externo/plugins.js"></script>
     <!-- Data Table JS
     ============================================ -->
     <script src="~/Scripts/externo/data-table/jquery.dataTables.min.js"></script>
@@ -368,7 +386,4 @@
     <!-- main JS
     ============================================ -->
     <script src="~/Scripts/main.js"></script>
-    <!-- tawk chat JS
-    ============================================ -->
-    <script src="~/Scripts/externo/tawk-chat.js"></script>
 }

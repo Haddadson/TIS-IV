@@ -3,6 +3,7 @@ using MPMG.Services;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -48,6 +49,13 @@ namespace WebApp.Controllers
                     StackTraceExcecao = ex.StackTrace
                 });
             }
+        }
+
+        public ActionResult ExportarTabelasParaExcel(string model)
+        {
+            TabelasExportacaoModel modelBack = new JavaScriptSerializer().Deserialize<TabelasExportacaoModel>(model);
+
+            throw new NotImplementedException();
         }
 
         public ActionResult Index(string valorSgdp = null)
