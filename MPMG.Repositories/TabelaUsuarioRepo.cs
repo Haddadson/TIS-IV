@@ -35,25 +35,35 @@ namespace MPMG.Repositories
             LEFT JOIN `municipio` C
             on A.id_municipio_referente = C.id_municipio";
 
+        private const string SQL_LISTAR_SGDPS_TABELAS = @"
+            SELECT  
+                sgdp AS SGDP
+            FROM `TabelaUsuario` A";
+
         private const string SQL_OBTER_TABELA_POR_SGDP = @"
+
             SELECT  
                 sgdp AS SGDP, 
                 A.id_municipio AS IdMunicipio,
                 B.nome_municipio AS NomeMunicipio,
-                id_municipio_referente AS IdMunicipioReferente, 
-                C.nome_municipio AS NomeMunicipioReferente,
-                ano_referente AS AnoReferente, 
-                dt_geracao AS DataGeracao, 
+                A.id_municipio_referente AS IdMunicipioReferente, 
+                D.nome_municipio AS NomeMunicipioReferente,
+				dt_geracao AS DataGeracao, 
+                C.anoreferente AS AnoReferente,
+                C.mesreferente AS MesReferente,
                 titulo_aba_1 AS Titulo1, 
                 titulo_aba_2 AS Titulo2, 
                 titulo_aba_3 AS Titulo3, 
                 analista_resp AS AnalistaResponsavel
             FROM `TabelaUsuario` A
-            LEFT JOIN `municipio` B
+            INNER JOIN `municipio` B
             on A.id_municipio = B.id_municipio
-            LEFT JOIN `municipio` C
-            on A.id_municipio_referente = C.id_municipio
-            WHERE sgdp = @Sgdp";
+            LEFT JOIN `municipioreferente` C 
+            ON A.id_municipio = C.id_municipio AND
+               A.id_municipio_referente = C.id_municipio_referente
+            LEFT JOIN `municipio` D
+            on A.id_municipio_referente = D.id_municipio
+            WHERE A.sgdp = @Sgdp";
 
         public bool CadastrarTabela(
             int SGDP, int AnoReferente,
@@ -79,6 +89,11 @@ namespace MPMG.Repositories
         public List<TabelaUsuario> ListarTabelas()
         {
             return Listar(SQL_LISTAR_TABELAS, null);
+        }
+
+        public List<TabelaUsuario> ListarSgdpsTabelas()
+        {
+            return Listar(SQL_LISTAR_SGDPS_TABELAS, null);
         }
 
         public TabelaUsuario ObterTabelaPorSgdp(int sgdp)

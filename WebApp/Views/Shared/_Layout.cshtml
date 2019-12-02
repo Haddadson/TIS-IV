@@ -53,39 +53,44 @@
     <link rel="stylesheet" href="~/Content/responsive.css">
 
     <link rel="stylesheet" href="~/Content/Site.css">
-    
+
     @RenderSection("styles", required: false)
 
 </head>
 
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="header-top-area">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink(" ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Nota Fiscal", "Index", "NotaFiscal")</li>
-                    <li>@Html.ActionLink("Listar Tabelas", "Index", "TabelaUsuario")</li>
-                    <li>@Html.ActionLink("Escolher Tabela", "Index", "EscolherTabela")</li>
-                    <li>@Html.ActionLink("Cupom Fiscal", "Index", "CupomFiscal")</li>
-                    <li>@Html.ActionLink("Atualizar Planilhas", "Index", "AtualizarFam")</li>
-                </ul>
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                    <div class="logo-area">
+                        <a href="#"><img src="/img/logo.png" alt="" /></a>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                    <iv class="header-top-menu">
+                        <ul class="nav navbar-nav notika-top-nav">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            @Html.ActionLink(" ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                            <li class="nav-item dropdown">@Html.ActionLink("Cadastrar Nova Tabela", "Index", "Home")</li>
+                            <li class="nav-item dropdown">@Html.ActionLink("Cadastrar Nota Fiscal", "Index", "NotaFiscal")</li>
+                            <li class="nav-item dropdown">@Html.ActionLink("Cadastrar Cupom Fiscal", "Index", "CupomFiscal")</li>
+                            <li class="nav-item dropdown">@Html.ActionLink("Listar Tabelas", "Index", "TabelaUsuario")</li>
+                            <li class="nav-item dropdown">@Html.ActionLink("Escolher Tabela", "Index", "EscolherTabela")</li>
+                            <li class="nav-item dropdown">@Html.ActionLink("Atualizar Tabela FAM/ANP", "Index", "AtualizarFam")</li>
+                        </ul>
+                    </iv>
+                </div>
             </div>
         </div>
         <div class="loading-locked" style="display: none;"></div>
     </div>
-    <div class="container-fluid body-content text-center">
+    <div class="container-fluid body-content text-center margin-top-20">
         @RenderBody()
     </div>
 

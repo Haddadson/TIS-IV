@@ -1,5 +1,4 @@
 ﻿body {
-    padding-top: 50px;
     padding-bottom: 20px;
 }
 
@@ -59,15 +58,18 @@ label.required::after {
     border: 1px solid #ccc;
 }
 
-/*.nk-int-st:not([class*=has-]):after {
-//    background-image: linear-gradient(to right, white, rgba(0,0,0, 0.5), white);
-}
-*/
-
 select:focus,
 .form-control:focus {
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6) !important;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6) !important;
+}
+
+.red {
+    background-color: #f23d3a
+}
+
+.yellow {
+    background-color: #f2e03a
 }
 
 /* Absolute Center Spinner */
@@ -197,8 +199,3 @@ select:focus,
     }
 }
 
-@media (min-width: 992px) {
-    div.form-example-wrap {
-        height: 250px;
-    }
-}
