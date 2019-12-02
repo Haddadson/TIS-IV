@@ -3,7 +3,6 @@ using MPMG.Services;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -51,9 +50,12 @@ namespace WebApp.Controllers
             }
         }
 
-        public ActionResult ExportarTabelasParaExcel(string model)
+        public ActionResult ExportarTabelasParaExcel(DadosTabelaModel DadosTabela,
+                                                     List<AnpxNotaFiscalModelDto> ListaTabelaAnpxNota,
+                                                     List<CupomFiscalDto> ListaCuponsFiscais,
+                                                     List<OutrasInformacoesModelDto> ListaOutrasInformacoes)
+
         {
-            TabelasExportacaoModel modelBack = new JavaScriptSerializer().Deserialize<TabelasExportacaoModel>(model);
 
             throw new NotImplementedException();
         }

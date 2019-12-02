@@ -179,7 +179,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AtualizarFamController.cs" />
     <Compile Include="Controllers\EscolherTabelaController.cs" />
-    <Compile Include="Models\AnpxNotaFiscalModel.cs" />
     <Compile Include="Models\AtualizacaoFam.cs" />
     <Compile Include="Models\CupomFiscal.cs" />
     <Compile Include="Controllers\CupomFiscalController.cs" />
@@ -194,8 +193,6 @@
     <Compile Include="Models\ListarTabelasModel.cs" />
     <Compile Include="Models\NotaFiscal.cs" />
     <Compile Include="Models\NotaFiscalModel.cs" />
-    <Compile Include="Models\OutrasInformacoesModel.cs" />
-    <Compile Include="Models\TabelasExportacaoModel.cs" />
     <Compile Include="Models\TabelaUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace WebApp.Models
+namespace MPMG.Interfaces.DTO
 {
-    public class OutrasInformacoesModel
+    public class OutrasInformacoesModelDto
     {
         public string NumeroNotaFiscal { get; set; }
         public string Produto { get; set; }

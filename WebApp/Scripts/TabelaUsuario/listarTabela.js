@@ -114,7 +114,7 @@
 
         ValidarNotas.chamadaAjax({
             url: exportarTabelasParaExcel,
-            data: { model: JSON.stringify(parametros) },
+            data: { ...parametros },
             sucesso: tratarSucesso,
             deveEsconderCarregando: true,
             deveEsconderCarregandoBloqueado: false

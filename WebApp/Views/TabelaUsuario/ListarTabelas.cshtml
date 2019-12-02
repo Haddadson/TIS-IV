@@ -87,6 +87,10 @@
                             <div class="col-lg-3 col-md-3 col-sm-3">
                                 <p><span class="font-weight-bold">Ano(s) referente(s): </span><span id="export-anos-referentes">@Model.TabelaAnpXNota.AnoReferente</span></p>
                             </div>
+                            <span id="export-titulo-1" style="display: none;">@Model.TabelaAnpXNota.Titulo1</span>
+                            <span id="export-titulo-2" style="display: none;">@Model.TabelaAnpXNota.Titulo2</span>
+                            <span id="export-titulo-3" style="display: none;">@Model.TabelaAnpXNota.Titulo3</span>
+
                         }
 
                         <table id="data-table-nf-anp" class="table table-striped">
@@ -164,28 +168,28 @@
                                 }
                             </tbody>
                             @*<tfoot>
-                                    <tr>
-                                        <th>DATA</th>
-                                        <th>NOTA FISCAL</th>
-                                        <th>COMBUSTÍVEL</th>
-                                        <th>QDE.</th>
-                                        <th>VALOR UNIT.</th>
-                                        <th>VALOR TOTAL</th>
-                                        <th>NUM. FOLHA</th>
-                                        <th>FAM MES/ANO</th>
-                                        @*Nessa linha o mês ano deve ser substituído de acordo com o dado da tabela de excel gerada
-                                        <th>PREÇO MED. ANP</th>
-                                        <th>DIFERENÇA MED. UNIT.</th>
-                                        <th>DIFERENÇA MED TOTAL</th>
-                                        <th>VALOR MED ATUALIZADO</th>
-                                        <th>PREÇO MAX ANP</th>
-                                        <th>DIFERENÇA MAX UNIT.</th>
-                                        <th>DIFERENÇA MAX TOTAL</th>
-                                        <th>VALOR MAX ATUALIZADO</th>
-                                        <th>CUPONS FISCAIS VINCULADOS</th>
-                                        <th>MES/ANO PROCURADO NA ANP</th>
-                                    </tr>
-                                </tfoot>*@
+                <tr>
+                    <th>DATA</th>
+                    <th>NOTA FISCAL</th>
+                    <th>COMBUSTÍVEL</th>
+                    <th>QDE.</th>
+                    <th>VALOR UNIT.</th>
+                    <th>VALOR TOTAL</th>
+                    <th>NUM. FOLHA</th>
+                    <th>FAM MES/ANO</th>
+                    @*Nessa linha o mês ano deve ser substituído de acordo com o dado da tabela de excel gerada
+                    <th>PREÇO MED. ANP</th>
+                    <th>DIFERENÇA MED. UNIT.</th>
+                    <th>DIFERENÇA MED TOTAL</th>
+                    <th>VALOR MED ATUALIZADO</th>
+                    <th>PREÇO MAX ANP</th>
+                    <th>DIFERENÇA MAX UNIT.</th>
+                    <th>DIFERENÇA MAX TOTAL</th>
+                    <th>VALOR MAX ATUALIZADO</th>
+                    <th>CUPONS FISCAIS VINCULADOS</th>
+                    <th>MES/ANO PROCURADO NA ANP</th>
+                </tr>
+            </tfoot>*@
                         </table>
                     </div>
                     <div id="tabela-cupom" class="table-responsive">

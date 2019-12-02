@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WebApp.Models
+namespace MPMG.Interfaces.DTO
 {
-    public class AnpxNotaFiscalModel
+    public class AnpxNotaFiscalModelDto
     {
-        public AnpxNotaFiscalModel()
+        public AnpxNotaFiscalModelDto()
         {
             CuponsFiscaisVinculados = new List<string>();
         }
