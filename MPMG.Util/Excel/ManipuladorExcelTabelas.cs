@@ -38,6 +38,7 @@ namespace MPMG.Util.Excel
             CriarFonteCabecalho();
             CriarFonteCorpo();
             CriarEstiloCabecalho();
+            CriarEstiloTitulo();
             CriarEstilosCorpo();
         }
 
@@ -45,6 +46,7 @@ namespace MPMG.Util.Excel
         {
             FonteCabecalho = CriarFonte();
             FonteCabecalho.Color = IndexedColors.Black.Index;
+            FonteCabecalho.IsBold = true;
         }
 
         private IFont CriarFonte()
@@ -65,10 +67,8 @@ namespace MPMG.Util.Excel
         private void CriarEstiloCabecalho()
         {
             EstiloCelulaCabecalho = (XSSFCellStyle)WorkBook.CreateCellStyle();
-            EstiloCelulaCabecalho.Alignment = HorizontalAlignment.Center;
+            EstiloCelulaCabecalho.Alignment = HorizontalAlignment.Right;
             EstiloCelulaCabecalho.VerticalAlignment = VerticalAlignment.Center;
-            EstiloCelulaCabecalho.SetFillForegroundColor(new XSSFColor(new byte[] { 0, 32, 96 }));
-            EstiloCelulaCabecalho.FillPattern = FillPattern.SolidForeground;
             EstiloCelulaCabecalho.SetFont(FonteCabecalho);
             EstiloCelulaCabecalho.WrapText = true;
         }
@@ -212,10 +212,15 @@ namespace MPMG.Util.Excel
 
         #region Métodos de preenchimento de células
 
-        public void PreencherCelulaCabecalho(int linha, int coluna, string valor, string nomeAba)
+        public void PreencherCelulaCabecalho(int linha, int coluna, string valor, string nomeAba, XSSFCellStyle estilo = null)
         {
             ICell celulaCorrente = ObterCelulaParaCabecalho(linha, coluna, nomeAba);
             celulaCorrente.SetCellValue(valor);
+
+            if(estilo != null)
+            {
+                celulaCorrente.CellStyle = estilo;
+            }
         }
         public void PreencherCelulaTitulo(int linha, int coluna, string valor, string nomeAba)
         {
@@ -275,6 +280,11 @@ namespace MPMG.Util.Excel
             MemoryStream arquivoExcelStream = new MemoryStream();
             WorkBook.Write(arquivoExcelStream);
             return arquivoExcelStream;
+        }
+
+        public XSSFCellStyle CriarEstilo()
+        {
+            return (XSSFCellStyle)WorkBook.CreateCellStyle();
         }
 
         private ISheet SelecionarAba(string nome)

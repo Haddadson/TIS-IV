@@ -37,7 +37,10 @@
             "MunincipioReferente": $("#export-municipio-ref").html(),
             "AnalistaResponsavel": $("#export-analista").html(),
             "DataGeracao": $("#export-data-geracao").html(),
-            "AnosReferentes": $("#export-anos-referentes").html()
+            "AnosReferentes": $("#export-anos-referentes").html(),
+            "Titulo1": $("#export-titulo-1").html(),
+            "Titulo2": $("#export-titulo-2").html(),
+            "Titulo3": $("#export-titulo-3").html()
         };
 
         let dadosAnpxNota = $("#data-table-nf-anp").DataTable().rows().data();
@@ -115,14 +118,20 @@
         ValidarNotas.chamadaAjax({
             url: exportarTabelasParaExcel,
             data: { ...parametros },
-            sucesso: tratarSucesso,
+            sucesso: baixarExcelExportado,
             deveEsconderCarregando: true,
             deveEsconderCarregandoBloqueado: false
         });
 
     });
 
-    function tratarSucesso(response) {
-
+    function baixarExcelExportado(retorno) {
+        if (retorno && retorno.Sucesso) {
+            window.location = efetuarDownloadExcel + '?identificadorArquivo=' + retorno.IdentificadorArquivo;
+        } else if (!retorno.Sucesso && !retorno.Mensagem) {
+            alert(retorno.Mensagem);
+        } else {
+            alert("Ocorreu um erro inesperado");
+        }
     }
 });
