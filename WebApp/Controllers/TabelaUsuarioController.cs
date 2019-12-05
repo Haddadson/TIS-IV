@@ -125,8 +125,7 @@ namespace WebApp.Controllers
                 tabelaOutrasInfos = tabelaUsuarioService.ObterTabelaOutrasInformacoes(valorSgdp);
             }
             catch (Exception ex) { }
-
-            return View("ListarTabelas", new ListarTabelasModel
+                return View("ListarTabelas", new ListarTabelasModel
             {
                 ValorSgdp = valorSgdp,
                 TabelaAnpXNota = tabelaAnpXNota,

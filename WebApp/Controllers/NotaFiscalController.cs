@@ -14,15 +14,16 @@ namespace WebApp.Controllers
     {
         private readonly NotaFiscalService notaFiscalService;
         private readonly TabelaUsuarioService tabelaUsuarioService;
-
+        private readonly DepartamentoService departamentoService;
 
         public NotaFiscalController()
         {
             notaFiscalService = new NotaFiscalService();
             tabelaUsuarioService = new TabelaUsuarioService();
+            departamentoService = new DepartamentoService();
         }
 
-        public JsonResult Cadastrar(NotaFiscal NotaFiscal)
+        public JsonResult Cadastrar(NotaFiscal NotaFiscal, List<ItemNotaFiscalDto> ItensNotaFiscal)
         {
             int NrNotaFiscal = NotaFiscal.NrNotaFiscal;
             int SGDP = NotaFiscal.SGDP;
@@ -45,37 +46,55 @@ namespace WebApp.Controllers
             double PrecoUnitario = NotaFiscal.PrecoUnitario;
             int NumeroFolha = NotaFiscal.NumeroFolha;
             int Departamento = NotaFiscal.Departamento;
-            List<string> CuponsSelecionados =  NotaFiscal.CuponsSelecionados;
+            List<string> CuponsSelecionados = NotaFiscal.CuponsSelecionados;
+            List<ItemNotaFiscalDto> itens = ItensNotaFiscal.Where(item => item.Quantidade > 0 &&
+                item.ValorTotal > 0 && item.ValorUnitario > 0 && !string.IsNullOrWhiteSpace(item.Sgdp) &&
+                !string.IsNullOrWhiteSpace(item.Produto)).ToList();
 
             CuponsSelecionados = CuponsSelecionados ?? new List<string>();
 
-            notaFiscalService.cadastrarNotaFiscal(
+            notaFiscalService.CadastrarNotaFiscal(
                 NrNotaFiscal,
                 SGDP,
                 ValorTotal,
                 ChaveAcesso,
                 DataEmissao,
-                PrecoMaximo,
-                PrecoMedio,
                 DataConsultaANP,
                 Veiculo,
                 PlacaVeiculo,
-                Combustivel,
-                Quantidade,
-                PrecoUnitario,
                 NumeroFolha,
                 Departamento,
-                CuponsSelecionados
+                CuponsSelecionados,
+                itens
             );
 
             return Json(new
             {
+                Sucesso = true,
                 Mensagem = "Sucesso ao cadastrar nota fiscal!",
                 DataGeracao = DateTime.Now
             });
         }
 
-        public ActionResult Index()
+        public JsonResult ListarDepartamentos(NotaFiscal NotaFiscal)
+        {
+            try
+            {
+                return Json(new
+                {
+                    departamentos = departamentoService.ListarDepartamentos()
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    Error = ex.Message
+                });
+            }
+        }
+
+        public ActionResult Index(string valorSgdp = null)
         {
 
             List<TabelaUsuarioDto> tabelas = new List<TabelaUsuarioDto>();
@@ -89,8 +108,7 @@ namespace WebApp.Controllers
             {
             }
 
-            return View("NotaFiscal", new NotaFiscalModel { TabelasUsuario = tabelas });
+            return View("NotaFiscal", new NotaFiscalModel { TabelasUsuario = tabelas, ValorSgdp = valorSgdp });
         }
-
     }
 }

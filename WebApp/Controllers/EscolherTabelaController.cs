@@ -23,6 +23,22 @@ namespace WebApp.Controllers
             return Json(new { sucesso = true, urlRedirecionamento = url });
         }
 
+        public ActionResult RedirecionarCadastrarNotaFiscal(string valorSgdp)
+        {
+            var urlBuilder = new UrlHelper(Request.RequestContext);
+            var url = urlBuilder.Action("Index", "CupomFiscal", new { valorSgdp });
+
+            return Json(new { sucesso = true, urlRedirecionamento = url });
+        }
+
+        public ActionResult RedirecionarCadastrarCupom(string valorSgdp)
+        {
+            var urlBuilder = new UrlHelper(Request.RequestContext);
+            var url = urlBuilder.Action("Index", "NotaFiscal", new { valorSgdp });
+
+            return Json(new { sucesso = true, urlRedirecionamento = url });
+        }
+
         // GET: EscolherTabela
         public ActionResult Index()
         {
@@ -32,7 +48,6 @@ namespace WebApp.Controllers
             try
             {
                 sgdpsTabelas = tabelaUsuarioService.ListarSgdpsTabelas();
-
             }
             catch (Exception ex)
             {

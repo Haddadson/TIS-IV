@@ -11,13 +11,13 @@ namespace MPMG.Services
     public class CupomFiscalRepo : RepositorioBase<CupomFiscal>
     {
         private const string SQL_INSERIR_CUPOM_FISCAL = @"
-                INSERT INTO `cupomfiscal` (`coo`, `sgdp`, `id_nota_fiscal`)
-                VALUES (@nr_cupom, @sGDP, (SELECT MAX(`id_nota_fiscal`) FROM `notafiscal`))";
+                INSERT INTO `cupomfiscal` (`coo`, `sgdp`, `nr_nota_fiscal`)
+                VALUES (@nr_cupom, @sGDP, @numNotaFiscal)";
 
         private const string SQL_INSERIR_CUPOM_FISCAL_COMPLETO = @"
-                INSERT INTO `cupomfiscal` (`coo`, `sgdp`, `id_nota_fiscal`, `posto_referente`, `hodometro`, 
-                `cliente`, `dt_emissao`, `quantidade`, `preco_unitario`, `vr_total`, `id_tipo_combustivel`)
-                VALUES (@coo, @sGDP, (SELECT `id_nota_fiscal` FROM `notafiscal` WHERE `nr_nota_fiscal` = @nrNotaFiscal), 
+                INSERT INTO `cupomfiscal` (`coo`, `sgdp`, `nr_nota_fiscal`, `posto_referente`, `hodometro`, 
+                `cliente`, `dt_emissao`, `quantidade`, `preco_unitario`, `vrtotal`, `produto`, `veiculo`, `placa_veiculo`)
+                VALUES (@coo, @sGDP, (SELECT `nr_nota_fiscal` FROM `notafiscal` WHERE `nr_nota_fiscal` = @nrNotaFiscal), 
                 @posto,
                 @hodometro,
                 @cliente,
@@ -25,7 +25,9 @@ namespace MPMG.Services
                 @quantidade,
                 @precoUnitario,
                 @valorTotal,
-                @id_combustivel)";
+                @produto,
+                @veiculo,
+                @placaVeiculo)";
 
         private const string SQL_LISTAR_CUPONS_FISCAIS_POR_SGDP = @"
             SELECT
@@ -52,17 +54,21 @@ namespace MPMG.Services
             WHERE sgdp = @Sgdp 
             AND nr_nota_fiscal = @NumeroNotaFiscal";
 
-        public bool CadastrarCupom(int sGDP, string numeroCupom)
+        public bool CadastrarCupom(int sGDP, string numeroCupom, int numeroNota)
         {
             DynamicParameters parametros = new DynamicParameters();
 
             parametros.Add("@nr_cupom", numeroCupom, DbType.AnsiString);
             parametros.Add("@sGDP", sGDP, DbType.Int32);
+            parametros.Add("@numNotaFiscal", numeroCupom, DbType.Int32);
 
             return Execute(SQL_INSERIR_CUPOM_FISCAL, parametros) > 0;
         }
 
-        public bool CadastrarCupomCompleto(int sGDP, int nrNotaFiscal, string cOO, string posto, DateTime data, string combustivel, int quantidade, double precoUnitario, double valorTotal, string cliente, int hodometro, string veiculo, string placaVeiculo)
+        public bool CadastrarCupomCompleto(int sGDP, int nrNotaFiscal, string cOO, 
+            string posto, DateTime data, 
+            string combustivel, int quantidade, double precoUnitario, 
+            double valorTotal, string cliente, int hodometro, string veiculo, string placaVeiculo)
         {
             DynamicParameters parametros = new DynamicParameters();
 
@@ -71,13 +77,14 @@ namespace MPMG.Services
             parametros.Add("@coo", cOO,  DbType.AnsiString); 
             parametros.Add("@posto",posto,  DbType.AnsiString); 
             parametros.Add("@data", data,  DbType.DateTime); 
-            parametros.Add("@id_combustivel",combustivel, DbType.AnsiString); 
+            parametros.Add("@produto",combustivel, DbType.AnsiString); 
             parametros.Add("@quantidade",quantidade, DbType.Int32); 
             parametros.Add("@precoUnitario",precoUnitario, DbType.Double); 
             parametros.Add("@valorTotal", valorTotal, DbType.Double); 
             parametros.Add("@cliente", cliente, DbType.AnsiString); 
             parametros.Add("@hodometro", hodometro,  DbType.Int32); 
             parametros.Add("@veiculo", veiculo, DbType.AnsiString); 
+            parametros.Add("@placaVeiculo", veiculo, DbType.AnsiString); 
 
             return Execute(SQL_INSERIR_CUPOM_FISCAL_COMPLETO, parametros) > 0;
         }

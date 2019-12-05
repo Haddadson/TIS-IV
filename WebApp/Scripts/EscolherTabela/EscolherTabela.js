@@ -1,16 +1,25 @@
 ﻿$(document).ready(function () {     
 
-    $("#visualizar_tabela").on("click", function (event) {
+    var switchRoutes = (id) => {
+        if (id === 'visualizar_tabela') {
+            return window.urlRedirecionarVisualizarTabela;
+        } else if (id === 'cadastrar_nota_fiscal') {
+            return window.urlRedirecionarCadastrarCupom;
+        } else if (id === 'cadastrar_cupom_fiscal') {
+            return window.urlCadastrarNotaFiscal;
+        }
+    };
+
+    $("#visualizar_tabela, #cadastrar_nota_fiscal, #cadastrar_cupom_fiscal").on("click", function (event) {
         let valorSgdp = $("#sgdp").val();
 
         if (valorSgdp) {
-            const urlRedirecionarVisualizarTabela = window.urlRedirecionarVisualizarTabela;
+            const urlRedirecionarVisualizarTabela = switchRoutes(event.currentTarget.id);
 
             ValidarNotas.chamadaAjax({
                 url: urlRedirecionarVisualizarTabela,
                 data: { valorSgdp: valorSgdp },
                 sucesso: function (response) {
-                    console.log(response);
                     window.location.href = response.urlRedirecionamento;
                 },
                 deveEsconderCarregando: true

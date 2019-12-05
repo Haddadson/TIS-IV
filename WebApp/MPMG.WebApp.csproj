@@ -189,6 +189,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DadosTabelaModel.cs" />
+    <Compile Include="Models\CupomFiscalModel.cs" />
+    <Compile Include="Models\Departamento.cs" />
     <Compile Include="Models\EscolherTabelaModel.cs" />
     <Compile Include="Models\ListarTabelasModel.cs" />
     <Compile Include="Models\NotaFiscal.cs" />
@@ -412,6 +414,10 @@
     <ProjectReference Include="..\MPMG.Interfaces\MPMG.Interfaces.csproj">
       <Project>{F6ECB2D9-EDC3-4B98-8BAC-987A373B6815}</Project>
       <Name>MPMG.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MPMG.Repositories\MPMG.Repositories.csproj">
+      <Project>{295055D4-BDE8-4745-9C9C-89FF8EE29A31}</Project>
+      <Name>MPMG.Repositories</Name>
     </ProjectReference>
     <ProjectReference Include="..\MPMG.Services\MPMG.Services.csproj">
       <Project>{34258118-C3C9-4820-AB49-CB777B498BBF}</Project>

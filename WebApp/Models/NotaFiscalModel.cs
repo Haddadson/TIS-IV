@@ -13,6 +13,7 @@ namespace WebApp.Models
             TabelasUsuario = new List<TabelaUsuarioDto>();
         }
 
+        public string ValorSgdp { get; set; }
         public List<TabelaUsuarioDto> TabelasUsuario { get; set; }
     }
 }
