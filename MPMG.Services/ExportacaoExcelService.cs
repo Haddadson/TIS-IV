@@ -45,7 +45,7 @@ namespace MPMG.Services
                                 List<OutrasInformacoesModelDto> listaOutrasInformacoes)
         {
             PreencherCabecalhoDaTabelaAba1(dadosTabela, listaTabelaAnpxNota);
-            //PreencherGrid();
+            PreencherGridAba1(listaTabelaAnpxNota);
         }
 
         private void PreencherCabecalhoDaTabelaAba1(DadosTabelaDto dadosTabela,
@@ -55,7 +55,7 @@ namespace MPMG.Services
 
             ManipuladorPlanilha.CriarCelulaMerge(0, 0, 0, 17, ABA_1);
             ManipuladorPlanilha.PreencherCelulaTitulo(0, 0, dadosTabela.Titulo1, ABA_1);
-            
+
             ManipuladorPlanilha.PreencherCelulaCabecalho(2, 0, "SGDP", ABA_1);
             ManipuladorPlanilha.PreencherCelulaTexto(2, 1, dadosTabela.Sgdp, ABA_1);
 
@@ -103,7 +103,39 @@ namespace MPMG.Services
             PreencherCelulaDoCabecalho(6, coluna++, 12, "CUPONS FISCAIS VINCULADOS", ABA_1);
             PreencherCelulaDoCabecalho(6, coluna++, 12, "MES/ANO PROCURADOS NA ANP", ABA_1);
         }
-        
+
+        private void PreencherGridAba1(List<AnpxNotaFiscalModelDto> listaTabelaAnpxNota)
+        {
+            int linha = 6;
+            listaTabelaAnpxNota.ForEach(item => PreencherLinhaDoGridAba1(linha++, POSICAO_PRIMEIRA_COLUNA, item));
+        }
+
+        private void PreencherLinhaDoGridAba1(int linha, int coluna, AnpxNotaFiscalModelDto item)
+        {
+            ManipuladorPlanilha.PreencherCelulaData(linha, coluna++, item.DataGeracao, ABA_1);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.NumeroNotaFiscal, ABA_1);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.Produto, ABA_1);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.Quantidade, ABA_1);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.ValorUnitario, ABA_1);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.ValorTotalItem, ABA_1);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.ValorTotalNota, ABA_1);
+            ManipuladorPlanilha.PreencherCelulaValorInteiro(linha, coluna++, item.NumeroFolha, ABA_1);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.ValorFam, ABA_1);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.PrecoMedioAnp, ABA_1);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMediaUnitaria.Replace(',', '.')), ABA_1);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMediaTotal.Replace(',', '.')), ABA_1);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.ValorMedioAtualizado.Replace(',', '.')), ABA_1);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.PrecoMaximoAnp, ABA_1);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMaximaUnitaria.Replace(',', '.')), ABA_1);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMaximaTotal.Replace(',', '.')), ABA_1);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.ValorMaximoAtualizado.Replace(',', '.')), ABA_1);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, string.Join(";", item.CuponsFiscaisVinculados), ABA_1);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, string.Format("{0}/{1}", item.MesAnp, item.AnoAnp), ABA_1);
+
+
+            ManipuladorPlanilha.DefinirAlturaDaLinha(linha, 50, ABA_1);
+        }
+
         private void PreencherCelulaDoCabecalho(int linha, int coluna, int tamanho, string conteudo, string nomeAba)
         {
             var estilo = ManipuladorPlanilha.CriarEstilo();
