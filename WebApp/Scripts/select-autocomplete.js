@@ -7,12 +7,10 @@ if (coo_existente != null) {
 if (numero_nf_existente != null) {
     autocomplete(document.getElementById("#numero_nf"), numero_nf_existente);
 }
-if (posto_fornecedor_existente != null) {
-    autocomplete(document.getElementById("#posto_fornecedor"), posto_fornecedor_existente);
+if (preco_unitario_existente != null) {
+    autocomplete(document.getElementById("#preco_unitario1"), posto_fornecedor_existente);
 }
-if (cliente_existente != null) {
-    autocomplete(document.getElementById("#cliente"), cliente_existente);
-}
+
 
 function autocomplete(inp, arr) {
     /*the autocomplete function takes two arguments,
@@ -117,8 +115,8 @@ var coo_existente = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "
 /*An array containing options*/
 /*Foram declarados aqui para parar o erro exibido no colosole. É preciso fazer uma solicitação ajax ao iniciar a tela de Nota fiscal ou Cupom Fsical*/
 var numero_nf_existente = ["", ""];
-var posto_fornecedor_existente = ["", ""];
-var cliente_existente = ["", ""];
+var preco_unitario_existente = ["", ""];
+var coo_existente = ["", ""];
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 //autocomplete(document.getElementById("coo"), coo_existente);
