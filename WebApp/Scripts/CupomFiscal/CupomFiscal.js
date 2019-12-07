@@ -14,8 +14,8 @@ $(document).ready(function () {
     initNotaFiscalFields();
 
     $("#cadastrar-cupom-fiscal").on("click", function (event) {
-        if ($("#coo").val() == false || $("#posto_fornecedor").val() == false || $("#data_emissao").val() == false || $("#hora_emissao").val() == false ||
-            $("#combustivel").val() == false || $("#quantidade").val() == false || $("#preco_unitario").val() == false || $("#valor_total").val() == false || $("#cliente").val() == false) {
+        if ($("#coo").val() == false || $("#data_emissao").val() == false || $("#hora_emissao").val() == false ||
+            $("#combustivel").val() == false || $("#quantidade").val() == false || $("#preco_unitario").val() == false || $("#valor_total").val() == false ){
             alert("Preencha todos campos obrigatórios!");
         }
         else {
@@ -23,14 +23,12 @@ $(document).ready(function () {
                 "SGDP": $("#sgdp_escolhido").val(),
                 "NrNotaFiscal": $("#numero_nf").val(),
                 "COO": $("#coo").val(),
-                "Posto": $("#posto_fornecedor").val(),
                 "Data": $("#data_emissao").val(),
                 "Horario": $("#hora_emissao").val(),
                 "Combustivel": $("#combustivel").val(),
                 "Quantidade": $("#quantidade").val(),
                 "PrecoUnitario": parseFloat($("#preco_unitario").val().replace(",", ".")),
                 "ValorTotal": parseFloat($("#valor_total").val().replace(",", ".")),
-                "Cliente": $("#cliente").val(),
                 "Hodometro": $("#hodometro").val(),
                 "Veiculo": $("#veiculo").val(),
                 "PlacaVeiculo": $("#placa_veiculo").val().replace('-', '')
@@ -58,14 +56,12 @@ $(document).ready(function () {
     function limparCampos() {
         $("#numero_nf").val('');
         $("#coo").val('');
-        $("#posto_fornecedor").val('');
         $("#data_emissao").val('');
         $("#hora_emissao").val('');
         $("#combustivel").val('');
         $("#quantidade").val('');
         $("#preco_unitario").val('');
         $("#valor_total").val('');
-        $("#cliente").val('');
         $("#hodometro").val('');
         $("#veiculo").val('');
         $("#placa_veiculo").val('');
