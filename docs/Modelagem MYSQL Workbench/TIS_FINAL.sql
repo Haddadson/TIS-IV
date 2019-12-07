@@ -393,9 +393,23 @@
   (`id_dpto`,
   `nome_dpto`)
   VALUES
-  (1,
-  'Saúde'),
-  (2, 'Educação');
+ (1, 'Assistência Social e Cidadania'),
+(2, 'Assuntos Institucionais e Comunicação Social'),
+(3, 'Cultura'),
+(4, 'Desenvolvimento Econômico'), 
+(5, 'Educação'),
+(6, 'Esporte e Lazer'), 
+(7, 'Fazenda'), 
+(8, 'Gabinete do Prefeito'), 
+(9, 'Governo'),
+(10, 'Habitação'),
+(11, 'Meio Ambiente'),
+(12, 'Mobilidade e Transporte'),
+(13, 'Obras e Infraestrutura'),
+(14, 'Planejamento, Orçamento e Gestão'),
+(15, 'Política Urbana'),
+(16, 'Saúde'),
+(17, 'Segurança e Prevenção');
 
 
   INSERT INTO uploadtabelafam VALUES (1, CURRENT_DATE);
