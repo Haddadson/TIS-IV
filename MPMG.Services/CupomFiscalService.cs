@@ -32,6 +32,18 @@ namespace MPMG.Services
                 placaVeiculo);
         }
 
+        public List<string> ListarCuponsDisponiveisPorSgdp(string sgdp)
+        {
+            try
+            {
+                return repo.ListarCuponsDisponiveisPorSgdp(sgdp).Select;
+            }
+            catch (Exception ex)
+            {
+                return new List<CupomFiscalDto>();
+            }
+        }
+
         public List<CupomFiscalDto> ListarCuponsFiscaisPorSgdp(string sgdp)
         {
             try

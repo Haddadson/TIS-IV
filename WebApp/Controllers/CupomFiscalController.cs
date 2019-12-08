@@ -9,8 +9,7 @@ using System.Web.Mvc;
 using WebApp.Models;
 
 namespace WebApp.Controllers
-{
-
+{   
     public class CupomFiscalController : Controller
     {
         private readonly CupomFiscalService cupomFiscalService;
@@ -28,7 +27,8 @@ namespace WebApp.Controllers
             int NrNotaFiscal = cupom.NrNotaFiscal;
             string COO = cupom.COO;
             string Posto = cupom.Posto;
-            DateTime Data = cupom.Data;
+            DateTime Data = new DateTime(cupom.Data.Year, cupom.Data.Month, cupom.Data.Day, 0);
+            int Horario = cupom.Horario;
             string Combustivel = cupom.Combustivel;
             int Quantidade = cupom.Quantidade;
             double PrecoUnitario = cupom.PrecoUnitario;
@@ -40,7 +40,6 @@ namespace WebApp.Controllers
 
             try
             {
-
                 cupomFiscalService.Cadastrar(
                     SGDP,
                     NrNotaFiscal,

@@ -13,14 +13,21 @@ namespace WebApp.Controllers
     public class NotaFiscalController : Controller
     {
         private readonly NotaFiscalService notaFiscalService;
+        private readonly CupomFiscalService cupomFiscalService;
         private readonly TabelaUsuarioService tabelaUsuarioService;
         private readonly DepartamentoService departamentoService;
 
         public NotaFiscalController()
         {
+            cupomFiscalService = new CupomFiscalService();
             notaFiscalService = new NotaFiscalService();
             tabelaUsuarioService = new TabelaUsuarioService();
             departamentoService = new DepartamentoService();
+        }
+
+        public JsonResult ListarCupons(string SGDP)
+        {
+            return cupomFiscalService.ListarCuponsDisponiveisPorSgdp(SGDP);
         }
 
         public JsonResult Cadastrar(NotaFiscal NotaFiscal, List<ItemNotaFiscalDto> ItensNotaFiscal)

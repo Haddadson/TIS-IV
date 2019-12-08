@@ -54,6 +54,25 @@ namespace MPMG.Services
             WHERE sgdp = @Sgdp 
             AND nr_nota_fiscal = @NumeroNotaFiscal";
 
+        private const string SQL_LISTAR_CUPONS_DISPONIVEIS_POR_SGDP = @"
+            SELECT
+                coo AS Coo,
+                sgdp AS Sgdp,
+                nr_nota_fiscal AS NumeroNotaFiscal,
+                posto_referente AS PostoReferente,
+                hodometro AS Hodometro,
+                cliente AS Cliente,
+                dt_emissao AS DataEmissao,
+                quantidade AS Quantidade,
+                preco_unitario AS PrecoUnitario,
+                vrtotal AS ValorTotal,
+                produto AS Produto,
+                veiculo AS Veiculo,
+                placa_veiculo AS PlacaVeiculo
+            FROM `cupomfiscal`
+            WHERE sgdp = @Sgdp
+              AND nr_nota_fiscal IS NULL";
+
         public bool CadastrarCupom(int sGDP, string numeroCupom, int numeroNota)
         {
             DynamicParameters parametros = new DynamicParameters();
@@ -106,6 +125,15 @@ namespace MPMG.Services
             parametros.Add("@Sgdp", Sgdp, DbType.Int32);
 
             return Listar(SQL_LISTAR_CUPONS_FISCAIS_POR_SGDP, parametros);
+        }
+
+        public List<CupomFiscal> ListarCuponsDisponiveisPorSgdp (string Sgdp)
+        {
+            DynamicParameters parametros = new DynamicParameters();
+
+            parametros.Add("@Sgdp", Sgdp, DbType.AnsiString);
+
+            return Listar(SQL_LISTAR_CUPONS_DISPONIVEIS_POR_SGDP, parametros);
         }
     }
 }

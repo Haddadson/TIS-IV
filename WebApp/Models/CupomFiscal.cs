@@ -17,5 +17,6 @@ namespace WebApp.Models
         public int Hodometro { get; set; }
         public string Veiculo { get; set; }
         public string PlacaVeiculo { get; set; }
+        public int Horario { get; set; }
     }
 }
