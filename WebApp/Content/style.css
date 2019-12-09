@@ -203,7 +203,7 @@ body {}
 }
 .navbar-nav > li > a {
     color: #F5FFF7;
-    padding: 20px 0px 20px 30px;
+    padding: 20px 15px 20px 15px;
 }
 .rtl-layout .navbar-nav>li>a{
 	padding: 20px 30px 20px 0px;

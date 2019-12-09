@@ -59,7 +59,6 @@ $(document).ready(function () {
             const notaFiscalData = {
                 "SGDP": $("#sgdp_escolhido").val(),
                 "NrNotaFiscal": $("#numero_nf").val(),
-                "Posto": $("#posto_fornecedor").val(),
                 "DataEmissao": $("#data_emissao").val(),
                 "ValorTotal": parseFloat($("#valor_total_nf").val().replace(",", ".")),
 
@@ -125,8 +124,98 @@ $(document).ready(function () {
             $("#valor_total").val(((parseFloat(qtd) * parseFloat(vrUnit))).toFixed(3).replace('.', ','));
     };
 
-    $("#quantidade").on("change", autoSetValorTotal);
-    $("#preco_unitario").on("change", autoSetValorTotal);
+    const autoSetValorTotal1 = evt => {
+        const qtd = parseFloat($("#quantidade1").val().replace(',', '.'));
+        const vrUnit = parseFloat($("#preco_unitario1").val().replace(',', '.'));
+
+        if (!Number.isNaN(qtd) && !Number.isNaN(vrUnit)) {
+            $("#valor_total1").val(((parseFloat(qtd) * parseFloat(vrUnit))).toFixed(3).replace('.', ','));
+
+
+            const vtotal1 = parseFloat($("#valor_total1").val().replace(',', '.'));
+            const vtotal2 = parseFloat($("#valor_total2").val().replace(',', '.'));
+            const vtotal3 = parseFloat($("#valor_total3").val().replace(',', '.'));
+            const vtotal4 = parseFloat($("#valor_total4").val().replace(',', '.'));
+
+            $("#valor_total_nf").val(((validaCampoValorNf(vtotal1) + validaCampoValorNf(vtotal2) + validaCampoValorNf(vtotal3) + validaCampoValorNf(vtotal4))).toFixed(3).replace('.', ','));
+        }
+    };
+
+    const autoSetValorTotal2 = evt => {
+        const qtd = parseFloat($("#quantidade2").val().replace(',', '.'));
+        const vrUnit = parseFloat($("#preco_unitario2").val().replace(',', '.'));
+
+        if (!Number.isNaN(qtd) && !Number.isNaN(vrUnit)) {
+            $("#valor_total2").val(((parseFloat(qtd) * parseFloat(vrUnit))).toFixed(3).replace('.', ','));
+
+
+            const vtotal1 = parseFloat($("#valor_total1").val().replace(',', '.'));
+            const vtotal2 = parseFloat($("#valor_total2").val().replace(',', '.'));
+            const vtotal3 = parseFloat($("#valor_total3").val().replace(',', '.'));
+            const vtotal4 = parseFloat($("#valor_total4").val().replace(',', '.'));
+
+            $("#valor_total_nf").val(((validaCampoValorNf(vtotal1) + validaCampoValorNf(vtotal2) + validaCampoValorNf(vtotal3) + validaCampoValorNf(vtotal4))).toFixed(3).replace('.', ','));
+        }
+    };
+
+    const autoSetValorTotal3 = evt => {
+        const qtd = parseFloat($("#quantidade3").val().replace(',', '.'));
+        const vrUnit = parseFloat($("#preco_unitario3").val().replace(',', '.'));
+
+        if (!Number.isNaN(qtd) && !Number.isNaN(vrUnit)) {
+            $("#valor_total3").val(((parseFloat(qtd) * parseFloat(vrUnit))).toFixed(3).replace('.', ','));
+
+        
+            const vtotal1 = parseFloat($("#valor_total1").val().replace(',', '.'));
+            const vtotal2 = parseFloat($("#valor_total2").val().replace(',', '.'));
+            const vtotal3 = parseFloat($("#valor_total3").val().replace(',', '.'));
+            const vtotal4 = parseFloat($("#valor_total4").val().replace(',', '.'));
+
+            $("#valor_total_nf").val(((validaCampoValorNf(vtotal1) + validaCampoValorNf(vtotal2) + validaCampoValorNf(vtotal3) + validaCampoValorNf(vtotal4))).toFixed(3).replace('.', ','));
+        }
+    };
+
+    const autoSetValorTotal4 = evt => {
+        const qtd = parseFloat($("#quantidade4").val().replace(',', '.'));
+        const vrUnit = parseFloat($("#preco_unitario4").val().replace(',', '.'));
+
+        if (!Number.isNaN(qtd) && !Number.isNaN(vrUnit)) {
+            $("#valor_total4").val(((parseFloat(qtd) * parseFloat(vrUnit))).toFixed(3).replace('.', ','));
+
+
+            const vtotal1 = parseFloat($("#valor_total1").val().replace(',', '.'));
+            const vtotal2 = parseFloat($("#valor_total2").val().replace(',', '.'));
+            const vtotal3 = parseFloat($("#valor_total3").val().replace(',', '.'));
+            const vtotal4 = parseFloat($("#valor_total4").val().replace(',', '.'));
+
+            $("#valor_total_nf").val(((validaCampoValorNf(vtotal1) + validaCampoValorNf(vtotal2) + validaCampoValorNf(vtotal3) + validaCampoValorNf(vtotal4))).toFixed(3).replace('.', ','));
+        }
+    };
+
+    const autoSetValorTotalNf = evt => {
+        const vtotal1 = parseFloat($("#valor_total1").val().replace(',', '.'));
+        const vtotal2 = parseFloat($("#valor_total2").val().replace(',', '.'));
+        const vtotal3 = parseFloat($("#valor_total3").val().replace(',', '.'));
+        const vtotal4 = parseFloat($("#valor_total4").val().replace(',', '.'));
+
+        $("#valor_total_nf").val(((validaCampoValorNf(vtotal1) + validaCampoValorNf(vtotal2) + validaCampoValorNf(vtotal3) + validaCampoValorNf(vtotal4))).toFixed(3).replace('.', ','));
+    };
+
+    $("#quantidade1").on("change", autoSetValorTotal1);
+    $("#preco_unitario1").on("change", autoSetValorTotal1);
+    $("#valor_total1").on("change", autoSetValorTotalNf);
+
+    $("#quantidade2").on("change", autoSetValorTotal2);
+    $("#preco_unitario2").on("change", autoSetValorTotal2);
+    $("#valor_total2").on("change", autoSetValorTotalNf);
+
+    $("#quantidade3").on("change", autoSetValorTotal3);
+    $("#preco_unitario3").on("change", autoSetValorTotal3);
+    $("#valor_total3").on("change", autoSetValorTotalNf);
+
+    $("#quantidade4").on("change", autoSetValorTotal4);
+    $("#preco_unitario4").on("change", autoSetValorTotal4);
+    $("#valor_total4").on("change", autoSetValorTotalNf);
 
     const urlObterDepartamentos = window.urlObterDepartamentos;
 
@@ -140,6 +229,15 @@ $(document).ready(function () {
         deveEsconderCarregando: true
     });
 });
+
+function validaCampoValorNf(valTotal) {
+    var parsedV = 0;
+    if (Number.isNaN(valTotal))
+        parsedV = 0;
+    else
+        parsedV = valTotal;
+    return parseFloat(parsedV);
+}
 
 function limparCampos() {
     $("#numero_nf").val('');
