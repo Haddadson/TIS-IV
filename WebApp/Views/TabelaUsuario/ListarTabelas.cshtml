@@ -131,7 +131,7 @@
                                         <td>@dadosAnpxNota.ValorTotalItem.ToString("0.00")</td>
                                         <td>@dadosAnpxNota.ValorTotalNota.ToString("0.00")</td>
                                         <td>@dadosAnpxNota.NumeroFolha</td>
-                                        <td>@dadosAnpxNota.ValorFam.ToString("0.00")</td>
+                                        <td>@dadosAnpxNota.ValorFam.ToString("0.0000000")</td>
                                         <td>@dadosAnpxNota.PrecoMedioAnp.ToString("0.00")</td>
 
                                         @if (dadosAnpxNota.DiferencaMaximaUnitaria <= 0)
@@ -198,7 +198,6 @@
                                 @* Tabela a ser exibida quando o usuário selecionar Cupons Fiscais na combobox *@
                                 <tr>
                                     <th>NUM. NF REFERENTE</th>
-                                    <th>POSTO FORNECEDOR</th>
                                     <th>DATA</th>
                                     <th>HORÁRIO</th>
                                     <th>COO</th>
@@ -206,7 +205,6 @@
                                     <th> QUANT.</th>
                                     <th>PREÇO UNIT.</th>
                                     <th>VALOR TOTAL</th>
-                                    <th>CLIENTE</th>
                                     <th>VEÍCULO</th>
                                     <th>PLACA VEÍCULO</th>
                                     <th>HODÔMETRO</th>
@@ -217,7 +215,6 @@
                                 {
                                     <tr>
                                         <td>@cupomFiscal.NumeroNotaFiscal</td>
-                                        <td>@cupomFiscal.PostoReferente</td>
                                         <td>@cupomFiscal.DataEmissao.ToShortDateString()</td>
                                         <td>@cupomFiscal.DataEmissao.ToShortTimeString()</td>
                                         <td>@cupomFiscal.Coo</td>
@@ -225,7 +222,6 @@
                                         <td>@cupomFiscal.Quantidade</td>
                                         <td>@cupomFiscal.PrecoUnitario.ToString("0.00")</td>
                                         <td>@cupomFiscal.ValorTotal.ToString("0.00")</td>
-                                        <td>@cupomFiscal.Cliente</td>
                                         <td>@cupomFiscal.Veiculo</td>
                                         <td>@cupomFiscal.PlacaVeiculo</td>
                                         <td>@cupomFiscal.Hodometro</td>
