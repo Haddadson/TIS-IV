@@ -27,7 +27,16 @@ namespace MPMG.Services
         {
             MemoryStream stream;
 
-            if (DadosTabela != null && ListaCuponsFiscais.Any() && ListaTabelaAnpxNota.Any() && ListaOutrasInformacoes.Any())
+            if (ListaTabelaAnpxNota == null)
+                ListaTabelaAnpxNota = new List<AnpxNotaFiscalModelDto>();
+
+            if (ListaCuponsFiscais == null)
+                ListaCuponsFiscais = new List<CupomFiscalDto>();
+
+            if (ListaOutrasInformacoes == null)
+                ListaOutrasInformacoes = new List<OutrasInformacoesModelDto>();
+
+            if (DadosTabela != null)
             {
                 CriarExcel(DadosTabela, ListaTabelaAnpxNota, ListaCuponsFiscais, ListaOutrasInformacoes);
                 stream = ObterArquivoExcel();
@@ -106,7 +115,7 @@ namespace MPMG.Services
 
         private void PreencherGridAba1(List<AnpxNotaFiscalModelDto> listaTabelaAnpxNota)
         {
-            int linha = 6;
+            int linha = 7;
             listaTabelaAnpxNota.ForEach(item => PreencherLinhaDoGridAba1(linha++, POSICAO_PRIMEIRA_COLUNA, item));
         }
 

@@ -16,6 +16,7 @@
         public double DiferencaMaximaUnitaria { get; set; }
         public double DiferencaMaximaTotal { get; set; }
         public double ValorMaximoAtualizado { get; set; }
+        public string ValorFam { get; set; }
         public int MesAnp { get; set; }
         public int AnoAnp { get; set; }
         public int MesFam { get; set; }

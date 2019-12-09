@@ -12,7 +12,7 @@ namespace MPMG.Repositories.Entidades
         public double ValorTotalItem { get; set; }
         public double ValorTotalNota { get; set; }
         public int NumeroFolha { get; set; }
-        public double ValorFam { get; set; }
+        public string ValorFam { get; set; }
         public double PrecoMedioAnp { get; set; }
         public double DiferencaMediaUnitaria { get; set; }
         public double DiferencaMediaTotal { get; set; }

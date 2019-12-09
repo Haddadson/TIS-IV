@@ -63,7 +63,7 @@ namespace WebApp.Controllers
             {
                 var documento = exportacaoExcelService.ExportarDadosParaExcel(DadosTabela, ListaTabelaAnpxNota, ListaCuponsFiscais, ListaOutrasInformacoes);
 
-                if(documento.Length == 0)
+                if(documento == null || documento.Length == 0)
                     return Json(new
                     {
                         Sucesso = false,
