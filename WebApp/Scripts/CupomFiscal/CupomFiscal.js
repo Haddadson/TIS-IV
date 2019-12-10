@@ -1,6 +1,5 @@
 const initNotaFiscalFields = () => {
     VMasker(document.querySelector("#placa_veiculo")).maskPattern("AAA-9999");
- 
 
     validateNumericRequiredFormField("#numero_nf", true, true);
     validateNumericRequiredFormField("#quantidade", true, true);
@@ -66,10 +65,6 @@ $(document).ready(function () {
         $("#veiculo").val('');
         $("#placa_veiculo").val('');
     }
-
-    $("#departamento").on("change", function (event) {
-        // Get Departamentos.
-    });
 
     const autoSetValorTotal = evt => {
         const qtd = parseFloat($("#quantidade").val().replace(',', '.'));

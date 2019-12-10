@@ -18,8 +18,8 @@ namespace MPMG.Repositories
         @valorTotal)";
 
         public bool Cadastrar(
-            int nrNotaFiscal, 
-            int sgdp, 
+            string nrNotaFiscal, 
+            string sgdp, 
             string produto,
             int quantidade,
             double valorTotal, 

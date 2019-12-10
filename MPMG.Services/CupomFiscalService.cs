@@ -14,7 +14,7 @@ namespace MPMG.Services
             repo = new CupomFiscalRepo();
         }
 
-        public void Cadastrar(int sGDP, int nrNotaFiscal, string cOO, string posto, DateTime data, string combustivel, int quantidade, double precoUnitario, double valorTotal, string cliente, int hodometro, string veiculo, string placaVeiculo)
+        public void Cadastrar(string sGDP, string nrNotaFiscal, string cOO, string posto, DateTime data, string combustivel, int quantidade, double precoUnitario, double valorTotal, string cliente, int hodometro, string veiculo, string placaVeiculo)
         {
             repo.CadastrarCupomCompleto(
                 sGDP,
@@ -36,11 +36,11 @@ namespace MPMG.Services
         {
             try
             {
-                return repo.ListarCuponsDisponiveisPorSgdp(sgdp).Select;
+                return repo.ListarCuponsDisponiveisPorSgdp(sgdp).Select(item => item.Coo).ToList();
             }
             catch (Exception ex)
             {
-                return new List<CupomFiscalDto>();
+                return new List<string>();
             }
         }
 
@@ -48,7 +48,7 @@ namespace MPMG.Services
         {
             try
             {
-                return ConverterListaEntidadeParaDto(repo.ListarCuponsPorSgdp(int.Parse(sgdp)));
+                return ConverterListaEntidadeParaDto(repo.ListarCuponsPorSgdp(sgdp));
             }
             catch (Exception ex)
             {

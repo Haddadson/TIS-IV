@@ -1,5 +1,39 @@
+
+// Load suggestions for COO field
+const loadCOOsSuggestions = () => {
+    const suggestionsData = {
+        SGDP: $('#sgdp_escolhido').val()
+    };
+
+    ValidarNotas.chamadaAjax({
+        url: urlObterSugestoesCOO,
+        data: suggestionsData,
+        sucesso: setSuggestionsForCOOField,
+        deveEsconderCarregando: true
+    });
+};
+
+const setSuggestionsForCOOField = response => {
+    const { coos } = response;
+    insertAutocompleteFeatureInElement(document.getElementById("coo_add"), coos);
+};
+
+const addCOOOnChangeHandler = evt => {
+    const selectedCOO  = $("#coo_add").val();
+
+    if (!selectedCOO) {
+        alert('Por favor selecione um COO !');
+    } else {
+        const selectedCOOs = $("#cupons_selecionados").val();
+        const allCOOs = selectedCOOs.split(/\s/);
+        allCOOs.push(selectedCOO);
+        $("#cupons_selecionados").val(allCOOs.join(' '));
+    }
+};
+
 const initNotaFiscalFields = () => {
     VMasker(document.querySelector("#data_consulta_anp")).maskPattern("99/9999");
+    VMasker(document.querySelector("#placa_veiculo")).maskPattern("AAA-9999");
     validateNumericRequiredFormField("#numero_nf", true, true);
     validateNumericRequiredFormField("#quantidade", true, true);
     validateNumericRequiredFormField("#num_folha");
@@ -7,11 +41,9 @@ const initNotaFiscalFields = () => {
     validateNumericRequiredFormField("#preco_unitario", false, true);
     validateCuponsFicais("#cupons_selecionados");
     validateDateFormField("#data_emissao");
-};
 
+    $("#adicionar_cupom").on("click", addCOOOnChangeHandler);
 
-$(document).ready(function () {
-    initNotaFiscalFields();
     $("#municipios").on("change", function (event) {
         const urlObterMunicipioPorNomeAno = window.urlObterMunicipioPorNomeAno;
         const municipioSelecionado = $("#municipios").val();
@@ -22,33 +54,6 @@ $(document).ready(function () {
             deveEsconderCarregando: true
         });
     });
-
-    const tratarMunicipios = response => {
-
-        const listaMunicipios = response && response.listaMunicipios.filter((m) => { return m === response.municipioSelecionado; });
-        const municipioReferente = response && response.municipioReferente;
-        if (municipioReferente) {
-            $('#municipios-anp').html = '';
-            $('#municipios-anp').append(`<option val='${municipioReferente.Codigo}'>${municipioReferente.Nome}</option>`);
-            $('#municipios-anp').val(municipioReferente.Nome);
-            $("#municipios-anp").prop('disabled', true);
-            $("#municipios-anp-div").show();
-        }
-        else {
-            $('#municipios-anp').html = '';
-            $('#municipios-anp').append(response.listaMunicipios.map(m => {
-                return "<option>" + m + "</option>";
-            }));
-        }
-        if (!municipioReferente && !(listaMunicipios.length === 1)) {
-            alert("O município selecionado não possui dados na tabela da ANP para o período selecionado. Favor escolher um município.");
-            $("#municipios-anp-div").show();
-        }
-        else if (!municipioReferente) {
-            $("#municipios-anp-div").hide();
-            $('#municipios-anp').val(listaMunicipios[0]);
-        }
-    };
 
     $("#cadastrar-nota-fiscal").on("click", function (event) {
         if ($("#numero_nf").val() == false || $("#data_emissao").val() == false || $("#combustivel1").val() == false ||
@@ -61,9 +66,7 @@ $(document).ready(function () {
                 "NrNotaFiscal": $("#numero_nf").val(),
                 "DataEmissao": $("#data_emissao").val(),
                 "ValorTotal": parseFloat($("#valor_total_nf").val().replace(",", ".")),
-
-                //"CuponsSelecionados": $("#cupons_selecionados").val().split(" ").filter(cupom => cupom.length > 0),
-                "CuponsSelecionados": $("#coo").val(),
+                "CuponsSelecionados": $("#cupons_selecionados").val().split(" ").filter(cupom => cupom.length > 0),
                 "NumeroFolha": $("#num_folha").val(),
                 "DataConsultaANP": '01/' + $("#data_consulta_anp").val(),
                 "Departamento": $("#departamento").val(),
@@ -116,13 +119,38 @@ $(document).ready(function () {
         }
     });
 
-    const autoSetValorTotal = evt => {
-        const qtd = parseFloat($("#quantidade").val().replace(',', '.'));
-        const vrUnit = parseFloat($("#preco_unitario").val().replace(',', '.'));
+    loadCOOsSuggestions();
+};
 
-        if (!Number.isNaN(qtd) && !Number.isNaN(vrUnit))
-            $("#valor_total").val(((parseFloat(qtd) * parseFloat(vrUnit))).toFixed(3).replace('.', ','));
+$(document).ready(function () {
+    initNotaFiscalFields();
+
+    const tratarMunicipios = response => {
+        const listaMunicipios = response && response.listaMunicipios.filter((m) => { return m === response.municipioSelecionado; });
+        const municipioReferente = response && response.municipioReferente;
+        if (municipioReferente) {
+            $('#municipios-anp').html = '';
+            $('#municipios-anp').append(`<option val='${municipioReferente.Codigo}'>${municipioReferente.Nome}</option>`);
+            $('#municipios-anp').val(municipioReferente.Nome);
+            $("#municipios-anp").prop('disabled', true);
+            $("#municipios-anp-div").show();
+        }
+        else {
+            $('#municipios-anp').html = '';
+            $('#municipios-anp').append(response.listaMunicipios.map(m => {
+                return "<option>" + m + "</option>";
+            }));
+        }
+        if (!municipioReferente && !(listaMunicipios.length === 1)) {
+            alert("O município selecionado não possui dados na tabela da ANP para o período selecionado. Favor escolher um município.");
+            $("#municipios-anp-div").show();
+        }
+        else if (!municipioReferente) {
+            $("#municipios-anp-div").hide();
+            $('#municipios-anp').val(listaMunicipios[0]);
+        }
     };
+
 
     const autoSetValorTotal1 = evt => {
         const qtd = parseFloat($("#quantidade1").val().replace(',', '.'));
@@ -130,7 +158,6 @@ $(document).ready(function () {
 
         if (!Number.isNaN(qtd) && !Number.isNaN(vrUnit)) {
             $("#valor_total1").val(((parseFloat(qtd) * parseFloat(vrUnit))).toFixed(3).replace('.', ','));
-
 
             const vtotal1 = parseFloat($("#valor_total1").val().replace(',', '.'));
             const vtotal2 = parseFloat($("#valor_total2").val().replace(',', '.'));
@@ -201,21 +228,12 @@ $(document).ready(function () {
         $("#valor_total_nf").val(((validaCampoValorNf(vtotal1) + validaCampoValorNf(vtotal2) + validaCampoValorNf(vtotal3) + validaCampoValorNf(vtotal4))).toFixed(3).replace('.', ','));
     };
 
-    $("#quantidade1").on("change", autoSetValorTotal1);
-    $("#preco_unitario1").on("change", autoSetValorTotal1);
-    $("#valor_total1").on("change", autoSetValorTotalNf);
+    $("#quantidade1, #preco_unitario1").on("change", autoSetValorTotal1);
+    $("#quantidade2, #preco_unitario2").on("change", autoSetValorTotal2);
+    $("#quantidade3, #preco_unitario3").on("change", autoSetValorTotal3);
+    $("#quantidade4, #preco_unitario4").on("change", autoSetValorTotal4);
 
-    $("#quantidade2").on("change", autoSetValorTotal2);
-    $("#preco_unitario2").on("change", autoSetValorTotal2);
-    $("#valor_total2").on("change", autoSetValorTotalNf);
-
-    $("#quantidade3").on("change", autoSetValorTotal3);
-    $("#preco_unitario3").on("change", autoSetValorTotal3);
-    $("#valor_total3").on("change", autoSetValorTotalNf);
-
-    $("#quantidade4").on("change", autoSetValorTotal4);
-    $("#preco_unitario4").on("change", autoSetValorTotal4);
-    $("#valor_total4").on("change", autoSetValorTotalNf);
+    $("#valor_total1, #valor_total2, #valor_total3, #valor_total4").on("change", autoSetValorTotalNf);
 
     const urlObterDepartamentos = window.urlObterDepartamentos;
 
@@ -240,16 +258,9 @@ function validaCampoValorNf(valTotal) {
 }
 
 function limparCampos() {
-    $("#numero_nf").val('');
-    $("#posto_fornecedor").val('');
-    $("#data_emissao").val('');
-    $("#valor_total_nf").val('');
-    $("#coo").val('');
-    $("#num_folha").val('');
-    $("#data_consulta_anp").val('');
-    $("#departamento").val('');
-    $("#veiculo").val('');
-    $("#placa_veiculo").val('');
+    $("#numero_nf, #posto_fornecedor, #data_emissao, #valor_total_nf, #coo," + 
+      "#num_folha, #data_consulta_anp, #departamento, #veiculo," +
+      "#placa_veiculo, .itens-field, #coo_add, #cupons_selecionados").val('');
 }
 
 const validateCuponsFicais = fieldCssQuerySelector => {

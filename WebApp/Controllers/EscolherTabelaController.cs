@@ -43,7 +43,7 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
 
-            List<int> sgdpsTabelas = new List<int>();
+            List<string> sgdpsTabelas = new List<string>();
 
             try
             {

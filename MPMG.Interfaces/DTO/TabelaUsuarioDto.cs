@@ -10,7 +10,7 @@ namespace MPMG.Interfaces.DTO
             DadosAnpxNotaFiscal = new List<AnpxNotaFiscalDto>();
         }
 
-        public int SGDP { get; set; }
+        public string SGDP { get; set; }
         public DateTime DataGeracao { get; set; }
         public int AnoReferente { get; set; }
         public string Titulo1 { get; set; }

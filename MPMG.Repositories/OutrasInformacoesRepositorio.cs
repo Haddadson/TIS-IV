@@ -38,7 +38,7 @@ namespace MPMG.Repositories
             WHERE 
                 A.sgdp = @Sgdp";
 
-        public List<OutrasInformacoes> ListarNotasFiscaisPorSgdp(int sgdp, int idMunicipio)
+        public List<OutrasInformacoes> ListarNotasFiscaisPorSgdp(string sgdp, int idMunicipio)
         {
             DynamicParameters parametros = new DynamicParameters();
             parametros.Add("@Sgdp", sgdp, DbType.Int32);

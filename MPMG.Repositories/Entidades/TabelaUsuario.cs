@@ -4,7 +4,7 @@ namespace MPMG.Repositories.Entidades
 {
     public class TabelaUsuario
     {
-        public int SGDP { get; set; }
+        public string SGDP { get; set; }
         public int IdMunicipio { get; set; }
         public string NomeMunicipio { get; set; }
         public int IdMunicipioReferente { get; set; }

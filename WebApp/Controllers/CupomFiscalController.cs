@@ -23,12 +23,15 @@ namespace WebApp.Controllers
 
         public JsonResult Cadastrar(CupomFiscal cupom)
         {
-            int SGDP = cupom.SGDP;
-            int NrNotaFiscal = cupom.NrNotaFiscal;
+
+            string SGDP = cupom.SGDP;
+            string NrNotaFiscal = cupom.NrNotaFiscal;
             string COO = cupom.COO;
             string Posto = cupom.Posto;
-            DateTime Data = new DateTime(cupom.Data.Year, cupom.Data.Month, cupom.Data.Day, 0);
-            int Horario = cupom.Horario;
+
+            int horas = int.Parse(cupom.Horario.Substring(0, 2));
+            int minutos = int.Parse(cupom.Horario.Substring(3, 2));
+            DateTime Data = new DateTime(cupom.Data.Year, cupom.Data.Month, cupom.Data.Day, horas, minutos, 0);
             string Combustivel = cupom.Combustivel;
             int Quantidade = cupom.Quantidade;
             double PrecoUnitario = cupom.PrecoUnitario;
@@ -80,7 +83,6 @@ namespace WebApp.Controllers
             try
             {
                 tabelas = tabelaUsuarioService.ListarTabelas();
-
             }
             catch (Exception ex)
             {

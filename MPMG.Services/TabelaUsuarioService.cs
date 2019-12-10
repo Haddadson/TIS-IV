@@ -112,7 +112,7 @@ namespace MPMG.Services
                 tabela.DadosAnpxNotaFiscal = ListarDadosAnpXNotaFiscalPorSgdp(tabela.SGDP, idMunicipio);
 
                 tabela.DadosAnpxNotaFiscal.ForEach(dado =>
-                    dado.CuponsFiscaisVinculados = cupomFiscalRepositorio.ObterCuponsVinculados(tabela.SGDP, int.Parse(dado.NumeroNotaFiscal)));
+                    dado.CuponsFiscaisVinculados = cupomFiscalRepositorio.ObterCuponsVinculados(tabela.SGDP, dado.NumeroNotaFiscal));
 
             }
             catch (Exception ex)
@@ -136,7 +136,7 @@ namespace MPMG.Services
                 tabela.OutrasInformacoes = ListarDadosOutrasInformacoes(tabela.SGDP, idMunicipio);
 
                 tabela.OutrasInformacoes.ForEach(dado =>
-                    dado.CuponsFiscaisVinculados = cupomFiscalRepositorio.ObterCuponsVinculados(tabela.SGDP, int.Parse(dado.NumeroNotaFiscal)));
+                    dado.CuponsFiscaisVinculados = cupomFiscalRepositorio.ObterCuponsVinculados(tabela.SGDP, dado.NumeroNotaFiscal));
 
             }
             catch (Exception ex)
@@ -152,7 +152,7 @@ namespace MPMG.Services
             return ConverterListaEntidadeParaDto(tabelaRepositorio.ListarTabelas());
         }
 
-        public List<int> ListarSgdpsTabelas()
+        public List<string> ListarSgdpsTabelas()
         {
             return tabelaRepositorio.ListarSgdpsTabelas().Select(item => item.SGDP).ToList();
         }
@@ -174,12 +174,12 @@ namespace MPMG.Services
             return tabelas;
         }
 
-        public List<AnpxNotaFiscalDto> ListarDadosAnpXNotaFiscalPorSgdp(int sgdp, int idMunicipio)
+        public List<AnpxNotaFiscalDto> ListarDadosAnpXNotaFiscalPorSgdp(string sgdp, int idMunicipio)
         {
             return ConverterListaEntidadeDadosAnpxNotaParaDto(anpxNotaFiscalRepositorio.ListarNotasFiscaisPorSgdp(sgdp, idMunicipio));
         }
 
-        public List<OutrasInformacoesDto> ListarDadosOutrasInformacoes(int sgdp, int idMunicipio)
+        public List<OutrasInformacoesDto> ListarDadosOutrasInformacoes(string sgdp, int idMunicipio)
         {
             return ConverterListaEntidadeOutrasInfosParaDto(outrasInfosRepositorio.ListarNotasFiscaisPorSgdp(sgdp, idMunicipio));
         }

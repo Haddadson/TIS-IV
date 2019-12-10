@@ -23,8 +23,8 @@ namespace MPMG.Services
             itemNotaFiscalRepo = new ItemNotaFiscalRepo();
         }
         public void CadastrarNotaFiscal(
-            int nrNotaFiscal,
-            int sGDP,
+            string nrNotaFiscal,
+            string sGDP,
             double valorTotal,
             string chaveAcesso,
             DateTime dataEmissao,
@@ -43,10 +43,7 @@ namespace MPMG.Services
                 chaveAcesso, dataEmissao, dataConsultaANP,
                 veiculo, placaVeiculo, numeroFolha,
                 departamento, mesFAM, anoFAM);
-
-            //double precoMaximo = 0;
-            //double precoMedio = 0;
-
+ 
             foreach (var item in ItensNotaFiscal)
             {
                 if(item != null)
@@ -60,16 +57,22 @@ namespace MPMG.Services
                     //    precoMedio = tabela.precoMedio;
                     //}
 
-                    itemNotaFiscalRepo.Cadastrar(nrNotaFiscal, int.Parse(item.Sgdp), item.Produto, 
+                    itemNotaFiscalRepo.Cadastrar(nrNotaFiscal, item.Sgdp, item.Produto, 
                         item.Quantidade, item.ValorTotal, item.ValorUnitario);
-
                 }
             }
 
-            //foreach (var cupom in cuponsSelecionados)
-            //{
-            //    cupomFiscalRepo.CadastrarCupom(sGDP, cupom, nrNotaFiscal);
-            //}
+            foreach (var cupom in cuponsSelecionados)
+            {
+                var cupomSalvo = cupomFiscalRepo.buscarCupomDisponivel(sGDP, cupom);
+                if (cupomSalvo == null)
+                {
+                    cupomFiscalRepo.CadastrarCupom(sGDP, cupom, nrNotaFiscal); // Insere um novo Cupom.
+                } else 
+                {
+                    cupomFiscalRepo.EditarCupom(sGDP, cupom, nrNotaFiscal); // Adicionamos o Número da Nota Fiscal ao Cupom já cadastrado.
+                }
+            }
         }
     }
 }

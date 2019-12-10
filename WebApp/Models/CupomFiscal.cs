@@ -4,8 +4,8 @@ namespace WebApp.Models
 {
     public class CupomFiscal
     {
-        public int SGDP { get; set; }
-        public int NrNotaFiscal { get; set; }
+        public string SGDP { get; set; }
+        public string NrNotaFiscal { get; set; }
         public string COO { get; set; }
         public string Posto { get; set; }
         public DateTime Data { get; set; }
@@ -17,6 +17,6 @@ namespace WebApp.Models
         public int Hodometro { get; set; }
         public string Veiculo { get; set; }
         public string PlacaVeiculo { get; set; }
-        public int Horario { get; set; }
+        public string Horario { get; set; }
     }
 }

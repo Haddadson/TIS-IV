@@ -13,8 +13,8 @@ namespace WebApp.Models
             ItensNotaFiscal = new List<ItemNotaFiscalDto>();
         }
 
-        public int NrNotaFiscal { get; set; }
-        public int SGDP { get; set; }        
+        public string NrNotaFiscal { get; set; }
+        public string SGDP { get; set; }        
         public double ValorTotal { get; set; }
         public string ChaveAcesso { get; set; }
         public string DataEmissao { get; set; }

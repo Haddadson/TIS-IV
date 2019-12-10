@@ -29,8 +29,8 @@ namespace MPMG.Repositories
         '0.0')";
 
         public bool Cadastrar(
-            int nrNotaFiscal, 
-            int sGDP, 
+            string nrNotaFiscal,
+            string sGDP, 
             double valorTotal, 
             string chaveAcesso, 
             DateTime dataEmissao, 
@@ -44,8 +44,8 @@ namespace MPMG.Repositories
         { 
             DynamicParameters parametros = new DynamicParameters();
 
-            parametros.Add("@nrNotaFiscal", nrNotaFiscal, DbType.Int32);
-            parametros.Add("@sGDP", sGDP, DbType.Int32);
+            parametros.Add("@nrNotaFiscal", nrNotaFiscal, DbType.AnsiString);
+            parametros.Add("@sGDP", sGDP, DbType.AnsiString);
             parametros.Add("@valorTotal", valorTotal, DbType.Double);
             parametros.Add("@chaveAcesso", chaveAcesso, DbType.AnsiString);
             parametros.Add("@dataEmissao", dataEmissao, DbType.DateTime);

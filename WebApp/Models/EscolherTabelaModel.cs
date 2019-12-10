@@ -7,9 +7,9 @@ namespace WebApp.Models
     {
         public EscolherTabelaModel()
         {
-            SgdpsTabelasUsuario = new List<int>();
+            SgdpsTabelasUsuario = new List<string>();
         }
 
-        public List<int> SgdpsTabelasUsuario { get; set; }
+        public List<string> SgdpsTabelasUsuario { get; set; }
     }
 }

@@ -27,13 +27,26 @@ namespace WebApp.Controllers
 
         public JsonResult ListarCupons(string SGDP)
         {
-            return cupomFiscalService.ListarCuponsDisponiveisPorSgdp(SGDP);
+            try
+            {
+                return Json(new
+                {
+                    coos = cupomFiscalService.ListarCuponsDisponiveisPorSgdp(SGDP)
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    Error = ex.Message
+                });
+            }
         }
 
         public JsonResult Cadastrar(NotaFiscal NotaFiscal, List<ItemNotaFiscalDto> ItensNotaFiscal)
         {
-            int NrNotaFiscal = NotaFiscal.NrNotaFiscal;
-            int SGDP = NotaFiscal.SGDP;
+            string SGDP = NotaFiscal.SGDP;
+            string NrNotaFiscal = NotaFiscal.NrNotaFiscal;
             double ValorTotal = NotaFiscal.ValorTotal;
             string ChaveAcesso = NotaFiscal.ChaveAcesso;
             DateTime DataEmissao = new DateTime(
