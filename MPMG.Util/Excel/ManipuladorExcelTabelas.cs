@@ -152,17 +152,42 @@ namespace MPMG.Util.Excel
 
         #region Obtenção de célula estilizada
 
-        protected ICell ObterCelulaParaCabecalho(int numeroLinha, int numeroColuna, string nomeAba)
+        protected ICell ObterCelulaParaCabecalho(int numeroLinha, int numeroColuna, string nomeAba, IndexedColors cor = null, XSSFColor corXssf = null)
         {
             ICell celula = ObterCelula(numeroLinha, numeroColuna, nomeAba);
-            celula.CellStyle = EstiloCelulaCabecalho;
+
+            var estiloTemporario = (XSSFCellStyle)WorkBook.CreateCellStyle();
+            estiloTemporario.CloneStyleFrom(EstiloCelulaCabecalho);
+
+            if (cor != null)
+            {
+                estiloTemporario.FillForegroundColor = cor.Index;
+                estiloTemporario.FillPattern = FillPattern.SolidForeground;
+            }
+            else if(corXssf != null)
+            {
+                estiloTemporario.SetFillForegroundColor(corXssf);
+                estiloTemporario.FillPattern = FillPattern.SolidForeground;
+            }
+
+            celula.CellStyle = estiloTemporario;
             return celula;
         }
 
-        protected ICell ObterCelulaParaTitulo(int numeroLinha, int numeroColuna, string nomeAba)
+        protected ICell ObterCelulaParaTitulo(int numeroLinha, int numeroColuna, string nomeAba, IndexedColors cor = null)
         {
             ICell celula = ObterCelula(numeroLinha, numeroColuna, nomeAba);
-            celula.CellStyle = EstiloCelulaTitulo;
+
+            var estiloTemporario = (XSSFCellStyle)WorkBook.CreateCellStyle();
+            estiloTemporario.CloneStyleFrom(EstiloCelulaTitulo);
+
+            if (cor != null)
+            {
+                estiloTemporario.FillForegroundColor = cor.Index;
+                estiloTemporario.FillPattern = FillPattern.SolidForeground;
+            }
+            
+            celula.CellStyle = estiloTemporario;
             return celula;
         }
 
@@ -180,31 +205,71 @@ namespace MPMG.Util.Excel
             return Sheet.GetRow(numeroLinha) ?? Sheet.CreateRow(numeroLinha);
         }
 
-        protected ICell ObterCelulaTexto(int numeroLinha, int numeroColuna, string nomeAba)
+        protected ICell ObterCelulaTexto(int numeroLinha, int numeroColuna, string nomeAba, IndexedColors cor = null)
         {
             ICell celula = ObterCelula(numeroLinha, numeroColuna, nomeAba);
+
+            var estiloTemporario = (XSSFCellStyle)WorkBook.CreateCellStyle();
+            estiloTemporario.CloneStyleFrom(EstiloCelulaCorpoTexto);
+
+            if (cor != null)
+            {
+                estiloTemporario.FillForegroundColor = cor.Index;
+                estiloTemporario.FillPattern = FillPattern.SolidForeground;
+            }
+
             celula.CellStyle = EstiloCelulaCorpoTexto;
             return celula;
         }
 
-        protected ICell ObterCelulaValorNumerico(int numeroLinha, int numeroColuna, string nomeAba)
+        protected ICell ObterCelulaValorNumerico(int numeroLinha, int numeroColuna, string nomeAba, IndexedColors cor = null)
         {
             ICell celula = ObterCelula(numeroLinha, numeroColuna, nomeAba);
-            celula.CellStyle = EstiloCelulaCorpoValorNumerico;
+
+            var estiloTemporario = (XSSFCellStyle)WorkBook.CreateCellStyle();
+            estiloTemporario.CloneStyleFrom(EstiloCelulaCorpoValorNumerico);
+
+            if (cor != null)
+            {
+                estiloTemporario.FillForegroundColor = cor.Index;
+                estiloTemporario.FillPattern = FillPattern.SolidForeground;
+            }
+
+            celula.CellStyle = estiloTemporario;
             return celula;
         }
 
-        protected ICell ObterCelulaValorInteiro(int numeroLinha, int numeroColuna, string nomeAba)
+        protected ICell ObterCelulaValorInteiro(int numeroLinha, int numeroColuna, string nomeAba, IndexedColors cor = null)
         {
             ICell celula = ObterCelula(numeroLinha, numeroColuna, nomeAba);
+
+            var estiloTemporario = (XSSFCellStyle)WorkBook.CreateCellStyle();
+            estiloTemporario.CloneStyleFrom(EstiloCelulaCorpoValorInteiro);
+
+            if (cor != null)
+            {
+                estiloTemporario.FillForegroundColor = cor.Index;
+                estiloTemporario.FillPattern = FillPattern.SolidForeground;
+            }
+
             celula.CellStyle = EstiloCelulaCorpoValorInteiro;
             return celula;
         }
 
-        protected ICell ObterCelulaData(int numeroLinha, int numeroColuna, string nomeAba)
+        protected ICell ObterCelulaData(int numeroLinha, int numeroColuna, string nomeAba, IndexedColors cor = null)
         {
             ICell celula = ObterCelula(numeroLinha, numeroColuna, nomeAba);
-            celula.CellStyle = EstiloCelulaCorpoData;
+
+            var estiloTemporario = (XSSFCellStyle)WorkBook.CreateCellStyle();
+            estiloTemporario.CloneStyleFrom(EstiloCelulaCorpoData);
+
+            if (cor != null)
+            {
+                estiloTemporario.FillForegroundColor = cor.Index;
+                estiloTemporario.FillPattern = FillPattern.SolidForeground;
+            }
+
+            celula.CellStyle = estiloTemporario;
             return celula;
         }
 
@@ -212,43 +277,42 @@ namespace MPMG.Util.Excel
 
         #region Métodos de preenchimento de células
 
-        public void PreencherCelulaCabecalho(int linha, int coluna, string valor, string nomeAba, XSSFCellStyle estilo = null)
+        public void PreencherCelulaCabecalho(int linha, int coluna, string valor, string nomeAba, IndexedColors cor = null, XSSFColor corXssf = null)
         {
-            ICell celulaCorrente = ObterCelulaParaCabecalho(linha, coluna, nomeAba);
-            celulaCorrente.SetCellValue(valor);
-
-            if(estilo != null)
-            {
-                celulaCorrente.CellStyle = estilo;
-            }
-        }
-        public void PreencherCelulaTitulo(int linha, int coluna, string valor, string nomeAba)
-        {
-            ICell celulaCorrente = ObterCelulaParaTitulo(linha, coluna, nomeAba);
+            ICell celulaCorrente = ObterCelulaParaCabecalho(linha, coluna, nomeAba, cor, corXssf);
             celulaCorrente.SetCellValue(valor);
         }
 
-        public void PreencherCelulaTexto(int linha, int coluna, string valor, string nomeAba)
+        public void PreencherCelulaTitulo(int linha, int coluna, string valor, string nomeAba, IndexedColors cor = null)
         {
-            ICell celulaCorrente = ObterCelulaTexto(linha, coluna, nomeAba);
+            ICell celulaCorrente = ObterCelulaParaTitulo(linha, coluna, nomeAba, cor);
             celulaCorrente.SetCellValue(valor);
         }
 
-        public void PreencherCelulaNumerica(int linha, int coluna, double? valor, string nomeAba)
+        public void PreencherCelulaTexto(int linha, int coluna, string valor, string nomeAba, IndexedColors cor = null)
         {
-            ICell celulaCorrente = ObterCelulaValorNumerico(linha, coluna, nomeAba);
+            ICell celulaCorrente = ObterCelulaTexto(linha, coluna, nomeAba, cor);
+            celulaCorrente.SetCellValue(valor);
+        }
+
+        public void PreencherCelulaNumerica(int linha, int coluna, double? valor, string nomeAba, IndexedColors cor = null)
+        {
+            ICell celulaCorrente = ObterCelulaValorNumerico(linha, coluna, nomeAba, cor);
+            if (valor.HasValue)
+                celulaCorrente.SetCellValue(valor.Value);
+
+        }
+
+        public void PreencherCelulaValorInteiro(int linha, int coluna, int? valor, string nomeAba, IndexedColors cor = null)
+        {
+            ICell celulaCorrente = ObterCelulaValorInteiro(linha, coluna, nomeAba, cor);
             if (valor.HasValue)
                 celulaCorrente.SetCellValue(valor.Value);
         }
-        public void PreencherCelulaValorInteiro(int linha, int coluna, int? valor, string nomeAba)
+
+        public void PreencherCelulaData(int linha, int coluna, DateTime? valor, string nomeAba, IndexedColors cor = null)
         {
-            ICell celulaCorrente = ObterCelulaValorInteiro(linha, coluna, nomeAba);
-            if (valor.HasValue)
-                celulaCorrente.SetCellValue(valor.Value);
-        }
-        public void PreencherCelulaData(int linha, int coluna, DateTime? valor, string nomeAba)
-        {
-            ICell celulaCorrente = ObterCelulaData(linha, coluna, nomeAba);
+            ICell celulaCorrente = ObterCelulaData(linha, coluna, nomeAba, cor);
             if (valor.HasValue)
                 celulaCorrente.SetCellValue(valor.Value);
         }

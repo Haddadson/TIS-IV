@@ -19,7 +19,6 @@ namespace MPMG.Services
         private const string ABA_2 = "Cupons Fiscais";
         private const string ABA_3 = "Outras informações";
 
-
         public byte[] ExportarDadosParaExcel(DadosTabelaDto DadosTabela,
                                                    List<AnpxNotaFiscalModelDto> ListaTabelaAnpxNota,
                                                    List<CupomFiscalDto> ListaCuponsFiscais,
@@ -53,12 +52,11 @@ namespace MPMG.Services
                                 List<CupomFiscalDto> listaCuponsFiscais,
                                 List<OutrasInformacoesModelDto> listaOutrasInformacoes)
         {
-            PreencherCabecalhoDaTabelaAba1(dadosTabela, listaTabelaAnpxNota);
+            PreencherCabecalhoDaTabelaAba1(dadosTabela);
             PreencherGridAba1(listaTabelaAnpxNota);
         }
 
-        private void PreencherCabecalhoDaTabelaAba1(DadosTabelaDto dadosTabela,
-                                List<AnpxNotaFiscalModelDto> listaTabelaAnpxNota)
+        private void PreencherCabecalhoDaTabelaAba1(DadosTabelaDto dadosTabela)
         {
             int coluna = POSICAO_PRIMEIRA_COLUNA;
 
@@ -100,7 +98,7 @@ namespace MPMG.Services
             PreencherCelulaDoCabecalho(6, coluna++, 20, "VALOR TOTAL", ABA_1);
             PreencherCelulaDoCabecalho(6, coluna++, 10, "VALOR TOTAL DA NOTA", ABA_1);
             PreencherCelulaDoCabecalho(6, coluna++, 10, "NUM. FOLHA", ABA_1);
-            PreencherCelulaDoCabecalho(6, coluna++, 11, $"FAM ANO/MES", ABA_1);
+            PreencherCelulaDoCabecalho(6, coluna++, 11, $"FAM ANO/MES", ABA_1); //TODO ano mes fam
             PreencherCelulaDoCabecalho(6, coluna++, 12, "PREÇO MED ANP", ABA_1);
             PreencherCelulaDoCabecalho(6, coluna++, 12, "DIFERENÇA MED UNIT.", ABA_1);
             PreencherCelulaDoCabecalho(6, coluna++, 12, "DIFERENÇA MED TOTAL", ABA_1);
@@ -132,12 +130,22 @@ namespace MPMG.Services
             ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.ValorFam, ABA_1);
             ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.PrecoMedioAnp, ABA_1);
             ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMediaUnitaria.Replace(',', '.')), ABA_1);
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMediaTotal.Replace(',', '.')), ABA_1);
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.ValorMedioAtualizado.Replace(',', '.')), ABA_1);
+
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMediaTotal.Replace(',', '.')), ABA_1,
+                double.Parse(item.DiferencaMediaUnitaria.Replace(',', '.')) > 0 ? IndexedColors.LightYellow : null);
+
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.ValorMedioAtualizado.Replace(',', '.')), ABA_1,
+                double.Parse(item.DiferencaMediaUnitaria.Replace(',', '.')) > 0 ? IndexedColors.LightYellow : null);
+
             ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.PrecoMaximoAnp, ABA_1);
             ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMaximaUnitaria.Replace(',', '.')), ABA_1);
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMaximaTotal.Replace(',', '.')), ABA_1);
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.ValorMaximoAtualizado.Replace(',', '.')), ABA_1);
+
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMaximaTotal.Replace(',', '.')), ABA_1,
+                double.Parse(item.DiferencaMaximaUnitaria.Replace(',', '.')) > 0 ? IndexedColors.Red : null);
+
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.ValorMaximoAtualizado.Replace(',', '.')), ABA_1,
+                double.Parse(item.DiferencaMaximaUnitaria.Replace(',', '.')) > 0 ? IndexedColors.Red : null);
+
             ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, string.Join(";", item.CuponsFiscaisVinculados), ABA_1);
             ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, string.Format("{0}/{1}", item.MesAnp, item.AnoAnp), ABA_1);
 
@@ -147,12 +155,7 @@ namespace MPMG.Services
 
         private void PreencherCelulaDoCabecalho(int linha, int coluna, int tamanho, string conteudo, string nomeAba)
         {
-            var estilo = ManipuladorPlanilha.CriarEstilo();
-
-            estilo.SetFillForegroundColor(new XSSFColor(new byte[] { 195, 218, 242 }));
-            estilo.FillPattern = FillPattern.SolidForeground;
-
-            ManipuladorPlanilha.PreencherCelulaCabecalho(linha, coluna, conteudo, nomeAba);
+            ManipuladorPlanilha.PreencherCelulaCabecalho(linha, coluna, conteudo, nomeAba, null, new XSSFColor(new byte[] { 195, 218, 242 }));
             ManipuladorPlanilha.DefinirLarguraDaColuna(coluna, tamanho, nomeAba);
         }
 

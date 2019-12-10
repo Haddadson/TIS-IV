@@ -69,7 +69,7 @@ namespace MPMG.Repositories
             DynamicParameters parametros = new DynamicParameters();
 
             parametros.Add("@IdMunicipio", idMunicipio, DbType.Int32);
-            parametros.Add("@IdMunicipioReferente", idMunicipioReferente, DbType.Int32);
+            parametros  .Add("@IdMunicipioReferente", idMunicipioReferente, DbType.Int32);
             parametros.Add("@Ano", ano.ToString(), DbType.AnsiStringFixedLength);
 
             Execute(SQL_INSERIR_MUNICIPIO_REFERENTE, parametros);
