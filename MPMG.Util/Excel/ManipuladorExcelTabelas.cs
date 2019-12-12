@@ -67,10 +67,14 @@ namespace MPMG.Util.Excel
         private void CriarEstiloCabecalho()
         {
             EstiloCelulaCabecalho = (XSSFCellStyle)WorkBook.CreateCellStyle();
-            EstiloCelulaCabecalho.Alignment = HorizontalAlignment.Right;
+            EstiloCelulaCabecalho.Alignment = HorizontalAlignment.Center;
             EstiloCelulaCabecalho.VerticalAlignment = VerticalAlignment.Center;
             EstiloCelulaCabecalho.SetFont(FonteCabecalho);
             EstiloCelulaCabecalho.WrapText = true;
+            EstiloCelulaCabecalho.BorderBottom = BorderStyle.Thin;
+            EstiloCelulaCabecalho.BorderTop = BorderStyle.Thin;
+            EstiloCelulaCabecalho.BorderLeft = BorderStyle.Thin;
+            EstiloCelulaCabecalho.BorderRight = BorderStyle.Thin;
         }
 
         private void CriarEstiloTitulo()
@@ -80,6 +84,10 @@ namespace MPMG.Util.Excel
             EstiloCelulaTitulo.VerticalAlignment = VerticalAlignment.Center;
             EstiloCelulaTitulo.SetFont(FonteCabecalho);
             EstiloCelulaTitulo.WrapText = true;
+            EstiloCelulaTitulo.BorderBottom = BorderStyle.Thin;
+            EstiloCelulaTitulo.BorderTop = BorderStyle.Thin;
+            EstiloCelulaTitulo.BorderLeft = BorderStyle.Thin;
+            EstiloCelulaTitulo.BorderRight = BorderStyle.Thin;
         }
 
         private void CriarEstilosCorpo()
@@ -106,6 +114,10 @@ namespace MPMG.Util.Excel
             estilo.SetFillForegroundColor(new XSSFColor(Color.Transparent));
             estilo.FillPattern = FillPattern.NoFill;
             estilo.SetFont(FonteCelulaCorpo);
+            estilo.BorderBottom = BorderStyle.Thin;
+            estilo.BorderTop = BorderStyle.Thin;
+            estilo.BorderLeft = BorderStyle.Thin;
+            estilo.BorderRight = BorderStyle.Thin;
             return estilo;
         }
 

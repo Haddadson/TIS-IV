@@ -54,7 +54,15 @@ namespace MPMG.Services
         {
             PreencherCabecalhoDaTabelaAba1(dadosTabela);
             PreencherGridAba1(listaTabelaAnpxNota);
+
+            PreencherCabecalhoDaTabelaAba2(dadosTabela);
+            PreencherGridAba2(listaCuponsFiscais);
+
+            PreencherCabecalhoDaTabelaAba3(dadosTabela);
+            PreencherGridAba3(listaOutrasInformacoes);
         }
+
+        #region Aba 1
 
         private void PreencherCabecalhoDaTabelaAba1(DadosTabelaDto dadosTabela)
         {
@@ -106,9 +114,11 @@ namespace MPMG.Services
             PreencherCelulaDoCabecalho(6, coluna++, 12, "PREÇO MAX ANP", ABA_1);
             PreencherCelulaDoCabecalho(6, coluna++, 12, "DIFERENÇA MAX UNIT.", ABA_1);
             PreencherCelulaDoCabecalho(6, coluna++, 12, "DIFERENÇA MAX TOTAL", ABA_1);
-            PreencherCelulaDoCabecalho(6, coluna++, 12, "VALOR MAX ATUALIZADO", ABA_1);
+            PreencherCelulaDoCabecalho(6, coluna++, 14, "VALOR MAX ATUALIZADO", ABA_1);
             PreencherCelulaDoCabecalho(6, coluna++, 12, "CUPONS FISCAIS VINCULADOS", ABA_1);
             PreencherCelulaDoCabecalho(6, coluna++, 12, "MES/ANO PROCURADOS NA ANP", ABA_1);
+
+            ManipuladorPlanilha.DefinirAlturaDaLinha(6, 45, ABA_1);
         }
 
         private void PreencherGridAba1(List<AnpxNotaFiscalModelDto> listaTabelaAnpxNota)
@@ -150,8 +160,133 @@ namespace MPMG.Services
             ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, string.Format("{0}/{1}", item.MesAnp, item.AnoAnp), ABA_1);
 
 
-            ManipuladorPlanilha.DefinirAlturaDaLinha(linha, 50, ABA_1);
+            ManipuladorPlanilha.DefinirAlturaDaLinha(linha, 15, ABA_1);
         }
+
+        #endregion
+
+        #region Aba 2
+
+        private void PreencherCabecalhoDaTabelaAba2(DadosTabelaDto dadosTabela)
+        {
+            int coluna = POSICAO_PRIMEIRA_COLUNA;
+
+            ManipuladorPlanilha.CriarCelulaMerge(0, 0, 0, 10, ABA_2);
+            ManipuladorPlanilha.PreencherCelulaTitulo(0, 0, dadosTabela.Titulo2, ABA_2);
+
+            ManipuladorPlanilha.PreencherCelulaCabecalho(2, 0, "SGDP", ABA_2);
+            ManipuladorPlanilha.PreencherCelulaTexto(2, 1, dadosTabela.Sgdp, ABA_2);
+
+            ManipuladorPlanilha.CriarCelulaMerge(2, 2, 3, 4, ABA_2);
+            ManipuladorPlanilha.PreencherCelulaCabecalho(2, 3, "Município(s):", ABA_2);
+            ManipuladorPlanilha.CriarCelulaMerge(2, 2, 5, 8, ABA_2);
+            ManipuladorPlanilha.PreencherCelulaTexto(2, 5, dadosTabela.Municipio, ABA_2);
+
+            PreencherCelulaDoCabecalho(5, coluna++, 25, "NUM. NF REFERENTE", ABA_2);
+            PreencherCelulaDoCabecalho(5, coluna++, 15, "DATA", ABA_2);
+            PreencherCelulaDoCabecalho(5, coluna++, 20, "HORÁRIO", ABA_2);
+            PreencherCelulaDoCabecalho(5, coluna++, 15, "COO", ABA_2);
+            PreencherCelulaDoCabecalho(5, coluna++, 25, "COMBUSTÍVEL", ABA_2);
+            PreencherCelulaDoCabecalho(5, coluna++, 15, "QUANT.", ABA_2);
+            PreencherCelulaDoCabecalho(5, coluna++, 20, "PREÇO UNIT.", ABA_2);
+            PreencherCelulaDoCabecalho(5, coluna++, 15, "VALOR TOTAL", ABA_2);
+            PreencherCelulaDoCabecalho(5, coluna++, 15, "VEÍCULO", ABA_2); //TODO ano mes fam
+            PreencherCelulaDoCabecalho(5, coluna++, 15, "PLACA VEÍCULO", ABA_2);
+            PreencherCelulaDoCabecalho(5, coluna++, 25, "HODÔMETRO", ABA_2);
+
+            ManipuladorPlanilha.DefinirAlturaDaLinha(5, 45, ABA_2);
+        }
+
+        private void PreencherGridAba2(List<CupomFiscalDto> listaCupons)
+        {
+            int linha = 6;
+            listaCupons.ForEach(item => PreencherLinhaDoGridAba2(linha++, POSICAO_PRIMEIRA_COLUNA, item));
+        }
+
+        private void PreencherLinhaDoGridAba2(int linha, int coluna, CupomFiscalDto item)
+        {
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.NumeroNotaFiscal.ToString(), ABA_2);
+            ManipuladorPlanilha.PreencherCelulaData(linha, coluna++, item.DataEmissao.Date, ABA_2);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.DataEmissao.ToShortTimeString(), ABA_2);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.Coo, ABA_2);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.Produto, ABA_2);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.Quantidade, ABA_2);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.PrecoUnitario, ABA_2);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.ValorTotal, ABA_2);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.Veiculo, ABA_2);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.PlacaVeiculo, ABA_2);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.Hodometro, ABA_2);
+
+            ManipuladorPlanilha.DefinirAlturaDaLinha(linha, 15, ABA_2);
+        }
+
+        #endregion
+
+        #region Aba 3
+
+        private void PreencherCabecalhoDaTabelaAba3(DadosTabelaDto dadosTabela)
+        {
+            int coluna = POSICAO_PRIMEIRA_COLUNA;
+
+            ManipuladorPlanilha.CriarCelulaMerge(0, 0, 0, 10, ABA_3);
+            ManipuladorPlanilha.PreencherCelulaTitulo(0, 0, dadosTabela.Titulo3, ABA_3);
+
+            ManipuladorPlanilha.PreencherCelulaCabecalho(2, 0, "SGDP", ABA_3);
+            ManipuladorPlanilha.PreencherCelulaTexto(2, 1, dadosTabela.Sgdp, ABA_3);
+
+            ManipuladorPlanilha.CriarCelulaMerge(2, 2, 4, 5, ABA_3);
+            ManipuladorPlanilha.PreencherCelulaCabecalho(2, 4, "Município(s):", ABA_3);
+            ManipuladorPlanilha.CriarCelulaMerge(2, 2, 6, 9, ABA_3);
+            ManipuladorPlanilha.PreencherCelulaTexto(2, 6, dadosTabela.Municipio, ABA_3);
+
+            PreencherCelulaDoCabecalho(5, coluna++, 20, "NUM. NF REFERENTE", ABA_3);
+            PreencherCelulaDoCabecalho(5, coluna++, 25, "COOs VINCULADOS", ABA_3);
+            PreencherCelulaDoCabecalho(5, coluna++, 25, "DEPARTAMENTO", ABA_3);
+            PreencherCelulaDoCabecalho(5, coluna++, 15, "VEÍCULO", ABA_3);
+            PreencherCelulaDoCabecalho(5, coluna++, 15, "PLACA VEÍCULO", ABA_3);
+            PreencherCelulaDoCabecalho(5, coluna++, 20, "COMBUSTÍVEL", ABA_3);
+            PreencherCelulaDoCabecalho(5, coluna++, 25, "VALOR TOTAL CUPOM FISCAL", ABA_3);
+            PreencherCelulaDoCabecalho(5, coluna++, 25, "DIFERENÇA  MED TOTAL NF", ABA_3);
+            PreencherCelulaDoCabecalho(5, coluna++, 25, "VALOR MED ATUALIZADO NF", ABA_3);
+            PreencherCelulaDoCabecalho(5, coluna++, 25, "DIFERENÇA MAX TOTAL NF", ABA_3);
+            PreencherCelulaDoCabecalho(5, coluna++, 25, "VALOR MAX ATUALIZADO NF", ABA_3);
+
+            ManipuladorPlanilha.DefinirAlturaDaLinha(5, 45, ABA_3);
+        }
+
+        private void PreencherGridAba3(List<OutrasInformacoesModelDto> listaOutrasInfos)
+        {
+            int linha = 6;
+            listaOutrasInfos.ForEach(item => PreencherLinhaDoGridAba3(linha++, POSICAO_PRIMEIRA_COLUNA, item));
+        }
+
+        private void PreencherLinhaDoGridAba3(int linha, int coluna, OutrasInformacoesModelDto item)
+        {
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.NumeroNotaFiscal.ToString(), ABA_3);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, string.Join(";", item.CuponsFiscaisVinculados), ABA_3);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.NomeDepartamento, ABA_3);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.Veiculo, ABA_3);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.PlacaVeiculo, ABA_3);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.Produto, ABA_3);
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.ValorTotalNota, ABA_3);
+
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMediaTotal.Replace('.', ',')), ABA_3,
+                double.Parse(item.DiferencaMediaTotal.Replace(',', '.')) > 0 ? IndexedColors.LightYellow : null);
+
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.ValorMedioAtualizado.Replace(',', '.')), ABA_3,
+                double.Parse(item.DiferencaMediaTotal.Replace(',', '.')) > 0 ? IndexedColors.LightYellow : null);
+
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMaximaTotal.Replace(',', '.')), ABA_3,
+                double.Parse(item.DiferencaMaximaTotal.Replace(',', '.')) > 0 ? IndexedColors.Red : null);
+
+            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.ValorMaximoAtualizado.Replace(',', '.')), ABA_3,
+                double.Parse(item.DiferencaMaximaTotal.Replace(',', '.')) > 0 ? IndexedColors.Red : null);
+
+            ManipuladorPlanilha.DefinirAlturaDaLinha(linha, 15, ABA_3);
+        }
+
+        #endregion
+
 
         private void PreencherCelulaDoCabecalho(int linha, int coluna, int tamanho, string conteudo, string nomeAba)
         {
