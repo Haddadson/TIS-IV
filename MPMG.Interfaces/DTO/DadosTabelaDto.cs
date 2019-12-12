@@ -13,5 +13,7 @@ namespace MPMG.Interfaces.DTO
         public string Titulo1 { get; set; }
         public string Titulo2 { get; set; }
         public string Titulo3 { get; set; }
+        public int MesFam { get; set; }
+        public int AnoFam { get; set; }
     }
 }

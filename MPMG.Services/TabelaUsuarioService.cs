@@ -96,12 +96,14 @@ namespace MPMG.Services
 
         public TabelaUsuarioDto ObterTabela(string sgdp)
         {
-            return ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(int.Parse(sgdp)));
+            return ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(sgdp));
         }
 
         public TabelaUsuarioDto ObterTabelaComDadosAnpxNotaFiscal(string sgdp)
         {
-            var tabela = ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(int.Parse(sgdp)));
+            var tabela = ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(sgdp));
+
+            tabela.AnosReferentes = tabelaRepositorio.ListarAnosReferentesPorSgdp(sgdp);
 
             if (tabela == null || (tabela.Municipio == null && tabela.MunicipioReferente == null))
                 throw new Exception("Erro ao encontrar");
@@ -125,7 +127,7 @@ namespace MPMG.Services
 
         public TabelaUsuarioDto ObterTabelaOutrasInformacoes(string sgdp)
         {
-            var tabela = ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(int.Parse(sgdp)));
+            var tabela = ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(sgdp));
 
             if (tabela == null || (tabela.Municipio == null && tabela.MunicipioReferente == null))
                 throw new Exception("Erro ao encontrar");
@@ -192,7 +194,6 @@ namespace MPMG.Services
             return new TabelaUsuarioDto()
             {
                 AnalistaResponsavel = entidade.AnalistaResponsavel,
-                AnoReferente = entidade.AnoReferente,
                 DataGeracao = entidade.DataGeracao,
                 SGDP = entidade.SGDP,
                 Titulo1 = entidade.Titulo1,

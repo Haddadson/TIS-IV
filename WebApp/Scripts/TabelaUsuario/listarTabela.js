@@ -33,14 +33,16 @@
 
         let dadosTabela = {
             "Sgdp": $("#export-sgdp").html(),
-            "Munincipio": $("#export-municipio").html(),
-            "MunincipioReferente": $("#export-municipio-ref").html(),
+            "Municipio": $("#export-municipio").html(),
+            "MunicipioReferente": $("#export-municipio-ref").html(),
             "AnalistaResponsavel": $("#export-analista").html(),
             "DataGeracao": $("#export-data-geracao").html(),
             "AnosReferentes": $("#export-anos-referentes").html(),
             "Titulo1": $("#export-titulo-1").html(),
             "Titulo2": $("#export-titulo-2").html(),
-            "Titulo3": $("#export-titulo-3").html()
+            "Titulo3": $("#export-titulo-3").html(),
+            "MesFam": $("#export-mes-fam").html(),
+            "AnoFam": $("#export-ano-fam").html()
         };
 
         let dadosAnpxNota = $("#data-table-nf-anp").DataTable().rows().data();
@@ -53,20 +55,22 @@
                 "NumeroNotaFiscal": dadosAnpxNota[i][1],
                 "Produto": dadosAnpxNota[i][2],
                 "Quantidade": dadosAnpxNota[i][3],
-                "ValorUnitario": dadosAnpxNota[i][4].replace(",", "."),
-                "ValorTotalItem": dadosAnpxNota[i][5].replace(",", "."),
-                "ValorTotalNota": dadosAnpxNota[i][6].replace(",", "."),
+                "ValorUnitario": dadosAnpxNota[i][4],
+                "ValorTotalItem": dadosAnpxNota[i][5],
+                "ValorTotalNota": dadosAnpxNota[i][6],
                 "NumeroFolha": dadosAnpxNota[i][7],
-                "ValorFam": dadosAnpxNota[i][8].replace(",", "."),
-                "PrecoMedioAnp": dadosAnpxNota[i][9].replace(",", "."),
-                "DiferencaMediaUnitaria": dadosAnpxNota[i][10].replace(",", "."),
-                "DiferencaMediaTotal": dadosAnpxNota[i][11].replace(",", "."),
-                "ValorMedioAtualizado": dadosAnpxNota[i][12].replace(",", "."),
-                "DiferencaMaximaUnitaria": dadosAnpxNota[i][13].replace(",", "."),
-                "DiferencaMaximaTotal": dadosAnpxNota[i][14].replace(",", "."),
-                "ValorMaximoAtualizado": dadosAnpxNota[i][15].replace(",", "."),
-                "CuponsFiscaisVinculados": dadosAnpxNota[i][16],
-                "MesAnoAnp": dadosAnpxNota[i][17]
+                "ValorFam": dadosAnpxNota[i][8],
+                "PrecoMedioAnp": dadosAnpxNota[i][9],
+                "DiferencaMediaUnitaria": dadosAnpxNota[i][10],
+                "DiferencaMediaTotal": dadosAnpxNota[i][11],
+                "ValorMedioAtualizado": dadosAnpxNota[i][12],
+                "PrecoMaximoAnp": dadosAnpxNota[i][13],
+                "DiferencaMaximaUnitaria": dadosAnpxNota[i][14],
+                "DiferencaMaximaTotal": dadosAnpxNota[i][15],
+                "ValorMaximoAtualizado": dadosAnpxNota[i][16],
+                "CuponsFiscaisVinculados": dadosAnpxNota[i][17],
+                "MesAnp": dadosAnpxNota[i][18] && dadosAnpxNota[i][18].split('/')[0] ,
+                "AnoAnp": dadosAnpxNota[i][18] && dadosAnpxNota[i][18].split('/')[1]
             };
             listaTabelaAnpxNota.push(dado);
         }
@@ -80,8 +84,8 @@
                 "Coo": dadosCuponsFiscais[i][4],
                 "Produto": dadosCuponsFiscais[i][5],
                 "Quantidade": dadosCuponsFiscais[i][6],
-                "PrecoUnitario": dadosCuponsFiscais[i][7].replace(",", "."),
-                "ValorTotal": dadosCuponsFiscais[i][8].replace(",", "."),
+                "PrecoUnitario": dadosCuponsFiscais[i][7],
+                "ValorTotal": dadosCuponsFiscais[i][8],
                 "Cliente": dadosCuponsFiscais[i][9],
                 "Veiculo": dadosCuponsFiscais[i][10],
                 "PlacaVeiculo": dadosCuponsFiscais[i][11],
@@ -99,11 +103,11 @@
                 "Veiculo": dadosOutrasInformacoes[i][3],
                 "PlacaVeiculo": dadosOutrasInformacoes[i][4],
                 "Produto": dadosOutrasInformacoes[i][5],
-                "ValorTotalNota": dadosOutrasInformacoes[i][6].replace(",", "."),
-                "DiferencaMediaTotal": dadosOutrasInformacoes[i][7].replace(",", "."),
-                "ValorMedioAtualizado": dadosOutrasInformacoes[i][8].replace(",", "."),
-                "DiferencaMaximaTotal": dadosOutrasInformacoes[i][9].replace(",", "."),
-                "ValorMaximoAtualizado": dadosOutrasInformacoes[i][10].replace(",", ".")
+                "ValorTotalNota": dadosOutrasInformacoes[i][6],
+                "DiferencaMediaTotal": dadosOutrasInformacoes[i][7],
+                "ValorMedioAtualizado": dadosOutrasInformacoes[i][8],
+                "DiferencaMaximaTotal": dadosOutrasInformacoes[i][9],
+                "ValorMaximoAtualizado": dadosOutrasInformacoes[i][10]
             };
             listaOutrasInformacoes.push(dado);
         }

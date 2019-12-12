@@ -90,8 +90,10 @@
                                 <p><span class="font-weight-bold">Data de geração: </span><span id="export-data-geracao">@Model.TabelaAnpXNota.DataGeracao.ToShortDateString()</span></p>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3">
-                                <p><span class="font-weight-bold">Ano(s) referente(s): </span><span id="export-anos-referentes">@Model.TabelaAnpXNota.AnoReferente</span></p>
+                                <p><span class="font-weight-bold">Ano(s) referente(s): </span><span id="export-anos-referentes">@string.Join(" / ", Model.TabelaAnpXNota.AnosReferentes)</span></p>
                             </div>
+                            <span id="export-mes-fam" style="display: none;">@(Model.TabelaAnpXNota.DadosAnpxNotaFiscal.FirstOrDefault()?.MesFam ?? 0)</span>
+                            <span id="export-ano-fam" style="display: none;">@(Model.TabelaAnpXNota.DadosAnpxNotaFiscal.FirstOrDefault()?.AnoFam ?? 0)</span>
 
                         }
 
@@ -108,7 +110,6 @@
                                     <th>VALOR TOTAL DA NOTA</th>
                                     <th>NUM. FOLHA</th>
                                     <th>FAM @(Model.TabelaAnpXNota.DadosAnpxNotaFiscal.FirstOrDefault()?.MesFam.ToString() ?? "-") / @(Model.TabelaAnpXNota.DadosAnpxNotaFiscal.FirstOrDefault()?.AnoFam.ToString() ?? "-") </th>
-                                    @*Nessa linha o mês ano deve ser substituído de acordo com o dado da tabela de excel gerada*@
                                     <th>PREÇO MED. ANP</th>
                                     <th>DIFERENÇA MED. UNIT.</th>
                                     <th>DIFERENÇA MED TOTAL</th>

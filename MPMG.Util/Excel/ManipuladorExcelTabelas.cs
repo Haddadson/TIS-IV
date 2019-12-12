@@ -84,10 +84,6 @@ namespace MPMG.Util.Excel
             EstiloCelulaTitulo.VerticalAlignment = VerticalAlignment.Center;
             EstiloCelulaTitulo.SetFont(FonteCabecalho);
             EstiloCelulaTitulo.WrapText = true;
-            EstiloCelulaTitulo.BorderBottom = BorderStyle.Thin;
-            EstiloCelulaTitulo.BorderTop = BorderStyle.Thin;
-            EstiloCelulaTitulo.BorderLeft = BorderStyle.Thin;
-            EstiloCelulaTitulo.BorderRight = BorderStyle.Thin;
         }
 
         private void CriarEstilosCorpo()
@@ -164,19 +160,27 @@ namespace MPMG.Util.Excel
 
         #region Obtenção de célula estilizada
 
-        protected ICell ObterCelulaParaCabecalho(int numeroLinha, int numeroColuna, string nomeAba, IndexedColors cor = null, XSSFColor corXssf = null)
+        protected ICell ObterCelulaParaCabecalho(int numeroLinha, int numeroColuna, string nomeAba, bool borda, IndexedColors cor = null, XSSFColor corXssf = null)
         {
             ICell celula = ObterCelula(numeroLinha, numeroColuna, nomeAba);
 
             var estiloTemporario = (XSSFCellStyle)WorkBook.CreateCellStyle();
-            estiloTemporario.CloneStyleFrom(EstiloCelulaCabecalho);
+            estiloTemporario = (XSSFCellStyle)EstiloCelulaCabecalho.Clone();
+
+            if (!borda)
+            {
+                estiloTemporario.BorderBottom = BorderStyle.None;
+                estiloTemporario.BorderTop = BorderStyle.None;
+                estiloTemporario.BorderLeft = BorderStyle.None;
+                estiloTemporario.BorderRight = BorderStyle.None;
+            }
 
             if (cor != null)
             {
                 estiloTemporario.FillForegroundColor = cor.Index;
                 estiloTemporario.FillPattern = FillPattern.SolidForeground;
             }
-            else if(corXssf != null)
+            else if (corXssf != null)
             {
                 estiloTemporario.SetFillForegroundColor(corXssf);
                 estiloTemporario.FillPattern = FillPattern.SolidForeground;
@@ -186,19 +190,27 @@ namespace MPMG.Util.Excel
             return celula;
         }
 
-        protected ICell ObterCelulaParaTitulo(int numeroLinha, int numeroColuna, string nomeAba, IndexedColors cor = null)
+        protected ICell ObterCelulaParaTitulo(int numeroLinha, int numeroColuna, bool borda, string nomeAba, IndexedColors cor = null)
         {
             ICell celula = ObterCelula(numeroLinha, numeroColuna, nomeAba);
 
             var estiloTemporario = (XSSFCellStyle)WorkBook.CreateCellStyle();
-            estiloTemporario.CloneStyleFrom(EstiloCelulaTitulo);
+            estiloTemporario = (XSSFCellStyle)EstiloCelulaTitulo.Clone();
+
+            if (!borda)
+            {
+                estiloTemporario.BorderBottom = BorderStyle.None;
+                estiloTemporario.BorderTop = BorderStyle.None;
+                estiloTemporario.BorderLeft = BorderStyle.None;
+                estiloTemporario.BorderRight = BorderStyle.None;
+            }
 
             if (cor != null)
             {
                 estiloTemporario.FillForegroundColor = cor.Index;
                 estiloTemporario.FillPattern = FillPattern.SolidForeground;
             }
-            
+
             celula.CellStyle = estiloTemporario;
             return celula;
         }
@@ -217,12 +229,20 @@ namespace MPMG.Util.Excel
             return Sheet.GetRow(numeroLinha) ?? Sheet.CreateRow(numeroLinha);
         }
 
-        protected ICell ObterCelulaTexto(int numeroLinha, int numeroColuna, string nomeAba, IndexedColors cor = null)
+        protected ICell ObterCelulaTexto(int numeroLinha, int numeroColuna, string nomeAba, bool borda, IndexedColors cor = null)
         {
             ICell celula = ObterCelula(numeroLinha, numeroColuna, nomeAba);
 
             var estiloTemporario = (XSSFCellStyle)WorkBook.CreateCellStyle();
-            estiloTemporario.CloneStyleFrom(EstiloCelulaCorpoTexto);
+            estiloTemporario = (XSSFCellStyle)EstiloCelulaCorpoTexto.Clone();
+
+            if (!borda)
+            {
+                estiloTemporario.BorderBottom = BorderStyle.None;
+                estiloTemporario.BorderTop = BorderStyle.None;
+                estiloTemporario.BorderLeft = BorderStyle.None;
+                estiloTemporario.BorderRight = BorderStyle.None;
+            }
 
             if (cor != null)
             {
@@ -234,12 +254,20 @@ namespace MPMG.Util.Excel
             return celula;
         }
 
-        protected ICell ObterCelulaValorNumerico(int numeroLinha, int numeroColuna, string nomeAba, IndexedColors cor = null)
+        protected ICell ObterCelulaValorNumerico(int numeroLinha, int numeroColuna, string nomeAba, bool borda, IndexedColors cor = null)
         {
             ICell celula = ObterCelula(numeroLinha, numeroColuna, nomeAba);
 
             var estiloTemporario = (XSSFCellStyle)WorkBook.CreateCellStyle();
-            estiloTemporario.CloneStyleFrom(EstiloCelulaCorpoValorNumerico);
+            estiloTemporario = (XSSFCellStyle)EstiloCelulaCorpoValorNumerico.Clone();
+
+            if (!borda)
+            {
+                estiloTemporario.BorderBottom = BorderStyle.None;
+                estiloTemporario.BorderTop = BorderStyle.None;
+                estiloTemporario.BorderLeft = BorderStyle.None;
+                estiloTemporario.BorderRight = BorderStyle.None;
+            }
 
             if (cor != null)
             {
@@ -251,12 +279,20 @@ namespace MPMG.Util.Excel
             return celula;
         }
 
-        protected ICell ObterCelulaValorInteiro(int numeroLinha, int numeroColuna, string nomeAba, IndexedColors cor = null)
+        protected ICell ObterCelulaValorInteiro(int numeroLinha, int numeroColuna, string nomeAba, bool borda, IndexedColors cor = null)
         {
             ICell celula = ObterCelula(numeroLinha, numeroColuna, nomeAba);
 
             var estiloTemporario = (XSSFCellStyle)WorkBook.CreateCellStyle();
-            estiloTemporario.CloneStyleFrom(EstiloCelulaCorpoValorInteiro);
+            estiloTemporario = (XSSFCellStyle)EstiloCelulaCorpoValorInteiro.Clone();
+
+            if (!borda)
+            {
+                estiloTemporario.BorderBottom = BorderStyle.None;
+                estiloTemporario.BorderTop = BorderStyle.None;
+                estiloTemporario.BorderLeft = BorderStyle.None;
+                estiloTemporario.BorderRight = BorderStyle.None;
+            }
 
             if (cor != null)
             {
@@ -268,12 +304,20 @@ namespace MPMG.Util.Excel
             return celula;
         }
 
-        protected ICell ObterCelulaData(int numeroLinha, int numeroColuna, string nomeAba, IndexedColors cor = null)
+        protected ICell ObterCelulaData(int numeroLinha, int numeroColuna, string nomeAba, bool borda, IndexedColors cor = null)
         {
             ICell celula = ObterCelula(numeroLinha, numeroColuna, nomeAba);
 
             var estiloTemporario = (XSSFCellStyle)WorkBook.CreateCellStyle();
-            estiloTemporario.CloneStyleFrom(EstiloCelulaCorpoData);
+            estiloTemporario = (XSSFCellStyle)EstiloCelulaCorpoData.Clone();
+
+            if (!borda)
+            {
+                estiloTemporario.BorderBottom = BorderStyle.None;
+                estiloTemporario.BorderTop = BorderStyle.None;
+                estiloTemporario.BorderLeft = BorderStyle.None;
+                estiloTemporario.BorderRight = BorderStyle.None;
+            }
 
             if (cor != null)
             {
@@ -289,42 +333,42 @@ namespace MPMG.Util.Excel
 
         #region Métodos de preenchimento de células
 
-        public void PreencherCelulaCabecalho(int linha, int coluna, string valor, string nomeAba, IndexedColors cor = null, XSSFColor corXssf = null)
+        public void PreencherCelulaCabecalho(int linha, int coluna, string valor, string nomeAba, bool borda, IndexedColors cor = null, XSSFColor corXssf = null)
         {
-            ICell celulaCorrente = ObterCelulaParaCabecalho(linha, coluna, nomeAba, cor, corXssf);
+            ICell celulaCorrente = ObterCelulaParaCabecalho(linha, coluna, nomeAba, borda, cor, corXssf);
             celulaCorrente.SetCellValue(valor);
         }
 
-        public void PreencherCelulaTitulo(int linha, int coluna, string valor, string nomeAba, IndexedColors cor = null)
+        public void PreencherCelulaTitulo(int linha, int coluna, string valor, string nomeAba, bool borda, IndexedColors cor = null)
         {
-            ICell celulaCorrente = ObterCelulaParaTitulo(linha, coluna, nomeAba, cor);
+            ICell celulaCorrente = ObterCelulaParaTitulo(linha, coluna, borda, nomeAba, cor);
             celulaCorrente.SetCellValue(valor);
         }
 
-        public void PreencherCelulaTexto(int linha, int coluna, string valor, string nomeAba, IndexedColors cor = null)
+        public void PreencherCelulaTexto(int linha, int coluna, string valor, string nomeAba, bool borda, IndexedColors cor = null)
         {
-            ICell celulaCorrente = ObterCelulaTexto(linha, coluna, nomeAba, cor);
+            ICell celulaCorrente = ObterCelulaTexto(linha, coluna, nomeAba, borda, cor);
             celulaCorrente.SetCellValue(valor);
         }
 
-        public void PreencherCelulaNumerica(int linha, int coluna, double? valor, string nomeAba, IndexedColors cor = null)
+        public void PreencherCelulaNumerica(int linha, int coluna, double? valor, string nomeAba, bool borda, IndexedColors cor = null)
         {
-            ICell celulaCorrente = ObterCelulaValorNumerico(linha, coluna, nomeAba, cor);
+            ICell celulaCorrente = ObterCelulaValorNumerico(linha, coluna, nomeAba, borda, cor);
             if (valor.HasValue)
                 celulaCorrente.SetCellValue(valor.Value);
 
         }
 
-        public void PreencherCelulaValorInteiro(int linha, int coluna, int? valor, string nomeAba, IndexedColors cor = null)
+        public void PreencherCelulaValorInteiro(int linha, int coluna, int? valor, string nomeAba, bool borda, IndexedColors cor = null)
         {
-            ICell celulaCorrente = ObterCelulaValorInteiro(linha, coluna, nomeAba, cor);
+            ICell celulaCorrente = ObterCelulaValorInteiro(linha, coluna, nomeAba, borda, cor);
             if (valor.HasValue)
                 celulaCorrente.SetCellValue(valor.Value);
         }
 
-        public void PreencherCelulaData(int linha, int coluna, DateTime? valor, string nomeAba, IndexedColors cor = null)
+        public void PreencherCelulaData(int linha, int coluna, DateTime? valor, string nomeAba, bool borda, IndexedColors cor = null)
         {
-            ICell celulaCorrente = ObterCelulaData(linha, coluna, nomeAba, cor);
+            ICell celulaCorrente = ObterCelulaData(linha, coluna, nomeAba, borda, cor);
             if (valor.HasValue)
                 celulaCorrente.SetCellValue(valor.Value);
         }

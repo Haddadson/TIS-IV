@@ -30,8 +30,6 @@ namespace MPMG.Interfaces.DTO
         public string ValorMaximoAtualizado { get; set; }
         public int MesAnp { get; set; }
         public int AnoAnp { get; set; }
-        public int MesFam { get; set; }
-        public int AnoFam { get; set; }
         public List<string> CuponsFiscaisVinculados { get; set; }
     }
 }

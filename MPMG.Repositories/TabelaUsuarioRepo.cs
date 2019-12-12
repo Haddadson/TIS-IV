@@ -3,6 +3,7 @@ using MPMG.Repositories.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace MPMG.Repositories
 {
@@ -65,6 +66,9 @@ namespace MPMG.Repositories
             on A.id_municipio_referente = D.id_municipio
             WHERE A.sgdp = @Sgdp";
 
+        private const string SQL_OBTER_ANOS_REFERENTES_POR_SGDP = @"
+            SELECT AnoReferente FROM anosportabela WHERE SGDP = @Sgdp";
+
         public bool CadastrarTabela(
             int SGDP, int AnoReferente,
             int IdMunicipio, int IdMunicipioReferente,
@@ -96,11 +100,20 @@ namespace MPMG.Repositories
             return Listar(SQL_LISTAR_SGDPS_TABELAS, null);
         }
 
-        public TabelaUsuario ObterTabelaPorSgdp(int sgdp)
+        public List<int> ListarAnosReferentesPorSgdp(string sgdp)
         {
             DynamicParameters parametros = new DynamicParameters();
 
-            parametros.Add("@SGDP", sgdp, DbType.Int32);
+            parametros.Add("@Sgdp", sgdp, DbType.AnsiString);
+
+            return Query<int>(SQL_OBTER_ANOS_REFERENTES_POR_SGDP, parametros).ToList();
+        }
+
+        public TabelaUsuario ObterTabelaPorSgdp(string sgdp)
+        {
+            DynamicParameters parametros = new DynamicParameters();
+
+            parametros.Add("@SGDP", sgdp, DbType.AnsiString);
 
             return Obter(SQL_OBTER_TABELA_POR_SGDP, parametros);
         }

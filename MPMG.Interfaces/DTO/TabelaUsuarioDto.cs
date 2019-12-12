@@ -8,11 +8,12 @@ namespace MPMG.Interfaces.DTO
         public TabelaUsuarioDto()
         {
             DadosAnpxNotaFiscal = new List<AnpxNotaFiscalDto>();
+            AnosReferentes = new List<int>();
         }
 
         public int SGDP { get; set; }
         public DateTime DataGeracao { get; set; }
-        public int AnoReferente { get; set; }
+        public List<int> AnosReferentes { get; set; }
         public string Titulo1 { get; set; }
         public string Titulo2 { get; set; }
         public string Titulo3 { get; set; }
