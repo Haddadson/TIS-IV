@@ -22,15 +22,7 @@ namespace MPMG.Services
 
         public MunicipioDto ObterMunicipioAnpPorNomeAno(List<int> anosReferentes, string nomeMunicipio)
         {
-            var municipio = ConverterMunicipioParaDto(municipioRepositorio.ObterMunicipioAnpPorNomeAno(anosReferentes, nomeMunicipio));
-            MunicipioReferente municipioReferente = null;
-
-            municipioReferente = municipioReferenteRepositorio.ObterMunicipioReferentePorNome(nomeMunicipio, anosReferentes);
-
-            if (municipioReferente != null)
-                return new MunicipioDto(municipioReferente.CodigoMunicipioReferente, municipioReferente.NomeMunicipioReferente);
-
-            return municipio;
+            return ConverterMunicipioParaDto(municipioRepositorio.ObterMunicipioAnpPorNomeAno(anosReferentes, nomeMunicipio));
         }
 
         public List<string> ListarMunicipiosAnpPorAno(List<int> anosReferentes)

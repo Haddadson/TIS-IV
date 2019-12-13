@@ -32,11 +32,18 @@ namespace MPMG.Repositories
 
         private const string SQL_DELETAR_REGISTROS_EXISTENTES = "DELETE FROM `tabelaanp`";
 
-        public TabelaANP BuscarDadosANP(int SGDP, string produto, int mes, int ano)
+        private const string SQL_BUSCAR_MESES_POR_MUNICIPIO_E_ANO = @"
+            SELECT DISTINCT TA.ano, TA.mes, TA.id_municipio 
+              FROM `tabelaanp` TA
+             WHERE TA.id_municipio = @idMunicipio
+               AND TA.ano = @ano;
+        ";  
+
+        public TabelaANP BuscarDadosANP(string SGDP, string produto, int mes, int ano)
         {
             DynamicParameters parametros = new DynamicParameters();
 
-            parametros.Add("@sgdp", SGDP, DbType.Int32);
+            parametros.Add("@sgdp", SGDP, DbType.AnsiString);
             parametros.Add("@produto", produto, DbType.AnsiString);
             parametros.Add("@mes", mes, DbType.Int32);
             parametros.Add("@ano", ano, DbType.Int32);
@@ -83,6 +90,16 @@ namespace MPMG.Repositories
         private string FormatarMunicipioParaConsulta(string municipio)
         {
             return $"(SELECT A.id_municipio FROM `municipio` A WHERE A.nome_municipio = '{municipio}')";
+        }
+
+        public List<TabelaANP> BuscarMesesDisponiveisANP(int idMunicipio, int ano)
+        {
+            DynamicParameters parametros = new DynamicParameters();
+
+            parametros.Add("@idMunicipio", idMunicipio, DbType.Int32);
+            parametros.Add("@ano", ano, DbType.Int32);
+
+            return Listar(SQL_BUSCAR_MESES_POR_MUNICIPIO_E_ANO, parametros);
         }
     }
 }

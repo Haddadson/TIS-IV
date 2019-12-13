@@ -209,3 +209,24 @@ select:focus,
         display: none !important;
     }
 }
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: 1px solid #ccc !important;
+}
+
+..select2-container--default .select2-selection--multiple {
+    border: 1px solid #ccc !important;
+}
+
+.select2,
+.select2-container {
+    width: 100% !important;
+}
+
+.nav.navbar-nav.notika-top-nav {
+    margin-top: 7px;
+}
+
+.select2-container {
+    font-size: 14px;
+}

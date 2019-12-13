@@ -21,10 +21,11 @@ namespace MPMG.Repositories
 
         private const string SQL_OBTER_MUNICIPIO_ANP_POR_ANO_E_NOME = @"
             SELECT DISTINCT 
-                M.id_municipio AS Codigo,
+                T.id_municipio AS Codigo,
                 M.nome_municipio AS Nome 
               FROM TabelaANP T 
-              JOIN municipio M 
+              JOIN municipio M
+                ON T.id_municipio = M.id_municipio
             WHERE T.ano IN @Ano
               AND M.nome_municipio = @NomeMunicipio";
 

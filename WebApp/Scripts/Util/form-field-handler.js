@@ -19,15 +19,14 @@ const validateDateFormField = fieldQuerySelector => {
     });
 };
 
-const validateNumericRequiredFormField = (fieldQuerySelector, isInteger = false, setParsedValue = false) => {
+const validateNumericRequiredFormField = (fieldQuerySelector, isInteger = false, setParsedValue = false, useNumericRegex = false ) => {
     return $(fieldQuerySelector).change(() => {
-        let value;
-        if (isInteger)
-            value = parseInt($(fieldQuerySelector).val());
-        else
-            value = parseFloat($(fieldQuerySelector).val().replace(',', '.')).toFixed(3).replace(".", ",");
+        const value = isInteger
+                    ? parseInt($(fieldQuerySelector).val())
+                    : parseFloat($(fieldQuerySelector).val().replace(',', '.')).toFixed(3).replace(".", ",");
 
-        if (Number.isNaN(parseFloat(value))) { 
+        if ((!useNumericRegex && Number.isNaN(parseFloat(value))) ||
+            (useNumericRegex && !(/^\d+$/.test($(fieldQuerySelector).val().trim() )) ) ) { 
             setInvalidField(fieldQuerySelector);
         } else {
             if (setParsedValue)

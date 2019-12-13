@@ -31,6 +31,7 @@ namespace MPMG.Repositories
                 M.nome_municipio AS Municipio 
               FROM TabelaANP T 
               JOIN municipio M 
+              ON T.id_municipio = M.id_municipio
             ORDER BY M.nome_municipio";
 
         private const string SQL_LISTAR_MUNICIPIOS_ANP_POR_ANO = @"
@@ -38,6 +39,7 @@ namespace MPMG.Repositories
                 M.nome_municipio AS Municipio 
               FROM TabelaANP T 
               JOIN municipio M 
+              ON T.id_municipio = M.id_municipio
             WHERE T.ano IN @Ano
             ORDER BY M.nome_municipio";
 

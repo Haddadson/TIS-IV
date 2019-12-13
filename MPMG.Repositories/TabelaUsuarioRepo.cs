@@ -10,10 +10,10 @@ namespace MPMG.Repositories
     {
         private const string SQL_INSERIR_TABELA = @"
             INSERT INTO `TabelaUsuario` 
-            (sgdp, id_municipio, id_municipio_referente, ano_referente, 
+            (sgdp, id_municipio, id_municipio_referente,
             dt_geracao, titulo_aba_1, titulo_aba_2, titulo_aba_3, analista_resp ) 
             VALUES 
-            (@SGDP, @IdMunicipio, @IdMunicipioReferente, @AnoReferente, 
+            (@SGDP, @IdMunicipio, @IdMunicipioReferente, 
             @DataGeracao, @Titulo1, @Titulo2, @Titulo3, @AnalistResponsavel)";
 
         private const string SQL_LISTAR_TABELAS = @"
@@ -65,16 +65,19 @@ namespace MPMG.Repositories
             on A.id_municipio_referente = D.id_municipio
             WHERE A.sgdp = @Sgdp";
 
+        private const string SQL_INSERIR_ANOS_POR_TABELA = @"
+            INSERT INTO `anosportabela`
+            VALUES (@SGDP, @AnoReferente)            
+        ";
         public bool CadastrarTabela(
-            int SGDP, int AnoReferente,
+            string SGDP,
             int IdMunicipio, int IdMunicipioReferente,
             DateTime DataGeracao, string Titulo1,
             string Titulo2, string Titulo3, string AnalistaResponsavel)
         {
             DynamicParameters parametros = new DynamicParameters();
 
-            parametros.Add("@SGDP", SGDP, DbType.Int32);
-            parametros.Add("@AnoReferente", AnoReferente, DbType.Int32);
+            parametros.Add("@SGDP", SGDP, DbType.AnsiString);
             parametros.Add("@IdMunicipio", IdMunicipio, DbType.Int32);
             parametros.Add("@IdMunicipioReferente", IdMunicipioReferente, DbType.Int32);
             parametros.Add("@DataGeracao", DataGeracao, DbType.DateTime);
@@ -96,13 +99,23 @@ namespace MPMG.Repositories
             return Listar(SQL_LISTAR_SGDPS_TABELAS, null);
         }
 
-        public TabelaUsuario ObterTabelaPorSgdp(int sgdp)
+        public TabelaUsuario ObterTabelaPorSgdp(string sgdp)
         {
             DynamicParameters parametros = new DynamicParameters();
 
             parametros.Add("@SGDP", sgdp, DbType.Int32);
 
             return Obter(SQL_OBTER_TABELA_POR_SGDP, parametros);
+        }
+
+        public bool CadastrarAnoReferente (string sgdp, int anoReferente)
+        {
+            DynamicParameters parametros = new DynamicParameters();
+
+            parametros.Add("@SGDP", sgdp, DbType.AnsiString);
+            parametros.Add("@AnoReferente", anoReferente, DbType.Int32);
+
+            return Execute(SQL_INSERIR_ANOS_POR_TABELA, parametros) > 0;
         }
     }
 }

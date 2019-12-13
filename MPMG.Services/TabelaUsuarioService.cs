@@ -16,11 +16,12 @@ namespace MPMG.Services
         private readonly AnpxNotaFiscalRepositorio anpxNotaFiscalRepositorio;
         private readonly CupomFiscalRepo cupomFiscalRepositorio;
         private readonly OutrasInformacoesRepositorio outrasInfosRepositorio;
-
+        private readonly TabelaANPRepo tabelaANPRepo;
 
         public TabelaUsuarioService()
         {
             tabelaRepositorio = new TabelaUsuarioRepo();
+            tabelaANPRepo = new TabelaANPRepo();
             municipioRepositorio = new MunicipioRepositorio();
             municipioReferenteRepositorio = new MunicipioReferenteRepositorio();
             anpxNotaFiscalRepositorio = new AnpxNotaFiscalRepositorio();
@@ -29,8 +30,8 @@ namespace MPMG.Services
         }
 
         public void CadastrarTabela(
-            int SGDP,
-            int AnoReferente,
+            string SGDP,
+            List<int> AnosReferentes,
             string NomeMunicipioReferente,
             string NomeMunicipio,
             DateTime DataGeracao,
@@ -39,51 +40,24 @@ namespace MPMG.Services
             string Titulo3,
             string AnalistaResponsavel)
         {
-
-            if (SGDP <= 0)
+            if (string.IsNullOrWhiteSpace(SGDP))
             {
                 throw new Exception("Valor inválido para o SGDP!");
             }
 
-            var municipio = municipioRepositorio.ObterMunicipio(NomeMunicipio);
-            MunicipioReferente entidadeMunicipioRef = null;
+            if (string.IsNullOrWhiteSpace(NomeMunicipioReferente))
+                NomeMunicipioReferente = NomeMunicipio;
 
-            if (municipio == null)
+            var idMunicipio          = this.BuscarMunicipio(NomeMunicipio);
+            var idMunicipioReferente = this.BuscarMunicipioReferente(NomeMunicipioReferente);
+
+            if(idMunicipio == 0 || idMunicipioReferente == 0)
             {
-                if (string.IsNullOrWhiteSpace(NomeMunicipioReferente))
-                    throw new Exception("O município referente não foi informado");
-
-                var municipioInserido = municipioRepositorio.InserirMunicipio(NomeMunicipio);
-                var municipioReferente = municipioRepositorio.ObterMunicipio(NomeMunicipioReferente);
-
-                if (municipioInserido == null || municipioReferente == null)
-                    throw new Exception("Ocorreu um erro interno");
-
-                entidadeMunicipioRef = municipioReferenteRepositorio.InserirMunicipioReferente(municipioInserido.Codigo,
-                    municipioReferente.Codigo,
-                    AnoReferente);
-            }
-
-            int idMunicipio = 0;
-            int idMunicipioReferente = 0;
-
-            if (municipio == null && entidadeMunicipioRef == null)
-                throw new Exception("Ocorreu um erro interno");
-
-            if (municipio != null)
-            {
-                idMunicipio = municipio.Codigo;
-                idMunicipioReferente = municipio.Codigo;
-            }
-            else
-            {
-                idMunicipio = entidadeMunicipioRef.Codigo;
-                idMunicipioReferente = entidadeMunicipioRef.CodigoMunicipioReferente;
+                throw new Exception("Os municípios informados são inválidos!");
             }
 
             tabelaRepositorio.CadastrarTabela(
                 SGDP,
-                AnoReferente,
                 idMunicipioReferente,
                 idMunicipio,
                 DataGeracao,
@@ -91,17 +65,74 @@ namespace MPMG.Services
                 Titulo2,
                 Titulo3,
                 AnalistaResponsavel
-           );
+            );
+
+            this.SalvarAnosReferentes(SGDP, AnosReferentes);
+            this.SalvarMunicipioReferente(idMunicipio, idMunicipioReferente, AnosReferentes);
+        }
+
+        private void SalvarAnosReferentes(string SGDP, List<int> AnosReferentes)
+        {
+            foreach (var ano in AnosReferentes)
+            {
+                tabelaRepositorio.CadastrarAnoReferente(SGDP, ano);
+            }
+        }
+
+        private void SalvarMunicipioReferente(int idMunicipio, int idMunicipioReferente, List<int> AnosReferentes)
+        {
+            foreach (var ano in AnosReferentes)
+            {
+                List<TabelaANP> tabelaDisponivel = tabelaANPRepo.BuscarMesesDisponiveisANP(idMunicipioReferente, ano);
+                List<int> mesesANP = tabelaDisponivel.Select(i => i.mes).ToList();
+
+                if(mesesANP == null || mesesANP.Count == 0)
+                {
+                    throw new Exception("Não foi possível buscar os meses na tabela da ANP.");
+                }
+
+                foreach(var mes in mesesANP)
+                {
+                    municipioReferenteRepositorio.InserirMunicipioReferente(
+                        idMunicipio,
+                        idMunicipioReferente,
+                        ano,
+                        mes);
+                }
+            }
+        }
+
+        private int BuscarMunicipio (string NomeMunicipio)
+        {
+            var municipio = municipioRepositorio.ObterMunicipio(NomeMunicipio);
+
+            if (municipio == null) 
+            {
+                var municipioInserido = municipioRepositorio.InserirMunicipio(NomeMunicipio);
+                
+                if (municipioInserido == null)
+                    throw new Exception("Ocorreu um erro ao salvar um novo município!");
+                else
+                    municipio = municipioRepositorio.ObterMunicipio(NomeMunicipio);
+            }
+
+            return municipio.Codigo;
+        }
+
+        private int BuscarMunicipioReferente(string NomeMunicipioReferente)
+        {
+            var municipio = municipioRepositorio.ObterMunicipio(NomeMunicipioReferente);
+            return municipio.Codigo;
         }
 
         public TabelaUsuarioDto ObterTabela(string sgdp)
         {
-            return ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(int.Parse(sgdp)));
+            return ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(sgdp));
         }
 
         public TabelaUsuarioDto ObterTabelaComDadosAnpxNotaFiscal(string sgdp)
         {
-            var tabela = ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(int.Parse(sgdp)));
+            var tabela = ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(sgdp));
 
             if (tabela == null || (tabela.Municipio == null && tabela.MunicipioReferente == null))
                 throw new Exception("Erro ao encontrar");
@@ -125,7 +156,7 @@ namespace MPMG.Services
 
         public TabelaUsuarioDto ObterTabelaOutrasInformacoes(string sgdp)
         {
-            var tabela = ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(int.Parse(sgdp)));
+            var tabela = ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(sgdp));
 
             if (tabela == null || (tabela.Municipio == null && tabela.MunicipioReferente == null))
                 throw new Exception("Erro ao encontrar");

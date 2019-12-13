@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using MPMG.Repositories.Entidades;
 using MPMG.Repositories.Util;
-using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -11,7 +10,7 @@ namespace MPMG.Repositories
     {
 
         private const string SQL_INSERIR_MUNICIPIO_REFERENTE = @"
-            INSERT INTO municipioReferente VALUES (@IdMunicipio, @IdMunicipioReferente, @Ano)";
+            INSERT INTO municipioreferente VALUES (@IdMunicipio, @IdMunicipioReferente, @Ano, @Mes)";
 
         private const string SQL_OBTER_MUNICIPIO_REFERENTE = @"
             SELECT B.id_municipio AS Codigo,
@@ -19,7 +18,7 @@ namespace MPMG.Repositories
                    C.id_municipio AS CodigoMunicipioReferente,
                    C.nome_municipio AS NomeMunicipioReferente,
                    A.ano AS Ano
-            FROM municipioReferente A
+            FROM municipioreferente A
             JOIN municipio B
             ON A.id_municipio = B.id_municipio
             JOIN municipio C
@@ -34,7 +33,7 @@ namespace MPMG.Repositories
                    C.nome_municipio AS NomeMunicipioReferente,
                    A.anoreferente AS Ano,
                    A.mesreferente AS Mes
-            FROM municipioReferente A
+            FROM municipioreferente A
             JOIN municipio B
             ON A.id_municipio = B.id_municipio
             JOIN municipio C
@@ -64,17 +63,16 @@ namespace MPMG.Repositories
             return Obter(sql, parametros);
         }
 
-        public MunicipioReferente InserirMunicipioReferente(int idMunicipio, int idMunicipioReferente, int ano)
+        public void InserirMunicipioReferente(int idMunicipio, int idMunicipioReferente, int ano, int mes)
         {
             DynamicParameters parametros = new DynamicParameters();
 
             parametros.Add("@IdMunicipio", idMunicipio, DbType.Int32);
             parametros.Add("@IdMunicipioReferente", idMunicipioReferente, DbType.Int32);
             parametros.Add("@Ano", ano.ToString(), DbType.AnsiStringFixedLength);
+            parametros.Add("@Mes", mes.ToString(), DbType.AnsiString);
 
             Execute(SQL_INSERIR_MUNICIPIO_REFERENTE, parametros);
-
-            return ObterMunicipioReferente(idMunicipio, ano);
         }
     }
 }

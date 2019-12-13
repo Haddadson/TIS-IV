@@ -24,7 +24,7 @@ namespace WebApp.Controllers
             {
                 tabelaUsuarioService.CadastrarTabela(
                 TabelaUsuario.SGDP,
-                TabelaUsuario.AnoReferente,
+                TabelaUsuario.AnosReferentes,
                 TabelaUsuario.NomeMunicipioReferente,
                 TabelaUsuario.NomeMunicipio,
                 TabelaUsuario.DataGeracao,

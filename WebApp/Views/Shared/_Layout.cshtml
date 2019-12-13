@@ -57,6 +57,8 @@
 
     <link rel="stylesheet" href="~/Content/select-autocomplete.css">
 
+    <link rel="stylesheet" href="~/Content/select2.min.css"/>
+
     @RenderSection("styles", required: false)
 </head>
 
@@ -64,12 +66,12 @@
     <div class="header-top-area">
         <div class="container">
             <div class="row">
-                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                     <div class="logo-area">
                         <a href="#"><img class="logo-image" src="/img/logo.png" alt="" /></a>
                     </div>
                 </div>
-                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
                     <div class="header-top-menu">
                         <ul class="nav navbar-nav notika-top-nav">
                             <li class="nav-item dropdown">@Html.ActionLink("Cadastrar Nova Tabela", "Index", "Home")</li>
@@ -91,6 +93,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     @RenderSection("JavaScriptPagina", required: false)
+    <script type="text/javascript" defer src="~/Scripts/select2.min.js"></script>
     <script type="text/javascript" defer src="~/Scripts/moment.min.js"></script>
     <script type="text/javascript" defer src="~/Scripts/moment.min.js"></script>
     <script type="text/javascript" defer src="~/Scripts/Util/vanilla-masker.min.js"></script>
