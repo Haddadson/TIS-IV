@@ -41,6 +41,7 @@ const initNotaFiscalFields = () => {
     validateNumericRequiredFormField("#preco_unitario", false, true);
     validateCuponsFicais("#cupons_selecionados");
     validateDateFormField("#data_emissao");
+    
 
     $("#adicionar_cupom").on("click", addCOOOnChangeHandler);
 

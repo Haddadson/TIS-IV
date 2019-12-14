@@ -43,19 +43,26 @@ namespace MPMG.Services
                 chaveAcesso, dataEmissao, dataConsultaANP,
                 veiculo, placaVeiculo, numeroFolha,
                 departamento, mesFAM, anoFAM);
- 
+
+            double precoMaximo = 0;
+            double precoMedio = 0;
+            TabelaANP tabela = null;
+
             foreach (var item in ItensNotaFiscal)
             {
                 if(item != null)
                 {
 
-                    //TabelaANP tabela = tabelaANPRepo.BuscarDadosANP(sGDP, item.Produto, dataConsultaANP.Month, dataConsultaANP.Year);
+                    tabela = tabelaANPRepo.BuscarDadosANP(sGDP, item.Produto, dataConsultaANP.Month, dataConsultaANP.Year);
 
-                    //if (tabela != null)
-                    //{
-                    //    precoMaximo = tabela.precoMaximo;
-                    //    precoMedio = tabela.precoMedio;
-                    //}
+                    if (tabela != null)
+                    {
+                        precoMaximo = tabela.precoMedio;
+                        precoMedio = tabela.precoMedio;
+                    } else
+                    {
+                        throw new Exception("Não foi encontrado valores na ANP para este item!");
+                    }
 
                     itemNotaFiscalRepo.Cadastrar(nrNotaFiscal, item.Sgdp, item.Produto, 
                         item.Quantidade, item.ValorTotal, item.ValorUnitario);

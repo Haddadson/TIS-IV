@@ -27,7 +27,7 @@
                                 <button class="btn btn-default btn-icon-notika" id="esscolher_tabela" onclick="location.href='@Url.Action("", "EscolherTabela")'">
                                     Trocar Tabela
                                 </button>
-                                <button class="btn btn-default btn-icon-notika" id="cadastrar_cupom_fiscal" onclick="location.href='@Url.Action("", "NotaFiscal", new { Model.ValorSgdp})'">
+                                <button class="btn btn-default btn-icon-notika" id="cadastrar_cupom_fiscal" onclick="location.href='@Url.Action("", "NotaFiscal", new { ValorSgdp = @Model.ValorSgdp })'">
                                     Cadastrar Nota Fiscal
                                 </button>
                             </div>

@@ -72,8 +72,9 @@ namespace WebApp.Controllers
                 !string.IsNullOrWhiteSpace(item.Produto)).ToList();
 
             CuponsSelecionados = CuponsSelecionados ?? new List<string>();
-
-            notaFiscalService.CadastrarNotaFiscal(
+            try
+            {
+                notaFiscalService.CadastrarNotaFiscal(
                 NrNotaFiscal,
                 SGDP,
                 ValorTotal,
@@ -88,12 +89,21 @@ namespace WebApp.Controllers
                 itens
             );
 
-            return Json(new
+                return Json(new
+                {
+                    Sucesso = true,
+                    Mensagem = "Sucesso ao cadastrar nota fiscal!",
+                    DataGeracao = DateTime.Now
+                });
+            }
+            catch (Exception ex)
             {
-                Sucesso = true,
-                Mensagem = "Sucesso ao cadastrar nota fiscal!",
-                DataGeracao = DateTime.Now
-            });
+                return Json(new
+                {
+                    Error = ex.Message
+                });
+            }
+            
         }
 
         public JsonResult ListarDepartamentos(NotaFiscal NotaFiscal)
