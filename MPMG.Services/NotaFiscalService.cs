@@ -38,32 +38,31 @@ namespace MPMG.Services
         {
             int mesFAM = dataEmissao.Month;
             int anoFAM = dataEmissao.Year;
+            /*
+            double precoMaximo = 0;
+            double precoMedio = 0;
+            TabelaANP tabela = tabelaANPRepo.BuscarDadosANP(sGDP, dataConsultaANP.Month, dataConsultaANP.Year);
+
+            if (tabela != null)
+            {
+                precoMaximo = tabela.precoMedio;
+                precoMedio = tabela.precoMedio;
+            }
+            else
+            {
+                throw new Exception("Não foi encontrado valores na ANP para este item!");
+            }
+            */
 
             notaFiscalRepo.Cadastrar(nrNotaFiscal, sGDP, valorTotal,
                 chaveAcesso, dataEmissao, dataConsultaANP,
                 veiculo, placaVeiculo, numeroFolha,
                 departamento, mesFAM, anoFAM);
 
-            double precoMaximo = 0;
-            double precoMedio = 0;
-            TabelaANP tabela = null;
-
             foreach (var item in ItensNotaFiscal)
             {
                 if(item != null)
                 {
-
-                    tabela = tabelaANPRepo.BuscarDadosANP(sGDP, item.Produto, dataConsultaANP.Month, dataConsultaANP.Year);
-
-                    if (tabela != null)
-                    {
-                        precoMaximo = tabela.precoMedio;
-                        precoMedio = tabela.precoMedio;
-                    } else
-                    {
-                        throw new Exception("Não foi encontrado valores na ANP para este item!");
-                    }
-
                     itemNotaFiscalRepo.Cadastrar(nrNotaFiscal, item.Sgdp, item.Produto, 
                         item.Quantidade, item.ValorTotal, item.ValorUnitario);
                 }
@@ -71,6 +70,11 @@ namespace MPMG.Services
 
             foreach (var cupom in cuponsSelecionados)
             {
+                if(string.IsNullOrWhiteSpace(cupom))
+                {
+                    throw new Exception("O número do cupom não foi informado!");
+                }
+
                 var cupomSalvo = cupomFiscalRepo.buscarCupomDisponivel(sGDP, cupom);
                 if (cupomSalvo == null)
                 {

@@ -47,49 +47,50 @@ namespace WebApp.Controllers
 
         public JsonResult Cadastrar(NotaFiscal NotaFiscal, List<ItemNotaFiscalDto> ItensNotaFiscal)
         {
-            string SGDP = NotaFiscal.SGDP;
-            string NrNotaFiscal = NotaFiscal.NrNotaFiscal;
-            double ValorTotal = NotaFiscal.ValorTotal;
-            string ChaveAcesso = NotaFiscal.ChaveAcesso;
-            DateTime DataEmissao = new DateTime(
-                int.Parse(NotaFiscal.DataEmissao.Substring(0, 4)),
-                int.Parse(NotaFiscal.DataEmissao.Substring(5, 2)),
-                int.Parse(NotaFiscal.DataEmissao.Substring(8, 2)));
-            double PrecoMaximo = NotaFiscal.PrecoMaximo;
-            double PrecoMedio = NotaFiscal.PrecoMedio;
-            DateTime DataConsultaANP = new DateTime(
-                int.Parse(NotaFiscal.DataConsultaANP.Substring(6, 4)),
-                int.Parse(NotaFiscal.DataConsultaANP.Substring(3, 2)),
-                int.Parse(NotaFiscal.DataConsultaANP.Substring(0, 2)));
-            string Veiculo = NotaFiscal.Veiculo;
-            string PlacaVeiculo = NotaFiscal.PlacaVeiculo;
-            string Combustivel = NotaFiscal.Combustivel;
-            int Quantidade = NotaFiscal.Quantidade;
-            double PrecoUnitario = NotaFiscal.PrecoUnitario;
-            int NumeroFolha = NotaFiscal.NumeroFolha;
-            int Departamento = NotaFiscal.Departamento;
-            List<string> CuponsSelecionados = NotaFiscal.CuponsSelecionados;
-            List<ItemNotaFiscalDto> itens = ItensNotaFiscal.Where(item => item.Quantidade > 0 &&
-                item.ValorTotal > 0 && item.ValorUnitario > 0 && !string.IsNullOrWhiteSpace(item.Sgdp) &&
-                !string.IsNullOrWhiteSpace(item.Produto)).ToList();
-
-            CuponsSelecionados = CuponsSelecionados ?? new List<string>();
             try
             {
+                string SGDP = NotaFiscal.SGDP;
+                string NrNotaFiscal = NotaFiscal.NrNotaFiscal;
+                double ValorTotal = NotaFiscal.ValorTotal;
+                string ChaveAcesso = NotaFiscal.ChaveAcesso;
+                DateTime DataEmissao = new DateTime(
+                    int.Parse(NotaFiscal.DataEmissao.Substring(6, 4)),
+                    int.Parse(NotaFiscal.DataEmissao.Substring(3, 2)),
+                    int.Parse(NotaFiscal.DataEmissao.Substring(0, 2)));
+                double PrecoMaximo = NotaFiscal.PrecoMaximo;
+                double PrecoMedio = NotaFiscal.PrecoMedio;
+                DateTime DataConsultaANP = new DateTime(
+                    int.Parse(NotaFiscal.DataConsultaANP.Substring(6, 4)),
+                    int.Parse(NotaFiscal.DataConsultaANP.Substring(3, 2)),
+                    int.Parse(NotaFiscal.DataConsultaANP.Substring(0, 2)));
+                string Veiculo = NotaFiscal.Veiculo;
+                string PlacaVeiculo = NotaFiscal.PlacaVeiculo;
+                string Combustivel = NotaFiscal.Combustivel;
+                int Quantidade = NotaFiscal.Quantidade;
+                double PrecoUnitario = NotaFiscal.PrecoUnitario;
+                int NumeroFolha = NotaFiscal.NumeroFolha;
+                int Departamento = NotaFiscal.Departamento;
+                List<string> CuponsSelecionados = NotaFiscal.CuponsSelecionados;
+                List<ItemNotaFiscalDto> itens = ItensNotaFiscal.Where(item => item.Quantidade > 0 &&
+                    item.ValorTotal > 0 && item.ValorUnitario > 0 && !string.IsNullOrWhiteSpace(item.Sgdp) &&
+                    !string.IsNullOrWhiteSpace(item.Produto)).ToList();
+
+                CuponsSelecionados = CuponsSelecionados ?? new List<string>();
+
                 notaFiscalService.CadastrarNotaFiscal(
-                NrNotaFiscal,
-                SGDP,
-                ValorTotal,
-                ChaveAcesso,
-                DataEmissao,
-                DataConsultaANP,
-                Veiculo,
-                PlacaVeiculo,
-                NumeroFolha,
-                Departamento,
-                CuponsSelecionados,
-                itens
-            );
+                    NrNotaFiscal,
+                    SGDP,
+                    ValorTotal,
+                    ChaveAcesso,
+                    DataEmissao,
+                    DataConsultaANP,
+                    Veiculo,
+                    PlacaVeiculo,
+                    NumeroFolha,
+                    Departamento,
+                    CuponsSelecionados,
+                    itens
+                );
 
                 return Json(new
                 {
@@ -102,7 +103,8 @@ namespace WebApp.Controllers
             {
                 return Json(new
                 {
-                    Error = ex.Message
+                    Error = ex.Message,
+                    Mensagem = "Ocorreu um erro ao cadastrar a nota fiscal!"
                 });
             }
             

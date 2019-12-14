@@ -21,13 +21,15 @@ const setSuggestionsForCOOField = response => {
 const addCOOOnChangeHandler = evt => {
     const selectedCOO  = $("#coo_add").val();
 
+
     if (!selectedCOO) {
-        alert('Por favor selecione um COO !');
+        alert('Por favor informe um COO !');
     } else {
         const selectedCOOs = $("#cupons_selecionados").val();
         const allCOOs = selectedCOOs.split(/\s/);
         allCOOs.push(selectedCOO);
         $("#cupons_selecionados").val(allCOOs.join(' '));
+        $("#coo_add").val('');
     }
 };
 
@@ -39,21 +41,21 @@ const initNotaFiscalFields = () => {
     validateNumericRequiredFormField("#valor_total");
     validateNumericRequiredFormField("#preco_unitario", false, true);
     validateCuponsFicais("#cupons_selecionados");
-    validateDateFormField("#data_emissao");
-    $("#data_consulta_anp").select2({
+    $("#data_consulta_anp").prepend('<option selected></option>').select2({
         placeholder: "",
-        allowClear: true
+        allowClear: true,
+        defaultValue: ''
     });
-    $("#departamento").select2({
+    $("#departamento").prepend('<option selected></option>').select2({
         placeholder: "",
-        allowClear: true
+        allowClear: true,
+        defaultValue: ''
     });
     $("#data_emissao").datetimepicker({
         format: 'DD/MM/YYYY',
         maxDate: moment(),
         defaultDate: moment((new Date()).toISOString()).format('MM/DD/YYYY')
     });
-
 
     $("#adicionar_cupom").on("click", addCOOOnChangeHandler);
 
@@ -69,17 +71,46 @@ const initNotaFiscalFields = () => {
     });
 
     $("#cadastrar-nota-fiscal").on("click", function (event) {
-        if ($("#numero_nf").val() == false || $("#data_emissao").val() == false || $("#combustivel1").val() == false ||
-            $("#quantidade1").val() == false || $("#preco_unitario1").val() == false || $("#valor_total1").val() == false || $("#valor_total_nf").val() == false) {
-            alert("Preencha todos campos obrigatórios!");
+        let canSave = true;
+
+        const isInteger = value => {
+            return /^\d+$/.test(value);
         }
-        else {
+
+        const numeroNF = $("#numero_nf").val();
+        if ($("#numero_nf").val() == false || !isInteger(numeroNF)) {
+            canSave = false;
+            alert("Preencha o número da Nota Fiscal adequadamente!");
+        } else if ($("#data_emissao_value").val() == false) {
+            canSave = false;
+            alert("Preencha o campo da Data de Emissão da Nota Fiscal!");
+        } else if ($("#combustivel1").val() == false) {
+            canSave = false;
+            alert("É preciso selecionar um combustível!");  
+        } else if ($("#quantidade1").val() == false) {
+            canSave = false;
+            alert("É preciso informar a quantidade do item!"); 
+        } else if ($("#preco_unitario1").val() == false) {
+            canSave = false;
+            alert("É preciso informar o preco unitário do item!"); 
+        } else if ($("#valor_total1").val() == false) {
+            canSave = false;
+            alert("É preciso informar o valor total deste item!");
+        } else if ($("#valor_total_nf").val() == false) {
+            canSave = false;
+            alert("É preciso informar o valor total da Nota Fiscal!");
+        } else if ($("#cupons_selecionados").val().trim() != '' && !$("#cupons_selecionados").val().trim().split(/\s|\n/g).reduce((acc, next) => acc && isInteger((next+ '').trim()), true)) {
+            canSave = false;
+            alert("O cupons fiscais informados são inválidos!");
+        }
+
+        if (canSave) {
             const notaFiscalData = {
                 "SGDP": $("#sgdp_escolhido").val(),
                 "NrNotaFiscal": $("#numero_nf").val(),
-                "DataEmissao": $("#data_emissao").val(),
+                "DataEmissao": $("#data_emissao_value").val(),
                 "ValorTotal": parseFloat($("#valor_total_nf").val().replace(",", ".")),
-                "CuponsSelecionados": $("#cupons_selecionados").val().split(" ").filter(cupom => cupom.length > 0),
+                "CuponsSelecionados": $("#cupons_selecionados").val().trim().split(/\s|\n/g).filter(cupom => cupom !== ''),
                 "NumeroFolha": $("#num_folha").val(),
                 "DataConsultaANP": '01/' + $("#data_consulta_anp").val(),
                 "Departamento": $("#departamento").val(),
@@ -271,18 +302,19 @@ function validaCampoValorNf(valTotal) {
 }
 
 function limparCampos() {
-    $("#numero_nf, #posto_fornecedor, #data_emissao, #valor_total_nf, #coo," + 
+    $("#numero_nf, #posto_fornecedor, #data_emissao_value, #valor_total_nf, #coo," + 
       "#num_folha, #data_consulta_anp, #departamento, #veiculo," +
-      "#placa_veiculo, .itens-field, #coo_add, #cupons_selecionados").val('');
+      "#placa_veiculo, .item-field, #coo_add, #cupons_selecionados").val('');
 }
 
 const validateCuponsFicais = fieldCssQuerySelector => {
     $(fieldCssQuerySelector).on("change", (evt) => {
         const value = $(fieldCssQuerySelector).val();
-        if (/^[^A-Za-z]+$/.test(value)) {
+        if (value == '' || /^[^A-Za-z]+$/.test(value)) {
             cleanInvalidField(fieldCssQuerySelector);
         } else {
             setInvalidField(fieldCssQuerySelector);
         }
     });
 };
+

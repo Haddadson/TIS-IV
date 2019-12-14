@@ -1,4 +1,4 @@
-﻿@model WebApp.Models.NotaFiscalModel
+﻿@model WebApp.Models.CupomFiscalModel
 
 @{
     ViewBag.Title = "Cadastrar Cupom Fiscal";
@@ -85,21 +85,12 @@
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div class="nk-int-st">
-                                        <input type="date" class="form-control borderless-field" id="data_emissao">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-example-int form-horizental mg-t-15">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-                                    <label class="hrzn-fm required">Horário de emissão</label>
-                                </div>
-                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                                    <div class="nk-int-st">
-                                        <input type="time" class="form-control borderless-field" id="hora_emissao">
+                                        <div class='input-group date' id='data_emissao'>
+                                            <input type='text' class="form-control borderless-field" id="data_emissao_value" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -145,10 +136,8 @@
                                     <label class="hrzn-fm required">Preço Unitário</label>
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                                    <div class="nk-int-st autocomplete">
-                                        <form autocomplete="off" >
-                                            <input id="preco_unitario" type="text" class="form-control borderless-field">
-                                        </form>
+                                    <div class="nk-int-st">
+                                        <input id="preco_unitario" type="text" class="form-control borderless-field" /> 
                                     </div>
                                 </div>
                             </div>
@@ -163,6 +152,34 @@
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div class="nk-int-st">
                                         <input class="form-control borderless-field" id="valor_total" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-example-int form-horizental mg-t-15">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                                    <label class="hrzn-fm">Posto Fornecedor</label>
+                                </div>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
+                                    <div class="nk-int-st">
+                                        <input class="form-control borderless-field" id="posto_referente">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-example-int form-horizental mg-t-15">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+                                    <label class="hrzn-fm">Cliente</label>
+                                </div>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-11">
+                                    <div class="nk-int-st">
+                                        <input class="form-control borderless-field" id="cliente">
                                     </div>
                                 </div>
                             </div>
@@ -226,8 +243,39 @@
 
 
 @section JavascriptPagina {
-    <script type="text/javascript">
+    <script defer type="text/javascript">
         var urlCadastrarCupomFiscal= '@Url.Action("Cadastrar", "CupomFiscal")';
     </script>
-    <script type="text/javascript" src="~/Scripts/CupomFiscal/CupomFiscal.js"></script>
+    <script defer type="text/javascript" src="~/Scripts/CupomFiscal/CupomFiscal.js"></script>
+    <script defer type="text/javascript" src="~/Scripts/select-autocomplete.js"></script>
+    <script defer type="text/javascript">
+        const clientes = [];
+        const precos = [];
+        const postos = [];
+        const notasFiscais = [];
+
+        @foreach(var cliente in @Model.CuponsInfo.Clientes)
+        {
+            @:clientes.push('@cliente');
+        }
+        @foreach(var nrNota in @Model.CuponsInfo.NotasFiscais)
+        {
+            @:notasFiscais.push('@nrNota');
+
+        }
+        @foreach(var posto in @Model.CuponsInfo.Postos)
+        {
+            @:postos.push('@posto');
+        }
+        @foreach(var precoUnitario in @Model.CuponsInfo.PrecosUnitarios)
+        {
+            @:precos.push('@precoUnitario');
+        }
+        $(document).ready(() => {
+            insertAutocompleteFeatureInElement(document.getElementById("cliente"), clientes);
+            insertAutocompleteFeatureInElement(document.getElementById("preco_unitario"), precos);
+            insertAutocompleteFeatureInElement(document.getElementById("numero_nf"), notasFiscais);
+            insertAutocompleteFeatureInElement(document.getElementById("posto_referente"), postos);
+        });
+    </script>
 }

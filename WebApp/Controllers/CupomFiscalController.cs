@@ -28,10 +28,7 @@ namespace WebApp.Controllers
             string NrNotaFiscal = cupom.NrNotaFiscal;
             string COO = cupom.COO;
             string Posto = cupom.Posto;
-
-            int horas = int.Parse(cupom.Horario.Substring(0, 2));
-            int minutos = int.Parse(cupom.Horario.Substring(3, 2));
-            DateTime Data = new DateTime(cupom.Data.Year, cupom.Data.Month, cupom.Data.Day, horas, minutos, 0);
+            DateTime Data = cupom.Data;
             string Combustivel = cupom.Combustivel;
             int Quantidade = cupom.Quantidade;
             double PrecoUnitario = cupom.PrecoUnitario;
@@ -64,9 +61,7 @@ namespace WebApp.Controllers
                     DataGeracao = DateTime.Now
                 });
             }
-#pragma warning disable CS0168 // A variável "ex" está declarada, mas nunca é usada
-            catch (Exception ex)
-#pragma warning restore CS0168 // A variável "ex" está declarada, mas nunca é usada
+           catch (Exception ex)
             {
                 return Json(new
                 {
@@ -81,19 +76,19 @@ namespace WebApp.Controllers
         public ActionResult Index(string valorSgdp = null)
         {
             List<TabelaUsuarioDto> tabelas = new List<TabelaUsuarioDto>();
+            CupomFiscalInfoDto cuponsInfo = new CupomFiscalInfoDto();
 
             try
             {
                 tabelas = tabelaUsuarioService.ListarTabelas();
+                cuponsInfo = cupomFiscalService.ObterInfoCuponsFiscais(valorSgdp);
             }
-#pragma warning disable CS0168 // A variável "ex" está declarada, mas nunca é usada
             catch (Exception ex)
-#pragma warning restore CS0168 // A variável "ex" está declarada, mas nunca é usada
             {
 
             }
 
-            return View("CupomFiscal", new NotaFiscalModel { ValorSgdp = valorSgdp, TabelasUsuario = tabelas });
+            return View("CupomFiscal", new CupomFiscalModel { ValorSgdp = valorSgdp, CuponsInfo = cuponsInfo });
         }
     }
 }

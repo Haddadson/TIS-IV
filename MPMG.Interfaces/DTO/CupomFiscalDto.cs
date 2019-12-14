@@ -6,7 +6,7 @@ namespace MPMG.Interfaces.DTO
     {
         public int Sgdp { get; set; }
         public string Coo { get; set; }
-        public int NumeroNotaFiscal { get; set; }
+        public string NumeroNotaFiscal { get; set; }
         public string PostoReferente { get; set; }
         public int Hodometro { get; set; }
         public string Cliente { get; set; }

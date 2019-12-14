@@ -1,22 +1,8 @@
-var numero_nf_existente = ["", ""];
-var preco_unitario_existente = ["", ""];
-/*initiate the autocomplete function on the id, and pass along the  array as possible autocomplete values:*/
-
 function insertAutocompleteFeatureInElement(DOMElement, suggestions) {
     if (suggestions != null && DOMElement != null) {
         autocomplete(DOMElement, suggestions);
     }
 }
-
-$(document).ready(() => {
-    insertAutocompleteFeatureInElement(document.getElementById("numero_nf"), numero_nf_existente);            // no cadastro de CUPOM FISCAL
-    insertAutocompleteFeatureInElement(document.getElementById("preco_unitario"), preco_unitario_existente);  // este fica em Cadastro de Cupom Fiscal
-    insertAutocompleteFeatureInElement(document.getElementById("preco_unitario1"), preco_unitario_existente); // este fica em Cadastro de Nota Fiscal
-    insertAutocompleteFeatureInElement(document.getElementById("preco_unitario2"), preco_unitario_existente); // este fica em Cadastro de Nota Fiscal
-    insertAutocompleteFeatureInElement(document.getElementById("preco_unitario3"), preco_unitario_existente); // este fica em Cadastro de Nota Fiscal
-    insertAutocompleteFeatureInElement(document.getElementById("preco_unitario4"), preco_unitario_existente); // este fica em Cadastro de Nota Fiscal
-});
-
 function autocomplete(inp, arr) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
@@ -123,5 +109,3 @@ function autocomplete(inp, arr) {
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 // autocomplete(document.getElementById("numero_nf_existente"), numero_nf_existente);
-// autocomplete(document.getElementById("posto_fornecedor_existente"), posto_fornecedor_existente);
-// autocomplete(document.getElementById("cliente"), cliente_existente);

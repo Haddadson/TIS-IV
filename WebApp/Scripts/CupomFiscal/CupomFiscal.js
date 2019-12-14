@@ -1,4 +1,4 @@
-const initNotaFiscalFields = () => {
+const initCupomFiscalFields = () => {
     VMasker(document.querySelector("#placa_veiculo")).maskPattern("AAA-9999");
 
     validateNumericRequiredFormField("#numero_nf", true, true);
@@ -6,31 +6,67 @@ const initNotaFiscalFields = () => {
     validateNumericRequiredFormField("#hodometro");
     validateNumericRequiredFormField("#valor_total");
     validateNumericRequiredFormField("#preco_unitario", false, true);
+
+    $("#data_emissao").datetimepicker({
+        format: "DD/MM/YYYY HH:mm",
+        maxDate: moment([], '').format('L LT'),
+        defaultDate: moment([], '').format('L LT')
+    });
 };
 
 
 $(document).ready(function () {
-    initNotaFiscalFields();
+    initCupomFiscalFields();
+    const isInteger = value => (/^\d+$/.test(value));
 
     $("#cadastrar-cupom-fiscal").on("click", function (event) {
-        if ($("#coo").val() == false || $("#data_emissao").val() == false || $("#hora_emissao").val() == false ||
-            $("#combustivel").val() == false || $("#quantidade").val() == false || $("#preco_unitario").val() == false || $("#valor_total").val() == false ){
-            alert("Preencha todos campos obrigatórios!");
+        let canSave = true;
+        const coo = $("#coo").val();
+        const quantidade = $("#quantidade").val();
+        const nf = $("#numero_nf").val();
+        const hodometro = $("#hodometro").val();
+
+        if (!coo && !isInteger(coo) ) {
+            canSave = false;
+            alert('Favor preencher o campo COO adequadamente.');
+        } else if ($("#data_emissao_value").val() == false) {
+            canSave = false;
+            alert('Favor selecionar uma data de emissão para o cupom selecionado.');
+        } else if ($("#combustivel").val() == false) {
+            canSave = false;
+            alert('Favor selecionar um combustível.');
+        } else if (quantidade == false || !isInteger(quantidade)) {
+            canSave = false;
+            alert('Favor informar a quantidade!');
+        } else if ($("#preco_unitario").val() == false) {
+            canSave = false;
+            alert('Favor informar o preco unitário!');
+        } else if ($("#valor_total").val() == false ) {
+            canSave = false;
+            alert('Favor informar o valor total do cupom!');
+        } else if (nf != '' && !isInteger(nf)) {
+            canSave = false;
+            alert('O valor da nota fiscal está incorreto!');
+        } else if (hodometro != '' && !isInteger(hodometro)) {
+            canSave = false;
+            alert('O valor do hodômetro está incorreto!');
         }
-        else {
+
+        if (canSave) {
             const cupomFiscalData = {
                 "SGDP": $("#sgdp_escolhido").val(),
                 "NrNotaFiscal": $("#numero_nf").val(),
                 "COO": $("#coo").val(),
-                "Data": $("#data_emissao").val(),
-                "Horario": $("#hora_emissao").val(),
+                "Data": $("#data_emissao_value").val(),
                 "Combustivel": $("#combustivel").val(),
                 "Quantidade": $("#quantidade").val(),
                 "PrecoUnitario": parseFloat($("#preco_unitario").val().replace(",", ".")),
                 "ValorTotal": parseFloat($("#valor_total").val().replace(",", ".")),
                 "Hodometro": $("#hodometro").val(),
                 "Veiculo": $("#veiculo").val(),
-                "PlacaVeiculo": $("#placa_veiculo").val().replace('-', '')
+                "PlacaVeiculo": $("#placa_veiculo").val().replace('-', ''),
+                "Cliente": $("#cliente").val(),
+                "Posto": $("#posto_referente").val()
             };
 
             const urlCadastrarCupomFiscal = window.urlCadastrarCupomFiscal;
@@ -53,17 +89,7 @@ $(document).ready(function () {
     });
 
     function limparCampos() {
-        $("#numero_nf").val('');
-        $("#coo").val('');
-        $("#data_emissao").val('');
-        $("#hora_emissao").val('');
-        $("#combustivel").val('');
-        $("#quantidade").val('');
-        $("#preco_unitario").val('');
-        $("#valor_total").val('');
-        $("#hodometro").val('');
-        $("#veiculo").val('');
-        $("#placa_veiculo").val('');
+        $("#numero_nf, #coo, #data_emissao_value, #combustivel, #quantidade, #preco_unitario, #valor_total, #hodometro, #veiculo, #placa_veiculo, #posto_referente, #cliente").val('');
     }
 
     const autoSetValorTotal = evt => {

@@ -23,7 +23,6 @@ namespace MPMG.Repositories
                 B.nome_municipio AS NomeMunicipio,
                 id_municipio_referente AS IdMunicipioReferente, 
                 C.nome_municipio AS NomeMunicipioReferente,
-                ano_referente AS AnoReferente, 
                 dt_geracao AS DataGeracao, 
                 titulo_aba_1 AS Titulo1, 
                 titulo_aba_2 AS Titulo2, 
@@ -41,7 +40,6 @@ namespace MPMG.Repositories
             FROM `TabelaUsuario` A";
 
         private const string SQL_OBTER_TABELA_POR_SGDP = @"
-
             SELECT  
                 sgdp AS SGDP, 
                 A.id_municipio AS IdMunicipio,

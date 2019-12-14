@@ -68,7 +68,7 @@ namespace MPMG.Services
             );
 
             this.SalvarAnosReferentes(SGDP, AnosReferentes);
-            this.SalvarMunicipioReferente(idMunicipio, idMunicipioReferente, AnosReferentes);
+            this.SalvarMunicipioReferente(SGDP, idMunicipio, idMunicipioReferente, AnosReferentes);
         }
 
         private void SalvarAnosReferentes(string SGDP, List<int> AnosReferentes)
@@ -79,7 +79,7 @@ namespace MPMG.Services
             }
         }
 
-        private void SalvarMunicipioReferente(int idMunicipio, int idMunicipioReferente, List<int> AnosReferentes)
+        private void SalvarMunicipioReferente(string SGDP, int idMunicipio, int idMunicipioReferente, List<int> AnosReferentes)
         {
             foreach (var ano in AnosReferentes)
             {
@@ -94,6 +94,7 @@ namespace MPMG.Services
                 foreach(var mes in mesesANP)
                 {
                     municipioReferenteRepositorio.InserirMunicipioReferente(
+                        SGDP,
                         idMunicipio,
                         idMunicipioReferente,
                         ano,
