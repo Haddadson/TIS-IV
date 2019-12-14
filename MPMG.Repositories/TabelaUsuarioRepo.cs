@@ -42,7 +42,7 @@ namespace MPMG.Repositories
 
         private const string SQL_OBTER_TABELA_POR_SGDP = @"
             SELECT  
-                sgdp AS SGDP, 
+                A.sgdp AS SGDP, 
                 A.id_municipio AS IdMunicipio,
                 B.nome_municipio AS NomeMunicipio,
                 A.id_municipio_referente AS IdMunicipioReferente, 
@@ -58,18 +58,19 @@ namespace MPMG.Repositories
             INNER JOIN `municipio` B
             on A.id_municipio = B.id_municipio
             LEFT JOIN `municipioreferente` C 
-            ON A.id_municipio = C.id_municipio AND
-               A.id_municipio_referente = C.id_municipio_referente
+            ON  A.sgdp = C.sgdp AND
+                A.id_municipio = C.id_municipio AND
+                A.id_municipio_referente = C.id_municipio_referente
             LEFT JOIN `municipio` D
             on A.id_municipio_referente = D.id_municipio
-            WHERE A.sgdp = @Sgdp";
+            WHERE A.sgdp = @SGDP";
 
         private const string SQL_INSERIR_ANOS_POR_TABELA = @"
             INSERT INTO `anosportabela`
             VALUES (@SGDP, @AnoReferente)            
         ";
         private const string SQL_OBTER_ANOS_REFERENTES_POR_SGDP = @"
-            SELECT AnoReferente FROM anosportabela WHERE SGDP = @Sgdp";
+            SELECT AnoReferente FROM anosportabela WHERE SGDP = @SGDP";
 
         public bool CadastrarTabela(
             string SGDP,
@@ -105,7 +106,7 @@ namespace MPMG.Repositories
         {
             DynamicParameters parametros = new DynamicParameters();
 
-            parametros.Add("@Sgdp", sgdp, DbType.AnsiString);
+            parametros.Add("@SGDP", sgdp, DbType.AnsiString);
 
             return Query<int>(SQL_OBTER_ANOS_REFERENTES_POR_SGDP, parametros).ToList();
         }
