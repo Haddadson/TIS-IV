@@ -68,7 +68,12 @@
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div class="nk-int-st">
-                                        <input type="date" class="form-control borderless-field" id="data_emissao">
+                                        <div class='input-group date' id='data_emissao'>
+                                            <input type='text' class="form-control borderless-field" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -368,7 +373,12 @@
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-3 col-xs-12">
                                     <div class="nk-int-st">
-                                        <input type="text" class="form-control" id="data_consulta_anp" />
+                                        <select class="form-control" id="data_consulta_anp">
+                                            @foreach (var dtANP in Model.MesesANP)
+                                            {
+                                                <option value="@dtANP">@dtANP</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
@@ -385,7 +395,6 @@
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div>
                                         <select class="form-control" id="departamento">
-                                            <option></option>
                                         </select>
                                     </div>
                                 </div>

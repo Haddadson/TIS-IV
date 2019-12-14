@@ -32,7 +32,6 @@ const addCOOOnChangeHandler = evt => {
 };
 
 const initNotaFiscalFields = () => {
-    VMasker(document.querySelector("#data_consulta_anp")).maskPattern("99/9999");
     VMasker(document.querySelector("#placa_veiculo")).maskPattern("AAA-9999");
     validateNumericRequiredFormField("#numero_nf", true, true);
     validateNumericRequiredFormField("#quantidade", true, true);
@@ -41,7 +40,20 @@ const initNotaFiscalFields = () => {
     validateNumericRequiredFormField("#preco_unitario", false, true);
     validateCuponsFicais("#cupons_selecionados");
     validateDateFormField("#data_emissao");
-    
+    $("#data_consulta_anp").select2({
+        placeholder: "",
+        allowClear: true
+    });
+    $("#departamento").select2({
+        placeholder: "",
+        allowClear: true
+    });
+    $("#data_emissao").datetimepicker({
+        format: 'DD/MM/YYYY',
+        maxDate: moment(),
+        defaultDate: moment((new Date()).toISOString()).format('MM/DD/YYYY')
+    });
+
 
     $("#adicionar_cupom").on("click", addCOOOnChangeHandler);
 

@@ -212,15 +212,18 @@ select:focus,
 
 .select2-container--default.select2-container--focus .select2-selection--multiple {
     border: 1px solid #ccc !important;
+    height: 34px !important;
 }
 
 .select2-container--default .select2-selection--multiple {
     border: 1px solid #ccc !important;
+    height: 34px !important;
 }
 
 .select2-selection,
 .select2-selection--single {
     border: 1px solid #ccc !important;
+    height: 34px !important;
 }
 
 .select2,
@@ -234,4 +237,15 @@ select:focus,
 
 .select2-container {
     font-size: 14px;
+}
+
+.input-group-addon {
+    width: 40px;
+}
+
+#data-emissao {
+    width: 100% !important;
+}
+.input-group {
+    width: 100% !important;
 }

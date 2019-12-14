@@ -38,7 +38,9 @@ namespace MPMG.Services
             {
                 return repo.ListarCuponsDisponiveisPorSgdp(sgdp).Select(item => item.Coo).ToList();
             }
+#pragma warning disable CS0168 // A variável "ex" está declarada, mas nunca é usada
             catch (Exception ex)
+#pragma warning restore CS0168 // A variável "ex" está declarada, mas nunca é usada
             {
                 return new List<string>();
             }
@@ -50,7 +52,9 @@ namespace MPMG.Services
             {
                 return ConverterListaEntidadeParaDto(repo.ListarCuponsPorSgdp(sgdp));
             }
+#pragma warning disable CS0168 // A variável "ex" está declarada, mas nunca é usada
             catch (Exception ex)
+#pragma warning restore CS0168 // A variável "ex" está declarada, mas nunca é usada
             {
                 return new List<CupomFiscalDto>();
             }

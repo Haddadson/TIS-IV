@@ -64,7 +64,9 @@ namespace WebApp.Controllers
                     DataGeracao = DateTime.Now
                 });
             }
+#pragma warning disable CS0168 // A variável "ex" está declarada, mas nunca é usada
             catch (Exception ex)
+#pragma warning restore CS0168 // A variável "ex" está declarada, mas nunca é usada
             {
                 return Json(new
                 {
@@ -84,7 +86,9 @@ namespace WebApp.Controllers
             {
                 tabelas = tabelaUsuarioService.ListarTabelas();
             }
+#pragma warning disable CS0168 // A variável "ex" está declarada, mas nunca é usada
             catch (Exception ex)
+#pragma warning restore CS0168 // A variável "ex" está declarada, mas nunca é usada
             {
 
             }

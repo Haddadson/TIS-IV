@@ -200,6 +200,7 @@
   <ItemGroup>
     <Content Include="Content\animate.css" />
     <Content Include="Content\animation\animation-custom.css" />
+    <Content Include="Content\bootstrap-datepicker.min.css" />
     <Content Include="Content\bootstrap-select\bootstrap-select.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -250,6 +251,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="img\loading.gif" />
     <Content Include="Scripts\AtualizarFam\AtualizarFam.js" />
+    <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />

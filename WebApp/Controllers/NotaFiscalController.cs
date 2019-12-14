@@ -16,6 +16,7 @@ namespace WebApp.Controllers
         private readonly CupomFiscalService cupomFiscalService;
         private readonly TabelaUsuarioService tabelaUsuarioService;
         private readonly DepartamentoService departamentoService;
+        private readonly AnoANPService anoANPService;
 
         public NotaFiscalController()
         {
@@ -23,6 +24,7 @@ namespace WebApp.Controllers
             notaFiscalService = new NotaFiscalService();
             tabelaUsuarioService = new TabelaUsuarioService();
             departamentoService = new DepartamentoService();
+            anoANPService = new AnoANPService();
         }
 
         public JsonResult ListarCupons(string SGDP)
@@ -128,17 +130,24 @@ namespace WebApp.Controllers
         {
 
             List<TabelaUsuarioDto> tabelas = new List<TabelaUsuarioDto>();
-
+            List<AnoANPDto> anosANP = new List<AnoANPDto>();
+            List<string> mesesANP = new List<string>();
             try
             {
-                tabelas = tabelaUsuarioService.ListarTabelas();
-
+                anosANP = anoANPService.ListarMesesPorSGDP(valorSgdp);
+                foreach (var anoANP in anosANP)
+                {
+                    foreach(var mes in anoANP.meses)
+                    {
+                        mesesANP.Add(mes.ToString("D2") + '/' + anoANP.ano.ToString());
+                    }
+                }
             }
             catch (Exception ex)
             {
             }
 
-            return View("NotaFiscal", new NotaFiscalModel { TabelasUsuario = tabelas, ValorSgdp = valorSgdp });
+            return View("NotaFiscal", new NotaFiscalModel { ValorSgdp = valorSgdp, MesesANP = mesesANP});
         }
     }
 }

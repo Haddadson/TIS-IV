@@ -58,8 +58,8 @@ namespace MPMG.Services
 
             tabelaRepositorio.CadastrarTabela(
                 SGDP,
-                idMunicipioReferente,
                 idMunicipio,
+                idMunicipioReferente,
                 DataGeracao,
                 Titulo1,
                 Titulo2,
@@ -146,7 +146,9 @@ namespace MPMG.Services
                     dado.CuponsFiscaisVinculados = cupomFiscalRepositorio.ObterCuponsVinculados(tabela.SGDP, dado.NumeroNotaFiscal));
 
             }
+#pragma warning disable CS0168 // A variável "ex" está declarada, mas nunca é usada
             catch (Exception ex)
+#pragma warning restore CS0168 // A variável "ex" está declarada, mas nunca é usada
             {
                 tabela.DadosAnpxNotaFiscal = new List<AnpxNotaFiscalDto>();
             }
@@ -170,7 +172,9 @@ namespace MPMG.Services
                     dado.CuponsFiscaisVinculados = cupomFiscalRepositorio.ObterCuponsVinculados(tabela.SGDP, dado.NumeroNotaFiscal));
 
             }
+#pragma warning disable CS0168 // A variável "ex" está declarada, mas nunca é usada
             catch (Exception ex)
+#pragma warning restore CS0168 // A variável "ex" está declarada, mas nunca é usada
             {
                 tabela.OutrasInformacoes = new List<OutrasInformacoesDto>();
             }
