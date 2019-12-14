@@ -11,11 +11,13 @@ namespace WebApp.Controllers
     {
         private readonly TabelaUsuarioService tabelaUsuarioService;
         private readonly CupomFiscalService cupomFiscalService;
+        private readonly ExportacaoExcelService exportacaoExcelService;
 
         public TabelaUsuarioController()
         {
             tabelaUsuarioService = new TabelaUsuarioService();
             cupomFiscalService = new CupomFiscalService();
+            exportacaoExcelService = new ExportacaoExcelService();
         }
 
         public JsonResult CadastrarTabela(TabelaUsuario TabelaUsuario)
@@ -50,6 +52,66 @@ namespace WebApp.Controllers
             }
         }
 
+        public ActionResult ExportarTabelasParaExcel(DadosTabelaDto DadosTabela,
+                                                     List<AnpxNotaFiscalModelDto> ListaTabelaAnpxNota,
+                                                     List<CupomFiscalDto> ListaCuponsFiscais,
+                                                     List<OutrasInformacoesModelDto> ListaOutrasInformacoes)
+
+        {
+
+            try
+            {
+                var documento = exportacaoExcelService.ExportarDadosParaExcel(DadosTabela, ListaTabelaAnpxNota, ListaCuponsFiscais, ListaOutrasInformacoes);
+
+                if(documento == null || documento.Length == 0)
+                    return Json(new
+                    {
+                        Sucesso = false,
+                        Mensagem = "Ocorreu um erro ao exportar o documento"
+                    });
+
+                string identificadorArquivo = Guid.NewGuid().ToString();
+                TempData[identificadorArquivo] = documento;
+                TempData.Keep(identificadorArquivo);
+
+                return RetornarIdentificadorArquivoParaDownload(identificadorArquivo);
+            }
+            catch(Exception ex)
+            {
+                return Json(new
+                {
+                    Sucesso = false,
+                    Mensagem = "Ocorreu um erro inesperado"
+                });
+            }
+            
+        }
+
+        public ActionResult FazerDownloadDeExcel(string identificadorArquivo)
+        {
+            try
+            {
+                if (TempData[identificadorArquivo] != null)
+                {
+                    byte[] arquivoGerado = (byte[])TempData[identificadorArquivo];
+                    return File(arquivoGerado, "application/vnd.ms-excel", identificadorArquivo + ".xlsx");
+                }
+                else
+                {
+                    return new EmptyResult();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new
+                {
+                    Sucesso = false,
+                    Mensagem = "Ocorreu um erro ao efetuar download"
+                });
+            }
+        }
+
         public ActionResult Index(string valorSgdp = null)
         {
             TabelaUsuarioDto tabelaAnpXNota = new TabelaUsuarioDto();
@@ -69,6 +131,16 @@ namespace WebApp.Controllers
                 TabelaAnpXNota = tabelaAnpXNota,
                 TabelaOutrasInformacoes = tabelaOutrasInfos,
                 TabelaCuponsFicais = tabelaCuponsFiscais
+            });
+        }
+
+        private JsonResult RetornarIdentificadorArquivoParaDownload(string identificadorArquivo)
+        {
+            return Json(new
+            {
+                Sucesso = true,
+                Mensagem = string.Empty,
+                IdentificadorArquivo = identificadorArquivo
             });
         }
     }

@@ -8,15 +8,16 @@ namespace MPMG.Services
 {
     public class CupomFiscalService
     {
-        private readonly CupomFiscalRepo repo;
+        private readonly CupomFiscalRepo cupomFiscalRepo;
+
         public CupomFiscalService()
         {
-            repo = new CupomFiscalRepo();
+            cupomFiscalRepo = new CupomFiscalRepo();
         }
 
         public void Cadastrar(string sGDP, string nrNotaFiscal, string cOO, string posto, DateTime data, string combustivel, int quantidade, double precoUnitario, double valorTotal, string cliente, int hodometro, string veiculo, string placaVeiculo)
         {
-            repo.CadastrarCupomCompleto(
+            cupomFiscalRepo.CadastrarCupomCompleto(
                 sGDP,
                 nrNotaFiscal,
                 cOO,
@@ -36,7 +37,7 @@ namespace MPMG.Services
         {
             try
             {
-                return repo.ListarCuponsDisponiveisPorSgdp(sgdp).Select(item => item.Coo).ToList();
+                return cupomFiscalRepo.ListarCuponsDisponiveisPorSgdp(sgdp).Select(item => item.Coo).ToList();
             }
             catch (Exception ex)
             {
@@ -48,7 +49,7 @@ namespace MPMG.Services
         {
             try
             {
-                return ConverterListaEntidadeParaDto(repo.ListarCuponsPorSgdp(sgdp));
+                return ConverterListaEntidadeParaDto(cupomFiscalRepo.ListarCuponsPorSgdp(sgdp));
             }
             catch (Exception ex)
             {
@@ -77,6 +78,18 @@ namespace MPMG.Services
                 ValorTotal = entidade.ValorTotal,
                 Veiculo = entidade.Veiculo
             };
+        }
+
+        public CupomFiscalInfoDto ObterInfoCuponsFiscais(string valorSgdp)
+        {
+            CupomFiscalInfoDto cuponsInfo = new CupomFiscalInfoDto();
+
+            cuponsInfo.Clientes = cupomFiscalRepo.ListarClientes(valorSgdp);
+            cuponsInfo.NotasFiscais = cupomFiscalRepo.ListarNotasFiscais(valorSgdp);
+            cuponsInfo.Postos = cupomFiscalRepo.ListarPostos(valorSgdp);
+            cuponsInfo.PrecosUnitarios = cupomFiscalRepo.ListarPrecos(valorSgdp);
+
+            return cuponsInfo;
         }
 
         private List<CupomFiscalDto> ConverterListaEntidadeParaDto(List<CupomFiscal> entidades)

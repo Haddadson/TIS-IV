@@ -10,7 +10,7 @@ namespace MPMG.Repositories
     {
 
         private const string SQL_INSERIR_MUNICIPIO_REFERENTE = @"
-            INSERT INTO municipioreferente VALUES (@IdMunicipio, @IdMunicipioReferente, @Ano, @Mes)";
+            INSERT INTO municipioreferente VALUES (@SGDP, @IdMunicipio, @IdMunicipioReferente, @Ano, @Mes)";
 
         private const string SQL_OBTER_MUNICIPIO_REFERENTE = @"
             SELECT B.id_municipio AS Codigo,
@@ -63,12 +63,13 @@ namespace MPMG.Repositories
             return Obter(sql, parametros);
         }
 
-        public void InserirMunicipioReferente(int idMunicipio, int idMunicipioReferente, int ano, int mes)
+        public void InserirMunicipioReferente(string SGDP, int idMunicipio, int idMunicipioReferente, int ano, int mes)
         {
             DynamicParameters parametros = new DynamicParameters();
 
+            parametros.Add("@SGDP", SGDP, DbType.AnsiString);
             parametros.Add("@IdMunicipio", idMunicipio, DbType.Int32);
-            parametros.Add("@IdMunicipioReferente", idMunicipioReferente, DbType.Int32);
+            parametros  .Add("@IdMunicipioReferente", idMunicipioReferente, DbType.Int32);
             parametros.Add("@Ano", ano.ToString(), DbType.AnsiStringFixedLength);
             parametros.Add("@Mes", mes.ToString(), DbType.AnsiString);
 

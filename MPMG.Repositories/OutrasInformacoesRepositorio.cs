@@ -15,6 +15,7 @@ namespace MPMG.Repositories
                 I.vunitario AS ValorUnitario,
                 I.vrtotal AS ValorTotalItem,
                 A.vrtotal_nota As ValorTotalNota,
+                B.valor_fam AS ValorFam,
                 C.preco_medio_revenda AS PrecoMedioAnp,
                 C.preco_maximo_revenda AS PrecoMaximoAnp,
                 C.ano AS AnoAnp,

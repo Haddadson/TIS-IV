@@ -18,6 +18,10 @@
     validateDateFormField("#data-geracao");
     setDefaultDate("#data-geracao");
     setReadOnly("#data-geracao");
+    $("#municipios-anp, #municipios").select2({
+        placeholder: "",
+        allowClear: false
+    });
 
     $("#check-disponibilidade-anp").on("click", validateANP);
 

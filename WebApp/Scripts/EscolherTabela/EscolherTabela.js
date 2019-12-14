@@ -1,15 +1,16 @@
-﻿$(document).ready(function () {     
+﻿const switchRoutes = (id) => {
+    if (id === 'visualizar_tabela') {
+        return window.urlRedirecionarVisualizarTabela;
+    } else if (id === 'cadastrar_nota_fiscal') {
+        return window.urlRedirecionarCadastrarCupom;
+    } else if (id === 'cadastrar_cupom_fiscal') {
+        return window.urlCadastrarNotaFiscal;
+    }
+};
 
-    var switchRoutes = (id) => {
-        if (id === 'visualizar_tabela') {
-            return window.urlRedirecionarVisualizarTabela;
-        } else if (id === 'cadastrar_nota_fiscal') {
-            return window.urlRedirecionarCadastrarCupom;
-        } else if (id === 'cadastrar_cupom_fiscal') {
-            return window.urlCadastrarNotaFiscal;
-        }
-    };
+$(document).ready(function () {     
 
+    $("#sgdp").select2();
     $("#visualizar_tabela, #cadastrar_nota_fiscal, #cadastrar_cupom_fiscal").on("click", function (event) {
         let valorSgdp = $("#sgdp").val();
 
@@ -28,5 +29,7 @@
             alert("Selecione um SGDP");
         }
     });
+
+
 
 });

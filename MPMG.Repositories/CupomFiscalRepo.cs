@@ -12,12 +12,12 @@ namespace MPMG.Services
     {
         private const string SQL_INSERIR_CUPOM_FISCAL = @"
                 INSERT INTO `cupomfiscal` (`coo`, `sgdp`, `nr_nota_fiscal`)
-                VALUES (@nr_cupom, @sGDP, @numNotaFiscal)";
+                VALUES (@COO, @SGDP, @NrNotaFiscal)";
 
         private const string SQL_INSERIR_CUPOM_FISCAL_COMPLETO = @"
                 INSERT INTO `cupomfiscal` (`coo`, `sgdp`, `nr_nota_fiscal`, `posto_referente`, `hodometro`, 
                 `cliente`, `dt_emissao`, `quantidade`, `preco_unitario`, `vrtotal`, `produto`, `veiculo`, `placa_veiculo`)
-                VALUES (@coo, @sGDP, (SELECT `nr_nota_fiscal` FROM `notafiscal` WHERE `nr_nota_fiscal` = @nrNotaFiscal), 
+                VALUES (@COO, @SGDP, (SELECT `nr_nota_fiscal` FROM `notafiscal` WHERE `nr_nota_fiscal` = @NrNotaFiscal), 
                 @posto,
                 @hodometro,
                 @cliente,
@@ -45,14 +45,14 @@ namespace MPMG.Services
                 veiculo AS Veiculo,
                 placa_veiculo AS PlacaVeiculo
             FROM `cupomfiscal`
-            WHERE sgdp = @Sgdp";
+            WHERE sgdp = @SGDP";
 
         private const string SQL_LISTAR_CUPONS_FISCAIS_POR_NOTA = @"
             SELECT 
                 coo AS Coo
             FROM `cupomfiscal`
-            WHERE sgdp = @Sgdp 
-            AND nr_nota_fiscal = @NumeroNotaFiscal";
+            WHERE sgdp = @SGDP 
+            AND nr_nota_fiscal = @NrNotaFiscal";
 
         private const string SQL_LISTAR_CUPONS_DISPONIVEIS_POR_SGDP = @"
             SELECT
@@ -70,7 +70,7 @@ namespace MPMG.Services
                 veiculo AS Veiculo,
                 placa_veiculo AS PlacaVeiculo
             FROM `cupomfiscal`
-            WHERE sgdp = @Sgdp
+            WHERE sgdp = @SGDP
               AND nr_nota_fiscal IS NULL";
 
         private const string SQL_BUSCAR_CUPOM_DISPONIVEL = @"
@@ -89,23 +89,52 @@ namespace MPMG.Services
                 veiculo AS Veiculo,
                 placa_veiculo AS PlacaVeiculo
             FROM `cupomfiscal`
-            WHERE sgdp = @Sgdp
-              AND coo = @Coo
+            WHERE sgdp = @SGDP
+              AND coo = @COO
               AND nr_nota_fiscal IS NULL";
+
 
         private const string SQL_EDITAR_CUPOM = @"
             UPDATE `cupomfiscal`
                SET nr_nota_fiscal = @NrNotaFiscal
              WHERE sgdp = @SGDP
-              AND coo = @Coo";
+              AND coo = @COO";
+
+        private const string SQL_LISTAR_CLIENTES = @"
+            SELECT DISTINCT cliente AS Cliente
+              FROM cupomfiscal
+             WHERE sgdp = @SGDP
+               AND cliente IS NOT NULL
+        ";
+
+        private const string SQL_LISTAR_POSTOS = @"
+            SELECT DISTINCT posto_referente AS PostoReferente
+              FROM cupomfiscal
+             WHERE sgdp = @SGDP
+               AND posto_referente IS NOT NULL
+        ";
+
+        private const string SQL_LISTAR_PRECO_UNITARIO = @"
+            SELECT DISTINCT preco_unitario AS PrecoUnitario
+              FROM cupomfiscal
+             WHERE sgdp = @SGDP
+               AND preco_unitario IS NOT NULL
+        ";
+
+        private const string SQL_LISTAR_NOTAS_FISCAIS = @"
+            SELECT DISTINCT nr_nota_fiscal AS NumeroNotaFiscal
+              FROM notafiscal
+             WHERE sgdp = @SGDP
+               AND nr_nota_fiscal IS NOT NULL
+        ";
 
         public bool CadastrarCupom(string sGDP, string numeroCupom, string numeroNota)
         {
             DynamicParameters parametros = new DynamicParameters();
 
-            parametros.Add("@nr_cupom", numeroCupom, DbType.AnsiString);
-            parametros.Add("@sGDP", sGDP, DbType.AnsiString);
-            parametros.Add("@numNotaFiscal", numeroCupom, DbType.AnsiString);
+            parametros.Add("@COO", numeroCupom, DbType.AnsiString);
+            parametros.Add("@SGDP", sGDP, DbType.AnsiString);
+            parametros.Add("@NrNotaFiscal", numeroNota, DbType.AnsiString);
 
             return Execute(SQL_INSERIR_CUPOM_FISCAL, parametros) > 0;
         }
@@ -117,9 +146,9 @@ namespace MPMG.Services
         {
             DynamicParameters parametros = new DynamicParameters();
 
-            parametros.Add("@sGDP", sGDP, DbType.AnsiString); 
-            parametros.Add("@nrNotaFiscal", nrNotaFiscal, DbType.AnsiString); 
-            parametros.Add("@coo", cOO,  DbType.AnsiString); 
+            parametros.Add("@SGDP", sGDP, DbType.AnsiString); 
+            parametros.Add("@NrNotaFiscal", nrNotaFiscal, DbType.AnsiString); 
+            parametros.Add("@COO", cOO,  DbType.AnsiString); 
             parametros.Add("@posto",posto,  DbType.AnsiString); 
             parametros.Add("@data", data,  DbType.DateTime); 
             parametros.Add("@produto",combustivel, DbType.AnsiString); 
@@ -129,7 +158,7 @@ namespace MPMG.Services
             parametros.Add("@cliente", cliente, DbType.AnsiString); 
             parametros.Add("@hodometro", hodometro,  DbType.Int32); 
             parametros.Add("@veiculo", veiculo, DbType.AnsiString); 
-            parametros.Add("@placaVeiculo", veiculo, DbType.AnsiString); 
+            parametros.Add("@placaVeiculo", placaVeiculo, DbType.AnsiString); 
 
             return Execute(SQL_INSERIR_CUPOM_FISCAL_COMPLETO, parametros) > 0;
         }
@@ -138,8 +167,8 @@ namespace MPMG.Services
         {
             DynamicParameters parametros = new DynamicParameters();
 
-            parametros.Add("@NumeroNotaFiscal", numeroNota, DbType.AnsiString);
-            parametros.Add("@Sgdp", Sgdp, DbType.AnsiString);
+            parametros.Add("@NrNotaFiscal", numeroNota, DbType.AnsiString);
+            parametros.Add("@SGDP", Sgdp, DbType.AnsiString);
 
             return Listar(SQL_LISTAR_CUPONS_FISCAIS_POR_NOTA, parametros).Select(item => item.Coo).ToList();
         }
@@ -148,7 +177,7 @@ namespace MPMG.Services
         {
             DynamicParameters parametros = new DynamicParameters();
 
-            parametros.Add("@Sgdp", Sgdp, DbType.AnsiString);
+            parametros.Add("@SGDP", Sgdp, DbType.AnsiString);
 
             return Listar(SQL_LISTAR_CUPONS_FISCAIS_POR_SGDP, parametros);
         }
@@ -157,7 +186,7 @@ namespace MPMG.Services
         {
             DynamicParameters parametros = new DynamicParameters();
 
-            parametros.Add("@Sgdp", Sgdp, DbType.AnsiString);
+            parametros.Add("@SGDP", Sgdp, DbType.AnsiString);
 
             return Listar(SQL_LISTAR_CUPONS_DISPONIVEIS_POR_SGDP, parametros);
         }
@@ -166,8 +195,8 @@ namespace MPMG.Services
         {
             DynamicParameters parametros = new DynamicParameters();
 
-            parametros.Add("@Sgdp", sGDP, DbType.AnsiString);
-            parametros.Add("@Coo", numeroCupom, DbType.AnsiString);
+            parametros.Add("@SGDP", sGDP, DbType.AnsiString);
+            parametros.Add("@COO", numeroCupom, DbType.AnsiString);
 
             return Obter(SQL_BUSCAR_CUPOM_DISPONIVEL, parametros);
         }
@@ -176,11 +205,43 @@ namespace MPMG.Services
         {
             DynamicParameters parametros = new DynamicParameters();
 
-            parametros.Add("@Sgdp", sgdp, DbType.AnsiString);
-            parametros.Add("@Coo", numeroCupom, DbType.AnsiString);
+            parametros.Add("@SGDP", sgdp, DbType.AnsiString);
+            parametros.Add("@COO", numeroCupom, DbType.AnsiString);
             parametros.Add("@NrNotaFiscal", numeroNota, DbType.AnsiString);
 
             Execute(SQL_EDITAR_CUPOM, parametros);
+        }
+        public List<string> ListarClientes(string SGDP)
+        {
+            DynamicParameters parametros = new DynamicParameters();
+
+            parametros.Add("@SGDP", SGDP, DbType.AnsiString);
+
+            return Listar(SQL_LISTAR_CLIENTES, parametros).Select(item => item.Cliente).ToList();
+        }
+        public List<string> ListarPostos(string SGDP)
+        {
+            DynamicParameters parametros = new DynamicParameters();
+
+            parametros.Add("@SGDP", SGDP, DbType.AnsiString);
+
+            return Listar(SQL_LISTAR_POSTOS, parametros).Select(item => item.PostoReferente).ToList();
+        }
+        public List<string> ListarNotasFiscais(string SGDP)
+        {
+            DynamicParameters parametros = new DynamicParameters();
+
+            parametros.Add("@SGDP", SGDP, DbType.AnsiString);
+
+            return Listar(SQL_LISTAR_NOTAS_FISCAIS, parametros).Select(item => item.NumeroNotaFiscal).ToList();
+        }
+        public List<double> ListarPrecos(string SGDP)
+        {
+            DynamicParameters parametros = new DynamicParameters();
+
+            parametros.Add("@SGDP", SGDP, DbType.AnsiString);
+
+            return Listar(SQL_LISTAR_PRECO_UNITARIO, parametros).Select(item => item.PrecoUnitario).ToList();
         }
     }
 }

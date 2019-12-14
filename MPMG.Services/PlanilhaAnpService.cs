@@ -142,7 +142,9 @@ namespace MPMG.Services
                     {
                         tabelaAnpRepositorio.InserirLoteAnp(colunasInsert, idUploadAnp);
                     }
+#pragma warning disable CS0168 // A variável "ex" está declarada, mas nunca é usada
                     catch (Exception ex) { }
+#pragma warning restore CS0168 // A variável "ex" está declarada, mas nunca é usada
                     finally
                     {
                         colunasInsert.Clear();
