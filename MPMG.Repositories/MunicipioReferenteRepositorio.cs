@@ -69,7 +69,7 @@ namespace MPMG.Repositories
 
             parametros.Add("@SGDP", SGDP, DbType.AnsiString);
             parametros.Add("@IdMunicipio", idMunicipio, DbType.Int32);
-            parametros.Add("@IdMunicipioReferente", idMunicipioReferente, DbType.Int32);
+            parametros  .Add("@IdMunicipioReferente", idMunicipioReferente, DbType.Int32);
             parametros.Add("@Ano", ano.ToString(), DbType.AnsiStringFixedLength);
             parametros.Add("@Mes", mes.ToString(), DbType.AnsiString);
 

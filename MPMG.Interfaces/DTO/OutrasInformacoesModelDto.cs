@@ -1,6 +1,8 @@
-﻿namespace MPMG.Repositories.Entidades
+﻿using System.Collections.Generic;
+
+namespace MPMG.Interfaces.DTO
 {
-    public class OutrasInformacoes
+    public class OutrasInformacoesModelDto
     {
         public string NumeroNotaFiscal { get; set; }
         public string Produto { get; set; }
@@ -9,14 +11,13 @@
         public double ValorTotalItem { get; set; }
         public double ValorTotalNota { get; set; }
         public double PrecoMedioAnp { get; set; }
-        public double DiferencaMediaUnitaria { get; set; }
-        public double DiferencaMediaTotal { get; set; }
-        public double ValorMedioAtualizado { get; set; }
+        public string DiferencaMediaUnitaria { get; set; }
+        public string DiferencaMediaTotal { get; set; }
+        public string ValorMedioAtualizado { get; set; }
         public double PrecoMaximoAnp { get; set; }
-        public double DiferencaMaximaUnitaria { get; set; }
-        public double DiferencaMaximaTotal { get; set; }
-        public double ValorMaximoAtualizado { get; set; }
-        public string ValorFam { get; set; }
+        public string DiferencaMaximaUnitaria { get; set; }
+        public string DiferencaMaximaTotal { get; set; }
+        public string ValorMaximoAtualizado { get; set; }
         public int MesAnp { get; set; }
         public int AnoAnp { get; set; }
         public int MesFam { get; set; }
@@ -24,5 +25,6 @@
         public string NomeDepartamento { get; set; }
         public string Veiculo { get; set; }
         public string PlacaVeiculo { get; set; }
+        public List<string> CuponsFiscaisVinculados { get; set; }
     }
 }

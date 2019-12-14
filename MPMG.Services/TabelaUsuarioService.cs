@@ -134,6 +134,7 @@ namespace MPMG.Services
         public TabelaUsuarioDto ObterTabelaComDadosAnpxNotaFiscal(string sgdp)
         {
             var tabela = ConverterEntidadeParaDto(tabelaRepositorio.ObterTabelaPorSgdp(sgdp));
+            tabela.AnosReferentes = tabelaRepositorio.ListarAnosReferentesPorSgdp(sgdp);
 
             if (tabela == null || (tabela.Municipio == null && tabela.MunicipioReferente == null))
                 throw new Exception("Erro ao encontrar");
@@ -145,11 +146,8 @@ namespace MPMG.Services
 
                 tabela.DadosAnpxNotaFiscal.ForEach(dado =>
                     dado.CuponsFiscaisVinculados = cupomFiscalRepositorio.ObterCuponsVinculados(tabela.SGDP, dado.NumeroNotaFiscal));
-
             }
-#pragma warning disable CS0168 // A variável "ex" está declarada, mas nunca é usada
             catch (Exception ex)
-#pragma warning restore CS0168 // A variável "ex" está declarada, mas nunca é usada
             {
                 tabela.DadosAnpxNotaFiscal = new List<AnpxNotaFiscalDto>();
             }
@@ -228,7 +226,6 @@ namespace MPMG.Services
             return new TabelaUsuarioDto()
             {
                 AnalistaResponsavel = entidade.AnalistaResponsavel,
-                AnoReferente = entidade.AnoReferente,
                 DataGeracao = entidade.DataGeracao,
                 SGDP = entidade.SGDP,
                 Titulo1 = entidade.Titulo1,
@@ -261,9 +258,9 @@ namespace MPMG.Services
                 PrecoMaximoAnp = entidade.PrecoMaximoAnp,
                 PrecoMedioAnp = entidade.PrecoMedioAnp,
                 Quantidade = entidade.Quantidade,
-                ValorFam = entidade.ValorFam,
-                ValorMaximoAtualizado = entidade.ValorMaximoAtualizado,
-                ValorMedioAtualizado = entidade.ValorMedioAtualizado,
+                ValorFam = double.Parse(entidade.ValorFam.Replace('.', ',')),
+                ValorMaximoAtualizado = CalcularValorAtualizado(entidade.ValorFam, entidade.ValorUnitario, entidade.PrecoMaximoAnp, entidade.Quantidade),
+                ValorMedioAtualizado = CalcularValorAtualizado(entidade.ValorFam, entidade.ValorUnitario, entidade.PrecoMedioAnp, entidade.Quantidade),
                 ValorTotalItem = entidade.ValorTotalItem,
                 ValorTotalNota = entidade.ValorTotalNota,
                 ValorUnitario = entidade.ValorUnitario,
@@ -276,6 +273,11 @@ namespace MPMG.Services
                 DiferencaMaximaUnitaria = entidade.ValorUnitario - entidade.PrecoMaximoAnp,
                 DiferencaMaximaTotal = (entidade.ValorUnitario - entidade.PrecoMaximoAnp) * entidade.Quantidade
             };
+        }
+
+        private static double CalcularValorAtualizado(string ValorFam, double ValorUnitario, double PrecoAnp, double Quantidade)
+        {
+            return (double.Parse(ValorFam.Replace('.', ',')) * ((ValorUnitario - PrecoAnp) * Quantidade));
         }
 
         private List<OutrasInformacoesDto> ConverterListaEntidadeOutrasInfosParaDto(List<OutrasInformacoes> entidades)
@@ -298,8 +300,8 @@ namespace MPMG.Services
                 PrecoMaximoAnp = entidade.PrecoMaximoAnp,
                 PrecoMedioAnp = entidade.PrecoMedioAnp,
                 Quantidade = entidade.Quantidade,
-                ValorMaximoAtualizado = entidade.ValorMaximoAtualizado,
-                ValorMedioAtualizado = entidade.ValorMedioAtualizado,
+                ValorMaximoAtualizado = CalcularValorAtualizado(entidade.ValorFam, entidade.ValorUnitario, entidade.PrecoMaximoAnp, entidade.Quantidade),
+                ValorMedioAtualizado = CalcularValorAtualizado(entidade.ValorFam, entidade.ValorUnitario, entidade.PrecoMedioAnp, entidade.Quantidade),
                 ValorTotalItem = entidade.ValorTotalItem,
                 ValorTotalNota = entidade.ValorTotalNota,
                 ValorUnitario = entidade.ValorUnitario,

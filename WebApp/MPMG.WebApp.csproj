@@ -188,6 +188,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DadosTabelaModel.cs" />
     <Compile Include="Models\CupomFiscalModel.cs" />
     <Compile Include="Models\Departamento.cs" />
     <Compile Include="Models\EscolherTabelaModel.cs" />
@@ -246,7 +247,6 @@
     <Content Include="Content\wave\button.css" />
     <Content Include="Content\wave\waves.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="img\loading.gif" />
@@ -399,10 +399,6 @@
     <Folder Include="Views\Municipio\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
