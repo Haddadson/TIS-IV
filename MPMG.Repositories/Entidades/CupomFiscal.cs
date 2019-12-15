@@ -4,7 +4,7 @@ namespace MPMG.Repositories.Entidades
 {
     public class CupomFiscal
     {
-        public int Sgdp { get; set; }
+        public string Sgdp { get; set; }
         public string Coo { get; set; }
         public string NumeroNotaFiscal { get; set; }
         public string PostoReferente { get; set; }

@@ -17,20 +17,42 @@ namespace MPMG.Services
 
         public void Cadastrar(string sGDP, string nrNotaFiscal, string cOO, string posto, DateTime data, string combustivel, int quantidade, double precoUnitario, double valorTotal, string cliente, int hodometro, string veiculo, string placaVeiculo)
         {
-            cupomFiscalRepo.CadastrarCupomCompleto(
-                sGDP,
-                nrNotaFiscal,
-                cOO,
-                posto,
-                data,
-                combustivel,
-                quantidade,
-                precoUnitario,
-                valorTotal,
-                cliente,
-                hodometro,
-                veiculo,
-                placaVeiculo);
+            var cupomSalvo = cupomFiscalRepo.buscarCupom(sGDP, cOO);
+            if (cupomSalvo == null)
+            {
+                cupomFiscalRepo.CadastrarCupomCompleto(
+                    sGDP,
+                    nrNotaFiscal,
+                    cOO,
+                    posto,
+                    data,
+                    combustivel,
+                    quantidade,
+                    precoUnitario,
+                    valorTotal,
+                    cliente,
+                    hodometro,
+                    veiculo,
+                    placaVeiculo);
+            }
+            else
+            {
+                cupomFiscalRepo.EditarCupomCompleto(
+                    sGDP,
+                    nrNotaFiscal,
+                    cOO,
+                    posto,
+                    data,
+                    combustivel,
+                    quantidade,
+                    precoUnitario,
+                    valorTotal,
+                    cliente,
+                    hodometro,
+                    veiculo,
+                    placaVeiculo);
+            }
+
         }
 
         public List<string> ListarCuponsDisponiveisPorSgdp(string sgdp)
@@ -85,8 +107,8 @@ namespace MPMG.Services
             cuponsInfo.Clientes = cupomFiscalRepo.ListarClientes(valorSgdp);
             cuponsInfo.NotasFiscais = cupomFiscalRepo.ListarNotasFiscais(valorSgdp);
             cuponsInfo.Postos = cupomFiscalRepo.ListarPostos(valorSgdp);
-            cuponsInfo.PrecosUnitarios = cupomFiscalRepo.ListarPrecos(valorSgdp);
-            // cuponsInfo.CuponsFiscais = cupomFiscalRepo.ListarCuponsFiscais(valorSgdp);
+                cuponsInfo.PrecosUnitarios = cupomFiscalRepo.ListarPrecos(valorSgdp);
+            cuponsInfo.CuponsFiscais = cupomFiscalRepo.ListarCuponsFiscais(valorSgdp).Select(item => ConverterEntidadeParaDto(item)).ToList();
 
             return cuponsInfo;
         }

@@ -391,7 +391,6 @@
     <Content Include="Views\EscolherTabela\EscolherTabela.cshtml" />
     <Content Include="Views\NotaFiscal\NotaFiscal.cshtml" />
     <Content Include="Views\CupomFiscal\CupomFiscal.cshtml" />
-    <Content Include="Views\CupomFiscal\CadastrarCupomFiscal.cshtml" />
     <Content Include="Views\AtualizarFam\AtualizarFam.cshtml" />
   </ItemGroup>
   <ItemGroup>

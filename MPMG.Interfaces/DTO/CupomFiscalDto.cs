@@ -4,7 +4,7 @@ namespace MPMG.Interfaces.DTO
 {
     public class CupomFiscalDto
     {
-        public int Sgdp { get; set; }
+        public string Sgdp { get; set; }
         public string Coo { get; set; }
         public string NumeroNotaFiscal { get; set; }
         public int Hodometro { get; set; }

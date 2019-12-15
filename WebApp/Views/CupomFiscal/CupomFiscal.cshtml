@@ -225,6 +225,7 @@
         const precos = [];
         const postos = [];
         const notasFiscais = [];
+        window.coos = {};
 
         @foreach(var cliente in @Model.CuponsInfo.Clientes)
         {
@@ -243,11 +244,23 @@
         {
             @:precos.push('@precoUnitario');
         }
+
+        @foreach (var cupom in @Model.CuponsInfo.CuponsFiscais)
+        {
+            @:window.coos['@cupom.Coo'] = '@cupom.NumeroNotaFiscal';
+        }
+
         $(document).ready(() => {
             insertAutocompleteFeatureInElement(document.getElementById("cliente"), clientes);
             insertAutocompleteFeatureInElement(document.getElementById("preco_unitario"), precos);
             insertAutocompleteFeatureInElement(document.getElementById("numero_nf"), notasFiscais);
             insertAutocompleteFeatureInElement(document.getElementById("posto_referente"), postos);
+            insertAutocompleteFeatureInElement(document.getElementById("coo"), Object.keys(coos));
+
+            $("#coo").on("change", (evt) => {
+                const coo = $("#coo").val();
+                $("#numero_nf").val(window.coos[coo]);
+            });
         });
     </script>
 }

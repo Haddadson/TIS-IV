@@ -15,12 +15,10 @@ namespace MPMG.Services
                 VALUES (@COO, @SGDP, @NrNotaFiscal)";
 
         private const string SQL_INSERIR_CUPOM_FISCAL_COMPLETO = @"
-                INSERT INTO `cupomfiscal` (`coo`, `sgdp`, `nr_nota_fiscal`, `posto_referente`, `hodometro`, 
-                `cliente`, `dt_emissao`, `quantidade`, `preco_unitario`, `vrtotal`, `produto`, `veiculo`, `placa_veiculo`)
+                INSERT INTO `cupomfiscal` (`coo`, `sgdp`, `nr_nota_fiscal`, `hodometro`, 
+                `dt_emissao`, `quantidade`, `preco_unitario`, `vrtotal`, `produto`, `veiculo`, `placa_veiculo`)
                 VALUES (@COO, @SGDP, (SELECT `nr_nota_fiscal` FROM `notafiscal` WHERE `nr_nota_fiscal` = @NrNotaFiscal), 
-                @posto,
                 @hodometro,
-                @cliente,
                 @data,
                 @quantidade,
                 @precoUnitario,
@@ -34,9 +32,7 @@ namespace MPMG.Services
                 coo AS Coo,
                 sgdp AS Sgdp,
                 nr_nota_fiscal AS NumeroNotaFiscal,
-                posto_referente AS PostoReferente,
                 hodometro AS Hodometro,
-                cliente AS Cliente,
                 dt_emissao AS DataEmissao,
                 quantidade AS Quantidade,
                 preco_unitario AS PrecoUnitario,
@@ -46,6 +42,7 @@ namespace MPMG.Services
                 placa_veiculo AS PlacaVeiculo
             FROM `cupomfiscal`
             WHERE sgdp = @SGDP";
+
 
         private const string SQL_LISTAR_CUPONS_FISCAIS_POR_NOTA = @"
             SELECT 
@@ -59,9 +56,7 @@ namespace MPMG.Services
                 coo AS Coo,
                 sgdp AS Sgdp,
                 nr_nota_fiscal AS NumeroNotaFiscal,
-                posto_referente AS PostoReferente,
                 hodometro AS Hodometro,
-                cliente AS Cliente,
                 dt_emissao AS DataEmissao,
                 quantidade AS Quantidade,
                 preco_unitario AS PrecoUnitario,
@@ -78,9 +73,7 @@ namespace MPMG.Services
                 coo AS Coo,
                 sgdp AS Sgdp,
                 nr_nota_fiscal AS NumeroNotaFiscal,
-                posto_referente AS PostoReferente,
                 hodometro AS Hodometro,
-                cliente AS Cliente,
                 dt_emissao AS DataEmissao,
                 quantidade AS Quantidade,
                 preco_unitario AS PrecoUnitario,
@@ -92,6 +85,24 @@ namespace MPMG.Services
             WHERE sgdp = @SGDP
               AND coo = @COO
               AND nr_nota_fiscal IS NULL";
+
+        private const string SQL_BUSCAR_CUPOM = @"
+            SELECT
+                coo AS Coo,
+                sgdp AS Sgdp,
+                nr_nota_fiscal AS NumeroNotaFiscal,
+                hodometro AS Hodometro,
+                dt_emissao AS DataEmissao,
+                quantidade AS Quantidade,
+                preco_unitario AS PrecoUnitario,
+                vrtotal AS ValorTotal,
+                produto AS Produto,
+                veiculo AS Veiculo,
+                placa_veiculo AS PlacaVeiculo
+            FROM `cupomfiscal`
+            WHERE sgdp = @SGDP
+              AND coo = @COO";
+
 
         private const string SQL_EDITAR_CUPOM = @"
             UPDATE `cupomfiscal`
@@ -125,6 +136,30 @@ namespace MPMG.Services
               FROM notafiscal
              WHERE sgdp = @SGDP
                AND nr_nota_fiscal IS NOT NULL
+        ";
+
+        private const string SQL_BUSCAR_CUPONS_FISCAIS = @"
+        SELECT
+            coo AS Coo,
+            sgdp AS Sgdp,
+            nr_nota_fiscal AS NumeroNotaFiscal
+        FROM `cupomfiscal`
+        WHERE sgdp = @SGDP
+          AND dt_emissao IS NULL";
+
+        private const string SQL_EDITAR_CUPOM_FISCAL_COMPLETO = @"
+            UPDATE `cupomfiscal` 
+               SET  `nr_nota_fiscal`= @NrNotaFiscal,
+                    `hodometro`= @hodometro,
+                    `dt_emissao`= @dtEmissao,
+                    `quantidade`= @quantidade,
+                    `preco_unitario`= @preco_unitario,
+                    `vrtotal`= @vrtotal,
+                    `produto`= @produto,
+                    `veiculo`= @veiculo,
+                    `placa_veiculo`= @placa_veiculo 
+            WHERE `sgdp` = @SGDP
+              AND `coo` = @COO
         ";
 
         public bool CadastrarCupom(string sGDP, string numeroCupom, string numeroNota)
@@ -162,7 +197,25 @@ namespace MPMG.Services
             return Execute(SQL_INSERIR_CUPOM_FISCAL_COMPLETO, parametros) > 0;
         }
 
-        public List<string> ObterCuponsVinculados(string Sgdp, string numeroNota)
+        public bool EditarCupomCompleto(string sGDP, string nrNotaFiscal, string cOO, string posto, DateTime data, string combustivel, int quantidade, double precoUnitario, double valorTotal, string cliente, int hodometro, string veiculo, string placaVeiculo)
+        {
+                DynamicParameters parametros = new DynamicParameters();
+
+                parametros.Add("@SGDP", sGDP, DbType.AnsiString);
+                parametros.Add("@NrNotaFiscal", nrNotaFiscal, DbType.AnsiString);
+                parametros.Add("@COO", cOO, DbType.AnsiString);
+                parametros.Add("@dtEmissao", data, DbType.DateTime);
+                parametros.Add("@produto", combustivel, DbType.AnsiString);
+                parametros.Add("@quantidade", quantidade, DbType.Int32);
+                parametros.Add("@preco_unitario", precoUnitario, DbType.Double);
+                parametros.Add("@vrtotal", valorTotal, DbType.Double);
+                parametros.Add("@hodometro", hodometro, DbType.Int32);
+                parametros.Add("@veiculo", veiculo, DbType.AnsiString);
+                parametros.Add("@placa_veiculo", placaVeiculo, DbType.AnsiString);
+
+                return Execute(SQL_EDITAR_CUPOM_FISCAL_COMPLETO, parametros) > 0;
+            }
+            public List<string> ObterCuponsVinculados(string Sgdp, string numeroNota)
         {
             DynamicParameters parametros = new DynamicParameters();
 
@@ -190,7 +243,16 @@ namespace MPMG.Services
             return Listar(SQL_LISTAR_CUPONS_DISPONIVEIS_POR_SGDP, parametros);
         }
 
-        public CupomFiscal buscarCupomDisponivel (string sGDP, string numeroCupom)
+        public CupomFiscal buscarCupom(string sGDP, string numeroCupom)
+        {
+            DynamicParameters parametros = new DynamicParameters();
+
+            parametros.Add("@SGDP", sGDP, DbType.AnsiString);
+            parametros.Add("@COO", numeroCupom, DbType.AnsiString);
+
+            return Obter(SQL_BUSCAR_CUPOM, parametros);
+        }
+        public CupomFiscal buscarCupomDisponivel(string sGDP, string numeroCupom)
         {
             DynamicParameters parametros = new DynamicParameters();
 
@@ -249,8 +311,7 @@ namespace MPMG.Services
 
             parametros.Add("@SGDP", valorSgdp, DbType.AnsiString);
 
-            //    return Listar(SQL_LISTAR_PRECO_UNITARIO, parametros).Select(item => item.PrecoUnitario).ToList();
-            return null;
+            return Listar(SQL_BUSCAR_CUPONS_FISCAIS, parametros);
         }
 
     }
