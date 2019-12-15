@@ -32,9 +32,7 @@ namespace WebApp.Controllers
             {
                 resultado = planilhaFamService.AtualizarDadosTabelaFam(arquivoBytesFam, model.ExtensaoArquivoFam);
             }
-#pragma warning disable CS0168 // A variável "ex" está declarada, mas nunca é usada
             catch (Exception ex)
-#pragma warning restore CS0168 // A variável "ex" está declarada, mas nunca é usada
             {
                 return Json(new { sucesso = false, mensagem = "Ocorreu um erro ao cadastrar uma nova tabela FAM" });
             }

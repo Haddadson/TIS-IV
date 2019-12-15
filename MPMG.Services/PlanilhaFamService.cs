@@ -114,7 +114,7 @@ namespace MPMG.Services
             tabelas.AcceptChanges();
 
             uploadFamRepositorio.InserirNovaData();
-            var idUploadFam = uploadFamRepositorio.ObterUltimoUpload().Id;
+            var idUploadFam = (uploadFamRepositorio.ObterUltimoUpload()?.Id ?? 0) + 1;
 
             //tabelaFamRepositorio.DeletarTodosRegistros();
 
@@ -126,9 +126,7 @@ namespace MPMG.Services
                 {
                     tabelaFamRepositorio.InserirLoteFam(tabelas.Rows[cont], idUploadFam);
                 }
-#pragma warning disable CS0168 // A variável "ex" está declarada, mas nunca é usada
                 catch (Exception ex)
-#pragma warning restore CS0168 // A variável "ex" está declarada, mas nunca é usada
                 {
                     contErros++;
                 }

@@ -110,7 +110,7 @@ namespace MPMG.Services
             PreencherCelulaDoCabecalho(6, coluna++, 12, "PREÇO MED ANP", ABA_1);
             PreencherCelulaDoCabecalho(6, coluna++, 12, "DIFERENÇA MED UNIT.", ABA_1);
             PreencherCelulaDoCabecalho(6, coluna++, 12, "DIFERENÇA MED TOTAL", ABA_1);
-            PreencherCelulaDoCabecalho(6, coluna++, 12, "VALOR MED ATUALIZADO", ABA_1);
+            PreencherCelulaDoCabecalho(6, coluna++, 15, "VALOR MED ATUALIZADO", ABA_1);
             PreencherCelulaDoCabecalho(6, coluna++, 12, "PREÇO MAX ANP", ABA_1);
             PreencherCelulaDoCabecalho(6, coluna++, 12, "DIFERENÇA MAX UNIT.", ABA_1);
             PreencherCelulaDoCabecalho(6, coluna++, 12, "DIFERENÇA MAX TOTAL", ABA_1);
@@ -137,24 +137,24 @@ namespace MPMG.Services
             ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.ValorTotalItem, ABA_1, true);
             ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.ValorTotalNota, ABA_1, true);
             ManipuladorPlanilha.PreencherCelulaValorInteiro(linha, coluna++, item.NumeroFolha, ABA_1, true);
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.ValorFam, ABA_1, true);
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.PrecoMedioAnp, ABA_1, true);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.ValorFam.ToString("0.0000000"), ABA_1, true);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.PrecoMedioAnp.ToString("0.00"), ABA_1, true);
 
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMediaUnitaria.Replace(',', '.').Replace('-', '0')), ABA_1, true);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.DiferencaMediaUnitaria.Replace(',', '.'), ABA_1, true);
 
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMediaTotal.Replace(',', '.').Replace('-', '0')), ABA_1, true,
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.DiferencaMediaTotal.Replace(',', '.'), ABA_1, true,
                 double.Parse(item.DiferencaMediaUnitaria.Replace(',', '.').Replace('-', '0')) > 0 ? IndexedColors.LightYellow : null);
 
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.ValorMedioAtualizado.Replace(',', '.').Replace('-', '0')), ABA_1, true,
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.ValorMedioAtualizado.Replace(',', '.'), ABA_1, true,
                 double.Parse(item.DiferencaMediaUnitaria.Replace(',', '.').Replace('-', '0')) > 0 ? IndexedColors.LightYellow : null);
 
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.PrecoMaximoAnp, ABA_1, true);
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMaximaUnitaria.Replace(',', '.').Replace('-', '0')), ABA_1, true);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.PrecoMaximoAnp.ToString("0.00"), ABA_1, true);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.DiferencaMaximaUnitaria.Replace(',', '.'), ABA_1, true);
 
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMaximaTotal.Replace(',', '.').Replace('-', '0')), ABA_1, true,
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.DiferencaMaximaTotal.Replace(',', '.'), ABA_1, true,
                 double.Parse(item.DiferencaMaximaUnitaria.Replace(',', '.').Replace('-', '0')) > 0 ? IndexedColors.Red : null);
 
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.ValorMaximoAtualizado.Replace(',', '.').Replace('-', '0')), ABA_1, true,
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.ValorMaximoAtualizado.Replace(',', '.'), ABA_1, true,
                 double.Parse(item.DiferencaMaximaUnitaria.Replace(',', '.').Replace('-', '0')) > 0 ? IndexedColors.Red : null);
 
             ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, string.Join(";", item.CuponsFiscaisVinculados), ABA_1, true);
@@ -268,18 +268,18 @@ namespace MPMG.Services
             ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.Veiculo, ABA_3, true);
             ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.PlacaVeiculo, ABA_3, true);
             ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.Produto, ABA_3, true);
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, item.ValorTotalNota, ABA_3, true);
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.ValorTotalNota.ToString("0.00"), ABA_3, true);
 
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMediaTotal.Replace('.', ',').Replace('-', '0')), ABA_3, true,
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.DiferencaMediaTotal.Replace('.', ','), ABA_3, true,
                 double.Parse(item.DiferencaMediaTotal.Replace(',', '.').Replace('-', '0')) > 0 ? IndexedColors.LightYellow : null);
 
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.ValorMedioAtualizado.Replace(',', '.').Replace('-', '0')), ABA_3, true,
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.ValorMedioAtualizado.Replace(',', '.'), ABA_3, true,
                 double.Parse(item.DiferencaMediaTotal.Replace(',', '.').Replace('-', '0')) > 0 ? IndexedColors.LightYellow : null);
 
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.DiferencaMaximaTotal.Replace(',', '.').Replace('-', '0')), ABA_3, true,
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.DiferencaMaximaTotal.Replace(',', '.'), ABA_3, true,
                 double.Parse(item.DiferencaMaximaTotal.Replace(',', '.').Replace('-', '0')) > 0 ? IndexedColors.Red : null);
 
-            ManipuladorPlanilha.PreencherCelulaNumerica(linha, coluna++, double.Parse(item.ValorMaximoAtualizado.Replace(',', '.').Replace('-', '0')), ABA_3, true,
+            ManipuladorPlanilha.PreencherCelulaTexto(linha, coluna++, item.ValorMaximoAtualizado.Replace(',', '.'), ABA_3, true,
                 double.Parse(item.DiferencaMaximaTotal.Replace(',', '.').Replace('-', '0')) > 0 ? IndexedColors.Red : null);
 
             ManipuladorPlanilha.DefinirAlturaDaLinha(linha, 15, ABA_3);

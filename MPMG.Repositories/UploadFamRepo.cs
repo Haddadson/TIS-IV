@@ -8,7 +8,8 @@ namespace MPMG.Repositories
             SELECT 
                 IFNULL(MAX(id_upload), 0) AS Id,
                 dt_upload AS DataUpload
-            FROM `uploadtabelafam`";
+            FROM `uploadtabelafam`
+            GROUP BY dt_upload";
 
         private const string SQL_INSERT_UPLOAD = @"
             INSERT INTO `uploadtabelafam` VALUES ((SELECT IFNULL(MAX(A.id_upload), 0) + 1 FROM `uploadtabelafam` A), NOW())";
