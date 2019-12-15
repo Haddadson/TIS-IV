@@ -13,20 +13,20 @@ namespace MPMG.Repositories
          `dt_consulta_anp`, `nro_folha`, `veiculo`, `placa_veiculo`, `nr_nota_fiscal`, `id_upload_fam`,
         `preco_medio_revenda`, `preco_maximo_revenda`)
         VALUES (
-        @sGDP,
-        @departamento,
-        @mesFAM,
-        @anoFAM,
-        @dataEmissao,
-        @valorTotal,
-        @dataConsultaANP,
-        @numeroFolha,
-        @veiculo,
-        @placaVeiculo,
-        @nrNotaFiscal,
-        (SELECT IFNULL(MAX(A.id_upload), 0) FROM uploadtabelafam A),
-        '0.0',
-        '0.0')";
+            @sGDP,
+            @departamento,
+            @mesFAM,
+            @anoFAM,
+            @dataEmissao,
+            @valorTotal,
+            @dataConsultaANP,
+            @numeroFolha,
+            @veiculo,
+            @placaVeiculo,
+            @nrNotaFiscal,
+            (SELECT IFNULL(MAX(A.id_upload), 0) FROM uploadtabelafam A),
+            '0.0',
+            '0.0')";
 
         public bool Cadastrar(
             string nrNotaFiscal,
@@ -47,7 +47,6 @@ namespace MPMG.Repositories
             parametros.Add("@nrNotaFiscal", nrNotaFiscal, DbType.AnsiString);
             parametros.Add("@sGDP", sGDP, DbType.AnsiString);
             parametros.Add("@valorTotal", valorTotal, DbType.Double);
-            parametros.Add("@chaveAcesso", chaveAcesso, DbType.AnsiString);
             parametros.Add("@dataEmissao", dataEmissao, DbType.DateTime);
             parametros.Add("@dataConsultaANP", dataConsultaANP, DbType.DateTime);
             parametros.Add("@veiculo", veiculo, DbType.AnsiString);

@@ -36,8 +36,8 @@ namespace MPMG.Services
             List<string> cuponsSelecionados,
             List<ItemNotaFiscalDto> ItensNotaFiscal)
         {
-            int mesFAM = dataEmissao.Month;
-            int anoFAM = dataEmissao.Year;
+            int mesFAM = dataConsultaANP.Month;
+            int anoFAM = dataConsultaANP.Year;
             /*
             double precoMaximo = 0;
             double precoMedio = 0;

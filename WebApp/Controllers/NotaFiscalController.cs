@@ -59,10 +59,22 @@ namespace WebApp.Controllers
                     int.Parse(NotaFiscal.DataEmissao.Substring(0, 2)));
                 double PrecoMaximo = NotaFiscal.PrecoMaximo;
                 double PrecoMedio = NotaFiscal.PrecoMedio;
-                DateTime DataConsultaANP = new DateTime(
-                    int.Parse(NotaFiscal.DataConsultaANP.Substring(6, 4)),
-                    int.Parse(NotaFiscal.DataConsultaANP.Substring(3, 2)),
-                    int.Parse(NotaFiscal.DataConsultaANP.Substring(0, 2)));
+
+                DateTime DataConsultaANP;
+                if (NotaFiscal.DataConsultaANP != null)
+                {
+                    DataConsultaANP = new DateTime(
+                        int.Parse(NotaFiscal.DataConsultaANP.Substring(6, 4)),
+                        int.Parse(NotaFiscal.DataConsultaANP.Substring(3, 2)),
+                        int.Parse(NotaFiscal.DataConsultaANP.Substring(0, 2)));
+                } else
+                {
+                    DataConsultaANP = new DateTime(
+                        int.Parse(NotaFiscal.DataEmissao.Substring(6, 4)),
+                        int.Parse(NotaFiscal.DataEmissao.Substring(3, 2)),
+                        int.Parse(NotaFiscal.DataEmissao.Substring(0, 2)));
+                }
+
                 string Veiculo = NotaFiscal.Veiculo;
                 string PlacaVeiculo = NotaFiscal.PlacaVeiculo;
                 string Combustivel = NotaFiscal.Combustivel;

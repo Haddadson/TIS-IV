@@ -154,9 +154,6 @@ CREATE TABLE IF NOT EXISTS `notafiscal` (
   INDEX `fk_NotaFiscal_TabelaUsuario1_idx` (`sgdp` ASC),
   INDEX `fk_NotaFiscal_Departamento1_idx` (`id_dpto` ASC),
   INDEX `fk_notafiscal_tabelafam1_idx` (`mes_fam` ASC, `ano_fam` ASC, `id_upload_fam` ASC),
-  CONSTRAINT `fk_NotaFiscal_Departamento1`
-    FOREIGN KEY (`id_dpto`)
-    REFERENCES `departamento` (`id_dpto`),
   CONSTRAINT `fk_NotaFiscal_TabelaUsuario1`
     FOREIGN KEY (`sgdp`)
     REFERENCES `tabelausuario` (`sgdp`))

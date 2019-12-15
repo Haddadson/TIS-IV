@@ -10,8 +10,10 @@ const initCupomFiscalFields = () => {
     $("#data_emissao").datetimepicker({
         format: "DD/MM/YYYY HH:mm",
         maxDate: moment([], '').format('L LT'),
-        defaultDate: moment([], '').format('L LT')
+        defaultDate: null
     });
+
+    $("#data_emissao_value").val(null).trigger('change');
 };
 
 
@@ -64,9 +66,7 @@ $(document).ready(function () {
                 "ValorTotal": parseFloat($("#valor_total").val().replace(",", ".")),
                 "Hodometro": $("#hodometro").val(),
                 "Veiculo": $("#veiculo").val(),
-                "PlacaVeiculo": $("#placa_veiculo").val().replace('-', ''),
-                "Cliente": $("#cliente").val(),
-                "Posto": $("#posto_referente").val()
+                "PlacaVeiculo": $("#placa_veiculo").val().replace('-', '')
             };
 
             const urlCadastrarCupomFiscal = window.urlCadastrarCupomFiscal;
@@ -89,7 +89,7 @@ $(document).ready(function () {
     });
 
     function limparCampos() {
-        $("#numero_nf, #coo, #data_emissao_value, #combustivel, #quantidade, #preco_unitario, #valor_total, #hodometro, #veiculo, #placa_veiculo, #posto_referente, #cliente").val('');
+        $("#numero_nf, #coo, #data_emissao_value, #combustivel, #quantidade, #preco_unitario, #valor_total, #hodometro, #veiculo, #placa_veiculo").val('');
     }
 
     const autoSetValorTotal = evt => {

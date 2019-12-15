@@ -54,8 +54,10 @@ const initNotaFiscalFields = () => {
     $("#data_emissao").datetimepicker({
         format: 'DD/MM/YYYY',
         maxDate: moment(),
-        defaultDate: moment((new Date()).toISOString()).format('MM/DD/YYYY')
+        defaultDate: null
     });
+    $("#data_emissao_value").val(null).trigger('change');
+
 
     $("#adicionar_cupom").on("click", addCOOOnChangeHandler);
 
@@ -112,7 +114,7 @@ const initNotaFiscalFields = () => {
                 "ValorTotal": parseFloat($("#valor_total_nf").val().replace(",", ".")),
                 "CuponsSelecionados": $("#cupons_selecionados").val().trim().split(/\s|\n/g).filter(cupom => cupom !== ''),
                 "NumeroFolha": $("#num_folha").val(),
-                "DataConsultaANP": '01/' + $("#data_consulta_anp").val(),
+                "DataConsultaANP": $("#data_consulta_anp").val() ? '01/' + $("#data_consulta_anp").val() : null,
                 "Departamento": $("#departamento").val(),
                 "Veiculo": $("#veiculo").val(),
                 "PlacaVeiculo": $("#placa_veiculo").val().replace('-', '')

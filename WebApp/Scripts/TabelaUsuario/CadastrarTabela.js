@@ -62,7 +62,7 @@
         let canSave = true;
         const anosReferentes = $("#anos-referentes").val();
 
-        if (!isInteger($("#sgdp").val())) {
+        if ($("#sgdp").val() == false) {
             alert('Favor preecher o campo SGDP somente com números!');
             canSave = false;
         } else if ( !$("#municipios").val() ) {
