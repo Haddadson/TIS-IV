@@ -10,7 +10,7 @@ namespace MPMG.Repositories
     public class TabelaUsuarioRepo : RepositorioBase<TabelaUsuario>
     {
         private const string SQL_INSERIR_TABELA = @"
-            INSERT INTO `TabelaUsuario` 
+            INSERT INTO `tabelausuario` 
             (sgdp, id_municipio, id_municipio_referente,
             dt_geracao, titulo_aba_1, titulo_aba_2, titulo_aba_3, analista_resp ) 
             VALUES 
@@ -29,7 +29,7 @@ namespace MPMG.Repositories
                 titulo_aba_2 AS Titulo2, 
                 titulo_aba_3 AS Titulo3, 
                 analista_resp AS AnalistaResponsavel
-            FROM `TabelaUsuario` A
+            FROM `tabelausuario` A
             LEFT JOIN `municipio` B
             on A.id_municipio = B.id_municipio
             LEFT JOIN `municipio` C
@@ -38,7 +38,7 @@ namespace MPMG.Repositories
         private const string SQL_LISTAR_SGDPS_TABELAS = @"
             SELECT  
                 sgdp AS SGDP
-            FROM `TabelaUsuario` A";
+            FROM `tabelausuario` A";
 
         private const string SQL_OBTER_TABELA_POR_SGDP = @"
             SELECT  
@@ -54,7 +54,7 @@ namespace MPMG.Repositories
                 titulo_aba_2 AS Titulo2, 
                 titulo_aba_3 AS Titulo3, 
                 analista_resp AS AnalistaResponsavel
-            FROM `TabelaUsuario` A
+            FROM `tabelausuario` A
             INNER JOIN `municipio` B
             on A.id_municipio = B.id_municipio
             LEFT JOIN `municipioreferente` C 

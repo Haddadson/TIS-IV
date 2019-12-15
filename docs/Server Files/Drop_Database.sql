@@ -1,0 +1,12 @@
+drop table cupomfiscal; 
+drop table municipioreferente; 
+drop table tabelaanp;
+DROP table itemnotafiscal;
+drop table notafiscal;
+drop table departamento;
+drop table tabelafam;
+drop table uploadtabelafam;
+drop table uploadanp;
+drop table anosportabela;
+drop table tabelausuario;
+drop table municipio;

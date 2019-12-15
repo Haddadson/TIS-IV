@@ -20,7 +20,7 @@ namespace MPMG.Repositories
                 preco_medio_revenda AS PrecoMedioRevenda,
                 preco_minimo_revenda AS PrecoMinimoRevenda,
                 preco_maximo_revenda AS PrecoMaximoRevenda
-            FROM TabelaANP
+            FROM tabelaanp
             WHERE mes = @Mes AND
                 ano = @Ano AND
                 municipio = @Municipio AND
@@ -29,7 +29,7 @@ namespace MPMG.Repositories
         private const string SQL_LISTAR_MUNICIPIOS_ANP = @"
             SELECT DISTINCT 
                 M.nome_municipio AS Municipio 
-              FROM TabelaANP T 
+              FROM tabelaanp T 
               JOIN municipio M 
               ON T.id_municipio = M.id_municipio
             ORDER BY M.nome_municipio";
@@ -37,7 +37,7 @@ namespace MPMG.Repositories
         private const string SQL_LISTAR_MUNICIPIOS_ANP_POR_ANO = @"
             SELECT DISTINCT 
                 M.nome_municipio AS Municipio 
-              FROM TabelaANP T 
+              FROM tabelaanp T 
               JOIN municipio M 
               ON T.id_municipio = M.id_municipio
             WHERE T.ano IN @Ano

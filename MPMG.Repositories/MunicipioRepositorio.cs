@@ -23,7 +23,7 @@ namespace MPMG.Repositories
             SELECT DISTINCT 
                 T.id_municipio AS Codigo,
                 M.nome_municipio AS Nome 
-              FROM TabelaANP T 
+              FROM tabelaanp T 
               JOIN municipio M
                 ON T.id_municipio = M.id_municipio
             WHERE T.ano IN @Ano
