@@ -147,7 +147,7 @@
                                         {
                                             <td>@dadosAnpxNota.DiferencaMediaUnitaria.ToString("0.000")</td>
                                             <td class="yellow">@dadosAnpxNota.DiferencaMediaTotal.ToString("0.000")</td>
-                                            <td class="yellow">@dadosAnpxNota.ValorMedioAtualizado.ToString("0.0000000")</td>
+                                            <td class="yellow">@Math.Round(dadosAnpxNota.ValorMedioAtualizado, 3).ToString("0.000")</td>
                                         }
 
                                         <td>@dadosAnpxNota.PrecoMaximoAnp.ToString("0.00")</td>
@@ -162,7 +162,7 @@
                                         {
                                             <td>@dadosAnpxNota.DiferencaMaximaUnitaria.ToString("0.000")</td>
                                             <td class="red">@dadosAnpxNota.DiferencaMaximaTotal.ToString("0.000")</td>
-                                            <td class="red">@dadosAnpxNota.ValorMaximoAtualizado.ToString("0.0000000")</td>
+                                            <td class="red">@Math.Round(dadosAnpxNota.ValorMaximoAtualizado, 3).ToString("0.000")</td>
                                         }
 
                                         <td>@(string.Join(";", dadosAnpxNota.CuponsFiscaisVinculados.ToArray()))</td>
@@ -171,28 +171,28 @@
                                 }
                             </tbody>
                             @*<tfoot>
-                <tr>
-                    <th>DATA</th>
-                    <th>NOTA FISCAL</th>
-                    <th>COMBUSTÍVEL</th>
-                    <th>QDE.</th>
-                    <th>VALOR UNIT.</th>
-                    <th>VALOR TOTAL</th>
-                    <th>NUM. FOLHA</th>
-                    <th>FAM MES/ANO</th>
-                    @*Nessa linha o mês ano deve ser substituído de acordo com o dado da tabela de excel gerada
-                    <th>PREÇO MED. ANP</th>
-                    <th>DIFERENÇA MED. UNIT.</th>
-                    <th>DIFERENÇA MED TOTAL</th>
-                    <th>VALOR MED ATUALIZADO</th>
-                    <th>PREÇO MAX ANP</th>
-                    <th>DIFERENÇA MAX UNIT.</th>
-                    <th>DIFERENÇA MAX TOTAL</th>
-                    <th>VALOR MAX ATUALIZADO</th>
-                    <th>CUPONS FISCAIS VINCULADOS</th>
-                    <th>MES/ANO PROCURADO NA ANP</th>
-                </tr>
-            </tfoot>*@
+                                    <tr>
+                                        <th>DATA</th>
+                                        <th>NOTA FISCAL</th>
+                                        <th>COMBUSTÍVEL</th>
+                                        <th>QDE.</th>
+                                        <th>VALOR UNIT.</th>
+                                        <th>VALOR TOTAL</th>
+                                        <th>NUM. FOLHA</th>
+                                        <th>FAM MES/ANO</th>
+                                        @*Nessa linha o mês ano deve ser substituído de acordo com o dado da tabela de excel gerada
+                                        <th>PREÇO MED. ANP</th>
+                                        <th>DIFERENÇA MED. UNIT.</th>
+                                        <th>DIFERENÇA MED TOTAL</th>
+                                        <th>VALOR MED ATUALIZADO</th>
+                                        <th>PREÇO MAX ANP</th>
+                                        <th>DIFERENÇA MAX UNIT.</th>
+                                        <th>DIFERENÇA MAX TOTAL</th>
+                                        <th>VALOR MAX ATUALIZADO</th>
+                                        <th>CUPONS FISCAIS VINCULADOS</th>
+                                        <th>MES/ANO PROCURADO NA ANP</th>
+                                    </tr>
+                                </tfoot>*@
                         </table>
                     </div>
                     <div id="tabela-cupom" class="table-responsive">
@@ -295,7 +295,7 @@
                                         else
                                         {
                                             <td class="yellow">@dados.DiferencaMediaTotal.ToString("0.000")</td>
-                                            <td class="yellow">@dados.ValorMedioAtualizado.ToString("0.0000000")</td>
+                                            <td class="yellow">@Math.Round(dados.ValorMedioAtualizado, 3).ToString("0.0000000")</td>
                                         }
 
                                         @if (dados.DiferencaMaximaUnitaria <= 0)
@@ -306,26 +306,26 @@
                                         else
                                         {
                                             <td class="red">@dados.DiferencaMaximaTotal.ToString("0.000")</td>
-                                            <td class="red">@dados.ValorMaximoAtualizado.ToString("0.0000000")</td>
+                                            <td class="red">@Math.Round(dados.ValorMaximoAtualizado, 3).ToString("0.0000000")</td>
                                         }
                                     </tr>
                                 }
                             </tbody>
                             @*<tfoot>
-                <tr>
-                    <th>NUM. NF REFERENTE</th>
-                    <th>COOs VINCULADOS</th>
-                    <th>DEPARTAMENTO</th>
-                    <th>VEÍCULO</th>
-                    <th>PLACA VEÍCULO</th>
-                    <th>COMBUSTÍVEL</th>
-                    <th>VALOR TOTAL CUPOM FISCAL</th>
-                    <th>DIFERENÇA  MED TOTAL NF</th>
-                    <th>VALOR MED ATUALIZADO NF</th>
-                    <th>DIFERENÇA MAX TOTAL NF</th>
-                    <th>VALOR MAX ATUALIZADO NF</th>
-                </tr>
-            </tfoot>*@
+                                    <tr>
+                                        <th>NUM. NF REFERENTE</th>
+                                        <th>COOs VINCULADOS</th>
+                                        <th>DEPARTAMENTO</th>
+                                        <th>VEÍCULO</th>
+                                        <th>PLACA VEÍCULO</th>
+                                        <th>COMBUSTÍVEL</th>
+                                        <th>VALOR TOTAL CUPOM FISCAL</th>
+                                        <th>DIFERENÇA  MED TOTAL NF</th>
+                                        <th>VALOR MED ATUALIZADO NF</th>
+                                        <th>DIFERENÇA MAX TOTAL NF</th>
+                                        <th>VALOR MAX ATUALIZADO NF</th>
+                                    </tr>
+                                </tfoot>*@
                         </table>
                     </div>
                 </div>
