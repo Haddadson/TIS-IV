@@ -124,28 +124,28 @@ const initNotaFiscalFields = () => {
                 {
                     "SGDP": $("#sgdp_escolhido").val(),
                     "Produto": $("#combustivel1").val(),
-                    "Quantidade": $("#quantidade1").val(),
+                    "Quantidade": parseFloat($("#quantidade1").val().replace(",", ".")),
                     "ValorUnitario": parseFloat($("#preco_unitario1").val().replace(",", ".")),
                     "ValorTotal": parseFloat($("#valor_total1").val().replace(",", "."))
                 },
                 {
                     "SGDP": $("#sgdp_escolhido").val(),
                     "Produto": $("#combustivel2").val(),
-                    "Quantidade": $("#quantidade2").val(),
+                    "Quantidade": parseFloat($("#quantidade2").val().replace(",", ".")),
                     "ValorUnitario": parseFloat($("#preco_unitario2").val().replace(",", ".")),
                     "ValorTotal": parseFloat($("#valor_total2").val().replace(",", "."))
                 },
                 {
                     "SGDP": $("#sgdp_escolhido").val(),
                     "Produto": $("#combustivel3").val(),
-                    "Quantidade": $("#quantidade3").val(),
+                    "Quantidade": parseFloat($("#quantidade3").val().replace(",", ".")),
                     "ValorUnitario": parseFloat($("#preco_unitario3").val().replace(",", ".")),
                     "ValorTotal": parseFloat($("#valor_total3").val().replace(",", "."))
                 },
                 {
                     "SGDP": $("#sgdp_escolhido").val(),
                     "Produto": $("#combustivel4").val(),
-                    "Quantidade": $("#quantidade4").val(),
+                    "Quantidade": parseFloat($("#quantidade4").val().replace(",", ".")),
                     "ValorUnitario": parseFloat($("#preco_unitario4").val().replace(",", ".")),
                     "ValorTotal": parseFloat($("#valor_total4").val().replace(",", "."))
                 }
@@ -275,12 +275,12 @@ $(document).ready(function () {
         $("#valor_total_nf").val(((validaCampoValorNf(vtotal1) + validaCampoValorNf(vtotal2) + validaCampoValorNf(vtotal3) + validaCampoValorNf(vtotal4))).toFixed(3).replace('.', ','));
     };
 
-    $("#quantidade1, #preco_unitario1").on("change", autoSetValorTotal1);
-    $("#quantidade2, #preco_unitario2").on("change", autoSetValorTotal2);
-    $("#quantidade3, #preco_unitario3").on("change", autoSetValorTotal3);
-    $("#quantidade4, #preco_unitario4").on("change", autoSetValorTotal4);
+    $("#quantidade1, #preco_unitario1").on("blur", autoSetValorTotal1);
+    $("#quantidade2, #preco_unitario2").on("blur", autoSetValorTotal2);
+    $("#quantidade3, #preco_unitario3").on("blur", autoSetValorTotal3);
+    $("#quantidade4, #preco_unitario4").on("blur", autoSetValorTotal4);
 
-    $("#valor_total1, #valor_total2, #valor_total3, #valor_total4").on("change", autoSetValorTotalNf);
+    $("#valor_total1, #valor_total2, #valor_total3, #valor_total4").on("blur", autoSetValorTotalNf);
 
     const urlObterDepartamentos = window.urlObterDepartamentos;
 

@@ -2,10 +2,10 @@ const initCupomFiscalFields = () => {
     VMasker(document.querySelector("#placa_veiculo")).maskPattern("AAA-9999");
 
     validateNumericRequiredFormField("#numero_nf", true, true);
-    validateNumericRequiredFormField("#quantidade", false, false);
     validateNumericRequiredFormField("#hodometro");
     validateNumericRequiredFormField("#valor_total");
     validateNumericRequiredFormField("#preco_unitario", false, true);
+    validateNumericRequiredFormField("#quantidade", false, true);
 
     $("#data_emissao").datetimepicker({
         format: "DD/MM/YYYY HH:mm",
@@ -60,7 +60,7 @@ $(document).ready(function () {
                 "COO": $("#coo").val(),
                 "Data": $("#data_emissao_value").val(),
                 "Combustivel": $("#combustivel").val(),
-                "Quantidade": $("#quantidade").val(),
+                "Quantidade": parseFloat($("#quantidade").val().replace(",", ".")),
                 "PrecoUnitario": parseFloat($("#preco_unitario").val().replace(",", ".")),
                 "ValorTotal": parseFloat($("#valor_total").val().replace(",", ".")),
                 "Hodometro": $("#hodometro").val(),
@@ -99,17 +99,8 @@ $(document).ready(function () {
             $("#valor_total").val(((parseFloat(qtd) * parseFloat(vrUnit))).toFixed(3).replace('.', ','));
     };
 
-    $("#quantidade").on("change", autoSetValorTotal);
-    $("#preco_unitario").on("change", autoSetValorTotal);
-    $("#chave_acesso").on("change", function (evt) {
-        const value = $("#chave_acesso").val().split(" ").join("");
-
-        if (value.length !== 44) {
-            setInvalidField("#chave_acesso");
-        } else {
-            cleanInvalidField("#chave_acesso");
-        }
-    });
+    $("#quantidade").on("blur", autoSetValorTotal);
+    $("#preco_unitario").on("blur", autoSetValorTotal);
 });
 
 const validateCuponsFicais = fieldCssQuerySelector => {

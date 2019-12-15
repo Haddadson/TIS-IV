@@ -10,7 +10,7 @@ namespace WebApp.Models
         public string Posto { get; set; }
         public DateTime Data { get; set; }
         public string Combustivel { get; set; }
-        public int Quantidade { get; set; }
+        public double Quantidade { get; set; }
         public double PrecoUnitario { get; set; }
         public double ValorTotal { get; set; }
         public string Cliente { get; set; }
