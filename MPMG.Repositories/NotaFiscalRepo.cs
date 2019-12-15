@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using MPMG.Repositories.Entidades;
 using System;
+using System.Collections.Generic;
 using System.Data;
 
 namespace MPMG.Repositories

@@ -16,5 +16,6 @@ namespace WebApp.Models
         public string ValorSgdp { get; set; }
         public List<TabelaUsuarioDto> TabelasUsuario { get; set; }
         public List<string> MesesANP { get; set; }
+        public List<double> Precos { get; internal set; }
     }
 }

@@ -85,5 +85,15 @@ namespace MPMG.Services
                 }
             }
         }
+
+        public List<double> buscarPrecos(string valorSgdp)
+        {
+            return itemNotaFiscalRepo.buscarPrecos(valorSgdp).ConvertAll(new Converter<ItemNotaFiscal, double>(ConverterItemNotaFiscal));
+        }
+
+        private double ConverterItemNotaFiscal(ItemNotaFiscal item)
+        {
+            return item.ValorUnitario;
+        }
     }
 }

@@ -175,7 +175,7 @@ namespace MPMG.Services
 
         public bool CadastrarCupomCompleto(string sGDP, string nrNotaFiscal, string cOO, 
             string posto, DateTime data, 
-            string combustivel, int quantidade, double precoUnitario, 
+            string combustivel, double quantidade, double precoUnitario, 
             double valorTotal, string cliente, int hodometro, string veiculo, string placaVeiculo)
         {
             DynamicParameters parametros = new DynamicParameters();
@@ -186,7 +186,7 @@ namespace MPMG.Services
             parametros.Add("@posto",posto,  DbType.AnsiString); 
             parametros.Add("@data", data,  DbType.DateTime); 
             parametros.Add("@produto",combustivel, DbType.AnsiString); 
-            parametros.Add("@quantidade",quantidade, DbType.Int32); 
+            parametros.Add("@quantidade",quantidade, DbType.Double); 
             parametros.Add("@precoUnitario",precoUnitario, DbType.Double); 
             parametros.Add("@valorTotal", valorTotal, DbType.Double); 
             parametros.Add("@cliente", cliente, DbType.AnsiString); 
@@ -197,7 +197,7 @@ namespace MPMG.Services
             return Execute(SQL_INSERIR_CUPOM_FISCAL_COMPLETO, parametros) > 0;
         }
 
-        public bool EditarCupomCompleto(string sGDP, string nrNotaFiscal, string cOO, string posto, DateTime data, string combustivel, int quantidade, double precoUnitario, double valorTotal, string cliente, int hodometro, string veiculo, string placaVeiculo)
+        public bool EditarCupomCompleto(string sGDP, string nrNotaFiscal, string cOO, string posto, DateTime data, string combustivel, double quantidade, double precoUnitario, double valorTotal, string cliente, int hodometro, string veiculo, string placaVeiculo)
         {
                 DynamicParameters parametros = new DynamicParameters();
 
@@ -206,7 +206,7 @@ namespace MPMG.Services
                 parametros.Add("@COO", cOO, DbType.AnsiString);
                 parametros.Add("@dtEmissao", data, DbType.DateTime);
                 parametros.Add("@produto", combustivel, DbType.AnsiString);
-                parametros.Add("@quantidade", quantidade, DbType.Int32);
+                parametros.Add("@quantidade", quantidade, DbType.Double);
                 parametros.Add("@preco_unitario", precoUnitario, DbType.Double);
                 parametros.Add("@vrtotal", valorTotal, DbType.Double);
                 parametros.Add("@hodometro", hodometro, DbType.Int32);

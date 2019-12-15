@@ -2,7 +2,7 @@ const initCupomFiscalFields = () => {
     VMasker(document.querySelector("#placa_veiculo")).maskPattern("AAA-9999");
 
     validateNumericRequiredFormField("#numero_nf", true, true);
-    validateNumericRequiredFormField("#quantidade", true, true);
+    validateNumericRequiredFormField("#quantidade", false, false);
     validateNumericRequiredFormField("#hodometro");
     validateNumericRequiredFormField("#valor_total");
     validateNumericRequiredFormField("#preco_unitario", false, true);
@@ -24,7 +24,6 @@ $(document).ready(function () {
     $("#cadastrar-cupom-fiscal").on("click", function (event) {
         let canSave = true;
         const coo = $("#coo").val();
-        const quantidade = $("#quantidade").val();
         const nf = $("#numero_nf").val();
         const hodometro = $("#hodometro").val();
 
@@ -37,7 +36,7 @@ $(document).ready(function () {
         } else if ($("#combustivel").val() == false) {
             canSave = false;
             alert('Favor selecionar um combustível.');
-        } else if (quantidade == false || !isInteger(quantidade)) {
+        } else if ($("#quantidade").val() == false) {
             canSave = false;
             alert('Favor informar a quantidade!');
         } else if ($("#preco_unitario").val() == false) {

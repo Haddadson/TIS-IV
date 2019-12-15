@@ -146,6 +146,7 @@ namespace WebApp.Controllers
             List<TabelaUsuarioDto> tabelas = new List<TabelaUsuarioDto>();
             List<AnoANPDto> anosANP = new List<AnoANPDto>();
             List<string> mesesANP = new List<string>();
+            List<double> precos = new List<double>();
             try
             {
                 anosANP = anoANPService.ListarMesesPorSGDP(valorSgdp);
@@ -156,12 +157,14 @@ namespace WebApp.Controllers
                         mesesANP.Add(mes.ToString("D2") + '/' + anoANP.ano.ToString());
                     }
                 }
+
+                precos = notaFiscalService.buscarPrecos(valorSgdp);
             }
             catch (Exception ex)
             {
             }
 
-            return View("NotaFiscal", new NotaFiscalModel { ValorSgdp = valorSgdp, MesesANP = mesesANP});
+            return View("NotaFiscal", new NotaFiscalModel { ValorSgdp = valorSgdp, MesesANP = mesesANP, Precos = precos});
         }
     }
 }

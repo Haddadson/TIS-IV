@@ -58,7 +58,7 @@
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div class="nk-int-st">
                                         <div class='input-group date' id='data_emissao'>
-                                            <input type='text' class="form-control borderless-field" id="data_emissao_value"/>
+                                            <input type='text' class="form-control borderless-field" id="data_emissao_value" />
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
@@ -121,7 +121,7 @@
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                                     <div class="nk-int-st autocomplete">
                                         <form autocomplete="off" action="">
-                                            <input id="preco_unitario1"  class="form-control borderless-field item-field">
+                                            <input id="preco_unitario1" class="form-control borderless-field item-field">
                                         </form>
                                     </div>
                                 </div>
@@ -287,7 +287,7 @@
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div class="nk-int-st">
-                                        <input  id="valor_total_nf" class="form-control borderless-field item-field" />
+                                        <input id="valor_total_nf" class="form-control borderless-field item-field" />
                                     </div>
                                 </div>
                             </div>
@@ -437,7 +437,23 @@
     <script type="text/javascript">
         var urlCadastrarNotaFiscal = '@Url.Action("Cadastrar", "NotaFiscal")';
         var urlObterDepartamentos  = '@Url.Action("ListarDepartamentos", "NotaFiscal")';
-        var urlObterSugestoesCOO   = '@Url.Action("ListarCupons", "NotaFiscal")'; 
+        var urlObterSugestoesCOO   = '@Url.Action("ListarCupons", "NotaFiscal")';
     </script>
     <script defer type="text/javascript" src="~/Scripts/NotaFiscal/NotaFiscal.js"></script>
+    <script defer type="text/javascript" src="~/Scripts/select-autocomplete.js"></script>
+    <script defer type="text/javascript">
+        const precos = [];
+
+        @foreach (var preco in @Model.Precos)
+        {
+            @:precos.push(parseFloat('@preco').toFixed(3).replace('.', ','));
+        }
+        
+        $(document).ready(() => {
+            insertAutocompleteFeatureInElement(document.getElementById("preco_unitario1"), precos);
+            insertAutocompleteFeatureInElement(document.getElementById("preco_unitario2"), precos);
+            insertAutocompleteFeatureInElement(document.getElementById("preco_unitario3"), precos);
+            insertAutocompleteFeatureInElement(document.getElementById("preco_unitario4"), precos);
+        });
+     </script>
 }

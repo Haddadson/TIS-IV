@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using MPMG.Repositories.Entidades;
+using System.Collections.Generic;
 using System.Data;
 
 namespace MPMG.Repositories
@@ -16,6 +17,13 @@ namespace MPMG.Repositories
         @quantidade,
         @valorUnitario,
         @valorTotal)";
+
+        private const string SQL_BUSCAR_PRECOS = @"
+            SELECT DISTINCT vunitario AS ValorUnitario
+              FROM  itemnotafiscal 
+             WHERE SGDP = @SGDP
+               AND vunitario IS NOT NULL
+        ";
 
         public bool Cadastrar(
             string nrNotaFiscal, 
@@ -35,6 +43,15 @@ namespace MPMG.Repositories
             parametros.Add("@produto", produto, DbType.AnsiString);
 
             return Execute(SQL_INSERIR_ITEM_NOTA_FISCAL, parametros) > 0;
+        }
+
+        public List<ItemNotaFiscal> buscarPrecos(string valorSgdp)
+        {
+            DynamicParameters parametros = new DynamicParameters();
+
+            parametros.Add("@SGDP", valorSgdp, DbType.AnsiString);
+
+            return Listar(SQL_BUSCAR_PRECOS, parametros);
         }
     }
 }

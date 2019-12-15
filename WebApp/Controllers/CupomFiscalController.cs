@@ -30,7 +30,7 @@ namespace WebApp.Controllers
             string Posto = cupom.Posto;
             DateTime Data = cupom.Data;
             string Combustivel = cupom.Combustivel;
-            int Quantidade = cupom.Quantidade;
+            double Quantidade = cupom.Quantidade;
             double PrecoUnitario = cupom.PrecoUnitario;
             double ValorTotal = cupom.ValorTotal;
             string Cliente = cupom.Cliente;

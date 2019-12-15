@@ -123,7 +123,7 @@
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                                     <div class="nk-int-st">
-                                        <input type="number" id="quantidade" class="form-control borderless-field">
+                                        <input type="number" id="quantidade" class="form-control borderless-field" min="0">
                                     </div>
                                 </div>
                             </div>
@@ -242,7 +242,7 @@
         }
         @foreach(var precoUnitario in @Model.CuponsInfo.PrecosUnitarios)
         {
-            @:precos.push('@precoUnitario');
+            @:precos.push(parseFloat('@precoUnitario').toFixed(3).replace('.', ','));
         }
 
         @foreach (var cupom in @Model.CuponsInfo.CuponsFiscais)
@@ -257,7 +257,7 @@
             insertAutocompleteFeatureInElement(document.getElementById("posto_referente"), postos);
             insertAutocompleteFeatureInElement(document.getElementById("coo"), Object.keys(coos));
 
-            $("#coo").on("change", (evt) => {
+            $("#numero_nf").on("focus", (evt) => {
                 const coo = $("#coo").val();
                 $("#numero_nf").val(window.coos[coo]);
             });
