@@ -14,7 +14,6 @@
         })()
     );
 
-    validateNumericRequiredFormField("#sgdp", true, false, true);
     validateDateFormField("#data-geracao");
     setDefaultDate("#data-geracao");
     setReadOnly("#data-geracao");
