@@ -27,8 +27,8 @@ namespace MPMG.Repositories
         { 
             DynamicParameters parametros = new DynamicParameters();
 
-            parametros.Add("@NumeroNotaFiscal", nrNotaFiscal, DbType.Int32);
-            parametros.Add("@Sgdp", sgdp, DbType.Int32);
+            parametros.Add("@NumeroNotaFiscal", nrNotaFiscal, DbType.AnsiString);
+            parametros.Add("@Sgdp", sgdp, DbType.AnsiString);
             parametros.Add("@valorTotal", valorTotal, DbType.Double);
             parametros.Add("@valorUnitario", valorUnitario, DbType.Double);
             parametros.Add("@quantidade", quantidade, DbType.Int32);

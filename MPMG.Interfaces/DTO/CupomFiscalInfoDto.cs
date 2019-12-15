@@ -10,5 +10,6 @@ namespace MPMG.Interfaces.DTO
         public List<string> Clientes { get; set; }
         public List<string> Postos { get; set; }
         public List<string> NotasFiscais { get; set; }
+        public List<CupomFiscalDto> CuponsFiscais { get; set; }
     }
 }

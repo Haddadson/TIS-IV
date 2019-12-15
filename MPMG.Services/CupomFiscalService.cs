@@ -64,13 +64,11 @@ namespace MPMG.Services
 
             return new CupomFiscalDto()
             {
-                Cliente = entidade.Cliente,
                 Coo = entidade.Coo,
                 DataEmissao = entidade.DataEmissao,
                 Hodometro = entidade.Hodometro,
                 NumeroNotaFiscal = entidade.NumeroNotaFiscal,
                 PlacaVeiculo = entidade.PlacaVeiculo,
-                PostoReferente = entidade.PostoReferente,
                 PrecoUnitario = entidade.PrecoUnitario,
                 Produto = entidade.Produto,
                 Quantidade = entidade.Quantidade,
@@ -88,6 +86,7 @@ namespace MPMG.Services
             cuponsInfo.NotasFiscais = cupomFiscalRepo.ListarNotasFiscais(valorSgdp);
             cuponsInfo.Postos = cupomFiscalRepo.ListarPostos(valorSgdp);
             cuponsInfo.PrecosUnitarios = cupomFiscalRepo.ListarPrecos(valorSgdp);
+            // cuponsInfo.CuponsFiscais = cupomFiscalRepo.ListarCuponsFiscais(valorSgdp);
 
             return cuponsInfo;
         }

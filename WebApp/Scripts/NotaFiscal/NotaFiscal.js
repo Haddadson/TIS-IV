@@ -156,9 +156,10 @@ const initNotaFiscalFields = () => {
             ValidarNotas.chamadaAjax({
                 url: urlCadastrarNotaFiscal,
                 data: { NotaFiscal: notaFiscalData, ItensNotaFiscal: itensNota },
-                sucesso: function () {
-                    alert("Salvo com sucesso!");
-                    limparCampos();
+                sucesso: function (response) {
+                    alert(response.Mensagem);
+                    if (!response.Error)
+                        limparCampos();
                 },
                 deveEsconderCarregando: true
             });

@@ -93,7 +93,6 @@ namespace MPMG.Services
               AND coo = @COO
               AND nr_nota_fiscal IS NULL";
 
-
         private const string SQL_EDITAR_CUPOM = @"
             UPDATE `cupomfiscal`
                SET nr_nota_fiscal = @NrNotaFiscal
@@ -243,5 +242,16 @@ namespace MPMG.Services
 
             return Listar(SQL_LISTAR_PRECO_UNITARIO, parametros).Select(item => item.PrecoUnitario).ToList();
         }
+
+        public List<CupomFiscal> ListarCuponsFiscais(string valorSgdp)
+        {
+            DynamicParameters parametros = new DynamicParameters();
+
+            parametros.Add("@SGDP", valorSgdp, DbType.AnsiString);
+
+            //    return Listar(SQL_LISTAR_PRECO_UNITARIO, parametros).Select(item => item.PrecoUnitario).ToList();
+            return null;
+        }
+
     }
 }
