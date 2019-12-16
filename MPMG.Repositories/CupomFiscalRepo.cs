@@ -176,7 +176,7 @@ namespace MPMG.Services
         public bool CadastrarCupomCompleto(string sGDP, string nrNotaFiscal, string cOO, 
             string posto, DateTime data, 
             string combustivel, double quantidade, double precoUnitario, 
-            double valorTotal, string cliente, int hodometro, string veiculo, string placaVeiculo)
+            double valorTotal, string cliente, double hodometro, string veiculo, string placaVeiculo)
         {
             DynamicParameters parametros = new DynamicParameters();
 
@@ -197,7 +197,7 @@ namespace MPMG.Services
             return Execute(SQL_INSERIR_CUPOM_FISCAL_COMPLETO, parametros) > 0;
         }
 
-        public bool EditarCupomCompleto(string sGDP, string nrNotaFiscal, string cOO, string posto, DateTime data, string combustivel, double quantidade, double precoUnitario, double valorTotal, string cliente, int hodometro, string veiculo, string placaVeiculo)
+        public bool EditarCupomCompleto(string sGDP, string nrNotaFiscal, string cOO, string posto, DateTime data, string combustivel, double quantidade, double precoUnitario, double valorTotal, string cliente, double hodometro, string veiculo, string placaVeiculo)
         {
                 DynamicParameters parametros = new DynamicParameters();
 
@@ -209,7 +209,7 @@ namespace MPMG.Services
                 parametros.Add("@quantidade", quantidade, DbType.Double);
                 parametros.Add("@preco_unitario", precoUnitario, DbType.Double);
                 parametros.Add("@vrtotal", valorTotal, DbType.Double);
-                parametros.Add("@hodometro", hodometro, DbType.Int32);
+                parametros.Add("@hodometro", hodometro, DbType.Double);
                 parametros.Add("@veiculo", veiculo, DbType.AnsiString);
                 parametros.Add("@placa_veiculo", placaVeiculo, DbType.AnsiString);
 

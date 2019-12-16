@@ -7,7 +7,7 @@ namespace MPMG.Interfaces.DTO
         public string Sgdp { get; set; }
         public string Coo { get; set; }
         public string NumeroNotaFiscal { get; set; }
-        public int Hodometro { get; set; }
+        public double Hodometro { get; set; }
         public DateTime DataEmissao { get; set; }
         public double Quantidade { get; set; }
         public double PrecoUnitario { get; set; }

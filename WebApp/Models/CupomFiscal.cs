@@ -14,7 +14,7 @@ namespace WebApp.Models
         public double PrecoUnitario { get; set; }
         public double ValorTotal { get; set; }
         public string Cliente { get; set; }
-        public int Hodometro { get; set; }
+        public double Hodometro { get; set; }
         public string Veiculo { get; set; }
         public string PlacaVeiculo { get; set; }
      }

@@ -158,8 +158,10 @@ const initNotaFiscalFields = () => {
                 data: { NotaFiscal: notaFiscalData, ItensNotaFiscal: itensNota },
                 sucesso: function (response) {
                     alert(response.Mensagem);
-                    if (!response.Error)
+                    if (!response.Error) {
+                        window.precos.concat(itensNota.map(item => item.ValorUnitario));
                         limparCampos();
+                    }
                 },
                 deveEsconderCarregando: true
             });

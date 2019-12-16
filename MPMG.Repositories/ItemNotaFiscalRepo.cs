@@ -29,7 +29,7 @@ namespace MPMG.Repositories
             string nrNotaFiscal, 
             string sgdp, 
             string produto,
-            int quantidade,
+            double quantidade,
             double valorTotal, 
             double valorUnitario)
         { 
@@ -39,7 +39,7 @@ namespace MPMG.Repositories
             parametros.Add("@Sgdp", sgdp, DbType.AnsiString);
             parametros.Add("@valorTotal", valorTotal, DbType.Double);
             parametros.Add("@valorUnitario", valorUnitario, DbType.Double);
-            parametros.Add("@quantidade", quantidade, DbType.Int32);
+            parametros.Add("@quantidade", quantidade, DbType.Double);
             parametros.Add("@produto", produto, DbType.AnsiString);
 
             return Execute(SQL_INSERIR_ITEM_NOTA_FISCAL, parametros) > 0;

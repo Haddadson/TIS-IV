@@ -2,9 +2,9 @@ const initCupomFiscalFields = () => {
     VMasker(document.querySelector("#placa_veiculo")).maskPattern("AAA-9999");
 
     validateNumericRequiredFormField("#numero_nf", true, true);
-    validateNumericRequiredFormField("#hodometro");
     validateNumericRequiredFormField("#valor_total");
     validateNumericRequiredFormField("#preco_unitario", false, true);
+    validateNumericRequiredFormField("#hodometro", false, true);
     validateNumericRequiredFormField("#quantidade", false, true);
 
     $("#data_emissao").datetimepicker({
@@ -48,9 +48,6 @@ $(document).ready(function () {
         } else if (nf != '' && !isInteger(nf)) {
             canSave = false;
             alert('O valor da nota fiscal está incorreto!');
-        } else if (hodometro != '' && !isInteger(hodometro)) {
-            canSave = false;
-            alert('O valor do hodômetro está incorreto!');
         }
 
         if (canSave) {
@@ -63,7 +60,7 @@ $(document).ready(function () {
                 "Quantidade": parseFloat($("#quantidade").val().replace(",", ".")),
                 "PrecoUnitario": parseFloat($("#preco_unitario").val().replace(",", ".")),
                 "ValorTotal": parseFloat($("#valor_total").val().replace(",", ".")),
-                "Hodometro": $("#hodometro").val(),
+                "Hodometro": parseFloat($("#hodometro").val().replace(",", ".")),
                 "Veiculo": $("#veiculo").val(),
                 "PlacaVeiculo": $("#placa_veiculo").val().replace('-', '')
             };

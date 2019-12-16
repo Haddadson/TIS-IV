@@ -34,7 +34,7 @@ namespace WebApp.Controllers
             double PrecoUnitario = cupom.PrecoUnitario;
             double ValorTotal = cupom.ValorTotal;
             string Cliente = cupom.Cliente;
-            int Hodometro = cupom.Hodometro;
+            double Hodometro = cupom.Hodometro;
             string Veiculo = cupom.Veiculo;
             string PlacaVeiculo = cupom.PlacaVeiculo;
 

@@ -78,7 +78,7 @@ namespace WebApp.Controllers
                 string Veiculo = NotaFiscal.Veiculo;
                 string PlacaVeiculo = NotaFiscal.PlacaVeiculo;
                 string Combustivel = NotaFiscal.Combustivel;
-                int Quantidade = NotaFiscal.Quantidade;
+                double Quantidade = NotaFiscal.Quantidade;
                 double PrecoUnitario = NotaFiscal.PrecoUnitario;
                 int NumeroFolha = NotaFiscal.NumeroFolha;
                 int Departamento = NotaFiscal.Departamento;

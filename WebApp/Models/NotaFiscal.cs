@@ -24,7 +24,7 @@ namespace WebApp.Models
         public string Veiculo { get; set; }
         public string PlacaVeiculo { get; set; }
         public string Combustivel { get; set; }
-        public int Quantidade { get; set; }
+        public double Quantidade { get; set; }
         public double PrecoUnitario { get; set; }        
         public int NumeroFolha { get; set; } 
         public int Departamento { get; set; }

@@ -15,7 +15,7 @@ namespace MPMG.Services
             cupomFiscalRepo = new CupomFiscalRepo();
         }
 
-        public void Cadastrar(string sGDP, string nrNotaFiscal, string cOO, string posto, DateTime data, string combustivel, double quantidade, double precoUnitario, double valorTotal, string cliente, int hodometro, string veiculo, string placaVeiculo)
+        public void Cadastrar(string sGDP, string nrNotaFiscal, string cOO, string posto, DateTime data, string combustivel, double quantidade, double precoUnitario, double valorTotal, string cliente, double hodometro, string veiculo, string placaVeiculo)
         {
             var cupomSalvo = cupomFiscalRepo.buscarCupom(sGDP, cOO);
             if (cupomSalvo == null)
