@@ -446,14 +446,14 @@
 
         @foreach (var preco in @Model.Precos)
         {
-            @:window.precos.push(parseFloat('@preco').toFixed(3).replace('.', ','));
+            @:window.precos.push(parseFloat('@preco'.replace(',', '.')).toFixed(3).replace('.', ','));
         }
         
         $(document).ready(() => {
-            insertAutocompleteFeatureInElement(document.getElementById("preco_unitario1"), window.precos);
-            insertAutocompleteFeatureInElement(document.getElementById("preco_unitario2"), window.precos);
-            insertAutocompleteFeatureInElement(document.getElementById("preco_unitario3"), window.precos);
-            insertAutocompleteFeatureInElement(document.getElementById("preco_unitario4"), window.precos);
+            insertAutocompleteFeatureInElement(document.getElementById("preco_unitario1"), 'precos');
+            insertAutocompleteFeatureInElement(document.getElementById("preco_unitario2"), 'precos');
+            insertAutocompleteFeatureInElement(document.getElementById("preco_unitario3"), 'precos');
+            insertAutocompleteFeatureInElement(document.getElementById("preco_unitario4"), 'precos');
         });
      </script>
 }

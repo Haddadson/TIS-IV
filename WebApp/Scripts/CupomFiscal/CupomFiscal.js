@@ -73,6 +73,8 @@ $(document).ready(function () {
                 sucesso: function (response) {
                     if (response && response.Sucesso) {
                         alert(response.Mensagem ? response.Mensagem : "Sucesso ao cadastrar!");
+                        window.precos = window.precos.concat((cupomFiscalData.PrecoUnitario + '').replace('.', ','));
+                        window.notasFiscais = window.notasFiscais.concat((cupomFiscalData.NrNotaFiscal +'').replace('.', ','));
                         limparCampos();
                     }
                     else {
@@ -96,8 +98,8 @@ $(document).ready(function () {
             $("#valor_total").val(((parseFloat(qtd) * parseFloat(vrUnit))).toFixed(3).replace('.', ','));
     };
 
-    $("#quantidade").on("blur", autoSetValorTotal);
-    $("#preco_unitario").on("blur", autoSetValorTotal);
+    $("#quantidade").on("change paste keyup", autoSetValorTotal);
+    $("#preco_unitario").on("change paste keyup", autoSetValorTotal);
 });
 
 const validateCuponsFicais = fieldCssQuerySelector => {

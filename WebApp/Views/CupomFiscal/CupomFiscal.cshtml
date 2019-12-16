@@ -221,45 +221,35 @@
     <script defer type="text/javascript" src="~/Scripts/CupomFiscal/CupomFiscal.js"></script>
     <script defer type="text/javascript" src="~/Scripts/select-autocomplete.js"></script>
     <script defer type="text/javascript">
-        const clientes = [];
-        const precos = [];
-        const postos = [];
-        const notasFiscais = [];
-        window.coos = {};
+        window.precos = [];
+        window.notasFiscais = [];
+        window.coosNf = {};
+        window.coos = [];
 
-        @foreach(var cliente in @Model.CuponsInfo.Clientes)
-        {
-            @:clientes.push('@cliente');
-        }
         @foreach(var nrNota in @Model.CuponsInfo.NotasFiscais)
         {
-            @:notasFiscais.push('@nrNota');
+            @:window.notasFiscais.push('@nrNota');
 
-        }
-        @foreach(var posto in @Model.CuponsInfo.Postos)
-        {
-            @:postos.push('@posto');
         }
         @foreach(var precoUnitario in @Model.CuponsInfo.PrecosUnitarios)
         {
-            @:precos.push(parseFloat('@precoUnitario').toFixed(3).replace('.', ','));
+            @:window.precos.push(parseFloat('@precoUnitario').toFixed(3).replace('.', ','));
         }
 
         @foreach (var cupom in @Model.CuponsInfo.CuponsFiscais)
         {
-            @:window.coos['@cupom.Coo'] = '@cupom.NumeroNotaFiscal';
+            @:window.coos.push('@cupom.Coo');
+            @:window.coosNf['@cupom.Coo'] = '@cupom.NumeroNotaFiscal';
         }
 
         $(document).ready(() => {
-            insertAutocompleteFeatureInElement(document.getElementById("cliente"), clientes);
-            insertAutocompleteFeatureInElement(document.getElementById("preco_unitario"), precos);
-            insertAutocompleteFeatureInElement(document.getElementById("numero_nf"), notasFiscais);
-            insertAutocompleteFeatureInElement(document.getElementById("posto_referente"), postos);
-            insertAutocompleteFeatureInElement(document.getElementById("coo"), Object.keys(coos));
+            insertAutocompleteFeatureInElement(document.getElementById("preco_unitario"), 'precos');
+            insertAutocompleteFeatureInElement(document.getElementById("numero_nf"), 'notasFiscais');
+            insertAutocompleteFeatureInElement(document.getElementById("coo"), 'coos');
 
-            $("#numero_nf").on("focus", (evt) => {
+            $("#coo").on("change paste input", (evt) => {
                 const coo = $("#coo").val();
-                $("#numero_nf").val(window.coos[coo]);
+                $("#numero_nf").val(window.coosNf[coo]);
             });
         });
     </script>

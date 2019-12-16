@@ -15,7 +15,8 @@ const loadCOOsSuggestions = () => {
 
 const setSuggestionsForCOOField = response => {
     const { coos } = response;
-    insertAutocompleteFeatureInElement(document.getElementById("coo_add"), coos);
+    window.coos = coos;
+    insertAutocompleteFeatureInElement(document.getElementById("coo_add"), 'coos');
 };
 
 const addCOOOnChangeHandler = evt => {
@@ -159,7 +160,7 @@ const initNotaFiscalFields = () => {
                 sucesso: function (response) {
                     alert(response.Mensagem);
                     if (!response.Error) {
-                        window.precos.concat(itensNota.map(item => item.ValorUnitario));
+                        window.precos = window.precos.concat(itensNota.map(item => item.ValorUnitario + '').filter(preco => !Number.isNaN(parseFloat(preco))).map(preco => preco.replace('.', ',')));
                         limparCampos();
                     }
                 },
@@ -277,12 +278,12 @@ $(document).ready(function () {
         $("#valor_total_nf").val(((validaCampoValorNf(vtotal1) + validaCampoValorNf(vtotal2) + validaCampoValorNf(vtotal3) + validaCampoValorNf(vtotal4))).toFixed(3).replace('.', ','));
     };
 
-    $("#quantidade1, #preco_unitario1").on("blur", autoSetValorTotal1);
-    $("#quantidade2, #preco_unitario2").on("blur", autoSetValorTotal2);
-    $("#quantidade3, #preco_unitario3").on("blur", autoSetValorTotal3);
-    $("#quantidade4, #preco_unitario4").on("blur", autoSetValorTotal4);
+    $("#quantidade1, #preco_unitario1").on("change paste keyup", autoSetValorTotal1);
+    $("#quantidade2, #preco_unitario2").on("change paste keyup", autoSetValorTotal2);
+    $("#quantidade3, #preco_unitario3").on("change paste keyup", autoSetValorTotal3);
+    $("#quantidade4, #preco_unitario4").on("change paste keyup", autoSetValorTotal4);
 
-    $("#valor_total1, #valor_total2, #valor_total3, #valor_total4").on("blur", autoSetValorTotalNf);
+    $("#valor_total1, #valor_total2, #valor_total3, #valor_total4").on("change paste keyup", autoSetValorTotalNf);
 
     const urlObterDepartamentos = window.urlObterDepartamentos;
 
