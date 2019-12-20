@@ -161,6 +161,7 @@ const initNotaFiscalFields = () => {
                     alert(response.Mensagem);
                     if (!response.Error) {
                         window.precos = window.precos.concat(itensNota.map(item => item.ValorUnitario + '').filter(preco => !Number.isNaN(parseFloat(preco))).map(preco => preco.replace('.', ',')));
+                        window.precos = window.precos.filter((value, i, self) => self.indexOf(value) === i);
                         limparCampos();
                     }
                 },

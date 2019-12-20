@@ -75,6 +75,8 @@ $(document).ready(function () {
                         alert(response.Mensagem ? response.Mensagem : "Sucesso ao cadastrar!");
                         window.precos = window.precos.concat((cupomFiscalData.PrecoUnitario + '').replace('.', ','));
                         window.notasFiscais = window.notasFiscais.concat((cupomFiscalData.NrNotaFiscal +'').replace('.', ','));
+                        window.precos = [new Set(window.precos)];
+                        window.notasFiscais = [new Set(window.notasFiscais)]; 
                         limparCampos();
                     }
                     else {

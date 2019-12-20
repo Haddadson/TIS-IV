@@ -233,7 +233,7 @@
         }
         @foreach(var precoUnitario in @Model.CuponsInfo.PrecosUnitarios)
         {
-            @:window.precos.push(parseFloat('@precoUnitario').toFixed(3).replace('.', ','));
+            @:window.precos.push(parseFloat('@precoUnitario'.replace(',', '.')).toFixed(3).replace('.', ','));
         }
 
         @foreach (var cupom in @Model.CuponsInfo.CuponsFiscais)
