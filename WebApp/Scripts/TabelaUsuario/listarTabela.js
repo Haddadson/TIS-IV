@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-
     ocultarTabelas();
 
     let valorCampoSgdp = $("#sgdp_escolhido").val();
@@ -10,13 +9,13 @@
         ocultarTabelas();
 
         if (valorCampo === "nf-anp")
-            $(`#${valorCampoSgdp} #tabela-nf-anp`).show();
+            $(`#tabela-nf-anp`).show();
 
         else if (valorCampo === "cupom")
-            $(`#${valorCampoSgdp} #tabela-cupom`).show();
+            $(`#tabela-cupom`).show();
 
         else if (valorCampo === "outros")
-            $(`#${valorCampoSgdp} #tabela-outros`).show();
+            $(`#tabela-outros`).show();
 
     });
 
@@ -75,25 +74,21 @@
             listaTabelaAnpxNota.push(dado);
         }
 
-        for (let i = 0; i < dadosCuponsFiscais.length; i++) {
-            let dado = {
-                "NumeroNotaFiscal": dadosCuponsFiscais[i][0],
-                "PostoReferente": dadosCuponsFiscais[i][1],
-                "DataEmissao": dadosCuponsFiscais[i][2],
-                "HoraEmissao": dadosCuponsFiscais[i][3],
-                "Coo": dadosCuponsFiscais[i][4],
-                "Produto": dadosCuponsFiscais[i][5],
-                "Quantidade": dadosCuponsFiscais[i][6],
-                "PrecoUnitario": dadosCuponsFiscais[i][7],
-                "ValorTotal": dadosCuponsFiscais[i][8],
-                "Cliente": dadosCuponsFiscais[i][9],
-                "Veiculo": dadosCuponsFiscais[i][10],
-                "PlacaVeiculo": dadosCuponsFiscais[i][11],
-                "Hodometro": dadosCuponsFiscais[i][12]
-            };
-            listaCuponsFiscais.push(dado);
-        }
-
+        dadosCuponsFiscais.each(cupom => {
+            listaCuponsFiscais.push({
+                "NumeroNotaFiscal": cupom[0],
+                "DataEmissao": cupom[1] + ' ' + cupom[2],
+                "HoraEmissao": cupom[2],
+                "Coo": cupom[3],
+                "Produto": cupom[4],
+                "Quantidade": cupom[5],
+                "PrecoUnitario": cupom[6],
+                "ValorTotal": cupom[7],
+                "Veiculo": cupom[8],
+                "PlacaVeiculo": cupom[9],
+                "Hodometro": cupom[10]
+            });
+        });
 
         for (let i = 0; i < dadosOutrasInformacoes.length; i++) {
             let dado = {
@@ -126,7 +121,6 @@
             deveEsconderCarregando: true,
             deveEsconderCarregandoBloqueado: false
         });
-
     });
 
     function baixarExcelExportado(retorno) {

@@ -185,8 +185,8 @@ namespace MPMG.Services
             PreencherCelulaDoCabecalho(5, coluna++, 25, "NUM. NF REFERENTE", ABA_2);
             PreencherCelulaDoCabecalho(5, coluna++, 15, "DATA", ABA_2);
             PreencherCelulaDoCabecalho(5, coluna++, 20, "HORÁRIO", ABA_2);
-            PreencherCelulaDoCabecalho(5, coluna++, 25, "COMBUSTÍVEL", ABA_2);
             PreencherCelulaDoCabecalho(5, coluna++, 15, "COO", ABA_2);
+            PreencherCelulaDoCabecalho(5, coluna++, 25, "COMBUSTÍVEL", ABA_2);
             PreencherCelulaDoCabecalho(5, coluna++, 15, "QUANT.", ABA_2);
             PreencherCelulaDoCabecalho(5, coluna++, 20, "PREÇO UNIT.", ABA_2);
             PreencherCelulaDoCabecalho(5, coluna++, 15, "VALOR TOTAL", ABA_2);

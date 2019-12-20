@@ -56,9 +56,7 @@ namespace WebApp.Controllers
                                                      List<AnpxNotaFiscalModelDto> ListaTabelaAnpxNota,
                                                      List<CupomFiscalDto> ListaCuponsFiscais,
                                                      List<OutrasInformacoesModelDto> ListaOutrasInformacoes)
-
         {
-
             try
             {
                 var documento = exportacaoExcelService.ExportarDadosParaExcel(DadosTabela, ListaTabelaAnpxNota, ListaCuponsFiscais, ListaOutrasInformacoes);

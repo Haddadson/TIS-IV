@@ -37,7 +37,7 @@
                                 <div class="col-lg-3 col-md-2 col-sm-1 col-xs-12">
                                 </div>
                                 <div class="col-lg-3 col-md-4 col-sm-3 col-xs-12">
-                                    <spam>Selecione a aba da tabela a ser exibida</spam>
+                                    <span>Selecione a aba da tabela a ser exibida</span>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
                                     <div class="bootstrap-select fm-cmp-mg" align="center">
@@ -130,12 +130,12 @@
                                         <td>@dadosAnpxNota.NumeroNotaFiscal</td>
                                         <td>@dadosAnpxNota.Produto</td>
                                         <td>@dadosAnpxNota.Quantidade</td>
-                                        <td>@dadosAnpxNota.ValorUnitario.ToString("0.00")</td>
-                                        <td>@dadosAnpxNota.ValorTotalItem.ToString("0.00")</td>
-                                        <td>@dadosAnpxNota.ValorTotalNota.ToString("0.00")</td>
+                                        <td>@dadosAnpxNota.ValorUnitario.ToString("0.000")</td>
+                                        <td>@dadosAnpxNota.ValorTotalItem.ToString("0.000")</td>
+                                        <td>@dadosAnpxNota.ValorTotalNota.ToString("0.000")</td>
                                         <td>@dadosAnpxNota.NumeroFolha</td>
                                         <td>@dadosAnpxNota.ValorFam.ToString("0.0000000")</td>
-                                        <td>@dadosAnpxNota.PrecoMedioAnp.ToString("0.00")</td>
+                                        <td>@dadosAnpxNota.PrecoMedioAnp.ToString("0.000")</td>
 
                                         @if (dadosAnpxNota.DiferencaMediaUnitaria <= 0)
                                         {
@@ -150,7 +150,7 @@
                                             <td class="yellow">@Math.Round(dadosAnpxNota.ValorMedioAtualizado, 3).ToString("0.000")</td>
                                         }
 
-                                        <td>@dadosAnpxNota.PrecoMaximoAnp.ToString("0.00")</td>
+                                        <td>@dadosAnpxNota.PrecoMaximoAnp.ToString("0.000")</td>
 
                                         @if (dadosAnpxNota.DiferencaMaximaUnitaria <= 0)
                                         {
@@ -221,19 +221,26 @@
                             <tbody>
                                 @foreach (var cupomFiscal in Model.TabelaCuponsFicais)
                                 {
-                                    <tr>
-                                        <td>@cupomFiscal.NumeroNotaFiscal</td>
-                                        <td>@cupomFiscal.DataEmissao.ToShortDateString()</td>
-                                        <td>@cupomFiscal.DataEmissao.ToShortTimeString()</td>
-                                        <td>@cupomFiscal.Coo</td>
-                                        <td>@cupomFiscal.Produto</td>
-                                        <td>@cupomFiscal.Quantidade</td>
-                                        <td>@cupomFiscal.PrecoUnitario.ToString("0.00")</td>
-                                        <td>@cupomFiscal.ValorTotal.ToString("0.00")</td>
-                                        <td>@cupomFiscal.Veiculo</td>
+                                <tr>
+                                    <td>@cupomFiscal.NumeroNotaFiscal</td>
+                                    <td>@cupomFiscal.DataEmissao.ToShortDateString()</td>
+                                    <td>@cupomFiscal.DataEmissao.ToShortTimeString()</td>
+                                    <td>@cupomFiscal.Coo</td>
+                                    <td>@cupomFiscal.Produto</td>
+                                    <td>@cupomFiscal.Quantidade</td>
+                                    <td>@cupomFiscal.PrecoUnitario.ToString("0.000")</td>
+                                    <td>@cupomFiscal.ValorTotal.ToString("0.000")</td>
+                                    <td>@cupomFiscal.Veiculo</td>
+                                    @if (cupomFiscal.PlacaVeiculo != null)
+                                    {
+                                        <td>@cupomFiscal.PlacaVeiculo.Substring(0, 3).ToUpper()-@cupomFiscal.PlacaVeiculo.Substring(3, 4)</td>
+                                    }
+                                    else
+                                    {
                                         <td>@cupomFiscal.PlacaVeiculo</td>
-                                        <td>@cupomFiscal.Hodometro</td>
-                                    </tr>
+                                    }
+                                    <td>@cupomFiscal.Hodometro</td>
+                                </tr>
                                 }
                             </tbody>
                         </table>
@@ -277,38 +284,45 @@
                             <tbody>
                                 @foreach (var dados in Model.TabelaOutrasInformacoes.OutrasInformacoes)
                                 {
-                                    <tr>
-                                        <td>@dados.NumeroNotaFiscal</td>
-                                        <td>@(string.Join(";", dados.CuponsFiscaisVinculados.ToArray()))</td>
-                                        <td>@dados.NomeDepartamento</td>
-                                        <td>@dados.Veiculo</td>
+                                <tr>
+                                    <td>@dados.NumeroNotaFiscal</td>
+                                    <td>@(string.Join(";", dados.CuponsFiscaisVinculados.ToArray()))</td>
+                                    <td>@dados.NomeDepartamento</td>
+                                    <td>@dados.Veiculo</td>
+                                    @if (dados.PlacaVeiculo != null)
+                                    {
+                                        <td>@dados.PlacaVeiculo.Substring(0, 3).ToUpper()-@dados.PlacaVeiculo.Substring(3, 4)</td>
+                                    }
+                                    else
+                                    {
                                         <td>@dados.PlacaVeiculo</td>
-                                        <td>@dados.Produto</td>
-                                        <td>@dados.ValorTotalNota.ToString("0.00")</td>
+                                    }
+                                    <td>@dados.Produto</td>
+                                    <td>@dados.ValorTotalNota.ToString("0.000")</td>
 
 
-                                        @if (dados.DiferencaMediaUnitaria <= 0)
-                                        {
-                                            <td>-</td>
-                                            <td>-</td>
-                                        }
-                                        else
-                                        {
-                                            <td class="yellow">@dados.DiferencaMediaTotal.ToString("0.000")</td>
-                                            <td class="yellow">@Math.Round(dados.ValorMedioAtualizado, 3).ToString("0.0000000")</td>
-                                        }
+                                    @if (dados.DiferencaMediaUnitaria <= 0)
+                                    {
+                                        <td>-</td>
+                                        <td>-</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="yellow">@dados.DiferencaMediaTotal.ToString("0.000")</td>
+                                        <td class="yellow">@Math.Round(dados.ValorMedioAtualizado, 3).ToString("0.0000000")</td>
+                                    }
 
-                                        @if (dados.DiferencaMaximaUnitaria <= 0)
-                                        {
-                                            <td>-</td>
-                                            <td>-</td>
-                                        }
-                                        else
-                                        {
-                                            <td class="red">@dados.DiferencaMaximaTotal.ToString("0.000")</td>
-                                            <td class="red">@Math.Round(dados.ValorMaximoAtualizado, 3).ToString("0.0000000")</td>
-                                        }
-                                    </tr>
+                                    @if (dados.DiferencaMaximaUnitaria <= 0)
+                                    {
+                                        <td>-</td>
+                                        <td>-</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="red">@dados.DiferencaMaximaTotal.ToString("0.000")</td>
+                                        <td class="red">@Math.Round(dados.ValorMaximoAtualizado, 3).ToString("0.0000000")</td>
+                                    }
+                                </tr>
                                 }
                             </tbody>
                             @*<tfoot>

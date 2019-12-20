@@ -41,7 +41,7 @@ namespace MPMG.Repositories
         public List<AnpxNotaFiscal> ListarNotasFiscaisPorSgdp(string sgdp, int idMunicipio)
         {
             DynamicParameters parametros = new DynamicParameters();
-            parametros.Add("@Sgdp", sgdp, DbType.Int32);
+            parametros.Add("@Sgdp", sgdp, DbType.AnsiString);
             parametros.Add("@IdMunicipio", idMunicipio, DbType.Int32);
 
             return Listar(SQL_LISTAR_NOTAS_FISCAIS_POR_SGDP, parametros);
