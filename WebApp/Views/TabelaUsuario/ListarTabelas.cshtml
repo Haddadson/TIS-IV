@@ -309,7 +309,7 @@
                                     else
                                     {
                                         <td class="yellow">@dados.DiferencaMediaTotal.ToString("0.000")</td>
-                                        <td class="yellow">@Math.Round(dados.ValorMedioAtualizado, 3).ToString("0.0000000")</td>
+                                        <td class="yellow">@Math.Round(dados.ValorMedioAtualizado, 3).ToString("0.000")</td>
                                     }
 
                                     @if (dados.DiferencaMaximaUnitaria <= 0)
@@ -320,7 +320,7 @@
                                     else
                                     {
                                         <td class="red">@dados.DiferencaMaximaTotal.ToString("0.000")</td>
-                                        <td class="red">@Math.Round(dados.ValorMaximoAtualizado, 3).ToString("0.0000000")</td>
+                                        <td class="red">@Math.Round(dados.ValorMaximoAtualizado, 3).ToString("0.000")</td>
                                     }
                                 </tr>
                                 }
