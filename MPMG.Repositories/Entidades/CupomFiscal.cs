@@ -10,7 +10,7 @@ namespace MPMG.Repositories.Entidades
         public string PostoReferente { get; set; }
         public double Hodometro { get; set; }
         public string Cliente { get; set; }
-        public DateTime DataEmissao { get; set; }
+        public DateTime? DataEmissao { get; set; }
         public double Quantidade { get; set; }
         public double PrecoUnitario { get; set; }
         public double ValorTotal { get; set; }

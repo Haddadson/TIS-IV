@@ -250,7 +250,7 @@ namespace MPMG.Util.Excel
                 estiloTemporario.FillPattern = FillPattern.SolidForeground;
             }
 
-            celula.CellStyle = EstiloCelulaCorpoTexto;
+            celula.CellStyle = estiloTemporario;
             return celula;
         }
 
@@ -300,7 +300,7 @@ namespace MPMG.Util.Excel
                 estiloTemporario.FillPattern = FillPattern.SolidForeground;
             }
 
-            celula.CellStyle = EstiloCelulaCorpoValorInteiro;
+            celula.CellStyle = estiloTemporario;
             return celula;
         }
 

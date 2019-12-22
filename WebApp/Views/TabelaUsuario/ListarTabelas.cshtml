@@ -109,7 +109,7 @@
                                     <th>VALOR TOTAL</th>
                                     <th>VALOR TOTAL DA NOTA</th>
                                     <th>NUM. FOLHA</th>
-                                    <th>FAM @(Model.TabelaAnpXNota.DadosAnpxNotaFiscal.FirstOrDefault()?.MesFam.ToString() ?? "-") / @(Model.TabelaAnpXNota.DadosAnpxNotaFiscal.FirstOrDefault()?.AnoFam.ToString() ?? "-") </th>
+                                    <th>VALOR FAM</th>
                                     <th>PREÇO MED. ANP</th>
                                     <th>DIFERENÇA MED. UNIT.</th>
                                     <th>DIFERENÇA MED TOTAL</th>
@@ -223,8 +223,8 @@
                                 {
                                 <tr>
                                     <td>@cupomFiscal.NumeroNotaFiscal</td>
-                                    <td>@cupomFiscal.DataEmissao.ToShortDateString()</td>
-                                    <td>@cupomFiscal.DataEmissao.ToShortTimeString()</td>
+                                    <td>@(cupomFiscal.DataEmissao == null ? "-" : cupomFiscal.DataEmissao.Value.ToShortDateString())</td>
+                                    <td>@(cupomFiscal.DataEmissao == null ? "-" : cupomFiscal.DataEmissao.Value.ToShortTimeString())</td>
                                     <td>@cupomFiscal.Coo</td>
                                     <td>@cupomFiscal.Produto</td>
                                     <td>@cupomFiscal.Quantidade</td>

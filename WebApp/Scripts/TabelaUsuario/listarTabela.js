@@ -77,8 +77,8 @@
         dadosCuponsFiscais.each(cupom => {
             listaCuponsFiscais.push({
                 "NumeroNotaFiscal": cupom[0],
-                "DataEmissao": cupom[1] + ' ' + cupom[2],
-                "HoraEmissao": cupom[2],
+                "DataEmissao": (cupom[1] === '-' && cupom[2] === '-') ? null : cupom[1] + ' ' + cupom[2],
+                "HoraEmissao": cupom[2] === '-' ? null : cupom[2],
                 "Coo": cupom[3],
                 "Produto": cupom[4],
                 "Quantidade": cupom[5],
