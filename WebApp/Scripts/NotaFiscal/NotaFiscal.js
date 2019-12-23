@@ -102,7 +102,10 @@ const initNotaFiscalFields = () => {
         } else if ($("#valor_total_nf").val() == false) {
             canSave = false;
             alert("É preciso informar o valor total da Nota Fiscal!");
-        } else if ($("#cupons_selecionados").val().trim() != '' && !$("#cupons_selecionados").val().trim().split(/\s|\n/g).reduce((acc, next) => acc && isInteger((next+ '').trim()), true)) {
+        } else if ($("#data_consulta_anp").val() == false) {
+            canSave = false;
+            alert("É preciso selecionar um mês/ano referente para consultar na Tabela da ANP!");
+        } else if ($("#cupons_selecionados").val().trim() != '' && !$("#cupons_selecionados").val().trim().split(/\s|\n/g).reduce((acc, next) => acc && isInteger((next + '').trim()), true)) {
             canSave = false;
             alert("O cupons fiscais informados são inválidos!");
         }
