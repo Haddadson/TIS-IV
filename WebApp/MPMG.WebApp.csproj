@@ -252,6 +252,7 @@
     <Content Include="img\loading.gif" />
     <Content Include="Scripts\AtualizarFam\AtualizarFam.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
+    <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
@@ -268,10 +269,11 @@
     <Content Include="Content\fonts\notika-icon.woff" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\CupomFiscal\CupomFiscal.js" />
+    <Content Include="Scripts\dropdown.js" />
+    <Content Include="Scripts\dropdown.min.js" />
     <Content Include="Scripts\EscolherTabela\EscolherTabela.js" />
     <Content Include="Scripts\externo\animation\animation-active.js" />
     <Content Include="Scripts\externo\autosize.min.js" />
-    <Content Include="Scripts\externo\bootstrap-select\bootstrap-select.js" />
     <Content Include="Scripts\externo\charts\area-chart.js" />
     <Content Include="Scripts\externo\charts\bar-chart.js" />
     <Content Include="Scripts\externo\charts\Chart.js" />
@@ -363,7 +365,12 @@
     <Content Include="Scripts\NotaFiscal\NotaFiscal.js" />
     <Content Include="Scripts\ObterExcel\obterExcel.js" />
     <Content Include="Scripts\owl.carousel.min.js" />
+    <Content Include="Scripts\package.js" />
     <Content Include="Scripts\plugins.js" />
+    <Content Include="Scripts\select2.full.js" />
+    <Content Include="Scripts\select2.full.min.js" />
+    <Content Include="Scripts\select2.js" />
+    <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\TabelaUsuario\cadastrarTabela.js" />
     <Content Include="Scripts\TabelaUsuario\listarTabela.js" />
     <Content Include="Scripts\Util\form-field-handler.js" />
