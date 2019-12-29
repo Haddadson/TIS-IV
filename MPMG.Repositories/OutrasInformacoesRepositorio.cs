@@ -34,7 +34,7 @@ namespace MPMG.Repositories
                 AND YEAR(IFNULL(A.dt_consulta_anp, A.dt_emissao)) = C.ano 
                 AND I.produto = C.produto
                 AND C.id_municipio = @IdMunicipio
-			JOIN departamento D
+			LEFT JOIN departamento D
 				ON A.id_dpto = D.id_dpto
             WHERE 
                 A.sgdp = @Sgdp";
